@@ -9,7 +9,7 @@ And location of all options in one place.
 In Tools/qmake/mkspecs/features added files
 cfg_config.prf (functions) and cfg_config.pri (options).
 
-See also files 'cfg_*' (in future).
+See also files 'cfg_*' (in the future).
 
 
 === The original description ===
