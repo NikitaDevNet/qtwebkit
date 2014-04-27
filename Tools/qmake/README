@@ -1,3 +1,20 @@
+
+The global config of QtWebKit
+=============================
+
+The goal of changes of build system of QtWebKit is full control
+of options and modules of QtWebKit, which are included in build process.
+And location of all options in one place.
+
+In Tools/qmake/mkspecs/features added files
+cfg_config.prf (functions) and cfg_config.pri (options).
+
+See also files 'cfg_*' (in future).
+
+
+=== The original description ===
+
+
 The qmake build system
 ======================
 

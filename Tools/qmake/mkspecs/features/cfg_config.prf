@@ -1,0 +1,50 @@
+# -------------------------------------------------------------------
+# Global 'configure' file for WebKit.
+# For options see cfg_config.pri
+# Defines of conditions 'cfg_*'.
+#
+# See 'Tools/qmake/README' for an overview of the build system
+# -------------------------------------------------------------------
+
+defineTest(detectCfgFeatures) {
+
+    include(cfg_config.pri)
+
+    for(feature, CFG_FEATURES) {
+        enabledFeature = $$find(feature, =1$)
+        !isEmpty(enabledFeature) {
+        line ~= s/^.+include \"(.*)\"/\\1/
+            enabledFeature ~= s/=1$//
+            enabledFeature ~= s/^ENABLE_//
+            CFG_CONF += cfg_$$lower($$enabledFeature)
+        }
+    }
+
+    return($$CFG_CONF)
+}
+
+defineTest(cfg_build?) {
+    contains(CFG_CONFIG, cfg_build_$$lower($$1)): return(true)
+    return(false)
+}
+
+defineTest(cfg_have?) {
+    contains(CFG_CONFIG, cfg_have_$$lower($$1)): return(true)
+    return(false)
+}
+
+defineTest(cfg_use?) {
+    contains(CFG_CONFIG, cfg_use_$$lower($$1)): return(true)
+    return(false)
+}
+
+defineTest(cfg_enable?) {
+    contains(CFG_CONFIG, cfg_$$lower($$1)): return(true)
+    return(false)
+}
+
+
+defineTest(runCfgConfig) {
+    CFG_CONFIG = detectCfgFeatures()
+    export(CFG_CONFIG)
+}
