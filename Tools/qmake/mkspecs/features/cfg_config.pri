@@ -4,7 +4,7 @@
 # See 'Tools/qmake/README' for an overview of the build system
 # -------------------------------------------------------------------
 
-CFG_FEATURES = \
+CFG_FEATURE_DEFAULTS = \
     ENABLE_3D_RENDERING=1 \
     ENABLE_ACCELERATED_2D_CANVAS=0 \
     ENABLE_BATTERY_STATUS=0 \
@@ -118,6 +118,9 @@ CFG_FEATURES = \
     ENABLE_WORKERS=1 \
     ENABLE_XHR_TIMEOUT=1 \
     ENABLE_XSLT=0 \
-    \
+
+
+CFG_FEATURES = $$CFG_FEATURE_DEFAULTS \
     ENABLE_PRODUCTION_BUILD=1 \
     ENABLE_INCLUDE_WEBINSPECTOR=1 \
+    ENABLE_LANGUAGE_JAVASCRIPT=1 \
