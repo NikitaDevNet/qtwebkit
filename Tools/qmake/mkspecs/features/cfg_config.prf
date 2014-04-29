@@ -6,16 +6,14 @@
 # See 'Tools/qmake/README' for an overview of the build system
 # -------------------------------------------------------------------
 
+include(cfg_config.pri)
+
 defineTest(dwarning) {
 # Comment this for disable debug warnings.
     warning($$1)
 }
 
-
 defineTest(runCfgConfig) {
-
-    include(cfg_config.pri)
-
     for(feature, CFG_FEATURES) {
         enabledFeature = $$find(feature, =1$)
         !isEmpty(enabledFeature) {
@@ -47,4 +45,18 @@ defineTest(cfg_use?) {
 defineTest(cfg_enable?) {
     contains(CFG_CONFIG, cfg_$$lower($$1)): return(true)
     return(false)
+}
+
+defineReplace(cfgDefines) {
+    unset(cfg_defines)
+
+    for(cfg_define, CFG_DEFAULT_DEFINES) {
+        enabledFeature = $$find(cfg_define, =1$)
+        isEmpty(enabledFeature): next()
+
+        enabledFeature ~= s/=1$//
+        cfg_defines += $$enabledFeature
+    }
+
+    return($$cfg_defines)
 }

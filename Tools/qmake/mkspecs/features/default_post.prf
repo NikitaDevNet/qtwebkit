@@ -316,3 +316,9 @@ for(target, $$list($$unique(DEFAULT_TARGETS))) {
 DESTDIR = $$replace(DESTDIR, ^$$re_escape($${ROOT_BUILD_DIR}), $${BUILD_ROOT_RELATIVE_TO_OUT_PWD})
 
 load(default_post) # Load Qt's defaults
+
+
+dwarning(QT = $$QT)
+dwarning(QT_CONFIG = $$QT_CONFIG)
+dwarning(CONFIG = $$CONFIG)
+dwarning(DEFINES = $$DEFINES)

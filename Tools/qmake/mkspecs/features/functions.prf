@@ -374,6 +374,8 @@ defineReplace(configDefines) {
         }
     }
 
+    defines += $$cfgDefines()
+
     return($$defines)
 }
 
