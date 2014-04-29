@@ -19,6 +19,8 @@ for(feature, CFG_FEATURE_DEFAULTS) {
     FEATURE_DEFAULTS += $$upper($$feature)
 }
 
+warning(FEATURE_DEFAULTS = $$FEATURE_DEFAULTS)
+
 
 
 #FEATURE_DEFAULTS = \

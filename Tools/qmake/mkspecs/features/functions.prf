@@ -378,7 +378,7 @@ defineReplace(configDefines) {
 }
 
 defineReplace(javascriptFeatureDefines) {
-    cfg_enable?(LANGUAGE_JAVASCRIPT){
+    cfg_build?(LANGUAGE_JAVASCRIPT){
         defines = LANGUAGE_JAVASCRIPT=1 $$configDefines(enable)
     } else
         defines = $$configDefines(enable)

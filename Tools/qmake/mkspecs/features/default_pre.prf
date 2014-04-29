@@ -74,7 +74,7 @@ contains(QT_CONFIG, private_tests): CONFIG += qt_developer_build
 
 # By default we enable "production build", and build-webkit, which is
 # used by bots and developers, will disable it, to enable warnings etc.
-cfg_enable?(production_build): CONFIG += production_build
+cfg_build?(production_build): CONFIG += production_build
 
 # Run configure before making decisions that depend on the result
 root_project_file {
@@ -89,7 +89,7 @@ unix:config_gccdepends {
 }
 
 # Set some defaults for specific platforms
-cfg_enable?(include_webinspector): CONFIG += include_webinspector
+cfg_build?(include_webinspector): CONFIG += include_webinspector
 
 # Make sure we process the PKGCONFIG variable if applicable
 !mac: CONFIG += link_pkgconfig

@@ -6,21 +6,21 @@
 # See 'Tools/qmake/README' for an overview of the build system
 # -------------------------------------------------------------------
 
-defineTest(detectCfgFeatures) {
+defineTest(runCfgConfig) {
 
     include(cfg_config.pri)
 
     for(feature, CFG_FEATURES) {
         enabledFeature = $$find(feature, =1$)
         !isEmpty(enabledFeature) {
-        line ~= s/^.+include \"(.*)\"/\\1/
             enabledFeature ~= s/=1$//
-            enabledFeature ~= s/^ENABLE_//
-            CFG_CONF += cfg_$$lower($$enabledFeature)
+            enabledFeature ~= s/^CFG_ENABLE_//
+            CFG_CONFIG += cfg_$$lower($$enabledFeature)
         }
     }
+    warning(CFG_CONFIG = $$CFG_CONFIG)
 
-    return($$CFG_CONF)
+    export(CFG_CONFIG)
 }
 
 defineTest(cfg_build?) {
@@ -41,10 +41,4 @@ defineTest(cfg_use?) {
 defineTest(cfg_enable?) {
     contains(CFG_CONFIG, cfg_$$lower($$1)): return(true)
     return(false)
-}
-
-
-defineTest(runCfgConfig) {
-    CFG_CONFIG = detectCfgFeatures()
-    export(CFG_CONFIG)
 }
