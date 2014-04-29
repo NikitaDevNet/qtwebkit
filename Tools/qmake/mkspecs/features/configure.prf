@@ -11,14 +11,24 @@
 load(features)
 load(configure)
 
-WEBKIT_TOOLS_CONFIG = \
-    build_drt \
-    build_wtr \
-    build_imagediff \
-    build_test_npapi \
-    build_testbrowser \
-    build_minibrowser \
-    build_qttestsupport
+#WEBKIT_TOOLS_CONFIG = \
+#    build_drt \
+#    build_wtr \
+#    build_imagediff \
+#    build_test_npapi \
+#    build_testbrowser \
+#    build_minibrowser \
+#    build_qttestsupport
+
+WEBKIT_TOOLS_CONFIG=
+
+cfg_build?(drt): WEBKIT_TOOLS_CONFIG += build_drt
+cfg_build?(wtr): WEBKIT_TOOLS_CONFIG += build_wtr
+cfg_build?(imagediff): WEBKIT_TOOLS_CONFIG += build_imagediff
+cfg_build?(test_npapi): WEBKIT_TOOLS_CONFIG += build_test_npapi
+cfg_build?(testbrowser): WEBKIT_TOOLS_CONFIG += build_testbrowser
+cfg_build?(minibrowser): WEBKIT_TOOLS_CONFIG += build_minibrowser
+cfg_build?(qttestsupport): WEBKIT_TOOLS_CONFIG += build_qttestsupport
 
 defineTest(runConfigure) {
     !webkit_configured:!print_defaults {
@@ -47,11 +57,19 @@ defineTest(runConfigure) {
     # Set up a base list of optional things to build, which we later on
     # sanitize based on constraints of the platform.
 
+#    WEBKIT_CONFIG += \
+#        build_webkit1 \
+#        build_webkit2 \
+#        build_tests \
+#        $$WEBKIT_TOOLS_CONFIG
+
+    cfg_build?(webkit1): WEBKIT_CONFIG += build_webkit1
+    cfg_build?(webkit2): WEBKIT_CONFIG += build_webkit2
+    cfg_build?(tests): WEBKIT_CONFIG += build_tests
+
     WEBKIT_CONFIG += \
-        build_webkit1 \
-        build_webkit2 \
-        build_tests \
         $$WEBKIT_TOOLS_CONFIG
+
 
     # Sanatize WebKit1/WebKit2, as WebKit.pro uses these two options
     # to determine which pro-files to include. The remaining sanitazion
@@ -170,6 +188,7 @@ defineTest(finalizeConfigure) {
     export(wipeclean.commands)
     export(QMAKE_EXTRA_TARGETS)
 
+# Here all is only for Log (BEGIN)
     # Print a prettified dump of the configuration, for easier debugging
     !webkit_configured|configuration_changed|buildbot {
 
@@ -266,6 +285,7 @@ defineTest(finalizeConfigure) {
             log($$join(reconfigureMsg,$${EOL},$${EOL},$${EOL}$${EOL}))
         }
     }
+# Here all is only for Log (END)
 
     # Cache the result for all the other project files, and for
     # the next build, so we can detect changes to the config.

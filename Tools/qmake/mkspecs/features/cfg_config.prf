@@ -6,6 +6,12 @@
 # See 'Tools/qmake/README' for an overview of the build system
 # -------------------------------------------------------------------
 
+defineTest(dwarning) {
+# Comment this for disable debug warnings.
+    warning($$1)
+}
+
+
 defineTest(runCfgConfig) {
 
     include(cfg_config.pri)
@@ -18,7 +24,7 @@ defineTest(runCfgConfig) {
             CFG_CONFIG += cfg_$$lower($$enabledFeature)
         }
     }
-    warning(CFG_CONFIG = $$CFG_CONFIG)
+    dwarning(CFG_CONFIG = $$CFG_CONFIG)
 
     export(CFG_CONFIG)
 }

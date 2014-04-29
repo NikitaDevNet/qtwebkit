@@ -4,7 +4,7 @@
 # See 'Tools/qmake/README' for an overview of the build system
 # -------------------------------------------------------------------
 
-warning(entering cfg_config.pri)
+dwarning(entering cfg_config.pri)
 
 # warn when multiply included
 contains (CFG_CONFIG_PRI_INCLUDED, cfg_config_file_included) {
@@ -206,7 +206,7 @@ CFG_FEATURE_DEFAULTS = \
 #WTF_USE_UNIFIED_TEXT_CHECKING=1 \
 
 
-warning(CFG_FEATURE_DEFAULTS = $$CFG_FEATURE_DEFAULTS)
+dwarning(CFG_FEATURE_DEFAULTS = $$CFG_FEATURE_DEFAULTS)
 
 
 # Only for qmake
@@ -242,9 +242,20 @@ CFG_FEATURES = $$CFG_FEATURE_DEFAULTS \
     CFG_BUILD_3D_GRAPHICS=1 \
 # see also  CFG_ENABLE_WEBGL
     CFG_BUILD_WEBGL=1 \
+# if CFG_BUILD_PRODUCTION_BUILD=1 {
+    CFG_BUILD_DRT=1 \
+    CFG_BUILD_WTR=1 \
+    CFG_BUILD_IMAGEDIFF=1 \
+    CFG_BUILD_TEST_NPAPI=1 \
+    CFG_BUILD_TESTBROWSER=1 \
+    CFG_BUILD_MINIBROWSER=1 \
+    CFG_BUILD_QTTESTSUPPORT=1 \
+    CFG_BUILD_TESTS=1 \
+# } (if CFG_BUILD_PRODUCTION_BUILD=1)
+    CFG_BUILD_WEBKIT1=1 \
+    CFG_BUILD_WEBKIT2=1 \
+
+dwarning(CFG_FEATURES = $$CFG_FEATURES)
 
 
-warning(CFG_FEATURES = $$CFG_FEATURES)
-
-
-warning (leaving cfg_config.pri)
+dwarning (leaving cfg_config.pri)

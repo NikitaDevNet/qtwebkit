@@ -19,7 +19,7 @@ for(feature, CFG_FEATURE_DEFAULTS) {
     FEATURE_DEFAULTS += $$upper($$feature)
 }
 
-warning(FEATURE_DEFAULTS = $$FEATURE_DEFAULTS)
+dwarning(FEATURE_DEFAULTS = $$FEATURE_DEFAULTS)
 
 
 
