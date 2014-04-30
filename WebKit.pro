@@ -14,9 +14,11 @@ WTF.file = Source/WTF/WTF.pro
 WTF.makefile = Makefile.WTF
 SUBDIRS += WTF
 
-JavaScriptCore.file = Source/JavaScriptCore/JavaScriptCore.pro
-JavaScriptCore.makefile = Makefile.JavaScriptCore
-SUBDIRS += JavaScriptCore
+cfg_build?(javascriptcore) {
+    JavaScriptCore.file = Source/JavaScriptCore/JavaScriptCore.pro
+    JavaScriptCore.makefile = Makefile.JavaScriptCore
+    SUBDIRS += JavaScriptCore
+}
 
 use?(3D_GRAPHICS) {
     ANGLE.file = Source/ThirdParty/ANGLE/ANGLE.pro
@@ -24,6 +26,8 @@ use?(3D_GRAPHICS) {
     SUBDIRS += ANGLE
 }
 
+
+# if ENABLE_INDEXED_DATABASE=1 then use_leveldb
 use?(leveldb):!use?(system_leveldb) {
     leveldb.file = Source/ThirdParty/leveldb/leveldb.pro
     leveldb.makefile = Makefile.leveldb
