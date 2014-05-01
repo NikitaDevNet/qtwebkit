@@ -29,9 +29,11 @@ build?(webkit2) {
     }
 }
 
-declarative.file = WebKit/qt/declarative/declarative.pro
-declarative.makefile = Makefile.declarative
-have?(QTQUICK): SUBDIRS += declarative
+cfg_build?(qtquick) {
+    declarative.file = WebKit/qt/declarative/declarative.pro
+    declarative.makefile = Makefile.declarative
+    have?(QTQUICK): SUBDIRS += declarative
+}
 
 build?(webkit1) {
     build?(tests) {
@@ -39,8 +41,10 @@ build?(webkit1) {
         SUBDIRS += tests
     }
 
-    examples.file = WebKit/qt/examples/examples.pro
-    examples.CONFIG += no_default_target
-    examples.makefile = Makefile
-    SUBDIRS += examples
+    cfg_build?(examples) {
+        examples.file = WebKit/qt/examples/examples.pro
+        examples.CONFIG += no_default_target
+        examples.makefile = Makefile
+        SUBDIRS += examples
+    }
 }

@@ -16,7 +16,7 @@ have?(qtsensors):if(enable?(DEVICE_ORIENTATION)|enable?(ORIENTATION_EVENTS)): QT
 
 have?(qtpositioning):enable?(GEOLOCATION): QT += positioning
 
-contains(CONFIG, texmap): DEFINES += WTF_USE_TEXTURE_MAPPER=1
+cfg_build?(texture_mapper): contains(CONFIG, texmap): DEFINES += WTF_USE_TEXTURE_MAPPER=1
 
 use?(PLUGIN_BACKEND_XLIB): PKGCONFIG += x11
 

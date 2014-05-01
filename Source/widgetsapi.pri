@@ -31,13 +31,13 @@ have?(qtpositioning):enable?(GEOLOCATION): QT += positioning
 
 use?(QT_MULTIMEDIA): QT *= multimediawidgets
 
-contains(CONFIG, texmap): DEFINES += WTF_USE_TEXTURE_MAPPER=1
+cfg_build?(texture_mapper): contains(CONFIG, texmap): DEFINES += WTF_USE_TEXTURE_MAPPER=1
 
 use?(PLUGIN_BACKEND_XLIB): PKGCONFIG += x11
 
 QT += network widgets widgets-private
-have?(QTQUICK): QT += quick
-have?(QTPRINTSUPPORT): QT += printsupport
+cfg_build?(qtquick): have?(QTQUICK): QT += quick
+cfg_build?(qtprintsupport): have?(QTPRINTSUPPORT): QT += printsupport
 
 use?(TEXTURE_MAPPER_GL)|enable?(WEBGL) {
     QT *= opengl
@@ -61,7 +61,9 @@ MODULE_BASE_OUTDIR = $$ROOT_BUILD_DIR
 
 # This is the canonical list of dependencies for the public API of
 # the QtWebKitWidgets library, and will end up in the library's prl file.
-QT_API_DEPENDS = core gui widgets network webkit
+QT_API_DEPENDS = core gui widgets webkit
+
+cfg_build?(network): QT_API_DEPENDS += network
 
 # ---------------- Custom developer-build handling -------------------
 #
