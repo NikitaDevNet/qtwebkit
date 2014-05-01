@@ -10,9 +10,28 @@ dwarning(entering cfg_config.pri)
 
 # warn when multiply included
 contains (CFG_CONFIG_PRI_INCLUDED, cfg_config_file_included) {
-    warning (multiple inclusion of cfg_config.pri)
+    dwarning (multiple inclusion of cfg_config.pri)
 }
 CFG_CONFIG_PRI_INCLUDED += cfg_config_file_included
+
+
+
+
+dwarning("  ==== FROM cfg_config.prf ====")
+
+dwarning(TEMPLATE = $$TEMPLATE)
+dwarning(TARGET = $$TARGET)
+dwarning(BASE_TARGET = $$BASE_TARGET)
+dwarning(MODULE = $$MODULE)
+dwarning(WEBKIT =, $$WEBKIT)
+dwarning(QT =, $$QT)
+dwarning(QT_CONFIG =, $$QT_CONFIG)
+dwarning(QT_API_DEPENDS =, $$QT_API_DEPENDS)
+dwarning(WEBKIT_CONFIG =, $$WEBKIT_CONFIG)
+dwarning(CONFIG =, $$CONFIG)
+dwarning(DEFINES =, $$DEFINES)
+dwarning(INSTALLS =, $$INSTALLS)
+dwarning(MOBILITY =, $$MOBILITY)
 
 
 
@@ -375,10 +394,9 @@ contains(CFG_FEATURE_DEFAULTS, CFG_ENABLE_XSLT=1) {
 
 
 
-
-dwarning(CFG_FEATURE_DEFAULTS = $$CFG_FEATURE_DEFAULTS)
-dwarning(CFG_BUILD_FEATURES = $$CFG_BUILD_FEATURES)
-dwarning(CFG_MINIMAL_QT_DEFINES = $$CFG_MINIMAL_QT_DEFINES)
+dwarning(CFG_FEATURE_DEFAULTS =, $$CFG_FEATURE_DEFAULTS)
+dwarning(CFG_BUILD_FEATURES =, $$CFG_BUILD_FEATURES)
+dwarning(CFG_MINIMAL_QT_DEFINES =, $$CFG_MINIMAL_QT_DEFINES)
 
 
 dwarning(leaving cfg_config.pri)

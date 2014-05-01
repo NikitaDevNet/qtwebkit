@@ -323,7 +323,19 @@ DESTDIR = $$replace(DESTDIR, ^$$re_escape($${ROOT_BUILD_DIR}), $${BUILD_ROOT_REL
 load(default_post) # Load Qt's defaults
 
 
-dwarning(QT = $$QT)
-dwarning(QT_CONFIG = $$QT_CONFIG)
-dwarning(CONFIG = $$CONFIG)
-dwarning(DEFINES = $$DEFINES)
+
+dwarning("  ==== FROM default_post.prf ====")
+
+dwarning(TEMPLATE = $$TEMPLATE)
+dwarning(TARGET = $$TARGET)
+dwarning(BASE_TARGET = $$BASE_TARGET)
+dwarning(MODULE = $$MODULE)
+dwarning(WEBKIT =, $$WEBKIT)
+dwarning(QT =, $$QT)
+dwarning(QT_CONFIG =, $$QT_CONFIG)
+dwarning(QT_API_DEPENDS =, $$QT_API_DEPENDS)
+dwarning(WEBKIT_CONFIG =, $$WEBKIT_CONFIG)
+dwarning(CONFIG =, $$CONFIG)
+dwarning(DEFINES =, $$DEFINES)
+dwarning(INSTALLS =, $$INSTALLS)
+dwarning(MOBILITY =, $$MOBILITY)
