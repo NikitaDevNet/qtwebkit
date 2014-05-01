@@ -18,7 +18,10 @@ SOURCES += \
     $$PWD/PlatformUtilities.cpp \
     $$PWD/PlatformUtilities.h \
     $$PWD/qt/InjectedBundleControllerQt.cpp \
-    $$PWD/qt/PlatformUtilitiesQt.cpp \
+    $$PWD/qt/PlatformUtilitiesQt.cpp
+
+cfg_build?(webkit2) {
+SOURCES += \
     $$PWD/Tests/WebKit2/CanHandleRequest_Bundle.cpp \
     $$PWD/Tests/WebKit2/DocumentStartUserScriptAlertCrash_Bundle.cpp \
     $$PWD/Tests/WebKit2/DOMWindowExtensionBasic_Bundle.cpp \
@@ -40,16 +43,21 @@ SOURCES += \
     $$PWD/Tests/WebKit2/UserMessage_Bundle.cpp \
     $$PWD/Tests/WebKit2/WillSendSubmitEvent_Bundle.cpp \
     $$PWD/Tests/WebKit2/WKConnection_Bundle.cpp
+}
 
 
 DESTDIR = $${ROOT_BUILD_DIR}/lib
 
 QT += core webkit
 
-WEBKIT += wtf webcore webkit2
+WEBKIT += wtf webcore
 
 cfg_build?(javascriptcore) {
     WEBKIT += javascriptcore
+}
+
+cfg_build?(webkit2) {
+    WEBKIT += webkit2
 }
 
 CONFIG += plugin rpath compiling_thirdparty_code

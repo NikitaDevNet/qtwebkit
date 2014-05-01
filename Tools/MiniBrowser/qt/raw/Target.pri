@@ -11,8 +11,12 @@ DESTDIR = $${ROOT_BUILD_DIR}/bin
 
 QT = core gui network webkitwidgets
 
-WEBKIT += wtf webkit2
+WEBKIT += wtf
 
 cfg_build?(javascriptcore) {
     WEBKIT += javascriptcore
+}
+
+cfg_build?(webkit2) {
+    WEBKIT += webkit2
 }

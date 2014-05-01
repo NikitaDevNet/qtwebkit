@@ -1,6 +1,10 @@
 
 INCLUDEPATH += $$PWD $${ROOT_WEBKIT_DIR}/Source/ThirdParty/gtest/include
-WEBKIT += wtf webkit2
+WEBKIT += wtf
+
+cfg_build?(webkit2) {
+    WEBKIT += webkit2
+}
 
 cfg_build?(javascriptcore) {
     WEBKIT += javascriptcore

@@ -33,9 +33,12 @@ RPATHDIR_RELATIVE_TO_DESTDIR = ../../lib
 
 SOURCES += plugin.cpp
 
-DEFINES += HAVE_WEBKIT2
+cfg_build?(webkit2) {
+    DEFINES += HAVE_WEBKIT2
+    WEBKIT += webkit2
+}
 
-WEBKIT += wtf webkit2
+WEBKIT += wtf
 
 cfg_build?(javascriptcore) {
     WEBKIT += javascriptcore
