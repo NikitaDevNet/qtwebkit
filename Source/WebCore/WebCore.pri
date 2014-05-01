@@ -228,21 +228,23 @@ use?(GRAPHICS_SURFACE) {
     }
 }
 
-have?(sqlite3) {
-    mac {
-        LIBS += -lsqlite3
+cfg_build?(sqlite3) {
+    have?(sqlite3) {
+        mac {
+            LIBS += -lsqlite3
+        } else {
+            PKGCONFIG += sqlite3
+        }
     } else {
-        PKGCONFIG += sqlite3
-    }
-} else {
-    SQLITE3SRCDIR = $$(SQLITE3SRCDIR)
-    isEmpty(SQLITE3SRCDIR): SQLITE3SRCDIR = ../../../qtbase/src/3rdparty/sqlite/
-    exists($${SQLITE3SRCDIR}/sqlite3.c) {
-        INCLUDEPATH += $${SQLITE3SRCDIR}
-        DEFINES += SQLITE_CORE SQLITE_OMIT_LOAD_EXTENSION SQLITE_OMIT_COMPLETE
-    } else {
-        INCLUDEPATH += $${SQLITE3SRCDIR}
-        LIBS += -lsqlite3
+        SQLITE3SRCDIR = $$(SQLITE3SRCDIR)
+        isEmpty(SQLITE3SRCDIR): SQLITE3SRCDIR = ../../../qtbase/src/3rdparty/sqlite/
+        exists($${SQLITE3SRCDIR}/sqlite3.c) {
+            INCLUDEPATH += $${SQLITE3SRCDIR}
+            DEFINES += SQLITE_CORE SQLITE_OMIT_LOAD_EXTENSION SQLITE_OMIT_COMPLETE
+        } else {
+            INCLUDEPATH += $${SQLITE3SRCDIR}
+            LIBS += -lsqlite3
+        }
     }
 }
 

@@ -46,7 +46,11 @@ DESTDIR = $${ROOT_BUILD_DIR}/lib
 
 QT += core webkit
 
-WEBKIT += wtf javascriptcore webcore webkit2
+WEBKIT += wtf webcore webkit2
+
+cfg_build?(javascriptcore) {
+    WEBKIT += javascriptcore
+}
 
 CONFIG += plugin rpath compiling_thirdparty_code
 

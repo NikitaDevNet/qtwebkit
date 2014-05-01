@@ -9,7 +9,11 @@ TARGET = WebKit2
 
 include(WebKit2.pri)
 
-WEBKIT += wtf javascriptcore webcore
+WEBKIT += wtf webcore
+
+cfg_build?(javascriptcore) {
+    WEBKIT += javascriptcore
+}
 
 CONFIG += staticlib
 

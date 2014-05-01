@@ -9,7 +9,12 @@ TARGET = WebKit1
 
 include(WebKit1.pri)
 
-WEBKIT += wtf javascriptcore webcore
+WEBKIT += wtf webcore
+
+cfg_build?(javascriptcore) {
+    WEBKIT += javascriptcore
+}
+
 QT += gui
 
 # This is relied upon by our export macros and seems not to be properly

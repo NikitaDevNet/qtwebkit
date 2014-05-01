@@ -27,7 +27,6 @@ use?(3D_GRAPHICS) {
 }
 
 
-# if ENABLE_INDEXED_DATABASE=1 then use_leveldb
 use?(leveldb):!use?(system_leveldb) {
     leveldb.file = Source/ThirdParty/leveldb/leveldb.pro
     leveldb.makefile = Makefile.leveldb

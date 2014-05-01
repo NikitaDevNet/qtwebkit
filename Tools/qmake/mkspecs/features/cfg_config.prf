@@ -13,44 +13,30 @@ defineTest(dwarning) {
     warning($$1)
 }
 
-defineTest(runCfgConfig) {
-    for(feature, CFG_FEATURES) {
-        enabledFeature = $$find(feature, =1$)
-        !isEmpty(enabledFeature) {
-            enabledFeature ~= s/=1$//
-            enabledFeature ~= s/^CFG_ENABLE_//
-            CFG_CONFIG += cfg_$$lower($$enabledFeature)
-        }
-    }
-    dwarning(CFG_CONFIG = $$CFG_CONFIG)
-
-    export(CFG_CONFIG)
-}
-
 defineTest(cfg_build?) {
-    contains(CFG_CONFIG, cfg_build_$$lower($$1)): return(true)
+    contains(CFG_BUILD_FEATURES, CFG_BUILD_$$upper($$1)=1): return(true)
     return(false)
 }
 
 defineTest(cfg_have?) {
-    contains(CFG_CONFIG, cfg_have_$$lower($$1)): return(true)
+    contains(CFG_FEATURE_DEFAULTS, CFG_HAVE_$$upper($$1)=1): return(true)
     return(false)
 }
 
 defineTest(cfg_use?) {
-    contains(CFG_CONFIG, cfg_use_$$lower($$1)): return(true)
+    contains(CFG_FEATURE_DEFAULTS, CFG_USE_$$upper($$1)=1): return(true)
     return(false)
 }
 
 defineTest(cfg_enable?) {
-    contains(CFG_CONFIG, cfg_$$lower($$1)): return(true)
+    contains(CFG_FEATURE_DEFAULTS, CFG_ENABLE_$$upper($$1)=1): return(true)
     return(false)
 }
 
-defineReplace(cfgDefines) {
+defineReplace(cfgMinimalQtDefines) {
     unset(cfg_defines)
 
-    for(cfg_define, CFG_DEFAULT_DEFINES) {
+    for(cfg_define, CFG_MINIMAL_QT_DEFINES) {
         enabledFeature = $$find(cfg_define, =1$)
         isEmpty(enabledFeature): next()
 

@@ -10,7 +10,10 @@ TARGET = WebCore
 include(WebCore.pri)
 
 WEBKIT += wtf
-WEBKIT += javascriptcore
+
+cfg_build?(javascriptcore) {
+    WEBKIT += javascriptcore
+}
 
 CONFIG += staticlib
 
@@ -26,11 +29,15 @@ CONFIG += staticlib
     }
 }
 
+
 SOURCES += \
     Modules/geolocation/Coordinates.cpp \
     Modules/geolocation/Geolocation.cpp \
     Modules/geolocation/GeolocationController.cpp \
-    Modules/geolocation/NavigatorGeolocation.cpp \
+    Modules/geolocation/NavigatorGeolocation.cpp
+
+cfg_enable?(SQL_DATABASE) {
+SOURCES += \
     Modules/webdatabase/DOMWindowWebDatabase.cpp \
     Modules/webdatabase/Database.cpp \
     Modules/webdatabase/DatabaseAuthorizer.cpp \
@@ -38,7 +45,10 @@ SOURCES += \
     Modules/webdatabase/DatabaseContext.cpp \
     Modules/webdatabase/DatabaseServer.cpp \
     Modules/webdatabase/DatabaseSync.cpp \
-    Modules/webdatabase/WorkerGlobalScopeWebDatabase.cpp \
+    Modules/webdatabase/WorkerGlobalScopeWebDatabase.cpp
+}
+
+SOURCES += \
     accessibility/AccessibilityImageMapLink.cpp \
     accessibility/AccessibilityMediaControls.cpp \
     accessibility/AccessibilityMenuList.cpp \
@@ -68,6 +78,7 @@ SOURCES += \
     bindings/generic/ActiveDOMCallback.cpp \
     bindings/generic/BindingSecurity.cpp \
     bindings/generic/RuntimeEnabledFeatures.cpp
+
 
 SOURCES += \
      bindings/ScriptControllerBase.cpp \
@@ -1105,13 +1116,19 @@ SOURCES += \
     platform/ScrollbarThemeComposite.cpp \
     platform/ScrollView.cpp \
     platform/SharedBuffer.cpp \
-    platform/SharedBufferChunkReader.cpp \
+    platform/SharedBufferChunkReader.cpp
+
+cfg_build?(sqlite3) {
+SOURCES += \
     platform/sql/SQLiteAuthorizer.cpp \
     platform/sql/SQLiteDatabase.cpp \
     platform/sql/SQLiteFileSystem.cpp \
     platform/sql/SQLiteStatement.cpp \
     platform/sql/SQLiteTransaction.cpp \
-    platform/sql/SQLValue.cpp \
+    platform/sql/SQLValue.cpp
+}
+
+SOURCES += \
     platform/text/SegmentedString.cpp \
     platform/text/TextBoundaries.cpp \
     platform/text/TextBreakIterator.cpp \
@@ -1432,8 +1449,10 @@ HEADERS += \
     \
     Modules/proximity/DeviceProximityClient.h \
     Modules/proximity/DeviceProximityController.h \
-    Modules/proximity/DeviceProximityEvent.h \
-    \
+    Modules/proximity/DeviceProximityEvent.h
+
+cfg_enable?(SQL_DATABASE) {
+HEADERS += \
     Modules/webdatabase/AbstractDatabaseServer.h \
     Modules/webdatabase/AbstractSQLStatement.h \
     Modules/webdatabase/AbstractSQLStatementBackend.h \
@@ -1472,8 +1491,10 @@ HEADERS += \
     Modules/webdatabase/SQLTransactionStateMachine.h \
     Modules/webdatabase/SQLTransactionSync.h \
     Modules/webdatabase/SQLTransactionSyncCallback.h \
-    Modules/webdatabase/WorkerGlobalScopeWebDatabase.h \
-    \
+    Modules/webdatabase/WorkerGlobalScopeWebDatabase.h
+}
+
+HEADERS += \
     css/BasicShapeFunctions.h \
     css/CSSAspectRatioValue.h \
     css/CSSBasicShapes.h \
@@ -2239,7 +2260,10 @@ HEADERS += \
     platform/graphics/SimpleFontData.h \
     platform/graphics/surfaces/GraphicsSurface.h \
     platform/graphics/surfaces/GraphicsSurfaceToken.h \
-    platform/graphics/SurrogatePairAwareTextIterator.h \
+    platform/graphics/SurrogatePairAwareTextIterator.h
+
+cfg_use?(texture_mapper) {
+HEADERS += \
     platform/graphics/texmap/GraphicsLayerTextureMapper.h \
     platform/graphics/texmap/TextureMapper.h \
     platform/graphics/texmap/TextureMapperBackingStore.h \
@@ -2249,7 +2273,10 @@ HEADERS += \
     platform/graphics/texmap/TextureMapperPlatformLayer.h \
     platform/graphics/texmap/TextureMapperSurfaceBackingStore.h \
     platform/graphics/texmap/TextureMapperTile.h \
-    platform/graphics/texmap/TextureMapperTiledBackingStore.h \
+    platform/graphics/texmap/TextureMapperTiledBackingStore.h
+}
+
+HEADERS += \
     platform/graphics/Tile.h \
     platform/graphics/TiledBackingStore.h \
     platform/graphics/TiledBackingStoreClient.h \
@@ -2348,12 +2375,18 @@ HEADERS += \
     platform/ScrollView.h \
     platform/SearchPopupMenu.h \
     platform/SharedBuffer.h \
-    platform/SharedBufferChunkReader.h \
+    platform/SharedBufferChunkReader.h
+
+cfg_build?(sqlite3) {
+HEADERS += \
     platform/sql/SQLiteDatabase.h \
     platform/sql/SQLiteFileSystem.h \
     platform/sql/SQLiteStatement.h \
     platform/sql/SQLiteTransaction.h \
-    platform/sql/SQLValue.h \
+    platform/sql/SQLValue.h
+}
+
+HEADERS += \
     platform/text/BidiContext.h \
     platform/text/DateTimeFormat.h \
     platform/text/DecodeEscapeSequences.h \
@@ -2886,7 +2919,10 @@ SOURCES += \
     platform/graphics/qt/IntSizeQt.cpp \
     platform/graphics/qt/PathQt.cpp \
     platform/graphics/qt/PatternQt.cpp \
-    platform/graphics/qt/StillImageQt.cpp \
+    platform/graphics/qt/StillImageQt.cpp
+
+cfg_use?(texture_mapper) {
+SOURCES += \
     platform/graphics/texmap/GraphicsLayerTextureMapper.cpp \
     platform/graphics/texmap/TextureMapper.cpp \
     platform/graphics/texmap/TextureMapperBackingStore.cpp \
@@ -2895,7 +2931,10 @@ SOURCES += \
     platform/graphics/texmap/TextureMapperLayer.cpp \
     platform/graphics/texmap/TextureMapperSurfaceBackingStore.cpp \
     platform/graphics/texmap/TextureMapperTile.cpp \
-    platform/graphics/texmap/TextureMapperTiledBackingStore.cpp \
+    platform/graphics/texmap/TextureMapperTiledBackingStore.cpp
+}
+
+SOURCES += \
     platform/network/DNSResolveQueue.cpp \
     platform/network/MIMESniffing.cpp \
     platform/network/qt/CookieJarQt.cpp \
@@ -4136,7 +4175,10 @@ use?(3D_GRAPHICS) {
         platform/graphics/gpu/DrawingBuffer.h \
         platform/graphics/gpu/Texture.h \
         platform/graphics/gpu/TilingData.h \
-        platform/graphics/opengl/Extensions3DOpenGL.h \
+        platform/graphics/opengl/Extensions3DOpenGL.h
+
+cfg_use?(texture_mapper) {
+    HEADERS += \
         platform/graphics/texmap/TextureMapperGL.h \
         platform/graphics/texmap/TextureMapperShaderProgram.h \
         platform/graphics/texmap/coordinated/AreaAllocator.h \
@@ -4152,6 +4194,7 @@ use?(3D_GRAPHICS) {
         platform/graphics/texmap/coordinated/CoordinatedTile.h \
         platform/graphics/texmap/coordinated/SurfaceUpdateInfo.h \
         platform/graphics/texmap/coordinated/UpdateAtlas.h
+}
 
     SOURCES += \
         page/scrolling/ScrollingConstraints.cpp \
@@ -4172,7 +4215,10 @@ use?(3D_GRAPHICS) {
         platform/graphics/gpu/TilingData.cpp \
         platform/graphics/opengl/GraphicsContext3DOpenGLCommon.cpp \
         platform/graphics/opengl/Extensions3DOpenGLCommon.cpp \
-        platform/graphics/qt/GraphicsContext3DQt.cpp \
+        platform/graphics/qt/GraphicsContext3DQt.cpp
+
+cfg_use?(texture_mapper) {
+    SOURCES += \
         platform/graphics/texmap/TextureMapperGL.cpp \
         platform/graphics/texmap/TextureMapperShaderProgram.cpp \
         platform/graphics/texmap/coordinated/AreaAllocator.cpp \
@@ -4184,6 +4230,7 @@ use?(3D_GRAPHICS) {
         platform/graphics/texmap/coordinated/CoordinatedSurface.cpp \
         platform/graphics/texmap/coordinated/CoordinatedTile.cpp \
         platform/graphics/texmap/coordinated/UpdateAtlas.cpp
+}
 
     INCLUDEPATH += $$PWD/platform/graphics/gpu
 
@@ -4248,7 +4295,7 @@ use?(ZLIB) {
     SOURCES += platform/graphics/WOFFFileFormat.cpp
 }
 
-!have?(sqlite3):exists($${SQLITE3SRCDIR}/sqlite3.c) {
+cfg_build?(sqlite3): !have?(sqlite3):exists($${SQLITE3SRCDIR}/sqlite3.c) {
     # Build sqlite3 into WebCore from source
     # somewhat copied from $$QT_SOURCE_TREE/src/plugins/sqldrivers/sqlite/sqlite.pro
     SOURCES += $${SQLITE3SRCDIR}/sqlite3.c

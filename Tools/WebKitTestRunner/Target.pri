@@ -33,7 +33,11 @@ DESTDIR = $${ROOT_BUILD_DIR}/bin
 
 QT = core core-private gui gui-private widgets network testlib quick quick-private webkitwidgets qml-private
 
-WEBKIT += wtf javascriptcore webkit2
+WEBKIT += wtf webkit2
+
+cfg_build?(javascriptcore) {
+    WEBKIT += javascriptcore
+}
 
 DEFINES += USE_SYSTEM_MALLOC=1
 

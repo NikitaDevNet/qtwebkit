@@ -374,17 +374,13 @@ defineReplace(configDefines) {
         }
     }
 
-    defines += $$cfgDefines()
+    defines += $$cfgMinimalQtDefines()
 
     return($$defines)
 }
 
 defineReplace(javascriptFeatureDefines) {
-    cfg_build?(LANGUAGE_JAVASCRIPT){
-        defines = LANGUAGE_JAVASCRIPT=1 $$configDefines(enable)
-    } else
-        defines = $$configDefines(enable)
-    }
+    defines = LANGUAGE_JAVASCRIPT=1 $$configDefines(enable)
     return($$defines)
 }
 

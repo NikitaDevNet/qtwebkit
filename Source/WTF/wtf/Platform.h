@@ -946,7 +946,9 @@
 #endif
 
 /* Qt always uses Texture Mapper */
-#if PLATFORM(QT)
+// Changed for cfg_config
+//#if PLATFORM(QT)
+#if PLATFORM(QT) && !defined(WTF_USE_TEXTURE_MAPPER)
 #define WTF_USE_TEXTURE_MAPPER 1
 #endif
 

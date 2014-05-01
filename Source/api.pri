@@ -12,7 +12,11 @@ TARGET = QtWebKit
 
 WEBKIT_DESTDIR = $${ROOT_BUILD_DIR}/lib
 
-WEBKIT += wtf javascriptcore webcore
+WEBKIT += wtf webcore
+
+cfg_build?(javascriptcore) {
+    WEBKIT += javascriptcore
+}
 
 build?(webkit1): WEBKIT += webkit1
 build?(webkit2): WEBKIT += webkit2

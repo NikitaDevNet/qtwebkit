@@ -35,7 +35,11 @@ SOURCES += plugin.cpp
 
 DEFINES += HAVE_WEBKIT2
 
-WEBKIT += wtf javascriptcore webkit2
+WEBKIT += wtf webkit2
+
+cfg_build?(javascriptcore) {
+    WEBKIT += javascriptcore
+}
 
 # The fallback to QT_INSTALL_IMPORTS can be removed once we
 # depend on Qt 5 RC1.

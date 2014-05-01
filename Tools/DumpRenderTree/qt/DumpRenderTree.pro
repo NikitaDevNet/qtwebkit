@@ -9,7 +9,11 @@ TEMPLATE = app
 TARGET = DumpRenderTree
 DESTDIR = $$ROOT_BUILD_DIR/bin
 
-WEBKIT += wtf javascriptcore webcore
+WEBKIT += wtf webcore
+
+cfg_build?(javascriptcore) {
+    WEBKIT += javascriptcore
+}
 
 INCLUDEPATH += \
     $$PWD/ \

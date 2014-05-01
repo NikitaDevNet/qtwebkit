@@ -708,12 +708,14 @@ xlinknames.input = XLINK_NAMES
 GENERATORS += xlinknames
 
 # GENERATOR 6-A:
+# -- NOTE for javascriptFeatureDefines() -->  cfg_build?(javascriptcore) {
 cssprops.script = $$PWD/css/makeprop.pl
 cssprops.output = CSSPropertyNames.cpp
 cssprops.input = WALDOCSSPROPS
 cssprops.commands = perl -ne \"print $1\" ${QMAKE_FILE_NAME} $${EXTRACSSPROPERTIES} > ${QMAKE_FUNC_FILE_OUT_PATH}/${QMAKE_FILE_BASE}.in && cd ${QMAKE_FUNC_FILE_OUT_PATH} && perl -I$$PWD/bindings/scripts $$cssprops.script --defines \"$$javascriptFeatureDefines()\" --preprocessor \"$${QMAKE_MOC} -E\" ${QMAKE_FILE_NAME} && $(DEL_FILE) ${QMAKE_FILE_BASE}.in ${QMAKE_FILE_BASE}.gperf
 cssprops.depends = ${QMAKE_FILE_NAME} $${EXTRACSSPROPERTIES} $$cssprops.script
 GENERATORS += cssprops
+# -- NOTE -- }
 
 # GENERATOR 6-B:
 cssvalues.script = $$PWD/css/makevalues.pl

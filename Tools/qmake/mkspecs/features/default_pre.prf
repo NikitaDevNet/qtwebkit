@@ -12,7 +12,6 @@ eval($$env_cache)
 
 # The global config of QtWebKit
 load(cfg_config)
-runCfgConfig()
 
 
 load(functions)
