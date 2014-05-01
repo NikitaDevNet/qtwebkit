@@ -30,22 +30,24 @@ CONFIG += staticlib
 }
 
 
-SOURCES += \
-    Modules/geolocation/Coordinates.cpp \
-    Modules/geolocation/Geolocation.cpp \
-    Modules/geolocation/GeolocationController.cpp \
-    Modules/geolocation/NavigatorGeolocation.cpp
+cfg_enable?(GEOLOCATION) {
+    SOURCES += \
+        Modules/geolocation/Coordinates.cpp \
+        Modules/geolocation/Geolocation.cpp \
+        Modules/geolocation/GeolocationController.cpp \
+        Modules/geolocation/NavigatorGeolocation.cpp
+}
 
 cfg_enable?(SQL_DATABASE) {
-SOURCES += \
-    Modules/webdatabase/DOMWindowWebDatabase.cpp \
-    Modules/webdatabase/Database.cpp \
-    Modules/webdatabase/DatabaseAuthorizer.cpp \
-    Modules/webdatabase/DatabaseBackendBase.cpp \
-    Modules/webdatabase/DatabaseContext.cpp \
-    Modules/webdatabase/DatabaseServer.cpp \
-    Modules/webdatabase/DatabaseSync.cpp \
-    Modules/webdatabase/WorkerGlobalScopeWebDatabase.cpp
+    SOURCES += \
+        Modules/webdatabase/DOMWindowWebDatabase.cpp \
+        Modules/webdatabase/Database.cpp \
+        Modules/webdatabase/DatabaseAuthorizer.cpp \
+        Modules/webdatabase/DatabaseBackendBase.cpp \
+        Modules/webdatabase/DatabaseContext.cpp \
+        Modules/webdatabase/DatabaseServer.cpp \
+        Modules/webdatabase/DatabaseSync.cpp \
+        Modules/webdatabase/WorkerGlobalScopeWebDatabase.cpp
 }
 
 SOURCES += \
@@ -79,188 +81,204 @@ SOURCES += \
     bindings/generic/BindingSecurity.cpp \
     bindings/generic/RuntimeEnabledFeatures.cpp
 
+cfg_build?(javascriptcore) {
+    SOURCES += \
+        bindings/ScriptControllerBase.cpp \
+        bindings/js/ArrayValue.cpp \
+        bindings/js/BindingState.cpp \
+        bindings/js/CallbackFunction.cpp \
+        bindings/js/DOMObjectHashTableMap.cpp \
+        bindings/js/DOMWrapperWorld.cpp \
+        bindings/js/Dictionary.cpp \
+        bindings/js/GCController.cpp \
+        bindings/js/JSArrayBufferCustom.cpp \
+        bindings/js/JSAudioBufferCustom.cpp \
+        bindings/js/JSAttrCustom.cpp \
+        bindings/js/JSBlobCustom.cpp \
+        bindings/js/JSCDATASectionCustom.cpp \
+        bindings/js/JSCSSFontFaceRuleCustom.cpp \
+        bindings/js/JSCSSImportRuleCustom.cpp \
+        bindings/js/JSCSSMediaRuleCustom.cpp \
+        bindings/js/JSCSSPageRuleCustom.cpp \
+        bindings/js/JSCSSRuleCustom.cpp \
+        bindings/js/JSCSSRuleListCustom.cpp \
+        bindings/js/JSCSSStyleDeclarationCustom.cpp \
+        bindings/js/JSCSSStyleRuleCustom.cpp \
+        bindings/js/JSCSSValueCustom.cpp \
+        bindings/js/JSCallbackData.cpp \
+        bindings/js/JSCanvasRenderingContext2DCustom.cpp \
+        bindings/js/JSCanvasRenderingContextCustom.cpp \
+        bindings/js/JSClipboardCustom.cpp \
+        bindings/js/JSConsoleCustom.cpp \
+        bindings/js/JSCryptoCustom.cpp \
+        bindings/js/JSCustomXPathNSResolver.cpp \
+        bindings/js/JSDictionary.cpp \
+        bindings/js/JSDOMBinding.cpp \
+        bindings/js/JSDOMFormDataCustom.cpp \
+        bindings/js/JSDOMGlobalObject.cpp \
+        bindings/js/JSDOMImplementationCustom.cpp \
+        bindings/js/JSDOMMimeTypeArrayCustom.cpp \
+        bindings/js/JSDOMPluginArrayCustom.cpp \
+        bindings/js/JSDOMPluginCustom.cpp \
+        bindings/js/JSDOMStringListCustom.cpp \
+        bindings/js/JSDOMStringMapCustom.cpp \
+        bindings/js/JSDOMTokenListCustom.cpp \
+        bindings/js/JSDOMWindowBase.cpp \
+        bindings/js/JSDOMWindowCustom.cpp \
+        bindings/js/JSDOMWindowShell.cpp \
+        bindings/js/JSDOMWrapper.cpp \
+        bindings/js/JSDataViewCustom.cpp \
+        bindings/js/JSDeviceMotionEventCustom.cpp \
+        bindings/js/JSDeviceOrientationEventCustom.cpp \
+        bindings/js/JSDocumentCustom.cpp \
+        bindings/js/JSElementCustom.cpp \
+        bindings/js/JSErrorHandler.cpp \
+        bindings/js/JSEventCustom.cpp \
+        bindings/js/JSEventListener.cpp \
+        bindings/js/JSEventTargetCustom.cpp \
+        bindings/js/JSExceptionBase.cpp \
+        bindings/js/JSFileReaderCustom.cpp \
+        bindings/js/JSGeolocationCustom.cpp \
+        bindings/js/JSHTMLAllCollectionCustom.cpp \
+        bindings/js/JSHTMLAppletElementCustom.cpp \
+        bindings/js/JSHTMLCanvasElementCustom.cpp \
+        bindings/js/JSHTMLCollectionCustom.cpp \
+        bindings/js/JSHTMLDocumentCustom.cpp \
+        bindings/js/JSHTMLElementCustom.cpp \
+        bindings/js/JSHTMLEmbedElementCustom.cpp \
+        bindings/js/JSHTMLFormControlsCollectionCustom.cpp \
+        bindings/js/JSHTMLFormElementCustom.cpp \
+        bindings/js/JSHTMLFrameElementCustom.cpp \
+        bindings/js/JSHTMLFrameSetElementCustom.cpp \
+        bindings/js/JSHTMLInputElementCustom.cpp \
+        bindings/js/JSHTMLLinkElementCustom.cpp \
+        bindings/js/JSHTMLMediaElementCustom.cpp \
+        bindings/js/JSHTMLObjectElementCustom.cpp \
+        bindings/js/JSHTMLOptionsCollectionCustom.cpp \
+        bindings/js/JSHTMLSelectElementCustom.cpp \
+        bindings/js/JSHTMLStyleElementCustom.cpp \
+        bindings/js/JSHTMLTemplateElementCustom.cpp \
+        bindings/js/JSHistoryCustom.cpp \
+        bindings/js/JSImageConstructor.cpp \
+        bindings/js/JSImageDataCustom.cpp \
+        bindings/js/JSInjectedScriptHostCustom.cpp \
+        bindings/js/JSInjectedScriptManager.cpp \
+        bindings/js/JSInspectorFrontendHostCustom.cpp \
+        bindings/js/JSLazyEventListener.cpp \
+        bindings/js/JSLocationCustom.cpp \
+        bindings/js/JSMainThreadExecState.cpp \
+        bindings/js/JSMediaListCustom.cpp \
+        bindings/js/JSMessageChannelCustom.cpp \
+        bindings/js/JSMessageEventCustom.cpp \
+        bindings/js/JSMessagePortCustom.cpp \
+        bindings/js/JSMicroDataItemValueCustom.cpp \
+        bindings/js/JSMutationCallback.cpp \
+        bindings/js/JSMutationObserverCustom.cpp \
+        bindings/js/JSNamedNodeMapCustom.cpp \
+        bindings/js/JSNodeCustom.cpp \
+        bindings/js/JSNodeFilterCondition.cpp \
+        bindings/js/JSNodeFilterCustom.cpp \
+        bindings/js/JSNodeIteratorCustom.cpp \
+        bindings/js/JSNodeListCustom.cpp \
+        bindings/js/JSPluginElementFunctions.cpp \
+        bindings/js/JSPopStateEventCustom.cpp \
+        bindings/js/JSProcessingInstructionCustom.cpp \
+        bindings/js/JSRequestAnimationFrameCallbackCustom.cpp \
+        bindings/js/JSRTCStatsResponseCustom.cpp \
+        bindings/js/JSStorageCustom.cpp \
+        bindings/js/JSStyleSheetCustom.cpp \
+        bindings/js/JSStyleSheetListCustom.cpp \
+        bindings/js/JSTextCustom.cpp \
+        bindings/js/JSTouchCustom.cpp \
+        bindings/js/JSTouchListCustom.cpp \
+        bindings/js/JSTreeWalkerCustom.cpp \
+        bindings/js/JSWebKitCSSKeyframeRuleCustom.cpp \
+        bindings/js/JSWebKitCSSKeyframesRuleCustom.cpp \
+        bindings/js/JSWebKitPointCustom.cpp \
+        bindings/js/JSXMLHttpRequestCustom.cpp \
+        bindings/js/JSXMLHttpRequestUploadCustom.cpp \
+        bindings/js/JSXPathResultCustom.cpp \
+        bindings/js/PageScriptDebugServer.cpp \
+        bindings/js/ScheduledAction.cpp \
+        bindings/js/ScriptCachedFrameData.cpp \
+        bindings/js/ScriptCallStackFactory.cpp \
+        bindings/js/ScriptController.cpp \
+        bindings/js/ScriptControllerQt.cpp \
+        bindings/js/ScriptDebugServer.cpp \
+        bindings/js/ScriptEventListener.cpp \
+        bindings/js/ScriptFunctionCall.cpp \
+        bindings/js/ScriptGCEvent.cpp \
+        bindings/js/ScriptObject.cpp \
+        bindings/js/ScriptProfile.cpp \
+        bindings/js/ScriptState.cpp \
+        bindings/js/ScriptValue.cpp \
+        bindings/js/SerializedScriptValue.cpp \
+        bridge/IdentifierRep.cpp \
+        bridge/NP_jsobject.cpp \
+        bridge/c/CRuntimeObject.cpp \
+        bridge/c/c_class.cpp \
+        bridge/c/c_instance.cpp \
+        bridge/c/c_runtime.cpp \
+        bridge/c/c_utility.cpp \
+        bridge/jsc/BridgeJSC.cpp \
+        bridge/npruntime.cpp \
+        bridge/qt/qt_class.cpp \
+        bridge/qt/qt_instance.cpp \
+        bridge/qt/qt_pixmapruntime.cpp \
+        bridge/qt/qt_runtime.cpp \
+        bridge/runtime_array.cpp \
+        bridge/runtime_method.cpp \
+        bridge/runtime_object.cpp \
+        bridge/runtime_root.cpp \
+        testing/js/WebCoreTestSupport.cpp
+}
+
+cfg_enable?(FILE_SYSTEM) {
+    SOURCES += \
+        Modules/filesystem/DOMFilePath.cpp \
+        Modules/filesystem/DOMFileSystem.cpp \
+        Modules/filesystem/DOMFileSystemBase.cpp \
+        Modules/filesystem/DOMFileSystemSync.cpp \
+        Modules/filesystem/DOMWindowFileSystem.cpp \
+        Modules/filesystem/DirectoryEntry.cpp \
+        Modules/filesystem/DirectoryEntrySync.cpp \
+        Modules/filesystem/DirectoryReader.cpp \
+        Modules/filesystem/DirectoryReaderSync.cpp \
+        Modules/filesystem/Entry.cpp \
+        Modules/filesystem/EntryArray.cpp \
+        Modules/filesystem/EntryArraySync.cpp \
+        Modules/filesystem/EntryBase.cpp \
+        Modules/filesystem/EntrySync.cpp \
+        Modules/filesystem/FileEntry.cpp \
+        Modules/filesystem/FileEntrySync.cpp \
+        Modules/filesystem/FileWriter.cpp \
+        Modules/filesystem/FileWriterBase.cpp \
+        Modules/filesystem/FileWriterSync.cpp \
+        Modules/filesystem/LocalFileSystem.cpp \
+        Modules/filesystem/WorkerGlobalScopeFileSystem.cpp
+}
+
+cfg_enable?(NAVIGATOR_CONTENT_UTILS) {
+    SOURCES += \
+        Modules/navigatorcontentutils/NavigatorContentUtils.cpp
+}
+
+cfg_enable?(NOTIFICATIONS) {
+    SOURCES += \
+        Modules/notifications/DOMWindowNotifications.cpp \
+        Modules/notifications/Notification.cpp \
+        Modules/notifications/NotificationCenter.cpp \
+        Modules/notifications/NotificationController.cpp \
+        Modules/notifications/WorkerGlobalScopeNotifications.cpp
+}
+
+cfg_enable?(PROXIMITY_EVENTS) {
+    SOURCES += \
+        Modules/proximity/DeviceProximityController.cpp \
+        Modules/proximity/DeviceProximityEvent.cpp
+}
 
 SOURCES += \
-     bindings/ScriptControllerBase.cpp \
-     bindings/js/ArrayValue.cpp \
-     bindings/js/BindingState.cpp \
-     bindings/js/CallbackFunction.cpp \
-     bindings/js/DOMObjectHashTableMap.cpp \
-     bindings/js/DOMWrapperWorld.cpp \
-     bindings/js/Dictionary.cpp \
-     bindings/js/GCController.cpp \
-     bindings/js/JSArrayBufferCustom.cpp \
-     bindings/js/JSAudioBufferCustom.cpp \
-     bindings/js/JSAttrCustom.cpp \
-     bindings/js/JSBlobCustom.cpp \
-     bindings/js/JSCDATASectionCustom.cpp \
-     bindings/js/JSCSSFontFaceRuleCustom.cpp \
-     bindings/js/JSCSSImportRuleCustom.cpp \
-     bindings/js/JSCSSMediaRuleCustom.cpp \
-     bindings/js/JSCSSPageRuleCustom.cpp \
-     bindings/js/JSCSSRuleCustom.cpp \
-     bindings/js/JSCSSRuleListCustom.cpp \
-     bindings/js/JSCSSStyleDeclarationCustom.cpp \
-     bindings/js/JSCSSStyleRuleCustom.cpp \
-     bindings/js/JSCSSValueCustom.cpp \
-     bindings/js/JSCallbackData.cpp \
-     bindings/js/JSCanvasRenderingContext2DCustom.cpp \
-     bindings/js/JSCanvasRenderingContextCustom.cpp \
-     bindings/js/JSClipboardCustom.cpp \
-     bindings/js/JSConsoleCustom.cpp \
-     bindings/js/JSCryptoCustom.cpp \
-     bindings/js/JSCustomXPathNSResolver.cpp \
-     bindings/js/JSDictionary.cpp \
-     bindings/js/JSDOMBinding.cpp \
-     bindings/js/JSDOMFormDataCustom.cpp \
-     bindings/js/JSDOMGlobalObject.cpp \
-     bindings/js/JSDOMImplementationCustom.cpp \
-     bindings/js/JSDOMMimeTypeArrayCustom.cpp \
-     bindings/js/JSDOMPluginArrayCustom.cpp \
-     bindings/js/JSDOMPluginCustom.cpp \
-     bindings/js/JSDOMStringListCustom.cpp \
-     bindings/js/JSDOMStringMapCustom.cpp \
-     bindings/js/JSDOMTokenListCustom.cpp \
-     bindings/js/JSDOMWindowBase.cpp \
-     bindings/js/JSDOMWindowCustom.cpp \
-     bindings/js/JSDOMWindowShell.cpp \
-     bindings/js/JSDOMWrapper.cpp \
-     bindings/js/JSDataViewCustom.cpp \
-     bindings/js/JSDeviceMotionEventCustom.cpp \
-     bindings/js/JSDeviceOrientationEventCustom.cpp \
-     bindings/js/JSDocumentCustom.cpp \
-     bindings/js/JSElementCustom.cpp \
-     bindings/js/JSErrorHandler.cpp \
-     bindings/js/JSEventCustom.cpp \
-     bindings/js/JSEventListener.cpp \
-     bindings/js/JSEventTargetCustom.cpp \
-     bindings/js/JSExceptionBase.cpp \
-     bindings/js/JSFileReaderCustom.cpp \
-     bindings/js/JSGeolocationCustom.cpp \
-     bindings/js/JSHTMLAllCollectionCustom.cpp \
-     bindings/js/JSHTMLAppletElementCustom.cpp \
-     bindings/js/JSHTMLCanvasElementCustom.cpp \
-     bindings/js/JSHTMLCollectionCustom.cpp \
-     bindings/js/JSHTMLDocumentCustom.cpp \
-     bindings/js/JSHTMLElementCustom.cpp \
-     bindings/js/JSHTMLEmbedElementCustom.cpp \
-     bindings/js/JSHTMLFormControlsCollectionCustom.cpp \
-     bindings/js/JSHTMLFormElementCustom.cpp \
-     bindings/js/JSHTMLFrameElementCustom.cpp \
-     bindings/js/JSHTMLFrameSetElementCustom.cpp \
-     bindings/js/JSHTMLInputElementCustom.cpp \
-     bindings/js/JSHTMLLinkElementCustom.cpp \
-     bindings/js/JSHTMLMediaElementCustom.cpp \
-     bindings/js/JSHTMLObjectElementCustom.cpp \
-     bindings/js/JSHTMLOptionsCollectionCustom.cpp \
-     bindings/js/JSHTMLSelectElementCustom.cpp \
-     bindings/js/JSHTMLStyleElementCustom.cpp \
-     bindings/js/JSHTMLTemplateElementCustom.cpp \
-     bindings/js/JSHistoryCustom.cpp \
-     bindings/js/JSImageConstructor.cpp \
-     bindings/js/JSImageDataCustom.cpp \
-     bindings/js/JSInjectedScriptHostCustom.cpp \
-     bindings/js/JSInjectedScriptManager.cpp \
-     bindings/js/JSInspectorFrontendHostCustom.cpp \
-     bindings/js/JSLazyEventListener.cpp \
-     bindings/js/JSLocationCustom.cpp \
-     bindings/js/JSMainThreadExecState.cpp \
-     bindings/js/JSMediaListCustom.cpp \
-     bindings/js/JSMessageChannelCustom.cpp \
-     bindings/js/JSMessageEventCustom.cpp \
-     bindings/js/JSMessagePortCustom.cpp \
-     bindings/js/JSMicroDataItemValueCustom.cpp \
-     bindings/js/JSMutationCallback.cpp \
-     bindings/js/JSMutationObserverCustom.cpp \
-     bindings/js/JSNamedNodeMapCustom.cpp \
-     bindings/js/JSNodeCustom.cpp \
-     bindings/js/JSNodeFilterCondition.cpp \
-     bindings/js/JSNodeFilterCustom.cpp \
-     bindings/js/JSNodeIteratorCustom.cpp \
-     bindings/js/JSNodeListCustom.cpp \
-     bindings/js/JSPluginElementFunctions.cpp \
-     bindings/js/JSPopStateEventCustom.cpp \
-     bindings/js/JSProcessingInstructionCustom.cpp \
-     bindings/js/JSRequestAnimationFrameCallbackCustom.cpp \
-     bindings/js/JSRTCStatsResponseCustom.cpp \
-     bindings/js/JSStorageCustom.cpp \
-     bindings/js/JSStyleSheetCustom.cpp \
-     bindings/js/JSStyleSheetListCustom.cpp \
-     bindings/js/JSTextCustom.cpp \
-     bindings/js/JSTouchCustom.cpp \
-     bindings/js/JSTouchListCustom.cpp \
-     bindings/js/JSTreeWalkerCustom.cpp \
-     bindings/js/JSWebKitCSSKeyframeRuleCustom.cpp \
-     bindings/js/JSWebKitCSSKeyframesRuleCustom.cpp \
-     bindings/js/JSWebKitPointCustom.cpp \
-     bindings/js/JSXMLHttpRequestCustom.cpp \
-     bindings/js/JSXMLHttpRequestUploadCustom.cpp \
-     bindings/js/JSXPathResultCustom.cpp \
-     bindings/js/PageScriptDebugServer.cpp \
-     bindings/js/ScheduledAction.cpp \
-     bindings/js/ScriptCachedFrameData.cpp \
-     bindings/js/ScriptCallStackFactory.cpp \
-     bindings/js/ScriptController.cpp \
-     bindings/js/ScriptControllerQt.cpp \
-     bindings/js/ScriptDebugServer.cpp \
-     bindings/js/ScriptEventListener.cpp \
-     bindings/js/ScriptFunctionCall.cpp \
-     bindings/js/ScriptGCEvent.cpp \
-     bindings/js/ScriptObject.cpp \
-     bindings/js/ScriptProfile.cpp \
-     bindings/js/ScriptState.cpp \
-     bindings/js/ScriptValue.cpp \
-     bindings/js/SerializedScriptValue.cpp \
-     bridge/IdentifierRep.cpp \
-     bridge/NP_jsobject.cpp \
-     bridge/c/CRuntimeObject.cpp \
-     bridge/c/c_class.cpp \
-     bridge/c/c_instance.cpp \
-     bridge/c/c_runtime.cpp \
-     bridge/c/c_utility.cpp \
-     bridge/jsc/BridgeJSC.cpp \
-     bridge/npruntime.cpp \
-     bridge/qt/qt_class.cpp \
-     bridge/qt/qt_instance.cpp \
-     bridge/qt/qt_pixmapruntime.cpp \
-     bridge/qt/qt_runtime.cpp \
-     bridge/runtime_array.cpp \
-     bridge/runtime_method.cpp \
-     bridge/runtime_object.cpp \
-     bridge/runtime_root.cpp \
-     testing/js/WebCoreTestSupport.cpp
-
-
-SOURCES += \
-    Modules/filesystem/DOMFilePath.cpp \
-    Modules/filesystem/DOMFileSystem.cpp \
-    Modules/filesystem/DOMFileSystemBase.cpp \
-    Modules/filesystem/DOMFileSystemSync.cpp \
-    Modules/filesystem/DOMWindowFileSystem.cpp \
-    Modules/filesystem/DirectoryEntry.cpp \
-    Modules/filesystem/DirectoryEntrySync.cpp \
-    Modules/filesystem/DirectoryReader.cpp \
-    Modules/filesystem/DirectoryReaderSync.cpp \
-    Modules/filesystem/Entry.cpp \
-    Modules/filesystem/EntryArray.cpp \
-    Modules/filesystem/EntryArraySync.cpp \
-    Modules/filesystem/EntryBase.cpp \
-    Modules/filesystem/EntrySync.cpp \
-    Modules/filesystem/FileEntry.cpp \
-    Modules/filesystem/FileEntrySync.cpp \
-    Modules/filesystem/FileWriter.cpp \
-    Modules/filesystem/FileWriterBase.cpp \
-    Modules/filesystem/FileWriterSync.cpp \
-    Modules/filesystem/LocalFileSystem.cpp \
-    Modules/filesystem/WorkerGlobalScopeFileSystem.cpp \
-    Modules/navigatorcontentutils/NavigatorContentUtils.cpp \
-    Modules/notifications/DOMWindowNotifications.cpp \
-    Modules/notifications/Notification.cpp \
-    Modules/notifications/NotificationCenter.cpp \
-    Modules/notifications/NotificationController.cpp \
-    Modules/notifications/WorkerGlobalScopeNotifications.cpp \
-    Modules/proximity/DeviceProximityController.cpp \
-    Modules/proximity/DeviceProximityEvent.cpp \
     css/BasicShapeFunctions.cpp \
     css/CSSAspectRatioValue.cpp \
     css/CSSBasicShapes.cpp \
@@ -581,14 +599,20 @@ SOURCES += \
     fileapi/FileReaderSync.cpp \
     fileapi/FileThread.cpp \
     fileapi/ThreadableBlobRegistry.cpp \
-    fileapi/WebKitBlobBuilder.cpp \
-    history/BackForwardController.cpp \
-    history/BackForwardListImpl.cpp \
-    history/CachedFrame.cpp \
-    history/CachedPage.cpp \
-    history/HistoryItem.cpp \
-    history/qt/HistoryItemQt.cpp \
-    history/PageCache.cpp \
+    fileapi/WebKitBlobBuilder.cpp
+
+cfg_build?(history) {
+    SOURCES += \
+        history/BackForwardController.cpp \
+        history/BackForwardListImpl.cpp \
+        history/CachedFrame.cpp \
+        history/CachedPage.cpp \
+        history/HistoryItem.cpp \
+        history/qt/HistoryItemQt.cpp \
+        history/PageCache.cpp
+}
+
+SOURCES += \
     html/BaseButtonInputType.cpp \
     html/BaseCheckableInputType.cpp \
     html/BaseChooserOnlyDateAndTimeInputType.cpp \
@@ -776,93 +800,115 @@ SOURCES += \
     html/shadow/ProgressShadowElement.cpp \
     html/shadow/SliderThumbElement.cpp \
     html/shadow/SpinButtonElement.cpp \
-    html/shadow/TextControlInnerElements.cpp \
-    inspector/ConsoleMessage.cpp \
-    inspector/ContentSearchUtils.cpp \
-    inspector/DOMEditor.cpp \
-    inspector/DOMPatchSupport.cpp \
-    inspector/IdentifiersFactory.cpp \
-    inspector/InjectedScript.cpp \
-    inspector/InjectedScriptBase.cpp \
-    inspector/InjectedScriptCanvasModule.cpp \
-    inspector/InjectedScriptHost.cpp \
-    inspector/InjectedScriptManager.cpp \
-    inspector/InjectedScriptModule.cpp \
-    inspector/InspectorAgent.cpp \
-    inspector/InspectorApplicationCacheAgent.cpp \
-    inspector/InspectorBaseAgent.cpp \
-    inspector/InspectorCSSAgent.cpp \
-    inspector/InspectorCanvasAgent.cpp \
-    inspector/InspectorClient.cpp \
-    inspector/InspectorConsoleAgent.cpp \
-    inspector/InspectorController.cpp \
-    inspector/InspectorCounters.cpp \
-    inspector/InspectorDatabaseAgent.cpp \
-    inspector/InspectorDatabaseResource.cpp \
-    inspector/InspectorDebuggerAgent.cpp \
-    inspector/InspectorDOMAgent.cpp \
-    inspector/InspectorDOMDebuggerAgent.cpp \
-    inspector/InspectorDOMStorageAgent.cpp \
-    inspector/InspectorFrontendClientLocal.cpp \
-    inspector/InspectorFrontendHost.cpp \
-    inspector/InspectorHeapProfilerAgent.cpp \
-    inspector/InspectorHistory.cpp \
-    inspector/InspectorInputAgent.cpp \
-    inspector/InspectorInstrumentation.cpp \
-    inspector/InspectorLayerTreeAgent.cpp \
-    inspector/InspectorMemoryAgent.cpp \
-    inspector/InspectorOverlay.cpp \
-    inspector/InspectorPageAgent.cpp \
-    inspector/InspectorProfilerAgent.cpp \
-    inspector/InspectorResourceAgent.cpp \
-    inspector/InspectorRuntimeAgent.cpp \
-    inspector/InspectorState.cpp \
-    inspector/InspectorStyleSheet.cpp \
-    inspector/InspectorStyleTextEditor.cpp \
-    inspector/InspectorTimelineAgent.cpp \
-    inspector/InspectorValues.cpp \
-    inspector/InspectorWorkerAgent.cpp \
-    inspector/InstrumentingAgents.cpp \
-    inspector/NetworkResourcesData.cpp \
-    inspector/PageConsoleAgent.cpp \
-    inspector/PageDebuggerAgent.cpp \
-    inspector/PageRuntimeAgent.cpp \
-    inspector/ScriptArguments.cpp \
-    inspector/ScriptCallFrame.cpp \
-    inspector/ScriptCallStack.cpp \
-    inspector/TimelineRecordFactory.cpp \
-    inspector/TimelineTraceEventProcessor.cpp \
-    inspector/WorkerConsoleAgent.cpp \
-    inspector/WorkerDebuggerAgent.cpp \
-    inspector/WorkerInspectorController.cpp \
-    inspector/WorkerRuntimeAgent.cpp \
-    loader/appcache/ApplicationCache.cpp \
-    loader/appcache/ApplicationCacheGroup.cpp \
-    loader/appcache/ApplicationCacheHost.cpp \
-    loader/appcache/ApplicationCacheStorage.cpp \
-    loader/appcache/ApplicationCacheResource.cpp \
-    loader/appcache/DOMApplicationCache.cpp \
-    loader/appcache/ManifestParser.cpp \
+    html/shadow/TextControlInnerElements.cpp
+
+cfg_enable?(INSPECTOR) {
+    SOURCES += \
+        inspector/ConsoleMessage.cpp \
+        inspector/ContentSearchUtils.cpp \
+        inspector/DOMEditor.cpp \
+        inspector/DOMPatchSupport.cpp \
+        inspector/IdentifiersFactory.cpp \
+        inspector/InjectedScript.cpp \
+        inspector/InjectedScriptBase.cpp \
+        inspector/InjectedScriptCanvasModule.cpp \
+        inspector/InjectedScriptHost.cpp \
+        inspector/InjectedScriptManager.cpp \
+        inspector/InjectedScriptModule.cpp \
+        inspector/InspectorAgent.cpp \
+        inspector/InspectorApplicationCacheAgent.cpp \
+        inspector/InspectorBaseAgent.cpp \
+        inspector/InspectorCSSAgent.cpp \
+        inspector/InspectorCanvasAgent.cpp \
+        inspector/InspectorClient.cpp \
+        inspector/InspectorConsoleAgent.cpp \
+        inspector/InspectorController.cpp \
+        inspector/InspectorCounters.cpp \
+        inspector/InspectorDatabaseAgent.cpp \
+        inspector/InspectorDatabaseResource.cpp \
+        inspector/InspectorDebuggerAgent.cpp \
+        inspector/InspectorDOMAgent.cpp \
+        inspector/InspectorDOMDebuggerAgent.cpp \
+        inspector/InspectorDOMStorageAgent.cpp \
+        inspector/InspectorFrontendClientLocal.cpp \
+        inspector/InspectorFrontendHost.cpp \
+        inspector/InspectorHeapProfilerAgent.cpp \
+        inspector/InspectorHistory.cpp \
+        inspector/InspectorInputAgent.cpp \
+        inspector/InspectorInstrumentation.cpp \
+        inspector/InspectorLayerTreeAgent.cpp \
+        inspector/InspectorMemoryAgent.cpp \
+        inspector/InspectorOverlay.cpp \
+        inspector/InspectorPageAgent.cpp \
+        inspector/InspectorProfilerAgent.cpp \
+        inspector/InspectorResourceAgent.cpp \
+        inspector/InspectorRuntimeAgent.cpp \
+        inspector/InspectorState.cpp \
+        inspector/InspectorStyleSheet.cpp \
+        inspector/InspectorStyleTextEditor.cpp \
+        inspector/InspectorTimelineAgent.cpp \
+        inspector/InspectorValues.cpp \
+        inspector/InspectorWorkerAgent.cpp \
+        inspector/InstrumentingAgents.cpp \
+        inspector/NetworkResourcesData.cpp \
+        inspector/PageConsoleAgent.cpp \
+        inspector/PageDebuggerAgent.cpp \
+        inspector/PageRuntimeAgent.cpp \
+        inspector/ScriptArguments.cpp \
+        inspector/ScriptCallFrame.cpp \
+        inspector/ScriptCallStack.cpp \
+        inspector/TimelineRecordFactory.cpp \
+        inspector/TimelineTraceEventProcessor.cpp \
+        inspector/WorkerConsoleAgent.cpp \
+        inspector/WorkerDebuggerAgent.cpp \
+        inspector/WorkerInspectorController.cpp \
+        inspector/WorkerRuntimeAgent.cpp
+}
+
+cfg_build?(cache) {
+    SOURCES += \
+        loader/appcache/ApplicationCache.cpp \
+        loader/appcache/ApplicationCacheGroup.cpp \
+        loader/appcache/ApplicationCacheHost.cpp \
+        loader/appcache/ApplicationCacheStorage.cpp \
+        loader/appcache/ApplicationCacheResource.cpp \
+        loader/appcache/DOMApplicationCache.cpp \
+        loader/appcache/ManifestParser.cpp
+}
+
+SOURCES += \
     loader/archive/ArchiveResource.cpp \
-    loader/archive/ArchiveResourceCollection.cpp \
-    loader/cache/MemoryCache.cpp \
-    loader/cache/CachedCSSStyleSheet.cpp \
-    loader/cache/CachedFont.cpp \
-    loader/cache/CachedImage.cpp \
-    loader/cache/CachedRawResource.cpp \
-    loader/cache/CachedResourceHandle.cpp \
-    loader/cache/CachedResource.cpp \
-    loader/cache/CachedScript.cpp \
-    loader/cache/CachedShader.cpp \
-    loader/cache/CachedSVGDocument.cpp \
-    loader/cache/CachedSVGDocumentReference.cpp \
-    loader/cache/CachedXSLStyleSheet.cpp \
+    loader/archive/ArchiveResourceCollection.cpp
+
+cfg_build?(cache) {
+    SOURCES += \
+        loader/cache/MemoryCache.cpp \
+        loader/cache/CachedCSSStyleSheet.cpp \
+        loader/cache/CachedFont.cpp \
+        loader/cache/CachedImage.cpp \
+        loader/cache/CachedRawResource.cpp \
+        loader/cache/CachedResourceHandle.cpp \
+        loader/cache/CachedResource.cpp \
+        loader/cache/CachedScript.cpp \
+        loader/cache/CachedShader.cpp \
+        loader/cache/CachedSVGDocument.cpp \
+        loader/cache/CachedSVGDocumentReference.cpp \
+        loader/cache/CachedXSLStyleSheet.cpp
+}
+
+SOURCES += \
     loader/CookieJar.cpp \
     loader/CrossOriginAccessControl.cpp \
-    loader/CrossOriginPreflightResultCache.cpp \
-    loader/cache/CachedResourceLoader.cpp \
-    loader/cache/CachedResourceRequest.cpp \
-    loader/cache/CachedResourceRequestInitiators.cpp \
+    loader/CrossOriginPreflightResultCache.cpp
+
+cfg_build?(cache) {
+    SOURCES += \
+        loader/cache/CachedResourceLoader.cpp \
+        loader/cache/CachedResourceRequest.cpp \
+        loader/cache/CachedResourceRequestInitiators.cpp
+}
+
+SOURCES += \
     loader/DocumentLoadTiming.cpp \
     loader/DocumentLoader.cpp \
     loader/DocumentThreadableLoader.cpp \
@@ -963,13 +1009,19 @@ SOURCES += \
     page/SuspendableTimer.cpp \
     page/UserContentURLPattern.cpp \
     page/WindowFeatures.cpp \
-    page/WindowFocusAllowedIndicator.cpp \
-    plugins/PluginData.cpp \
-    plugins/DOMPluginArray.cpp \
-    plugins/DOMPlugin.cpp \
-    plugins/PluginMainThreadScheduler.cpp \
-    plugins/DOMMimeType.cpp \
-    plugins/DOMMimeTypeArray.cpp \
+    page/WindowFocusAllowedIndicator.cpp
+
+cfg_build?(plugins) {
+    SOURCES += \
+        plugins/PluginData.cpp \
+        plugins/DOMPluginArray.cpp \
+        plugins/DOMPlugin.cpp \
+        plugins/PluginMainThreadScheduler.cpp \
+        plugins/DOMMimeType.cpp \
+        plugins/DOMMimeTypeArray.cpp
+}
+
+SOURCES += \
     platform/animation/Animation.cpp \
     platform/animation/AnimationList.cpp \
     platform/Arena.cpp \
@@ -1043,18 +1095,24 @@ SOURCES += \
     platform/graphics/surfaces/qt/GraphicsSurfaceQt.cpp \
     platform/graphics/SurrogatePairAwareTextIterator.cpp \
     platform/graphics/TextRun.cpp \
-    platform/graphics/TiledBackingStore.cpp \
-    platform/graphics/transforms/AffineTransform.cpp \
-    platform/graphics/transforms/TransformationMatrix.cpp \
-    platform/graphics/transforms/MatrixTransformOperation.cpp \
-    platform/graphics/transforms/Matrix3DTransformOperation.cpp \
-    platform/graphics/transforms/PerspectiveTransformOperation.cpp \
-    platform/graphics/transforms/RotateTransformOperation.cpp \
-    platform/graphics/transforms/ScaleTransformOperation.cpp \
-    platform/graphics/transforms/SkewTransformOperation.cpp \
-    platform/graphics/transforms/TransformOperations.cpp \
-    platform/graphics/transforms/TransformState.cpp \
-    platform/graphics/transforms/TranslateTransformOperation.cpp \
+    platform/graphics/TiledBackingStore.cpp
+
+cfg_build?(transforms) {
+    SOURCES += \
+        platform/graphics/transforms/AffineTransform.cpp \
+        platform/graphics/transforms/TransformationMatrix.cpp \
+        platform/graphics/transforms/MatrixTransformOperation.cpp \
+        platform/graphics/transforms/Matrix3DTransformOperation.cpp \
+        platform/graphics/transforms/PerspectiveTransformOperation.cpp \
+        platform/graphics/transforms/RotateTransformOperation.cpp \
+        platform/graphics/transforms/ScaleTransformOperation.cpp \
+        platform/graphics/transforms/SkewTransformOperation.cpp \
+        platform/graphics/transforms/TransformOperations.cpp \
+        platform/graphics/transforms/TransformState.cpp \
+        platform/graphics/transforms/TranslateTransformOperation.cpp
+}
+
+SOURCES += \
     platform/graphics/WidthIterator.cpp \
     platform/image-decoders/ImageDecoder.cpp \
     platform/image-decoders/bmp/BMPImageDecoder.cpp \
@@ -1066,10 +1124,16 @@ SOURCES += \
     platform/Language.cpp \
     platform/Length.cpp \
     platform/LengthBox.cpp \
-    platform/text/LineEnding.cpp \
-    platform/leveldb/LevelDBDatabase.cpp \
-    platform/leveldb/LevelDBTransaction.cpp \
-    platform/leveldb/LevelDBWriteBatch.cpp \
+    platform/text/LineEnding.cpp
+
+cfg_build?(leveldb) {
+    SOURCES += \
+        platform/leveldb/LevelDBDatabase.cpp \
+        platform/leveldb/LevelDBTransaction.cpp \
+        platform/leveldb/LevelDBWriteBatch.cpp
+}
+
+SOURCES += \
     platform/LinkHash.cpp \
     platform/Logging.cpp \
     platform/MemoryPressureHandler.cpp \
@@ -1078,30 +1142,36 @@ SOURCES += \
     platform/mock/DeviceOrientationClientMock.cpp \
     platform/mock/GeolocationClientMock.cpp \
     platform/mock/PlatformSpeechSynthesizerMock.cpp \
-    platform/mock/ScrollbarThemeMock.cpp \
-    platform/network/AuthenticationChallengeBase.cpp \
-    platform/network/BlobData.cpp \
-    platform/network/BlobRegistry.cpp \
-    platform/network/BlobRegistryImpl.cpp \
-    platform/network/BlobResourceHandle.cpp \
-    platform/network/Credential.cpp \
-    platform/network/CredentialStorage.cpp \
-    platform/network/FormData.cpp \
-    platform/network/FormDataBuilder.cpp \
-    platform/network/HTTPHeaderMap.cpp \
-    platform/network/HTTPParsers.cpp \
-    platform/network/MIMEHeader.cpp \
-    platform/network/NetworkStateNotifier.cpp \
-    platform/network/NetworkStorageSessionStub.cpp \
-    platform/network/ParsedContentType.cpp \
-    platform/network/ProtectionSpace.cpp \
-    platform/network/ProxyServer.cpp \
-    platform/network/ResourceErrorBase.cpp \
-    platform/network/ResourceHandle.cpp \
-    platform/network/ResourceHandleClient.cpp \
-    platform/network/ResourceLoadTiming.cpp \
-    platform/network/ResourceRequestBase.cpp \
-    platform/network/ResourceResponseBase.cpp \
+    platform/mock/ScrollbarThemeMock.cpp
+
+cfg_build?(network) {
+    SOURCES += \
+        platform/network/AuthenticationChallengeBase.cpp \
+        platform/network/BlobData.cpp \
+        platform/network/BlobRegistry.cpp \
+        platform/network/BlobRegistryImpl.cpp \
+        platform/network/BlobResourceHandle.cpp \
+        platform/network/Credential.cpp \
+        platform/network/CredentialStorage.cpp \
+        platform/network/FormData.cpp \
+        platform/network/FormDataBuilder.cpp \
+        platform/network/HTTPHeaderMap.cpp \
+        platform/network/HTTPParsers.cpp \
+        platform/network/MIMEHeader.cpp \
+        platform/network/NetworkStateNotifier.cpp \
+        platform/network/NetworkStorageSessionStub.cpp \
+        platform/network/ParsedContentType.cpp \
+        platform/network/ProtectionSpace.cpp \
+        platform/network/ProxyServer.cpp \
+        platform/network/ResourceErrorBase.cpp \
+        platform/network/ResourceHandle.cpp \
+        platform/network/ResourceHandleClient.cpp \
+        platform/network/ResourceLoadTiming.cpp \
+        platform/network/ResourceRequestBase.cpp \
+        platform/network/ResourceResponseBase.cpp
+}
+
+SOURCES += \
     platform/NotImplemented.cpp \
     platform/text/RegularExpression.cpp \
     platform/PlatformEvent.cpp \
@@ -1119,13 +1189,13 @@ SOURCES += \
     platform/SharedBufferChunkReader.cpp
 
 cfg_build?(sqlite3) {
-SOURCES += \
-    platform/sql/SQLiteAuthorizer.cpp \
-    platform/sql/SQLiteDatabase.cpp \
-    platform/sql/SQLiteFileSystem.cpp \
-    platform/sql/SQLiteStatement.cpp \
-    platform/sql/SQLiteTransaction.cpp \
-    platform/sql/SQLValue.cpp
+    SOURCES += \
+        platform/sql/SQLiteAuthorizer.cpp \
+        platform/sql/SQLiteDatabase.cpp \
+        platform/sql/SQLiteFileSystem.cpp \
+        platform/sql/SQLiteStatement.cpp \
+        platform/sql/SQLiteTransaction.cpp \
+        platform/sql/SQLValue.cpp
 }
 
 SOURCES += \
@@ -1149,13 +1219,19 @@ SOURCES += \
     platform/text/transcoder/FontTranscoder.cpp \
     platform/UUID.cpp \
     platform/Widget.cpp \
-    platform/PlatformStrategies.cpp \
-    plugins/IFrameShimSupport.cpp \
-    plugins/PluginDatabase.cpp \
-    plugins/PluginDebug.cpp \
-    plugins/PluginPackage.cpp \
-    plugins/PluginStream.cpp \
-    plugins/PluginView.cpp \
+    platform/PlatformStrategies.cpp
+
+cfg_build?(plugins) {
+    SOURCES += \
+        plugins/IFrameShimSupport.cpp \
+        plugins/PluginDatabase.cpp \
+        plugins/PluginDebug.cpp \
+        plugins/PluginPackage.cpp \
+        plugins/PluginStream.cpp \
+        plugins/PluginView.cpp
+}
+
+SOURCES += \
     rendering/AutoTableLayout.cpp \
     rendering/break_lines.cpp \
     rendering/BidiRun.cpp \
@@ -1290,19 +1366,25 @@ SOURCES += \
     rendering/style/StyleRareNonInheritedData.cpp \
     rendering/style/StyleSurroundData.cpp \
     rendering/style/StyleTransformData.cpp \
-    rendering/style/StyleVisualData.cpp \
-    storage/StorageThread.cpp \
-    storage/Storage.cpp \
-    storage/StorageAreaImpl.cpp \
-    storage/StorageAreaSync.cpp \
-    storage/StorageEvent.cpp \
-    storage/StorageEventDispatcher.cpp \
-    storage/StorageMap.cpp \
-    storage/StorageNamespace.cpp \
-    storage/StorageNamespaceImpl.cpp \
-    storage/StorageSyncManager.cpp \
-    storage/StorageStrategy.cpp \
-    storage/StorageTracker.cpp \
+    rendering/style/StyleVisualData.cpp
+
+cfg_build?(storage) {
+    SOURCES += \
+        storage/StorageThread.cpp \
+        storage/Storage.cpp \
+        storage/StorageAreaImpl.cpp \
+        storage/StorageAreaSync.cpp \
+        storage/StorageEvent.cpp \
+        storage/StorageEventDispatcher.cpp \
+        storage/StorageMap.cpp \
+        storage/StorageNamespace.cpp \
+        storage/StorageNamespaceImpl.cpp \
+        storage/StorageSyncManager.cpp \
+        storage/StorageStrategy.cpp \
+        storage/StorageTracker.cpp
+}
+
+SOURCES += \
     testing/Internals.cpp \
     testing/InternalSettings.cpp \
     xml/DOMParser.cpp \
@@ -1357,58 +1439,62 @@ HEADERS += \
     bindings/generic/BindingSecurity.h \
     bindings/generic/RuntimeEnabledFeatures.h
 
+cfg_build?(javascriptcore)
+    HEADERS += \
+        bindings/js/BindingState.h \
+        bindings/js/CachedScriptSourceProvider.h \
+        bindings/js/CallbackFunction.h \
+        bindings/js/GCController.h \
+        bindings/js/DOMObjectHashTableMap.h \
+        bindings/js/DOMWrapperWorld.h \
+        bindings/js/JSArrayBufferViewHelper.h \
+        bindings/js/JSCSSStyleDeclarationCustom.h \
+        bindings/js/JSCallbackData.h \
+        bindings/js/JSCustomXPathNSResolver.h \
+        bindings/js/JSDictionary.h \
+        bindings/js/JSDOMBinding.h \
+        bindings/js/JSDOMGlobalObject.h \
+        bindings/js/JSDOMWindowBase.h \
+        bindings/js/JSDOMWindowCustom.h \
+        bindings/js/JSDOMWindowShell.h \
+        bindings/js/JSDOMWrapper.h \
+        bindings/js/JSErrorHandler.h \
+        bindings/js/JSEventListener.h \
+        bindings/js/JSHTMLInputElementCustom.h \
+        bindings/js/JSHTMLSelectElementCustom.h \
+        bindings/js/JSImageConstructor.h \
+        bindings/js/JSLazyEventListener.h \
+        bindings/js/JSMessagePortCustom.h \
+        bindings/js/JSMutationCallback.h \
+        bindings/js/JSNodeCustom.h \
+        bindings/js/JSNodeFilterCondition.h \
+        bindings/js/JSPluginElementFunctions.h \
+        bindings/js/JSWorkerGlobalScopeBase.h \
+        bindings/js/JavaScriptCallFrame.h \
+        bindings/js/PageScriptDebugServer.h \
+        bindings/js/ScheduledAction.h \
+        bindings/js/ScriptCachedFrameData.h \
+        bindings/js/ScriptController.h \
+        bindings/js/ScriptDebugServer.h \
+        bindings/js/ScriptEventListener.h \
+        bindings/js/ScriptFunctionCall.h \
+        bindings/js/ScriptGCEvent.h \
+        bindings/js/ScriptHeapSnapshot.h \
+        bindings/js/ScriptObject.h \
+        bindings/js/ScriptProfile.h \
+        bindings/js/ScriptProfileNode.h \
+        bindings/js/ScriptProfiler.h \
+        bindings/js/ScriptSourceCode.h \
+        bindings/js/ScriptState.h \
+        bindings/js/ScriptValue.h \
+        bindings/js/ScriptWrappable.h \
+        bindings/js/SerializedScriptValue.h \
+        bindings/js/WebCoreJSClientData.h \
+        bindings/js/WorkerScriptController.h \
+        bindings/js/WorkerScriptDebugServer.h
+}
+
 HEADERS += \
-    bindings/js/BindingState.h \
-    bindings/js/CachedScriptSourceProvider.h \
-    bindings/js/CallbackFunction.h \
-    bindings/js/GCController.h \
-    bindings/js/DOMObjectHashTableMap.h \
-    bindings/js/DOMWrapperWorld.h \
-    bindings/js/JSArrayBufferViewHelper.h \
-    bindings/js/JSCSSStyleDeclarationCustom.h \
-    bindings/js/JSCallbackData.h \
-    bindings/js/JSCustomXPathNSResolver.h \
-    bindings/js/JSDictionary.h \
-    bindings/js/JSDOMBinding.h \
-    bindings/js/JSDOMGlobalObject.h \
-    bindings/js/JSDOMWindowBase.h \
-    bindings/js/JSDOMWindowCustom.h \
-    bindings/js/JSDOMWindowShell.h \
-    bindings/js/JSDOMWrapper.h \
-    bindings/js/JSErrorHandler.h \
-    bindings/js/JSEventListener.h \
-    bindings/js/JSHTMLInputElementCustom.h \
-    bindings/js/JSHTMLSelectElementCustom.h \
-    bindings/js/JSImageConstructor.h \
-    bindings/js/JSLazyEventListener.h \
-    bindings/js/JSMessagePortCustom.h \
-    bindings/js/JSMutationCallback.h \
-    bindings/js/JSNodeCustom.h \
-    bindings/js/JSNodeFilterCondition.h \
-    bindings/js/JSPluginElementFunctions.h \
-    bindings/js/JSWorkerGlobalScopeBase.h \
-    bindings/js/JavaScriptCallFrame.h \
-    bindings/js/PageScriptDebugServer.h \
-    bindings/js/ScheduledAction.h \
-    bindings/js/ScriptCachedFrameData.h \
-    bindings/js/ScriptController.h \
-    bindings/js/ScriptDebugServer.h \
-    bindings/js/ScriptEventListener.h \
-    bindings/js/ScriptFunctionCall.h \
-    bindings/js/ScriptGCEvent.h \
-    bindings/js/ScriptHeapSnapshot.h \
-    bindings/js/ScriptObject.h \
-    bindings/js/ScriptProfile.h \
-    bindings/js/ScriptProfileNode.h \
-    bindings/js/ScriptProfiler.h \
-    bindings/js/ScriptSourceCode.h \
-    bindings/js/ScriptState.h \
-    bindings/js/ScriptValue.h \
-    bindings/js/ScriptWrappable.h \
-    bindings/js/SerializedScriptValue.h \
-    bindings/js/WebCoreJSClientData.h \
-    bindings/js/WorkerScriptController.h \
-    bindings/js/WorkerScriptDebugServer.h \
     bridge/Bridge.h \
     bridge/c/CRuntimeObject.h \
     bridge/c/c_class.h \
@@ -1425,73 +1511,85 @@ HEADERS += \
     bridge/runtime_array.h \
     bridge/runtime_method.h \
     bridge/runtime_object.h \
-    bridge/runtime_root.h \
-    plugins/npruntime.h
+    bridge/runtime_root.h
 
-HEADERS += \
-    Modules/geolocation/Coordinates.h \
-    Modules/geolocation/Geolocation.h \
-    Modules/geolocation/GeolocationController.h \
-    Modules/geolocation/GeolocationError.h \
-    Modules/geolocation/GeolocationPosition.h \
-    Modules/geolocation/Geoposition.h \
-    Modules/geolocation/PositionCallback.h \
-    Modules/geolocation/PositionError.h \
-    Modules/geolocation/PositionErrorCallback.h \
-    Modules/geolocation/PositionOptions.h \
-    \
-    Modules/notifications/DOMWindowNotifications.h \
-    Modules/notifications/Notification.h \
-    Modules/notifications/NotificationCenter.h \
-    Modules/notifications/NotificationClient.h \
-    Modules/notifications/NotificationController.h \
-    Modules/notifications/WorkerGlobalScopeNotifications.h \
-    \
-    Modules/proximity/DeviceProximityClient.h \
-    Modules/proximity/DeviceProximityController.h \
-    Modules/proximity/DeviceProximityEvent.h
+cfg_build?(plugins) {
+    HEADERS += \
+        plugins/npruntime.h
+}
+
+cfg_enable?(GEOLOCATION) {
+    HEADERS += \
+        Modules/geolocation/Coordinates.h \
+        Modules/geolocation/Geolocation.h \
+        Modules/geolocation/GeolocationController.h \
+        Modules/geolocation/GeolocationError.h \
+        Modules/geolocation/GeolocationPosition.h \
+        Modules/geolocation/Geoposition.h \
+        Modules/geolocation/PositionCallback.h \
+        Modules/geolocation/PositionError.h \
+        Modules/geolocation/PositionErrorCallback.h \
+        Modules/geolocation/PositionOptions.h
+}
+
+cfg_enable?(NOTIFICATIONS) {
+    HEADERS += \
+        Modules/notifications/DOMWindowNotifications.h \
+        Modules/notifications/Notification.h \
+        Modules/notifications/NotificationCenter.h \
+        Modules/notifications/NotificationClient.h \
+        Modules/notifications/NotificationController.h \
+        Modules/notifications/WorkerGlobalScopeNotifications.h
+}
+
+cfg_enable?(PROXIMITY_EVENTS) {
+    HEADERS += \
+        Modules/proximity/DeviceProximityClient.h \
+        Modules/proximity/DeviceProximityController.h \
+        Modules/proximity/DeviceProximityEvent.h
+}
 
 cfg_enable?(SQL_DATABASE) {
-HEADERS += \
-    Modules/webdatabase/AbstractDatabaseServer.h \
-    Modules/webdatabase/AbstractSQLStatement.h \
-    Modules/webdatabase/AbstractSQLStatementBackend.h \
-    Modules/webdatabase/ChangeVersionData.h \
-    Modules/webdatabase/ChangeVersionWrapper.h \
-    Modules/webdatabase/DOMWindowWebDatabase.h \
-    Modules/webdatabase/DatabaseAuthorizer.h \
-    Modules/webdatabase/Database.h \
-    Modules/webdatabase/DatabaseBackend.h \
-    Modules/webdatabase/DatabaseBackendBase.h \
-    Modules/webdatabase/DatabaseBackendContext.h \
-    Modules/webdatabase/DatabaseBackendSync.h \
-    Modules/webdatabase/DatabaseBase.h \
-    Modules/webdatabase/DatabaseBasicTypes.h \
-    Modules/webdatabase/DatabaseCallback.h \
-    Modules/webdatabase/DatabaseError.h \
-    Modules/webdatabase/DatabaseManager.h \
-    Modules/webdatabase/DatabaseServer.h \
-    Modules/webdatabase/DatabaseSync.h \
-    Modules/webdatabase/DatabaseTask.h \
-    Modules/webdatabase/DatabaseThread.h \
-    Modules/webdatabase/DatabaseTracker.h \
-    Modules/webdatabase/OriginLock.h \
-    Modules/webdatabase/SQLCallbackWrapper.h \
-    Modules/webdatabase/SQLResultSet.h \
-    Modules/webdatabase/SQLResultSetRowList.h \
-    Modules/webdatabase/SQLStatement.h \
-    Modules/webdatabase/SQLStatementBackend.h \
-    Modules/webdatabase/SQLStatementSync.h \
-    Modules/webdatabase/SQLTransaction.h \
-    Modules/webdatabase/SQLTransactionBackend.h \
-    Modules/webdatabase/SQLTransactionBackendSync.h \
-    Modules/webdatabase/SQLTransactionClient.h \
-    Modules/webdatabase/SQLTransactionCoordinator.h \
-    Modules/webdatabase/SQLTransactionState.h \
-    Modules/webdatabase/SQLTransactionStateMachine.h \
-    Modules/webdatabase/SQLTransactionSync.h \
-    Modules/webdatabase/SQLTransactionSyncCallback.h \
-    Modules/webdatabase/WorkerGlobalScopeWebDatabase.h
+    HEADERS += \
+        Modules/webdatabase/AbstractDatabaseServer.h \
+        Modules/webdatabase/AbstractSQLStatement.h \
+        Modules/webdatabase/AbstractSQLStatementBackend.h \
+        Modules/webdatabase/ChangeVersionData.h \
+        Modules/webdatabase/ChangeVersionWrapper.h \
+        Modules/webdatabase/DOMWindowWebDatabase.h \
+        Modules/webdatabase/DatabaseAuthorizer.h \
+        Modules/webdatabase/Database.h \
+        Modules/webdatabase/DatabaseBackend.h \
+        Modules/webdatabase/DatabaseBackendBase.h \
+        Modules/webdatabase/DatabaseBackendContext.h \
+        Modules/webdatabase/DatabaseBackendSync.h \
+        Modules/webdatabase/DatabaseBase.h \
+        Modules/webdatabase/DatabaseBasicTypes.h \
+        Modules/webdatabase/DatabaseCallback.h \
+        Modules/webdatabase/DatabaseError.h \
+        Modules/webdatabase/DatabaseManager.h \
+        Modules/webdatabase/DatabaseServer.h \
+        Modules/webdatabase/DatabaseSync.h \
+        Modules/webdatabase/DatabaseTask.h \
+        Modules/webdatabase/DatabaseThread.h \
+        Modules/webdatabase/DatabaseTracker.h \
+        Modules/webdatabase/OriginLock.h \
+        Modules/webdatabase/SQLCallbackWrapper.h \
+        Modules/webdatabase/SQLResultSet.h \
+        Modules/webdatabase/SQLResultSetRowList.h \
+        Modules/webdatabase/SQLStatement.h \
+        Modules/webdatabase/SQLStatementBackend.h \
+        Modules/webdatabase/SQLStatementSync.h \
+        Modules/webdatabase/SQLTransaction.h \
+        Modules/webdatabase/SQLTransactionBackend.h \
+        Modules/webdatabase/SQLTransactionBackendSync.h \
+        Modules/webdatabase/SQLTransactionClient.h \
+        Modules/webdatabase/SQLTransactionCoordinator.h \
+        Modules/webdatabase/SQLTransactionState.h \
+        Modules/webdatabase/SQLTransactionStateMachine.h \
+        Modules/webdatabase/SQLTransactionSync.h \
+        Modules/webdatabase/SQLTransactionSyncCallback.h \
+        Modules/webdatabase/WorkerGlobalScopeWebDatabase.h
 }
 
 HEADERS += \
@@ -1792,14 +1890,20 @@ HEADERS += \
     fileapi/FileReaderSync.h \
     fileapi/FileThread.h \
     fileapi/FileThreadTask.h \
-    fileapi/WebKitBlobBuilder.h \
-    history/BackForwardController.h \
-    history/BackForwardListImpl.h \
-    history/BackForwardList.h \
-    history/CachedFrame.h \
-    history/CachedPage.h \
-    history/HistoryItem.h \
-    history/PageCache.h \
+    fileapi/WebKitBlobBuilder.h
+
+cfg_build?(history)
+    HEADERS += \
+        history/BackForwardController.h \
+        history/BackForwardListImpl.h \
+        history/BackForwardList.h \
+        history/CachedFrame.h \
+        history/CachedPage.h \
+        history/HistoryItem.h \
+        history/PageCache.h
+}
+
+HEADERS += \
     html/canvas/CanvasGradient.h \
     html/canvas/CanvasPathMethods.h \
     html/canvas/CanvasPattern.h \
@@ -1952,93 +2056,115 @@ HEADERS += \
     html/shadow/MediaControlElements.h \
     html/shadow/MediaControls.h \
     html/shadow/MediaControlsApple.h \
-    html/shadow/DetailsMarkerControl.h \
-    inspector/BindingVisitors.h \
-    inspector/ConsoleAPITypes.h \
-    inspector/ConsoleMessage.h \
-    inspector/ContentSearchUtils.h \
-    inspector/DOMEditor.h \
-    inspector/DOMPatchSupport.h \
-    inspector/IdentifiersFactory.h \
-    inspector/InjectedScript.h \
-    inspector/InjectedScriptBase.h \
-    inspector/InjectedScriptCanvasModule.h \
-    inspector/InjectedScriptHost.h \
-    inspector/InjectedScriptManager.h \
-    inspector/InjectedScriptModule.h \
-    inspector/InspectorAgent.h \
-    inspector/InspectorApplicationCacheAgent.h \
-    inspector/InspectorBaseAgent.h \
-    inspector/InspectorCanvasAgent.h \
-    inspector/InspectorCanvasInstrumentation.h \
-    inspector/InspectorConsoleAgent.h \
-    inspector/InspectorConsoleInstrumentation.h \
-    inspector/InspectorController.h \
-    inspector/InspectorCounters.h \
-    inspector/InspectorCSSAgent.h \
-    inspector/InspectorDatabaseAgent.h \
-    inspector/InspectorDatabaseInstrumentation.h \
-    inspector/InspectorDatabaseResource.h \
-    inspector/InspectorDebuggerAgent.h \
-    inspector/InspectorDOMDebuggerAgent.h \
-    inspector/InspectorDOMStorageAgent.h \
-    inspector/InspectorFrontendChannel.h \
-    inspector/InspectorFrontendClient.h \
-    inspector/InspectorFrontendClientLocal.h \
-    inspector/InspectorFrontendHost.h \
-    inspector/InspectorHeapProfilerAgent.h \
-    inspector/InspectorHistory.h \
-    inspector/InspectorInstrumentation.h \
-    inspector/InspectorLayerTreeAgent.h \
-    inspector/InspectorMemoryAgent.h \
-    inspector/InspectorOverlay.h \
-    inspector/InspectorPageAgent.h \
-    inspector/InspectorProfilerAgent.h \
-    inspector/InspectorResourceAgent.h \
-    inspector/InspectorRuntimeAgent.h \
-    inspector/InspectorState.h \
-    inspector/InspectorStyleSheet.h \
-    inspector/InspectorStyleTextEditor.h \
-    inspector/InspectorTimelineAgent.h \
-    inspector/InspectorWorkerAgent.h \
-    inspector/InstrumentingAgents.h \
-    inspector/NetworkResourcesData.h \
-    inspector/PageConsoleAgent.h \
-    inspector/PageDebuggerAgent.h \
-    inspector/PageRuntimeAgent.h \
-    inspector/ScriptGCEventListener.h \
-    inspector/TimelineRecordFactory.h \
-    inspector/WorkerConsoleAgent.h \
-    inspector/WorkerDebuggerAgent.h \
-    inspector/WorkerRuntimeAgent.h \
-    loader/appcache/ApplicationCacheGroup.h \
-    loader/appcache/ApplicationCacheHost.h \
-    loader/appcache/ApplicationCache.h \
-    loader/appcache/ApplicationCacheResource.h \
-    loader/appcache/ApplicationCacheStorage.h \
-    loader/appcache/DOMApplicationCache.h \
-    loader/appcache/ManifestParser.h \
+    html/shadow/DetailsMarkerControl.h
+
+cfg_enable?(INSPECTOR) {
+    HEADERS += \
+        inspector/BindingVisitors.h \
+        inspector/ConsoleAPITypes.h \
+        inspector/ConsoleMessage.h \
+        inspector/ContentSearchUtils.h \
+        inspector/DOMEditor.h \
+        inspector/DOMPatchSupport.h \
+        inspector/IdentifiersFactory.h \
+        inspector/InjectedScript.h \
+        inspector/InjectedScriptBase.h \
+        inspector/InjectedScriptCanvasModule.h \
+        inspector/InjectedScriptHost.h \
+        inspector/InjectedScriptManager.h \
+        inspector/InjectedScriptModule.h \
+        inspector/InspectorAgent.h \
+        inspector/InspectorApplicationCacheAgent.h \
+        inspector/InspectorBaseAgent.h \
+        inspector/InspectorCanvasAgent.h \
+        inspector/InspectorCanvasInstrumentation.h \
+        inspector/InspectorConsoleAgent.h \
+        inspector/InspectorConsoleInstrumentation.h \
+        inspector/InspectorController.h \
+        inspector/InspectorCounters.h \
+        inspector/InspectorCSSAgent.h \
+        inspector/InspectorDatabaseAgent.h \
+        inspector/InspectorDatabaseInstrumentation.h \
+        inspector/InspectorDatabaseResource.h \
+        inspector/InspectorDebuggerAgent.h \
+        inspector/InspectorDOMDebuggerAgent.h \
+        inspector/InspectorDOMStorageAgent.h \
+        inspector/InspectorFrontendChannel.h \
+        inspector/InspectorFrontendClient.h \
+        inspector/InspectorFrontendClientLocal.h \
+        inspector/InspectorFrontendHost.h \
+        inspector/InspectorHeapProfilerAgent.h \
+        inspector/InspectorHistory.h \
+        inspector/InspectorInstrumentation.h \
+        inspector/InspectorLayerTreeAgent.h \
+        inspector/InspectorMemoryAgent.h \
+        inspector/InspectorOverlay.h \
+        inspector/InspectorPageAgent.h \
+        inspector/InspectorProfilerAgent.h \
+        inspector/InspectorResourceAgent.h \
+        inspector/InspectorRuntimeAgent.h \
+        inspector/InspectorState.h \
+        inspector/InspectorStyleSheet.h \
+        inspector/InspectorStyleTextEditor.h \
+        inspector/InspectorTimelineAgent.h \
+        inspector/InspectorWorkerAgent.h \
+        inspector/InstrumentingAgents.h \
+        inspector/NetworkResourcesData.h \
+        inspector/PageConsoleAgent.h \
+        inspector/PageDebuggerAgent.h \
+        inspector/PageRuntimeAgent.h \
+        inspector/ScriptGCEventListener.h \
+        inspector/TimelineRecordFactory.h \
+        inspector/WorkerConsoleAgent.h \
+        inspector/WorkerDebuggerAgent.h \
+        inspector/WorkerRuntimeAgent.h
+}
+
+cfg_build?(cache) {
+    HEADERS += \
+        loader/appcache/ApplicationCacheGroup.h \
+        loader/appcache/ApplicationCacheHost.h \
+        loader/appcache/ApplicationCache.h \
+        loader/appcache/ApplicationCacheResource.h \
+        loader/appcache/ApplicationCacheStorage.h \
+        loader/appcache/DOMApplicationCache.h \
+        loader/appcache/ManifestParser.h \
+}
+
+HEADERS += \
     loader/archive/ArchiveResourceCollection.h \
     loader/archive/ArchiveResource.h \
-    loader/cache/CachedCSSStyleSheet.h \
-    loader/cache/CachedFont.h \
-    loader/cache/CachedImage.h \
-    loader/cache/CachedRawResource.h \
-    loader/cache/CachedRawResourceClient.h \
-    loader/cache/CachedResourceClientWalker.h \
-    loader/cache/CachedResource.h \
-    loader/cache/CachedResourceHandle.h \
-    loader/cache/CachedScript.h \
-    loader/cache/CachedShader.h \
-    loader/cache/CachedSVGDocument.h \
-    loader/cache/CachedXSLStyleSheet.h \
-    loader/cache/MemoryCache.h \
+
+cfg_build?(cache) {
+    HEADERS += \
+        loader/cache/CachedCSSStyleSheet.h \
+        loader/cache/CachedFont.h \
+        loader/cache/CachedImage.h \
+        loader/cache/CachedRawResource.h \
+        loader/cache/CachedRawResourceClient.h \
+        loader/cache/CachedResourceClientWalker.h \
+        loader/cache/CachedResource.h \
+        loader/cache/CachedResourceHandle.h \
+        loader/cache/CachedScript.h \
+        loader/cache/CachedShader.h \
+        loader/cache/CachedSVGDocument.h \
+        loader/cache/CachedXSLStyleSheet.h \
+        loader/cache/MemoryCache.h \
+}
+
+HEADERS += \
     loader/CookieJar.h \
     loader/CrossOriginAccessControl.h \
     loader/CrossOriginPreflightResultCache.h \
-    loader/cache/CachedResourceLoader.h \
-    loader/cache/CachedResourceRequest.h \
-    loader/cache/CachedResourceRequestInitiators.h \
+
+cfg_build?(cache) {
+    HEADERS += \
+        loader/cache/CachedResourceLoader.h \
+        loader/cache/CachedResourceRequest.h \
+        loader/cache/CachedResourceRequestInitiators.h \
+}
+
+HEADERS += \
     loader/DocumentLoader.h \
     loader/DocumentThreadableLoader.h \
     loader/FormState.h \
@@ -2068,10 +2194,16 @@ HEADERS += \
     loader/TextResourceDecoder.h \
     loader/ThreadableLoader.h \
     loader/WorkerThreadableLoader.h \
-    mathml/MathMLElement.h \
-    mathml/MathMLInlineContainerElement.h \
-    mathml/MathMLMathElement.h \
-    mathml/MathMLTextElement.h \
+
+cfg_enable?(MATHML) {
+    HEADERS += \
+        mathml/MathMLElement.h \
+        mathml/MathMLInlineContainerElement.h \
+        mathml/MathMLMathElement.h \
+        mathml/MathMLTextElement.h
+}
+
+HEADERS += \
     page/animation/AnimationBase.h \
     page/animation/AnimationController.h \
     page/animation/CompositeAnimation.h \
@@ -2124,12 +2256,18 @@ HEADERS += \
     page/SecurityOrigin.h \
     page/Settings.h \
     page/SpatialNavigation.h \
-    page/SpeechInput.h \
-    page/SpeechInputClient.h \
-    page/SpeechInputEvent.h \
-    page/SpeechInputListener.h \
-    page/SpeechInputResult.h \
-    page/SpeechInputResultList.h \
+
+cfg_enable?(INPUT_SPEECH) {
+    HEADERS += \
+        page/SpeechInput.h \
+        page/SpeechInputClient.h \
+        page/SpeechInputEvent.h \
+        page/SpeechInputListener.h \
+        page/SpeechInputResult.h \
+        page/SpeechInputResultList.h
+}
+
+HEADERS += \
     page/TouchAdjustment.h \
     page/ValidationMessageClient.h \
     page/WindowFeatures.h \
@@ -2163,55 +2301,67 @@ HEADERS += \
     platform/mock/PlatformSpeechSynthesizerMock.h \
     platform/mock/ScrollbarThemeMock.h \
     platform/graphics/BitmapImage.h \
-    platform/graphics/Color.h \
-    platform/graphics/cpu/arm/filters/NEONHelpers.h \
-    platform/graphics/cpu/arm/filters/FEBlendNEON.h \
-    platform/graphics/cpu/arm/filters/FECompositeArithmeticNEON.h \
-    platform/graphics/cpu/arm/filters/FEGaussianBlurNEON.h \
-    platform/graphics/cpu/arm/filters/FELightingNEON.h \
-    platform/graphics/CrossfadeGeneratedImage.h \
-    platform/graphics/filters/texmap/TextureMapperPlatformCompiledProgram.h \
-    platform/graphics/filters/CustomFilterArrayParameter.h \
-    platform/graphics/filters/CustomFilterColorParameter.h \
-    platform/graphics/filters/CustomFilterConstants.h \
-    platform/graphics/filters/CustomFilterGlobalContext.h \
-    platform/graphics/filters/CustomFilterMesh.h \
-    platform/graphics/filters/CustomFilterMeshGenerator.h \
-    platform/graphics/filters/CustomFilterNumberParameter.h \
-    platform/graphics/filters/CustomFilterCompiledProgram.h \
-    platform/graphics/filters/CustomFilterOperation.h \
-    platform/graphics/filters/ValidatedCustomFilterOperation.h \
-    platform/graphics/filters/CustomFilterParameter.h \
-    platform/graphics/filters/CustomFilterParameterList.h \
-    platform/graphics/filters/CustomFilterProgram.h \
-    platform/graphics/filters/CustomFilterProgramInfo.h \
-    platform/graphics/filters/CustomFilterRenderer.h \
-    platform/graphics/filters/CustomFilterTransformParameter.h \
-    platform/graphics/filters/CustomFilterValidatedProgram.h \
-    platform/graphics/filters/FEBlend.h \
-    platform/graphics/filters/FEColorMatrix.h \
-    platform/graphics/filters/FEComponentTransfer.h \
-    platform/graphics/filters/FEComposite.h \
-    platform/graphics/filters/FEConvolveMatrix.h \
-    platform/graphics/filters/FECustomFilter.h \
-    platform/graphics/filters/FEDiffuseLighting.h \
-    platform/graphics/filters/FEDisplacementMap.h \
-    platform/graphics/filters/FEDropShadow.h \
-    platform/graphics/filters/FEFlood.h \
-    platform/graphics/filters/FEGaussianBlur.h \
-    platform/graphics/filters/FELighting.h \
-    platform/graphics/filters/FEMerge.h \
-    platform/graphics/filters/FEMorphology.h \
-    platform/graphics/filters/FEOffset.h \
-    platform/graphics/filters/FESpecularLighting.h \
-    platform/graphics/filters/FETile.h \
-    platform/graphics/filters/FETurbulence.h \
-    platform/graphics/filters/FilterEffect.h \
-    platform/graphics/filters/FilterOperation.h \
-    platform/graphics/filters/FilterOperations.h \
-    platform/graphics/filters/LightSource.h \
-    platform/graphics/filters/SourceAlpha.h \
-    platform/graphics/filters/SourceGraphic.h \
+    platform/graphics/Color.h
+
+cfg_build?(filters) {
+    HEADERS += \
+        platform/graphics/cpu/arm/filters/NEONHelpers.h \
+        platform/graphics/cpu/arm/filters/FEBlendNEON.h \
+        platform/graphics/cpu/arm/filters/FECompositeArithmeticNEON.h \
+        platform/graphics/cpu/arm/filters/FEGaussianBlurNEON.h \
+        platform/graphics/cpu/arm/filters/FELightingNEON.h
+}
+
+HEADERS += \
+    platform/graphics/CrossfadeGeneratedImage.h
+
+cfg_build?(filters) {
+    HEADERS += \
+        platform/graphics/filters/texmap/TextureMapperPlatformCompiledProgram.h \
+        platform/graphics/filters/CustomFilterArrayParameter.h \
+        platform/graphics/filters/CustomFilterColorParameter.h \
+        platform/graphics/filters/CustomFilterConstants.h \
+        platform/graphics/filters/CustomFilterGlobalContext.h \
+        platform/graphics/filters/CustomFilterMesh.h \
+        platform/graphics/filters/CustomFilterMeshGenerator.h \
+        platform/graphics/filters/CustomFilterNumberParameter.h \
+        platform/graphics/filters/CustomFilterCompiledProgram.h \
+        platform/graphics/filters/CustomFilterOperation.h \
+        platform/graphics/filters/ValidatedCustomFilterOperation.h \
+        platform/graphics/filters/CustomFilterParameter.h \
+        platform/graphics/filters/CustomFilterParameterList.h \
+        platform/graphics/filters/CustomFilterProgram.h \
+        platform/graphics/filters/CustomFilterProgramInfo.h \
+        platform/graphics/filters/CustomFilterRenderer.h \
+        platform/graphics/filters/CustomFilterTransformParameter.h \
+        platform/graphics/filters/CustomFilterValidatedProgram.h \
+        platform/graphics/filters/FEBlend.h \
+        platform/graphics/filters/FEColorMatrix.h \
+        platform/graphics/filters/FEComponentTransfer.h \
+        platform/graphics/filters/FEComposite.h \
+        platform/graphics/filters/FEConvolveMatrix.h \
+        platform/graphics/filters/FECustomFilter.h \
+        platform/graphics/filters/FEDiffuseLighting.h \
+        platform/graphics/filters/FEDisplacementMap.h \
+        platform/graphics/filters/FEDropShadow.h \
+        platform/graphics/filters/FEFlood.h \
+        platform/graphics/filters/FEGaussianBlur.h \
+        platform/graphics/filters/FELighting.h \
+        platform/graphics/filters/FEMerge.h \
+        platform/graphics/filters/FEMorphology.h \
+        platform/graphics/filters/FEOffset.h \
+        platform/graphics/filters/FESpecularLighting.h \
+        platform/graphics/filters/FETile.h \
+        platform/graphics/filters/FETurbulence.h \
+        platform/graphics/filters/FilterEffect.h \
+        platform/graphics/filters/FilterOperation.h \
+        platform/graphics/filters/FilterOperations.h \
+        platform/graphics/filters/LightSource.h \
+        platform/graphics/filters/SourceAlpha.h \
+        platform/graphics/filters/SourceGraphic.h
+}
+
+HEADERS += \
     platform/graphics/FloatPoint3D.h \
     platform/graphics/FloatPoint.h \
     platform/graphics/FloatPolygon.h \
@@ -2262,34 +2412,40 @@ HEADERS += \
     platform/graphics/surfaces/GraphicsSurfaceToken.h \
     platform/graphics/SurrogatePairAwareTextIterator.h
 
-cfg_use?(texture_mapper) {
-HEADERS += \
-    platform/graphics/texmap/GraphicsLayerTextureMapper.h \
-    platform/graphics/texmap/TextureMapper.h \
-    platform/graphics/texmap/TextureMapperBackingStore.h \
-    platform/graphics/texmap/TextureMapperFPSCounter.h \
-    platform/graphics/texmap/TextureMapperImageBuffer.h \
-    platform/graphics/texmap/TextureMapperLayer.h \
-    platform/graphics/texmap/TextureMapperPlatformLayer.h \
-    platform/graphics/texmap/TextureMapperSurfaceBackingStore.h \
-    platform/graphics/texmap/TextureMapperTile.h \
-    platform/graphics/texmap/TextureMapperTiledBackingStore.h
+cfg_use?(TEXTURE_MAPPER) {
+    HEADERS += \
+        platform/graphics/texmap/GraphicsLayerTextureMapper.h \
+        platform/graphics/texmap/TextureMapper.h \
+        platform/graphics/texmap/TextureMapperBackingStore.h \
+        platform/graphics/texmap/TextureMapperFPSCounter.h \
+        platform/graphics/texmap/TextureMapperImageBuffer.h \
+        platform/graphics/texmap/TextureMapperLayer.h \
+        platform/graphics/texmap/TextureMapperPlatformLayer.h \
+        platform/graphics/texmap/TextureMapperSurfaceBackingStore.h \
+        platform/graphics/texmap/TextureMapperTile.h \
+        platform/graphics/texmap/TextureMapperTiledBackingStore.h
 }
 
 HEADERS += \
     platform/graphics/Tile.h \
     platform/graphics/TiledBackingStore.h \
-    platform/graphics/TiledBackingStoreClient.h \
-    platform/graphics/transforms/Matrix3DTransformOperation.h \
-    platform/graphics/transforms/MatrixTransformOperation.h \
-    platform/graphics/transforms/PerspectiveTransformOperation.h \
-    platform/graphics/transforms/RotateTransformOperation.h \
-    platform/graphics/transforms/ScaleTransformOperation.h \
-    platform/graphics/transforms/SkewTransformOperation.h \
-    platform/graphics/transforms/TransformationMatrix.h \
-    platform/graphics/transforms/TransformOperations.h \
-    platform/graphics/transforms/TransformState.h \
-    platform/graphics/transforms/TranslateTransformOperation.h \
+    platform/graphics/TiledBackingStoreClient.h
+
+cfg_build?(transforms) {
+    HEADERS += \
+        platform/graphics/transforms/Matrix3DTransformOperation.h \
+        platform/graphics/transforms/MatrixTransformOperation.h \
+        platform/graphics/transforms/PerspectiveTransformOperation.h \
+        platform/graphics/transforms/RotateTransformOperation.h \
+        platform/graphics/transforms/ScaleTransformOperation.h \
+        platform/graphics/transforms/SkewTransformOperation.h \
+        platform/graphics/transforms/TransformationMatrix.h \
+        platform/graphics/transforms/TransformOperations.h \
+        platform/graphics/transforms/TransformState.h \
+        platform/graphics/transforms/TranslateTransformOperation.h
+}
+
+HEADERS += \
     platform/graphics/WidthIterator.h \
     platform/graphics/WidthCache.h \
     platform/image-decoders/bmp/BMPImageDecoder.h \
@@ -2301,13 +2457,19 @@ HEADERS += \
     platform/KillRing.h \
     platform/KURL.h \
     platform/Length.h \
-    platform/LengthBox.h \
-    platform/leveldb/LevelDBComparator.h \
-    platform/leveldb/LevelDBDatabase.h \
-    platform/leveldb/LevelDBIterator.h \
-    platform/leveldb/LevelDBSlice.h \
-    platform/leveldb/LevelDBTransaction.h \
-    platform/leveldb/LevelDBWriteBatch.h \
+    platform/LengthBox.h
+
+cfg_build?(leveldb) {
+    HEADERS += \
+        platform/leveldb/LevelDBComparator.h \
+        platform/leveldb/LevelDBDatabase.h \
+        platform/leveldb/LevelDBIterator.h \
+        platform/leveldb/LevelDBSlice.h \
+        platform/leveldb/LevelDBTransaction.h \
+        platform/leveldb/LevelDBWriteBatch.h
+}
+
+HEADERS += \
     platform/text/BidiRunList.h \
     platform/text/LineEnding.h \
     platform/text/LocaleToScriptMapping.h \
@@ -2319,42 +2481,48 @@ HEADERS += \
     platform/Language.h \
     platform/MemoryPressureHandler.h \
     platform/MainThreadTask.h \
-    platform/MIMETypeRegistry.h \
-    platform/network/AuthenticationChallengeBase.h \
-    platform/network/AuthenticationClient.h \
-    platform/network/BlobData.h \
-    platform/network/BlobRegistry.h \
-    platform/network/BlobRegistryImpl.h \
-    platform/network/BlobResourceHandle.h \
-    platform/network/BlobStorageData.h \
-    platform/network/CookieStorage.h \
-    platform/network/Credential.h \
-    platform/network/CredentialStorage.h \
-    platform/network/DNSResolveQueue.h \
-    platform/network/FormDataBuilder.h \
-    platform/network/FormData.h \
-    platform/network/HTTPHeaderMap.h \
-    platform/network/HTTPParsers.h \
-    platform/network/HTTPStatusCodes.h \
-    platform/network/MIMESniffing.h \
-    platform/network/NetworkStorageSession.h \
-    platform/network/NetworkingContext.h \
-    platform/network/NetworkStateNotifier.h \
-    platform/network/ParsedContentType.h \
-    platform/network/PlatformCookieJar.h \
-    platform/network/ProtectionSpace.h \
-    platform/network/ProxyServer.h \
-    platform/network/qt/QtMIMETypeSniffer.h \
-    platform/network/qt/QNetworkReplyHandler.h \
-    platform/network/ResourceErrorBase.h \
-    platform/network/ResourceHandle.h \
-    platform/network/ResourceHandleTypes.h \
-    platform/network/ResourceLoadPriority.h \
-    platform/network/ResourceLoadTiming.h \
-    platform/network/ResourceRequestBase.h \
-    platform/network/ResourceResponseBase.h \
-    platform/network/qt/NetworkStateNotifierPrivate.h \
-    platform/network/qt/CookieJarQt.h \
+    platform/MIMETypeRegistry.h
+
+cfg_build?(network) {
+    HEADERS += \
+        platform/network/AuthenticationChallengeBase.h \
+        platform/network/AuthenticationClient.h \
+        platform/network/BlobData.h \
+        platform/network/BlobRegistry.h \
+        platform/network/BlobRegistryImpl.h \
+        platform/network/BlobResourceHandle.h \
+        platform/network/BlobStorageData.h \
+        platform/network/CookieStorage.h \
+        platform/network/Credential.h \
+        platform/network/CredentialStorage.h \
+        platform/network/DNSResolveQueue.h \
+        platform/network/FormDataBuilder.h \
+        platform/network/FormData.h \
+        platform/network/HTTPHeaderMap.h \
+        platform/network/HTTPParsers.h \
+        platform/network/HTTPStatusCodes.h \
+        platform/network/MIMESniffing.h \
+        platform/network/NetworkStorageSession.h \
+        platform/network/NetworkingContext.h \
+        platform/network/NetworkStateNotifier.h \
+        platform/network/ParsedContentType.h \
+        platform/network/PlatformCookieJar.h \
+        platform/network/ProtectionSpace.h \
+        platform/network/ProxyServer.h \
+        platform/network/qt/QtMIMETypeSniffer.h \
+        platform/network/qt/QNetworkReplyHandler.h \
+        platform/network/ResourceErrorBase.h \
+        platform/network/ResourceHandle.h \
+        platform/network/ResourceHandleTypes.h \
+        platform/network/ResourceLoadPriority.h \
+        platform/network/ResourceLoadTiming.h \
+        platform/network/ResourceRequestBase.h \
+        platform/network/ResourceResponseBase.h \
+        platform/network/qt/NetworkStateNotifierPrivate.h \
+        platform/network/qt/CookieJarQt.h
+}
+
+HEADERS += \
     platform/PlatformExportMacros.h \
     platform/PlatformTouchEvent.h \
     platform/PlatformTouchPoint.h \
@@ -2378,12 +2546,12 @@ HEADERS += \
     platform/SharedBufferChunkReader.h
 
 cfg_build?(sqlite3) {
-HEADERS += \
-    platform/sql/SQLiteDatabase.h \
-    platform/sql/SQLiteFileSystem.h \
-    platform/sql/SQLiteStatement.h \
-    platform/sql/SQLiteTransaction.h \
-    platform/sql/SQLValue.h
+    HEADERS += \
+        platform/sql/SQLiteDatabase.h \
+        platform/sql/SQLiteFileSystem.h \
+        platform/sql/SQLiteStatement.h \
+        platform/sql/SQLiteTransaction.h \
+        platform/sql/SQLValue.h
 }
 
 HEADERS += \
@@ -2411,20 +2579,26 @@ HEADERS += \
     platform/Timer.h \
     platform/Widget.h \
     platform/PlatformStrategies.h \
-    platform/LocalizedStrings.h \
-    plugins/DOMMimeTypeArray.h \
-    plugins/DOMMimeType.h \
-    plugins/DOMPluginArray.h \
-    plugins/PluginDatabase.h \
-    plugins/PluginData.h \
-    plugins/PluginDebug.h \
-    plugins/DOMPlugin.h \
-    plugins/IFrameShimSupport.h \
-    plugins/PluginMainThreadScheduler.h \
-    plugins/PluginPackage.h \
-    plugins/PluginStream.h \
-    plugins/PluginView.h \
-    plugins/win/PluginMessageThrottlerWin.h \
+    platform/LocalizedStrings.h
+
+cfg_build?(plugins) {
+    HEADERS += \
+        plugins/DOMMimeTypeArray.h \
+        plugins/DOMMimeType.h \
+        plugins/DOMPluginArray.h \
+        plugins/PluginDatabase.h \
+        plugins/PluginData.h \
+        plugins/PluginDebug.h \
+        plugins/DOMPlugin.h \
+        plugins/IFrameShimSupport.h \
+        plugins/PluginMainThreadScheduler.h \
+        plugins/PluginPackage.h \
+        plugins/PluginStream.h \
+        plugins/PluginView.h \
+        plugins/win/PluginMessageThrottlerWin.h
+}
+
+HEADERS += \
     rendering/AutoTableLayout.h \
     rendering/break_lines.h \
     rendering/CounterNode.h \
@@ -2439,18 +2613,24 @@ HEADERS += \
     rendering/InlineTextBox.h \
     rendering/LayoutRepainter.h \
     rendering/LayoutState.h \
-    rendering/LogicalSelectionOffsetCaches.h \
-    rendering/mathml/RenderMathMLBlock.h \
-    rendering/mathml/RenderMathMLFenced.h \
-    rendering/mathml/RenderMathMLFraction.h \
-    rendering/mathml/RenderMathMLMath.h \
-    rendering/mathml/RenderMathMLOperator.h \
-    rendering/mathml/RenderMathMLRoot.h \
-    rendering/mathml/RenderMathMLRow.h \
-    rendering/mathml/RenderMathMLSpace.h \
-    rendering/mathml/RenderMathMLSquareRoot.h \
-    rendering/mathml/RenderMathMLSubSup.h \
-    rendering/mathml/RenderMathMLUnderOver.h \
+    rendering/LogicalSelectionOffsetCaches.h
+
+cfg_enable?(MATHML) {
+    HEADERS += \
+        rendering/mathml/RenderMathMLBlock.h \
+        rendering/mathml/RenderMathMLFenced.h \
+        rendering/mathml/RenderMathMLFraction.h \
+        rendering/mathml/RenderMathMLMath.h \
+        rendering/mathml/RenderMathMLOperator.h \
+        rendering/mathml/RenderMathMLRoot.h \
+        rendering/mathml/RenderMathMLRow.h \
+        rendering/mathml/RenderMathMLSpace.h \
+        rendering/mathml/RenderMathMLSquareRoot.h \
+        rendering/mathml/RenderMathMLSubSup.h \
+        rendering/mathml/RenderMathMLUnderOver.h
+}
+
+HEADERS += \
     rendering/Pagination.h \
     rendering/PaintInfo.h \
     rendering/PaintPhase.h \
@@ -2481,8 +2661,14 @@ HEADERS += \
     rendering/RenderImageResource.h \
     rendering/RenderImageResourceStyleImage.h \
     rendering/RenderImage.h \
-    rendering/RenderInline.h \
-    rendering/RenderInputSpeech.h \
+    rendering/RenderInline.h
+
+cfg_enable?() {
+    HEADERS += \
+        rendering/RenderInputSpeech.h
+}
+
+HEADERS += \
     rendering/RenderLayer.h \
     rendering/RenderLayerBacking.h \
     rendering/RenderLayerCompositor.h \
@@ -2575,300 +2761,320 @@ HEADERS += \
     rendering/style/StyleTransformData.h \
     rendering/style/StyleVariableData.h \
     rendering/style/StyleVisualData.h \
-    rendering/style/GridTrackSize.h \
-    rendering/style/SVGRenderStyleDefs.h \
-    rendering/style/SVGRenderStyle.h \
-    rendering/svg/RenderSVGBlock.h \
-    rendering/svg/RenderSVGContainer.h \
-    rendering/svg/RenderSVGEllipse.h \
-    rendering/svg/RenderSVGForeignObject.h \
-    rendering/svg/RenderSVGGradientStop.h \
-    rendering/svg/RenderSVGHiddenContainer.h \
-    rendering/svg/RenderSVGImage.h \
-    rendering/svg/RenderSVGInline.h \
-    rendering/svg/RenderSVGInlineText.h \
-    rendering/svg/RenderSVGModelObject.h \
-    rendering/svg/RenderSVGPath.h \
-    rendering/svg/RenderSVGRect.h \
-    rendering/svg/RenderSVGResource.h \
-    rendering/svg/RenderSVGResourceClipper.h \
-    rendering/svg/RenderSVGResourceContainer.h \
-    rendering/svg/RenderSVGResourceFilter.h \
-    rendering/svg/RenderSVGResourceFilterPrimitive.h \
-    rendering/svg/RenderSVGResourceGradient.h \
-    rendering/svg/RenderSVGResourceLinearGradient.h \
-    rendering/svg/RenderSVGResourceMarker.h \
-    rendering/svg/RenderSVGResourceMasker.h \
-    rendering/svg/RenderSVGResourcePattern.h \
-    rendering/svg/RenderSVGResourceRadialGradient.h \
-    rendering/svg/RenderSVGResourceSolidColor.h \
-    rendering/svg/RenderSVGRoot.h \
-    rendering/svg/RenderSVGShape.h \
-    rendering/svg/RenderSVGTSpan.h \
-    rendering/svg/RenderSVGText.h \
-    rendering/svg/RenderSVGTextPath.h \
-    rendering/svg/RenderSVGTransformableContainer.h \
-    rendering/svg/RenderSVGViewportContainer.h \
-    rendering/svg/SVGInlineFlowBox.h \
-    rendering/svg/SVGInlineTextBox.h \
-    rendering/svg/SVGMarkerData.h \
-    rendering/svg/SVGPathData.h \
-    rendering/svg/SVGRenderSupport.h \
-    rendering/svg/SVGRenderTreeAsText.h \
-    rendering/svg/SVGRenderingContext.h \
-    rendering/svg/SVGResources.h \
-    rendering/svg/SVGResourcesCache.h \
-    rendering/svg/SVGResourcesCycleSolver.h \
-    rendering/svg/SVGRootInlineBox.h \
-    rendering/svg/SVGTextChunk.h \
-    rendering/svg/SVGTextChunkBuilder.h \
-    rendering/svg/SVGTextFragment.h \
-    rendering/svg/SVGTextLayoutAttributes.h \
-    rendering/svg/SVGTextLayoutAttributesBuilder.h \
-    rendering/svg/SVGTextLayoutEngine.h \
-    rendering/svg/SVGTextLayoutEngineBaseline.h \
-    rendering/svg/SVGTextLayoutEngineSpacing.h \
-    rendering/svg/SVGTextMetrics.h \
-    rendering/svg/SVGTextMetricsBuilder.h \
-    rendering/svg/SVGTextQuery.h \
-    rendering/svg/SVGTextRunRenderingContext.h \
-    storage/Storage.h \
-    storage/StorageArea.h \
-    storage/StorageAreaImpl.h \
-    storage/StorageAreaSync.h \
-    storage/StorageEvent.h \
-    storage/StorageEventDispatcher.h \
-    storage/StorageMap.h \
-    storage/StorageNamespace.h \
-    storage/StorageNamespaceImpl.h \
-    storage/StorageSyncManager.h \
-    storage/StorageThread.h \
-    storage/StorageTracker.h \
-    storage/StorageTrackerClient.h \
-    svg/animation/SMILTimeContainer.h \
-    svg/animation/SMILTime.h \
-    svg/animation/SVGSMILElement.h \
-    svg/ColorDistance.h \
-    svg/graphics/filters/SVGFEImage.h \
-    svg/graphics/filters/SVGFilterBuilder.h \
-    svg/graphics/filters/SVGFilter.h \
-    svg/graphics/SVGImage.h \
-    svg/graphics/SVGImageCache.h \
-    svg/graphics/SVGImageForContainer.h \
-    svg/properties/SVGAnimatedProperty.h \
-    svg/properties/SVGAttributeToPropertyMap.h \
-    svg/properties/SVGAnimatedEnumerationPropertyTearOff.h \
-    svg/properties/SVGAnimatedListPropertyTearOff.h \
-    svg/properties/SVGAnimatedPathSegListPropertyTearOff.h \
-    svg/properties/SVGAnimatedProperty.h \
-    svg/properties/SVGAnimatedPropertyDescription.h \
-    svg/properties/SVGAnimatedPropertyMacros.h \
-    svg/properties/SVGAnimatedPropertyTearOff.h \
-    svg/properties/SVGAnimatedStaticPropertyTearOff.h \
-    svg/properties/SVGAnimatedTransformListPropertyTearOff.h \
-    svg/properties/SVGListProperty.h \
-    svg/properties/SVGListPropertyTearOff.h \
-    svg/properties/SVGPathSegListPropertyTearOff.h \
-    svg/properties/SVGProperty.h \
-    svg/properties/SVGPropertyInfo.h \
-    svg/properties/SVGPropertyTearOff.h \
-    svg/properties/SVGPropertyTraits.h \
-    svg/properties/SVGStaticListPropertyTearOff.h \
-    svg/properties/SVGStaticPropertyTearOff.h \
-    svg/properties/SVGStaticPropertyWithParentTearOff.h \
-    svg/properties/SVGTransformListPropertyTearOff.h \
-    svg/SVGAElement.h \
-    svg/SVGAltGlyphDefElement.h \
-    svg/SVGAltGlyphElement.h \
-    svg/SVGAltGlyphItemElement.h \
-    svg/SVGAngle.h \
-    svg/SVGAnimateColorElement.h \
-    svg/SVGAnimatedAngle.h \
-    svg/SVGAnimatedBoolean.h \
-    svg/SVGAnimatedColor.h \
-    svg/SVGAnimatedEnumeration.h \
-    svg/SVGAnimatedInteger.h \
-    svg/SVGAnimatedIntegerOptionalInteger.h \
-    svg/SVGAnimatedLength.h \
-    svg/SVGAnimatedLengthList.h \
-    svg/SVGAnimatedNumber.h \
-    svg/SVGAnimatedNumberList.h \
-    svg/SVGAnimatedNumberOptionalNumber.h \
-    svg/SVGAnimatedPath.h \
-    svg/SVGAnimatedPreserveAspectRatio.h \
-    svg/SVGAnimatedPointList.h \
-    svg/SVGAnimatedRect.h \
-    svg/SVGAnimatedString.h \
-    svg/SVGAnimatedTransformList.h \
-    svg/SVGAnimatedType.h \
-    svg/SVGAnimatedTypeAnimator.h \
-    svg/SVGAnimateElement.h \
-    svg/SVGAnimateMotionElement.h \
-    svg/SVGAnimateTransformElement.h \
-    svg/SVGAnimationElement.h \
-    svg/SVGAnimatorFactory.h \
-    svg/SVGCircleElement.h \
-    svg/SVGClipPathElement.h \
-    svg/SVGColor.h \
-    svg/SVGComponentTransferFunctionElement.h \
-    svg/SVGCursorElement.h \
-    svg/SVGDefsElement.h \
-    svg/SVGDescElement.h \
-    svg/SVGDocumentExtensions.h \
-    svg/SVGDocument.h \
-    svg/SVGElement.h \
-    svg/SVGElementInstance.h \
-    svg/SVGElementInstanceList.h \
-    svg/SVGElementRareData.h \
-    svg/SVGEllipseElement.h \
-    svg/SVGExternalResourcesRequired.h \
-    svg/SVGFEBlendElement.h \
-    svg/SVGFEColorMatrixElement.h \
-    svg/SVGFEComponentTransferElement.h \
-    svg/SVGFECompositeElement.h \
-    svg/SVGFEConvolveMatrixElement.h \
-    svg/SVGFEDiffuseLightingElement.h \
-    svg/SVGFEDisplacementMapElement.h \
-    svg/SVGFEDistantLightElement.h \
-    svg/SVGFEDropShadowElement.h \
-    svg/SVGFEFloodElement.h \
-    svg/SVGFEFuncAElement.h \
-    svg/SVGFEFuncBElement.h \
-    svg/SVGFEFuncGElement.h \
-    svg/SVGFEFuncRElement.h \
-    svg/SVGFEGaussianBlurElement.h \
-    svg/SVGFEImageElement.h \
-    svg/SVGFELightElement.h \
-    svg/SVGFEMergeElement.h \
-    svg/SVGFEMergeNodeElement.h \
-    svg/SVGFEMorphologyElement.h \
-    svg/SVGFEOffsetElement.h \
-    svg/SVGFEPointLightElement.h \
-    svg/SVGFESpecularLightingElement.h \
-    svg/SVGFESpotLightElement.h \
-    svg/SVGFETileElement.h \
-    svg/SVGFETurbulenceElement.h \
-    svg/SVGFilterElement.h \
-    svg/SVGFilterPrimitiveStandardAttributes.h \
-    svg/SVGFitToViewBox.h \
-    svg/SVGFontData.h \
-    svg/SVGFontElement.h \
-    svg/SVGFontFaceElement.h \
-    svg/SVGFontFaceFormatElement.h \
-    svg/SVGFontFaceNameElement.h \
-    svg/SVGFontFaceSrcElement.h \
-    svg/SVGFontFaceUriElement.h \
-    svg/SVGForeignObjectElement.h \
-    svg/SVGGElement.h \
-    svg/SVGGlyphElement.h \
-    svg/SVGGlyphRefElement.h \
-    svg/SVGGradientElement.h \
-    svg/SVGGraphicsElement.h \
-    svg/SVGHKernElement.h \
-    svg/SVGImageElement.h \
-    svg/SVGImageLoader.h \
-    svg/SVGLangSpace.h \
-    svg/SVGLength.h \
-    svg/SVGLengthContext.h \
-    svg/SVGLengthList.h \
-    svg/SVGLinearGradientElement.h \
-    svg/SVGLineElement.h \
-    svg/SVGLocatable.h \
-    svg/SVGMarkerElement.h \
-    svg/SVGMaskElement.h \
-    svg/SVGMatrix.h \
-    svg/SVGMetadataElement.h \
-    svg/SVGMissingGlyphElement.h \
-    svg/SVGMPathElement.h \
-    svg/SVGNumberList.h \
-    svg/SVGPaint.h \
-    svg/SVGParserUtilities.h \
-    svg/SVGParsingError.h \
-    svg/SVGPathBuilder.h \
-    svg/SVGPathConsumer.h \
-    svg/SVGPathElement.h \
-    svg/SVGPathParser.h \
-    svg/SVGPathSegArc.h \
-    svg/SVGPathSegArcAbs.h \
-    svg/SVGPathSegArcRel.h \
-    svg/SVGPathSegClosePath.h \
-    svg/SVGPathSegCurvetoCubic.h \
-    svg/SVGPathSegCurvetoCubicAbs.h \
-    svg/SVGPathSegCurvetoCubicRel.h \
-    svg/SVGPathSegCurvetoCubicSmooth.h \
-    svg/SVGPathSegCurvetoCubicSmoothAbs.h \
-    svg/SVGPathSegCurvetoCubicSmoothRel.h \
-    svg/SVGPathSegCurvetoQuadratic.h \
-    svg/SVGPathSegCurvetoQuadraticAbs.h \
-    svg/SVGPathSegCurvetoQuadraticRel.h \
-    svg/SVGPathSegCurvetoQuadraticSmoothAbs.h \
-    svg/SVGPathSegCurvetoQuadraticSmoothRel.h \
-    svg/SVGPathSegLinetoAbs.h \
-    svg/SVGPathSegLinetoRel.h \
-    svg/SVGPathSegLinetoHorizontal.h \
-    svg/SVGPathSegLinetoHorizontalAbs.h \
-    svg/SVGPathSegLinetoHorizontalRel.h \
-    svg/SVGPathSegLinetoVertical.h \
-    svg/SVGPathSegLinetoVerticalAbs.h \
-    svg/SVGPathSegLinetoVerticalRel.h \
-    svg/SVGPathSegList.h \
-    svg/SVGPathSegListBuilder.h \
-    svg/SVGPathSegMovetoAbs.h \
-    svg/SVGPathSegMovetoRel.h \
-    svg/SVGPatternElement.h \
-    svg/SVGPointList.h \
-    svg/SVGPolyElement.h \
-    svg/SVGPolygonElement.h \
-    svg/SVGPolylineElement.h \
-    svg/SVGPreserveAspectRatio.h \
-    svg/SVGRadialGradientElement.h \
-    svg/SVGRect.h \
-    svg/SVGRectElement.h \
-    svg/SVGScriptElement.h \
-    svg/SVGSetElement.h \
-    svg/SVGStopElement.h \
-    svg/SVGStringList.h \
-    svg/SVGStyleElement.h \
-    svg/SVGStyledElement.h \
-    svg/SVGSVGElement.h \
-    svg/SVGSwitchElement.h \
-    svg/SVGSymbolElement.h \
-    svg/SVGTests.h \
-    svg/SVGTextContentElement.h \
-    svg/SVGTextElement.h \
-    svg/SVGTextPathElement.h \
-    svg/SVGTextPositioningElement.h \
-    svg/SVGTitleElement.h \
-    svg/SVGTransformable.h \
-    svg/SVGTransformDistance.h \
-    svg/SVGTransform.h \
-    svg/SVGTransformList.h \
-    svg/SVGTRefElement.h \
-    svg/SVGTSpanElement.h \
-    svg/SVGURIReference.h \
-    svg/SVGUseElement.h \
-    svg/SVGViewElement.h \
-    svg/SVGViewSpec.h \
-    svg/SVGVKernElement.h \
-    svg/SVGZoomAndPan.h \
-    svg/SVGZoomEvent.h \
+    rendering/style/GridTrackSize.h
+
+cfg_enable?(SVG) {
+    HEADERS += \
+        rendering/style/SVGRenderStyleDefs.h \
+        rendering/style/SVGRenderStyle.h \
+        rendering/svg/RenderSVGBlock.h \
+        rendering/svg/RenderSVGContainer.h \
+        rendering/svg/RenderSVGEllipse.h \
+        rendering/svg/RenderSVGForeignObject.h \
+        rendering/svg/RenderSVGGradientStop.h \
+        rendering/svg/RenderSVGHiddenContainer.h \
+        rendering/svg/RenderSVGImage.h \
+        rendering/svg/RenderSVGInline.h \
+        rendering/svg/RenderSVGInlineText.h \
+        rendering/svg/RenderSVGModelObject.h \
+        rendering/svg/RenderSVGPath.h \
+        rendering/svg/RenderSVGRect.h \
+        rendering/svg/RenderSVGResource.h \
+        rendering/svg/RenderSVGResourceClipper.h \
+        rendering/svg/RenderSVGResourceContainer.h \
+        rendering/svg/RenderSVGResourceFilter.h \
+        rendering/svg/RenderSVGResourceFilterPrimitive.h \
+        rendering/svg/RenderSVGResourceGradient.h \
+        rendering/svg/RenderSVGResourceLinearGradient.h \
+        rendering/svg/RenderSVGResourceMarker.h \
+        rendering/svg/RenderSVGResourceMasker.h \
+        rendering/svg/RenderSVGResourcePattern.h \
+        rendering/svg/RenderSVGResourceRadialGradient.h \
+        rendering/svg/RenderSVGResourceSolidColor.h \
+        rendering/svg/RenderSVGRoot.h \
+        rendering/svg/RenderSVGShape.h \
+        rendering/svg/RenderSVGTSpan.h \
+        rendering/svg/RenderSVGText.h \
+        rendering/svg/RenderSVGTextPath.h \
+        rendering/svg/RenderSVGTransformableContainer.h \
+        rendering/svg/RenderSVGViewportContainer.h \
+        rendering/svg/SVGInlineFlowBox.h \
+        rendering/svg/SVGInlineTextBox.h \
+        rendering/svg/SVGMarkerData.h \
+        rendering/svg/SVGPathData.h \
+        rendering/svg/SVGRenderSupport.h \
+        rendering/svg/SVGRenderTreeAsText.h \
+        rendering/svg/SVGRenderingContext.h \
+        rendering/svg/SVGResources.h \
+        rendering/svg/SVGResourcesCache.h \
+        rendering/svg/SVGResourcesCycleSolver.h \
+        rendering/svg/SVGRootInlineBox.h \
+        rendering/svg/SVGTextChunk.h \
+        rendering/svg/SVGTextChunkBuilder.h \
+        rendering/svg/SVGTextFragment.h \
+        rendering/svg/SVGTextLayoutAttributes.h \
+        rendering/svg/SVGTextLayoutAttributesBuilder.h \
+        rendering/svg/SVGTextLayoutEngine.h \
+        rendering/svg/SVGTextLayoutEngineBaseline.h \
+        rendering/svg/SVGTextLayoutEngineSpacing.h \
+        rendering/svg/SVGTextMetrics.h \
+        rendering/svg/SVGTextMetricsBuilder.h \
+        rendering/svg/SVGTextQuery.h \
+        rendering/svg/SVGTextRunRenderingContext.h \
+}
+
+cfg_build?(storage) {
+    HEADERS += \
+        storage/Storage.h \
+        storage/StorageArea.h \
+        storage/StorageAreaImpl.h \
+        storage/StorageAreaSync.h \
+        storage/StorageEvent.h \
+        storage/StorageEventDispatcher.h \
+        storage/StorageMap.h \
+        storage/StorageNamespace.h \
+        storage/StorageNamespaceImpl.h \
+        storage/StorageSyncManager.h \
+        storage/StorageThread.h \
+        storage/StorageTracker.h \
+        storage/StorageTrackerClient.h
+}
+
+cfg_enable?(SVG) {
+    HEADERS += \
+        svg/animation/SMILTimeContainer.h \
+        svg/animation/SMILTime.h \
+        svg/animation/SVGSMILElement.h \
+        svg/ColorDistance.h \
+        svg/graphics/filters/SVGFEImage.h \
+        svg/graphics/filters/SVGFilterBuilder.h \
+        svg/graphics/filters/SVGFilter.h \
+        svg/graphics/SVGImage.h \
+        svg/graphics/SVGImageCache.h \
+        svg/graphics/SVGImageForContainer.h \
+        svg/properties/SVGAnimatedProperty.h \
+        svg/properties/SVGAttributeToPropertyMap.h \
+        svg/properties/SVGAnimatedEnumerationPropertyTearOff.h \
+        svg/properties/SVGAnimatedListPropertyTearOff.h \
+        svg/properties/SVGAnimatedPathSegListPropertyTearOff.h \
+        svg/properties/SVGAnimatedProperty.h \
+        svg/properties/SVGAnimatedPropertyDescription.h \
+        svg/properties/SVGAnimatedPropertyMacros.h \
+        svg/properties/SVGAnimatedPropertyTearOff.h \
+        svg/properties/SVGAnimatedStaticPropertyTearOff.h \
+        svg/properties/SVGAnimatedTransformListPropertyTearOff.h \
+        svg/properties/SVGListProperty.h \
+        svg/properties/SVGListPropertyTearOff.h \
+        svg/properties/SVGPathSegListPropertyTearOff.h \
+        svg/properties/SVGProperty.h \
+        svg/properties/SVGPropertyInfo.h \
+        svg/properties/SVGPropertyTearOff.h \
+        svg/properties/SVGPropertyTraits.h \
+        svg/properties/SVGStaticListPropertyTearOff.h \
+        svg/properties/SVGStaticPropertyTearOff.h \
+        svg/properties/SVGStaticPropertyWithParentTearOff.h \
+        svg/properties/SVGTransformListPropertyTearOff.h \
+        svg/SVGAElement.h \
+        svg/SVGAltGlyphDefElement.h \
+        svg/SVGAltGlyphElement.h \
+        svg/SVGAltGlyphItemElement.h \
+        svg/SVGAngle.h \
+        svg/SVGAnimateColorElement.h \
+        svg/SVGAnimatedAngle.h \
+        svg/SVGAnimatedBoolean.h \
+        svg/SVGAnimatedColor.h \
+        svg/SVGAnimatedEnumeration.h \
+        svg/SVGAnimatedInteger.h \
+        svg/SVGAnimatedIntegerOptionalInteger.h \
+        svg/SVGAnimatedLength.h \
+        svg/SVGAnimatedLengthList.h \
+        svg/SVGAnimatedNumber.h \
+        svg/SVGAnimatedNumberList.h \
+        svg/SVGAnimatedNumberOptionalNumber.h \
+        svg/SVGAnimatedPath.h \
+        svg/SVGAnimatedPreserveAspectRatio.h \
+        svg/SVGAnimatedPointList.h \
+        svg/SVGAnimatedRect.h \
+        svg/SVGAnimatedString.h \
+        svg/SVGAnimatedTransformList.h \
+        svg/SVGAnimatedType.h \
+        svg/SVGAnimatedTypeAnimator.h \
+        svg/SVGAnimateElement.h \
+        svg/SVGAnimateMotionElement.h \
+        svg/SVGAnimateTransformElement.h \
+        svg/SVGAnimationElement.h \
+        svg/SVGAnimatorFactory.h \
+        svg/SVGCircleElement.h \
+        svg/SVGClipPathElement.h \
+        svg/SVGColor.h \
+        svg/SVGComponentTransferFunctionElement.h \
+        svg/SVGCursorElement.h \
+        svg/SVGDefsElement.h \
+        svg/SVGDescElement.h \
+        svg/SVGDocumentExtensions.h \
+        svg/SVGDocument.h \
+        svg/SVGElement.h \
+        svg/SVGElementInstance.h \
+        svg/SVGElementInstanceList.h \
+        svg/SVGElementRareData.h \
+        svg/SVGEllipseElement.h \
+        svg/SVGExternalResourcesRequired.h \
+        svg/SVGFEBlendElement.h \
+        svg/SVGFEColorMatrixElement.h \
+        svg/SVGFEComponentTransferElement.h \
+        svg/SVGFECompositeElement.h \
+        svg/SVGFEConvolveMatrixElement.h \
+        svg/SVGFEDiffuseLightingElement.h \
+        svg/SVGFEDisplacementMapElement.h \
+        svg/SVGFEDistantLightElement.h \
+        svg/SVGFEDropShadowElement.h \
+        svg/SVGFEFloodElement.h \
+        svg/SVGFEFuncAElement.h \
+        svg/SVGFEFuncBElement.h \
+        svg/SVGFEFuncGElement.h \
+        svg/SVGFEFuncRElement.h \
+        svg/SVGFEGaussianBlurElement.h \
+        svg/SVGFEImageElement.h \
+        svg/SVGFELightElement.h \
+        svg/SVGFEMergeElement.h \
+        svg/SVGFEMergeNodeElement.h \
+        svg/SVGFEMorphologyElement.h \
+        svg/SVGFEOffsetElement.h \
+        svg/SVGFEPointLightElement.h \
+        svg/SVGFESpecularLightingElement.h \
+        svg/SVGFESpotLightElement.h \
+        svg/SVGFETileElement.h \
+        svg/SVGFETurbulenceElement.h \
+        svg/SVGFilterElement.h \
+        svg/SVGFilterPrimitiveStandardAttributes.h \
+        svg/SVGFitToViewBox.h \
+        svg/SVGFontData.h \
+        svg/SVGFontElement.h \
+        svg/SVGFontFaceElement.h \
+        svg/SVGFontFaceFormatElement.h \
+        svg/SVGFontFaceNameElement.h \
+        svg/SVGFontFaceSrcElement.h \
+        svg/SVGFontFaceUriElement.h \
+        svg/SVGForeignObjectElement.h \
+        svg/SVGGElement.h \
+        svg/SVGGlyphElement.h \
+        svg/SVGGlyphRefElement.h \
+        svg/SVGGradientElement.h \
+        svg/SVGGraphicsElement.h \
+        svg/SVGHKernElement.h \
+        svg/SVGImageElement.h \
+        svg/SVGImageLoader.h \
+        svg/SVGLangSpace.h \
+        svg/SVGLength.h \
+        svg/SVGLengthContext.h \
+        svg/SVGLengthList.h \
+        svg/SVGLinearGradientElement.h \
+        svg/SVGLineElement.h \
+        svg/SVGLocatable.h \
+        svg/SVGMarkerElement.h \
+        svg/SVGMaskElement.h \
+        svg/SVGMatrix.h \
+        svg/SVGMetadataElement.h \
+        svg/SVGMissingGlyphElement.h \
+        svg/SVGMPathElement.h \
+        svg/SVGNumberList.h \
+        svg/SVGPaint.h \
+        svg/SVGParserUtilities.h \
+        svg/SVGParsingError.h \
+        svg/SVGPathBuilder.h \
+        svg/SVGPathConsumer.h \
+        svg/SVGPathElement.h \
+        svg/SVGPathParser.h \
+        svg/SVGPathSegArc.h \
+        svg/SVGPathSegArcAbs.h \
+        svg/SVGPathSegArcRel.h \
+        svg/SVGPathSegClosePath.h \
+        svg/SVGPathSegCurvetoCubic.h \
+        svg/SVGPathSegCurvetoCubicAbs.h \
+        svg/SVGPathSegCurvetoCubicRel.h \
+        svg/SVGPathSegCurvetoCubicSmooth.h \
+        svg/SVGPathSegCurvetoCubicSmoothAbs.h \
+        svg/SVGPathSegCurvetoCubicSmoothRel.h \
+        svg/SVGPathSegCurvetoQuadratic.h \
+        svg/SVGPathSegCurvetoQuadraticAbs.h \
+        svg/SVGPathSegCurvetoQuadraticRel.h \
+        svg/SVGPathSegCurvetoQuadraticSmoothAbs.h \
+        svg/SVGPathSegCurvetoQuadraticSmoothRel.h \
+        svg/SVGPathSegLinetoAbs.h \
+        svg/SVGPathSegLinetoRel.h \
+        svg/SVGPathSegLinetoHorizontal.h \
+        svg/SVGPathSegLinetoHorizontalAbs.h \
+        svg/SVGPathSegLinetoHorizontalRel.h \
+        svg/SVGPathSegLinetoVertical.h \
+        svg/SVGPathSegLinetoVerticalAbs.h \
+        svg/SVGPathSegLinetoVerticalRel.h \
+        svg/SVGPathSegList.h \
+        svg/SVGPathSegListBuilder.h \
+        svg/SVGPathSegMovetoAbs.h \
+        svg/SVGPathSegMovetoRel.h \
+        svg/SVGPatternElement.h \
+        svg/SVGPointList.h \
+        svg/SVGPolyElement.h \
+        svg/SVGPolygonElement.h \
+        svg/SVGPolylineElement.h \
+        svg/SVGPreserveAspectRatio.h \
+        svg/SVGRadialGradientElement.h \
+        svg/SVGRect.h \
+        svg/SVGRectElement.h \
+        svg/SVGScriptElement.h \
+        svg/SVGSetElement.h \
+        svg/SVGStopElement.h \
+        svg/SVGStringList.h \
+        svg/SVGStyleElement.h \
+        svg/SVGStyledElement.h \
+        svg/SVGSVGElement.h \
+        svg/SVGSwitchElement.h \
+        svg/SVGSymbolElement.h \
+        svg/SVGTests.h \
+        svg/SVGTextContentElement.h \
+        svg/SVGTextElement.h \
+        svg/SVGTextPathElement.h \
+        svg/SVGTextPositioningElement.h \
+        svg/SVGTitleElement.h \
+        svg/SVGTransformable.h \
+        svg/SVGTransformDistance.h \
+        svg/SVGTransform.h \
+        svg/SVGTransformList.h \
+        svg/SVGTRefElement.h \
+        svg/SVGTSpanElement.h \
+        svg/SVGURIReference.h \
+        svg/SVGUseElement.h \
+        svg/SVGViewElement.h \
+        svg/SVGViewSpec.h \
+        svg/SVGVKernElement.h \
+        svg/SVGZoomAndPan.h \
+        svg/SVGZoomEvent.h
+}
+
+HEADERS += \
     testing/Internals.h \
     testing/InternalSettings.h \
     testing/MallocStatistics.h \
     testing/MemoryInfo.h \
-    testing/TypeConversions.h \
-    workers/AbstractWorker.h \
-    workers/DedicatedWorkerGlobalScope.h \
-    workers/DedicatedWorkerThread.h \
-    workers/SharedWorker.h \
-    workers/WorkerGlobalScope.h \
-    workers/WorkerEventQueue.h \
-    workers/Worker.h \
-    workers/WorkerLocation.h \
-    workers/WorkerMessagingProxy.h \
-    workers/WorkerRunLoop.h \
-    workers/WorkerScriptLoader.h \
-    workers/WorkerThread.h \
+    testing/TypeConversions.h
+
+cfg_enable?(WORKERS) {
+    HEADERS += \
+        workers/AbstractWorker.h \
+        workers/DedicatedWorkerGlobalScope.h \
+        workers/DedicatedWorkerThread.h \
+        workers/SharedWorker.h \
+        workers/WorkerGlobalScope.h \
+        workers/WorkerEventQueue.h \
+        workers/Worker.h \
+        workers/WorkerLocation.h \
+        workers/WorkerMessagingProxy.h \
+        workers/WorkerRunLoop.h \
+        workers/WorkerScriptLoader.h \
+        workers/WorkerThread.h
+}
+
+HEADERS += \
     xml/parser/CharacterReferenceParserInlines.h \
     xml/parser/MarkupTokenizerInlines.h \
     xml/parser/XMLDocumentParser.h \
@@ -2921,31 +3127,35 @@ SOURCES += \
     platform/graphics/qt/PatternQt.cpp \
     platform/graphics/qt/StillImageQt.cpp
 
-cfg_use?(texture_mapper) {
-SOURCES += \
-    platform/graphics/texmap/GraphicsLayerTextureMapper.cpp \
-    platform/graphics/texmap/TextureMapper.cpp \
-    platform/graphics/texmap/TextureMapperBackingStore.cpp \
-    platform/graphics/texmap/TextureMapperFPSCounter.cpp \
-    platform/graphics/texmap/TextureMapperImageBuffer.cpp \
-    platform/graphics/texmap/TextureMapperLayer.cpp \
-    platform/graphics/texmap/TextureMapperSurfaceBackingStore.cpp \
-    platform/graphics/texmap/TextureMapperTile.cpp \
-    platform/graphics/texmap/TextureMapperTiledBackingStore.cpp
+cfg_use?(TEXTURE_MAPPER) {
+    SOURCES += \
+        platform/graphics/texmap/GraphicsLayerTextureMapper.cpp \
+        platform/graphics/texmap/TextureMapper.cpp \
+        platform/graphics/texmap/TextureMapperBackingStore.cpp \
+        platform/graphics/texmap/TextureMapperFPSCounter.cpp \
+        platform/graphics/texmap/TextureMapperImageBuffer.cpp \
+        platform/graphics/texmap/TextureMapperLayer.cpp \
+        platform/graphics/texmap/TextureMapperSurfaceBackingStore.cpp \
+        platform/graphics/texmap/TextureMapperTile.cpp \
+        platform/graphics/texmap/TextureMapperTiledBackingStore.cpp
+}
+
+cfg_build?(network) {
+    SOURCES += \
+        platform/network/DNSResolveQueue.cpp \
+        platform/network/MIMESniffing.cpp \
+        platform/network/qt/CookieJarQt.cpp \
+        platform/network/qt/CredentialStorageQt.cpp \
+        platform/network/qt/ResourceHandleQt.cpp \
+        platform/network/qt/ResourceRequestQt.cpp \
+        platform/network/qt/DNSQt.cpp \
+        platform/network/qt/NetworkStateNotifierQt.cpp \
+        platform/network/qt/ProxyServerQt.cpp \
+        platform/network/qt/QtMIMETypeSniffer.cpp \
+        platform/network/qt/QNetworkReplyHandler.cpp
 }
 
 SOURCES += \
-    platform/network/DNSResolveQueue.cpp \
-    platform/network/MIMESniffing.cpp \
-    platform/network/qt/CookieJarQt.cpp \
-    platform/network/qt/CredentialStorageQt.cpp \
-    platform/network/qt/ResourceHandleQt.cpp \
-    platform/network/qt/ResourceRequestQt.cpp \
-    platform/network/qt/DNSQt.cpp \
-    platform/network/qt/NetworkStateNotifierQt.cpp \
-    platform/network/qt/ProxyServerQt.cpp \
-    platform/network/qt/QtMIMETypeSniffer.cpp \
-    platform/network/qt/QNetworkReplyHandler.cpp \
     platform/Cursor.cpp \
     platform/ContextMenu.cpp \
     platform/ContextMenuItem.cpp \
@@ -3178,7 +3388,7 @@ enable?(INDEXED_DATABASE) {
         Modules/indexeddb/PageGroupIndexedDatabase.cpp \
         Modules/indexeddb/WorkerGlobalScopeIndexedDatabase.cpp
 
-    use?(leveldb):!use?(system_leveldb): WEBKIT += leveldb
+    use?(LEVELDB):!use?(SYSTEM_LEVELDB): WEBKIT += leveldb
 
 }
 
@@ -3711,7 +3921,7 @@ enable?(TEXT_AUTOSIZING) {
     SOURCES += # FIXME!
 }
 
-have?(qtsensors):enable?(DEVICE_ORIENTATION) {
+have?(QTSENSORS):enable?(DEVICE_ORIENTATION) {
     HEADERS += \
         platform/qt/DeviceMotionClientQt.h \
         platform/qt/DeviceMotionProviderQt.h \
@@ -4177,25 +4387,27 @@ use?(3D_GRAPHICS) {
         platform/graphics/gpu/TilingData.h \
         platform/graphics/opengl/Extensions3DOpenGL.h
 
-cfg_use?(texture_mapper) {
-    HEADERS += \
-        platform/graphics/texmap/TextureMapperGL.h \
-        platform/graphics/texmap/TextureMapperShaderProgram.h \
-        platform/graphics/texmap/coordinated/AreaAllocator.h \
-        platform/graphics/texmap/coordinated/CompositingCoordinator.h \
-        platform/graphics/texmap/coordinated/CoordinatedBackingStore.h \
-        platform/graphics/texmap/coordinated/CoordinatedCustomFilterOperation.h \
-        platform/graphics/texmap/coordinated/CoordinatedCustomFilterProgram.h \
-        platform/graphics/texmap/coordinated/CoordinatedGraphicsLayer.h \
-        platform/graphics/texmap/coordinated/CoordinatedGraphicsScene.h \
-        platform/graphics/texmap/coordinated/CoordinatedGraphicsState.h \
-        platform/graphics/texmap/coordinated/CoordinatedImageBacking.h \
-        platform/graphics/texmap/coordinated/CoordinatedSurface.h \
-        platform/graphics/texmap/coordinated/CoordinatedTile.h \
-        platform/graphics/texmap/coordinated/SurfaceUpdateInfo.h \
-        platform/graphics/texmap/coordinated/UpdateAtlas.h
-}
+    cfg_use?(TEXTURE_MAPPER) {
+        HEADERS += \
+            platform/graphics/texmap/TextureMapperGL.h \
+            platform/graphics/texmap/TextureMapperShaderProgram.h \
+            platform/graphics/texmap/coordinated/AreaAllocator.h \
+            platform/graphics/texmap/coordinated/CompositingCoordinator.h \
+            platform/graphics/texmap/coordinated/CoordinatedBackingStore.h \
+            platform/graphics/texmap/coordinated/CoordinatedCustomFilterOperation.h \
+            platform/graphics/texmap/coordinated/CoordinatedCustomFilterProgram.h \
+            platform/graphics/texmap/coordinated/CoordinatedGraphicsLayer.h \
+            platform/graphics/texmap/coordinated/CoordinatedGraphicsScene.h \
+            platform/graphics/texmap/coordinated/CoordinatedGraphicsState.h \
+            platform/graphics/texmap/coordinated/CoordinatedImageBacking.h \
+            platform/graphics/texmap/coordinated/CoordinatedSurface.h \
+            platform/graphics/texmap/coordinated/CoordinatedTile.h \
+            platform/graphics/texmap/coordinated/SurfaceUpdateInfo.h \
+            platform/graphics/texmap/coordinated/UpdateAtlas.h
+    }
 
+    #use?(3D_GRAPHICS)
+    # see above
     SOURCES += \
         page/scrolling/ScrollingConstraints.cpp \
         page/scrolling/ScrollingCoordinator.cpp \
@@ -4217,20 +4429,20 @@ cfg_use?(texture_mapper) {
         platform/graphics/opengl/Extensions3DOpenGLCommon.cpp \
         platform/graphics/qt/GraphicsContext3DQt.cpp
 
-cfg_use?(texture_mapper) {
-    SOURCES += \
-        platform/graphics/texmap/TextureMapperGL.cpp \
-        platform/graphics/texmap/TextureMapperShaderProgram.cpp \
-        platform/graphics/texmap/coordinated/AreaAllocator.cpp \
-        platform/graphics/texmap/coordinated/CompositingCoordinator.cpp \
-        platform/graphics/texmap/coordinated/CoordinatedBackingStore.cpp \
-        platform/graphics/texmap/coordinated/CoordinatedGraphicsLayer.cpp \
-        platform/graphics/texmap/coordinated/CoordinatedGraphicsScene.cpp \
-        platform/graphics/texmap/coordinated/CoordinatedImageBacking.cpp \
-        platform/graphics/texmap/coordinated/CoordinatedSurface.cpp \
-        platform/graphics/texmap/coordinated/CoordinatedTile.cpp \
-        platform/graphics/texmap/coordinated/UpdateAtlas.cpp
-}
+    cfg_use?(TEXTURE_MAPPER) {
+        SOURCES += \
+            platform/graphics/texmap/TextureMapperGL.cpp \
+            platform/graphics/texmap/TextureMapperShaderProgram.cpp \
+            platform/graphics/texmap/coordinated/AreaAllocator.cpp \
+            platform/graphics/texmap/coordinated/CompositingCoordinator.cpp \
+            platform/graphics/texmap/coordinated/CoordinatedBackingStore.cpp \
+            platform/graphics/texmap/coordinated/CoordinatedGraphicsLayer.cpp \
+            platform/graphics/texmap/coordinated/CoordinatedGraphicsScene.cpp \
+            platform/graphics/texmap/coordinated/CoordinatedImageBacking.cpp \
+            platform/graphics/texmap/coordinated/CoordinatedSurface.cpp \
+            platform/graphics/texmap/coordinated/CoordinatedTile.cpp \
+            platform/graphics/texmap/coordinated/UpdateAtlas.cpp
+    }
 
     INCLUDEPATH += $$PWD/platform/graphics/gpu
 
@@ -4295,7 +4507,7 @@ use?(ZLIB) {
     SOURCES += platform/graphics/WOFFFileFormat.cpp
 }
 
-cfg_build?(sqlite3): !have?(sqlite3):exists($${SQLITE3SRCDIR}/sqlite3.c) {
+cfg_build?(sqlite3): !have?(SQLITE3):exists($${SQLITE3SRCDIR}/sqlite3.c) {
     # Build sqlite3 into WebCore from source
     # somewhat copied from $$QT_SOURCE_TREE/src/plugins/sqldrivers/sqlite/sqlite.pro
     SOURCES += $${SQLITE3SRCDIR}/sqlite3.c
@@ -4325,7 +4537,7 @@ contains(CONFIG, opengl-shims) {
     DEFINES += QT_OPENGL_SHIMS=1
 }
 
-enable?(opencl) {
+enable?(OPENCL) {
     HEADERS += \
         platform/graphics/gpu/opencl/OpenCLHandle.h \
         platform/graphics/gpu/opencl/FilterContextOpenCL.h
@@ -4347,7 +4559,7 @@ use?(GRAPHICS_SURFACE) {
     win32 {
         SOURCES += platform/graphics/surfaces/win/GraphicsSurfaceWin.cpp
     }
-    use?(glx) {
+    use?(GLX) {
         HEADERS += \
             platform/graphics/surfaces/glx/X11Helper.h \
             platform/graphics/surfaces/glx/GLXConfigSelector.h
