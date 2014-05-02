@@ -17,25 +17,6 @@ CFG_CONFIG_PRI_INCLUDED += cfg_config_file_included
 
 
 
-dwarning("  ==== FROM cfg_config.prf ====")
-
-dwarning(TEMPLATE = $$TEMPLATE)
-dwarning(TARGET = $$TARGET)
-dwarning(BASE_TARGET = $$BASE_TARGET)
-dwarning(MODULE = $$MODULE)
-dwarning(WEBKIT =, $$WEBKIT)
-dwarning(QT =, $$QT)
-dwarning(QT_CONFIG =, $$QT_CONFIG)
-dwarning(QT_API_DEPENDS =, $$QT_API_DEPENDS)
-dwarning(WEBKIT_CONFIG =, $$WEBKIT_CONFIG)
-dwarning(CONFIG =, $$CONFIG)
-dwarning(DEFINES =, $$DEFINES)
-dwarning(INSTALLS =, $$INSTALLS)
-dwarning(MOBILITY =, $$MOBILITY)
-
-
-
-
 # For qmake and will added to DEFINES
 CFG_FEATURE_DEFAULTS = \  # = default value
 # from features.pri
@@ -210,6 +191,8 @@ CFG_FEATURE_DEFAULTS = \  # = default value
     \
 # Changed in Platform.h
     CFG_USE_TEXTURE_MAPPER=0 \  # =1
+    \
+    CFG_ENABLE_JAVASCRIPTCORE=0 \  # =1
 
 
 
@@ -350,7 +333,8 @@ contains(CFG_FEATURE_DEFAULTS, CFG_ENABLE_GAMEPAD=1) {
     CFG_BUILD_FEATURES *= CFG_BUILD_GAMEPAD=1
 }
 
-contains(CFG_FEATURE_DEFAULTS, CFG_ENABLE_JAVASCRIPT_DEBUGGER=1)|contains(CFG_FEATURE_DEFAULTS, CFG_ENABLE_JAVASCRIPT_I18N_API=1) {
+
+contains(CFG_FEATURE_DEFAULTS, CFG_ENABLE_JAVASCRIPTCORE=1)|contains(CFG_FEATURE_DEFAULTS, CFG_ENABLE_JAVASCRIPT_DEBUGGER=1)|contains(CFG_FEATURE_DEFAULTS, CFG_ENABLE_JAVASCRIPT_I18N_API=1) {
     CFG_BUILD_FEATURES -= CFG_BUILD_JAVASCRIPTCORE=0
     CFG_BUILD_FEATURES *= CFG_BUILD_JAVASCRIPTCORE=1
 }

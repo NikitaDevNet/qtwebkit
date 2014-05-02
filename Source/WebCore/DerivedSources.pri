@@ -852,85 +852,80 @@ preprocessIdls.depends = $$IDL_BINDINGS
 GENERATORS += preprocessIdls
 
 
-
 cfg_enable?(FILE_SYSTEM) {
-  CFG_INCLUDES_GENERATE_BINDINGS += --include Modules/filesystem \\
+  CFG_INCLUDES_GENERATE_BINDINGS += '--include Modules/filesystem'
 }
 
 cfg_enable?(GEOLOCATION) {
-  CFG_INCLUDES_GENERATE_BINDINGS += --include Modules/geolocation \\
+  CFG_INCLUDES_GENERATE_BINDINGS += '--include Modules/geolocation'
 }
 
 cfg_enable?(INDEXED_DATABASE) {
-  CFG_INCLUDES_GENERATE_BINDINGS += --include Modules/indexeddb \\
+  CFG_INCLUDES_GENERATE_BINDINGS += '--include Modules/indexeddb'
 }
 
 cfg_enable?(MEDIA_SOURCE) {
-  CFG_INCLUDES_GENERATE_BINDINGS += --include Modules/mediasource \\
+  CFG_INCLUDES_GENERATE_BINDINGS += '--include Modules/mediasource'
 }
 
 cfg_enable?(NOTIFICATIONS) {
-CFG_INCLUDES_GENERATE_BINDINGS += --include Modules/notifications \\
+CFG_INCLUDES_GENERATE_BINDINGS += '--include Modules/notifications'
 }
 
 cfg_enable?(QUOTA) {
-  CFG_INCLUDES_GENERATE_BINDINGS += --include Modules/quota \\
+  CFG_INCLUDES_GENERATE_BINDINGS += '--include Modules/quota'
 }
 
 cfg_enable?(WEB_AUDIO) {
-  CFG_INCLUDES_GENERATE_BINDINGS += --include Modules/webaudio \\
+  CFG_INCLUDES_GENERATE_BINDINGS += '--include Modules/webaudio'
 }
 
 cfg_enable?(SQL_DATABASE) {
-  CFG_INCLUDES_GENERATE_BINDINGS += --include Modules/webdatabase \\
+  CFG_INCLUDES_GENERATE_BINDINGS += '--include Modules/webdatabase'
 }
 
 cfg_enable?(WEB_SOCKETS) {
-  CFG_INCLUDES_GENERATE_BINDINGS += --include Modules/websockets \\
+  CFG_INCLUDES_GENERATE_BINDINGS += '--include Modules/websockets'
 }
 
-CFG_INCLUDES_GENERATE_BINDINGS += --include css \\
-CFG_INCLUDES_GENERATE_BINDINGS += --include dom \\
-CFG_INCLUDES_GENERATE_BINDINGS += --include editing \\
-CFG_INCLUDES_GENERATE_BINDINGS += --include fileapi \\
-CFG_INCLUDES_GENERATE_BINDINGS += --include html \\
-CFG_INCLUDES_GENERATE_BINDINGS += --include html/canvas \\
-CFG_INCLUDES_GENERATE_BINDINGS += --include html/shadow \\
-CFG_INCLUDES_GENERATE_BINDINGS += --include html/track \\
+CFG_INCLUDES_GENERATE_BINDINGS += '--include css'
+CFG_INCLUDES_GENERATE_BINDINGS += '--include dom'
+CFG_INCLUDES_GENERATE_BINDINGS += '--include editing'
+CFG_INCLUDES_GENERATE_BINDINGS += '--include fileapi'
+CFG_INCLUDES_GENERATE_BINDINGS += '--include html'
+CFG_INCLUDES_GENERATE_BINDINGS += '--include html/canvas'
+CFG_INCLUDES_GENERATE_BINDINGS += '--include html/shadow'
+CFG_INCLUDES_GENERATE_BINDINGS += '--include html/track'
 
 cfg_enable?(INSPECTOR) {
-  CFG_INCLUDES_GENERATE_BINDINGS += --include inspector \\
+  CFG_INCLUDES_GENERATE_BINDINGS += '--include inspector'
 }
 
 cfg_build?(cache) {
-  CFG_INCLUDES_GENERATE_BINDINGS += --include loader/appcache \\
+  CFG_INCLUDES_GENERATE_BINDINGS += '--include loader/appcache'
 }
 
-CFG_INCLUDES_GENERATE_BINDINGS += --include page \\
+CFG_INCLUDES_GENERATE_BINDINGS += '--include page'
 
 cfg_build?(plugins) {
-  CFG_INCLUDES_GENERATE_BINDINGS += --include plugins \\
+  CFG_INCLUDES_GENERATE_BINDINGS += '--include plugins'
 }
 
 cfg_build?(storage) {
-  CFG_INCLUDES_GENERATE_BINDINGS += --include storage \\
+  CFG_INCLUDES_GENERATE_BINDINGS += '--include storage'
 }
 
 cfg_enable?(SVG) {
-  CFG_INCLUDES_GENERATE_BINDINGS += --include svg \\
+  CFG_INCLUDES_GENERATE_BINDINGS += '--include svg'
 }
 
-CFG_INCLUDES_GENERATE_BINDINGS += --include testing \\
+CFG_INCLUDES_GENERATE_BINDINGS += '--include testing'
 
 cfg_enable?(WORKERS) {
-  CFG_INCLUDES_GENERATE_BINDINGS += --include workers \\
+  CFG_INCLUDES_GENERATE_BINDINGS += '--include workers'
 }
 
-CFG_INCLUDES_GENERATE_BINDINGS += --include xml # the lasst string, without '\\'
-
-
-dwarning(CFG_INCLUDES_GENERATE_BINDINGS =, $$CFG_INCLUDES_GENERATE_BINDINGS)
-
+CFG_INCLUDES_GENERATE_BINDINGS += '--include xml'
 
 
 # GENERATOR 1: Generate .h and .cpp from IDLs
@@ -978,9 +973,7 @@ generateBindings.depends = ${QMAKE_FUNC_FILE_OUT_PATH}/$$SUPPLEMENTAL_DEPENDENCY
                            $$PWD/bindings/scripts/InFilesParser.pm \
                            $$PWD/bindings/scripts/preprocessor.pm \
                            $$IDL_ATTRIBUTES_FILE
-GENERATORS += generateBindings
-
-dwarning(generateBindings.commands =, $$generateBindings.commands)
+cfg_build?(javascriptcore): GENERATORS += generateBindings
 
 # GENERATOR 2: inspector idl compiler
 inspectorValidate.output = InspectorProtocolVersion.h

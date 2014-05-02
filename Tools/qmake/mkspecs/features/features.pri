@@ -13,8 +13,6 @@
 # -------------------------------------------------------------------
 
 
-include(cfg_config.pri)
-
 FEATURE_DEFAULTS =
 
 for(feature, CFG_FEATURE_DEFAULTS) {
@@ -22,7 +20,6 @@ for(feature, CFG_FEATURE_DEFAULTS) {
     FEATURE_DEFAULTS += $$upper($$feature)
 }
 
-dwarning(FEATURE_DEFAULTS =, $$FEATURE_DEFAULTS)
 
 
 
