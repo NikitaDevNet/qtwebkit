@@ -89,7 +89,8 @@ STYLESHEETS_EMBED = \
 PLUGINS_EMBED = \
     $$PWD/Resources/plugIns.js
 
-IDL_BINDINGS += \
+cfg_enable?(FILE_SYSTEM) {
+  IDL_BINDINGS += \
     $$PWD/Modules/filesystem/DOMFileSystem.idl \
     $$PWD/Modules/filesystem/DOMFileSystemSync.idl \
     $$PWD/Modules/filesystem/DOMWindowFileSystem.idl \
@@ -112,14 +113,22 @@ IDL_BINDINGS += \
     $$PWD/Modules/filesystem/FileWriterCallback.idl \
     $$PWD/Modules/filesystem/Metadata.idl \
     $$PWD/Modules/filesystem/MetadataCallback.idl \
-    $$PWD/Modules/filesystem/WorkerGlobalScopeFileSystem.idl \
+    $$PWD/Modules/filesystem/WorkerGlobalScopeFileSystem.idl
+}
+
+cfg_enable?(GEOLOCATION) {
+  IDL_BINDINGS += \
     $$PWD/Modules/geolocation/Coordinates.idl \
     $$PWD/Modules/geolocation/Geolocation.idl \
     $$PWD/Modules/geolocation/Geoposition.idl \
     $$PWD/Modules/geolocation/NavigatorGeolocation.idl \
     $$PWD/Modules/geolocation/PositionCallback.idl \
     $$PWD/Modules/geolocation/PositionError.idl \
-    $$PWD/Modules/geolocation/PositionErrorCallback.idl \
+    $$PWD/Modules/geolocation/PositionErrorCallback.idl
+}
+
+cfg_enable?(INDEXED_DATABASE) {
+  IDL_BINDINGS += \
     $$PWD/Modules/indexeddb/DOMWindowIndexedDatabase.idl \
     $$PWD/Modules/indexeddb/IDBAny.idl \
     $$PWD/Modules/indexeddb/IDBCursor.idl \
@@ -133,12 +142,20 @@ IDL_BINDINGS += \
     $$PWD/Modules/indexeddb/IDBRequest.idl \
     $$PWD/Modules/indexeddb/IDBTransaction.idl \
     $$PWD/Modules/indexeddb/IDBVersionChangeEvent.idl \
-    $$PWD/Modules/indexeddb/WorkerGlobalScopeIndexedDatabase.idl \
+    $$PWD/Modules/indexeddb/WorkerGlobalScopeIndexedDatabase.idl
+}
+
+cfg_enable?(NOTIFICATIONS) {
+  IDL_BINDINGS += \
     $$PWD/Modules/notifications/DOMWindowNotifications.idl \
     $$PWD/Modules/notifications/Notification.idl \
     $$PWD/Modules/notifications/NotificationCenter.idl \
     $$PWD/Modules/notifications/NotificationPermissionCallback.idl \
-    $$PWD/Modules/notifications/WorkerGlobalScopeNotifications.idl \
+    $$PWD/Modules/notifications/WorkerGlobalScopeNotifications.idl
+}
+
+cfg_enable?(QUOTA) {
+  IDL_BINDINGS += \
     $$PWD/Modules/quota/DOMWindowQuota.idl \
     $$PWD/Modules/quota/NavigatorStorageQuota.idl \
     $$PWD/Modules/quota/StorageInfo.idl \
@@ -146,7 +163,11 @@ IDL_BINDINGS += \
     $$PWD/Modules/quota/StorageQuota.idl \
     $$PWD/Modules/quota/StorageQuotaCallback.idl \
     $$PWD/Modules/quota/StorageUsageCallback.idl \
-    $$PWD/Modules/quota/WorkerNavigatorStorageQuota.idl \
+    $$PWD/Modules/quota/WorkerNavigatorStorageQuota.idl
+}
+
+cfg_enable?(WEB_AUDIO) {
+  IDL_BINDINGS += \
     $$PWD/Modules/webaudio/AudioBuffer.idl \
     $$PWD/Modules/webaudio/AudioBufferCallback.idl \
     $$PWD/Modules/webaudio/AudioBufferSourceNode.idl \
@@ -172,7 +193,11 @@ IDL_BINDINGS += \
     $$PWD/Modules/webaudio/OscillatorNode.idl \
     $$PWD/Modules/webaudio/AnalyserNode.idl \
     $$PWD/Modules/webaudio/WaveShaperNode.idl \
-    $$PWD/Modules/webaudio/PeriodicWave.idl \
+    $$PWD/Modules/webaudio/PeriodicWave.idl
+}
+
+cfg_enable?(SQL_DATABASE) {
+  IDL_BINDINGS += \
     $$PWD/Modules/webdatabase/DOMWindowWebDatabase.idl \
     $$PWD/Modules/webdatabase/Database.idl \
     $$PWD/Modules/webdatabase/DatabaseCallback.idl \
@@ -188,9 +213,16 @@ IDL_BINDINGS += \
     $$PWD/Modules/webdatabase/SQLTransactionErrorCallback.idl \
     $$PWD/Modules/webdatabase/SQLTransactionSync.idl \
     $$PWD/Modules/webdatabase/SQLTransactionSyncCallback.idl \
-    $$PWD/Modules/webdatabase/WorkerGlobalScopeWebDatabase.idl \
+    $$PWD/Modules/webdatabase/WorkerGlobalScopeWebDatabase.idl
+}
+
+cfg_enable?(WEB_SOCKETS) {
+  IDL_BINDINGS += \
     $$PWD/Modules/websockets/CloseEvent.idl \
-    $$PWD/Modules/websockets/WebSocket.idl \
+    $$PWD/Modules/websockets/WebSocket.idl
+}
+
+IDL_BINDINGS += \
     $$PWD/css/Counter.idl \
     $$PWD/css/CSSCharsetRule.idl \
     $$PWD/css/CSSFontFaceLoadEvent.idl \
@@ -225,7 +257,10 @@ IDL_BINDINGS += \
     $$PWD/css/WebKitCSSMixFunctionValue.idl \
     $$PWD/css/WebKitCSSRegionRule.idl \
     $$PWD/css/WebKitCSSTransformValue.idl \
-    $$PWD/css/WebKitCSSViewportRule.idl \
+    $$PWD/css/WebKitCSSViewportRule.idl
+
+
+IDL_BINDINGS += \
     $$PWD/dom/Attr.idl \
     $$PWD/dom/BeforeLoadEvent.idl \
     $$PWD/dom/CharacterData.idl \
@@ -296,14 +331,18 @@ IDL_BINDINGS += \
     $$PWD/dom/WebKitNamedFlow.idl \
     $$PWD/dom/DOMNamedFlowCollection.idl \
     $$PWD/dom/WebKitTransitionEvent.idl \
-    $$PWD/dom/WheelEvent.idl \
+    $$PWD/dom/WheelEvent.idl
+
+IDL_BINDINGS += \
     $$PWD/fileapi/Blob.idl \
     $$PWD/fileapi/File.idl \
     $$PWD/fileapi/FileError.idl \
     $$PWD/fileapi/FileException.idl \
     $$PWD/fileapi/FileList.idl \
     $$PWD/fileapi/FileReader.idl \
-    $$PWD/fileapi/FileReaderSync.idl \
+    $$PWD/fileapi/FileReaderSync.idl
+
+IDL_BINDINGS += \
     $$PWD/html/canvas/ArrayBufferView.idl \
     $$PWD/html/canvas/ArrayBuffer.idl \
     $$PWD/html/canvas/DataView.idl \
@@ -323,7 +362,10 @@ IDL_BINDINGS += \
     $$PWD/html/canvas/OESTextureFloat.idl \
     $$PWD/html/canvas/OESTextureHalfFloat.idl \
     $$PWD/html/canvas/OESVertexArrayObject.idl \
-    $$PWD/html/canvas/OESElementIndexUint.idl \
+    $$PWD/html/canvas/OESElementIndexUint.idl
+
+cfg_enable?(WEBGL) {
+  IDL_BINDINGS += \
     $$PWD/html/canvas/WebGLActiveInfo.idl \
     $$PWD/html/canvas/WebGLBuffer.idl \
     $$PWD/html/canvas/WebGLCompressedTextureATC.idl \
@@ -340,11 +382,20 @@ IDL_BINDINGS += \
     $$PWD/html/canvas/WebGLRenderbuffer.idl \
     $$PWD/html/canvas/WebGLRenderingContext.idl \
     $$PWD/html/canvas/WebGLShader.idl \
-    $$PWD/html/canvas/WebGLShaderPrecisionFormat.idl \
-    $$PWD/html/canvas/Int16Array.idl \
+    $$PWD/html/canvas/WebGLShaderPrecisionFormat.idl
+}
+
+IDL_BINDINGS += \
+    $$PWD/html/canvas/Int16Array.idl
+
+cfg_enable?(WEBGL) {
+  IDL_BINDINGS += \
     $$PWD/html/canvas/WebGLTexture.idl \
     $$PWD/html/canvas/WebGLUniformLocation.idl \
-    $$PWD/html/canvas/WebGLVertexArrayObjectOES.idl \
+    $$PWD/html/canvas/WebGLVertexArrayObjectOES.idl
+}
+
+IDL_BINDINGS += \
     $$PWD/html/canvas/Uint8Array.idl \
     $$PWD/html/canvas/Uint8ClampedArray.idl \
     $$PWD/html/canvas/Uint32Array.idl \
@@ -437,13 +488,23 @@ IDL_BINDINGS += \
     $$PWD/html/TimeRanges.idl \
     $$PWD/html/ValidityState.idl \
     $$PWD/html/VoidCallback.idl \
-    $$PWD/html/shadow/HTMLContentElement.idl \
+    $$PWD/html/shadow/HTMLContentElement.idl
+
+cfg_enable?(INSPECTOR) {
+  IDL_BINDINGS += \
     $$PWD/inspector/InjectedScriptHost.idl \
     $$PWD/inspector/InspectorFrontendHost.idl \
     $$PWD/inspector/JavaScriptCallFrame.idl \
     $$PWD/inspector/ScriptProfile.idl \
-    $$PWD/inspector/ScriptProfileNode.idl \
-    $$PWD/loader/appcache/DOMApplicationCache.idl \
+    $$PWD/inspector/ScriptProfileNode.idl
+}
+
+cfg_build?(cache) {
+  IDL_BINDINGS += \
+    $$PWD/loader/appcache/DOMApplicationCache.idl
+}
+
+IDL_BINDINGS += \
     $$PWD/page/BarProp.idl \
     $$PWD/page/Console.idl \
     $$PWD/page/Crypto.idl \
@@ -467,25 +528,41 @@ IDL_BINDINGS += \
     $$PWD/page/WebKitPoint.idl \
     $$PWD/page/WindowBase64.idl \
     $$PWD/page/WindowTimers.idl \
-    $$PWD/page/WorkerNavigator.idl \
+    $$PWD/page/WorkerNavigator.idl
+
+cfg_build?(plugins) {
+  IDL_BINDINGS += \
     $$PWD/plugins/DOMPlugin.idl \
     $$PWD/plugins/DOMMimeType.idl \
     $$PWD/plugins/DOMPluginArray.idl \
-    $$PWD/plugins/DOMMimeTypeArray.idl \
+    $$PWD/plugins/DOMMimeTypeArray.idl
+}
+
+cfg_build?(storage) {
+  IDL_BINDINGS += \
     $$PWD/storage/Storage.idl \
-    $$PWD/storage/StorageEvent.idl \
+    $$PWD/storage/StorageEvent.idl
+}
+
+IDL_BINDINGS += \
     $$PWD/testing/Internals.idl \
     $$PWD/testing/InternalSettings.idl \
     $$PWD/testing/MallocStatistics.idl \
     $$PWD/testing/MemoryInfo.idl \
-    $$PWD/testing/TypeConversions.idl \
+    $$PWD/testing/TypeConversions.idl
+
+cfg_enable?(WORKERS) {
+  IDL_BINDINGS += \
     $$PWD/workers/AbstractWorker.idl \
     $$PWD/workers/DedicatedWorkerGlobalScope.idl \
     $$PWD/workers/SharedWorker.idl \
     $$PWD/workers/SharedWorkerGlobalScope.idl \
     $$PWD/workers/Worker.idl \
     $$PWD/workers/WorkerGlobalScope.idl \
-    $$PWD/workers/WorkerLocation.idl \
+    $$PWD/workers/WorkerLocation.idl
+}
+
+IDL_BINDINGS += \
     $$PWD/xml/DOMParser.idl \
     $$PWD/xml/XMLHttpRequest.idl \
     $$PWD/xml/XMLHttpRequestException.idl \
@@ -688,7 +765,7 @@ mathmlnames.depends = $$PWD/mathml/mathattrs.in
 mathmlnames.script = $$PWD/dom/make_names.pl
 mathmlnames.commands = perl -I$$PWD/bindings/scripts $$mathmlnames.script --tags $$PWD/mathml/mathtags.in --attrs $$PWD/mathml/mathattrs.in --extraDefines \"$${DEFINES} $$configDefines()\" --preprocessor \"$${QMAKE_MOC} -E\" --factory --wrapperFactory --outputDir ${QMAKE_FUNC_FILE_OUT_PATH}
 mathmlnames.extra_sources = MathMLElementFactory.cpp
-GENERATORS += mathmlnames
+cfg_enable?(MATHML): GENERATORS += mathmlnames
 
 # GENERATOR 5-C:
 svgnames.output = SVGNames.cpp
@@ -698,7 +775,7 @@ svgnames.script = $$PWD/dom/make_names.pl
 svgnames.commands = perl -I$$PWD/bindings/scripts $$svgnames.script --tags $$PWD/svg/svgtags.in --attrs $$PWD/svg/svgattrs.in --extraDefines \"$${DEFINES} $$configDefines()\" --preprocessor \"$${QMAKE_MOC} -E\" --factory --wrapperFactory --outputDir ${QMAKE_FUNC_FILE_OUT_PATH}
 svgnames.extra_sources = SVGElementFactory.cpp
     svgnames.extra_sources += JSSVGElementWrapperFactory.cpp
-GENERATORS += svgnames
+cfg_enable?(SVG): GENERATORS += svgnames
 
 # GENERATOR 5-D:
 xlinknames.output = XLinkNames.cpp
@@ -774,38 +851,121 @@ preprocessIdls.add_output_to_sources = false
 preprocessIdls.depends = $$IDL_BINDINGS
 GENERATORS += preprocessIdls
 
+
+
+cfg_enable?(FILE_SYSTEM) {
+  CFG_INCLUDES_GENERATE_BINDINGS += --include Modules/filesystem \\
+}
+
+cfg_enable?(GEOLOCATION) {
+  CFG_INCLUDES_GENERATE_BINDINGS += --include Modules/geolocation \\
+}
+
+cfg_enable?(INDEXED_DATABASE) {
+  CFG_INCLUDES_GENERATE_BINDINGS += --include Modules/indexeddb \\
+}
+
+cfg_enable?(MEDIA_SOURCE) {
+  CFG_INCLUDES_GENERATE_BINDINGS += --include Modules/mediasource \\
+}
+
+cfg_enable?(NOTIFICATIONS) {
+CFG_INCLUDES_GENERATE_BINDINGS += --include Modules/notifications \\
+}
+
+cfg_enable?(QUOTA) {
+  CFG_INCLUDES_GENERATE_BINDINGS += --include Modules/quota \\
+}
+
+cfg_enable?(WEB_AUDIO) {
+  CFG_INCLUDES_GENERATE_BINDINGS += --include Modules/webaudio \\
+}
+
+cfg_enable?(SQL_DATABASE) {
+  CFG_INCLUDES_GENERATE_BINDINGS += --include Modules/webdatabase \\
+}
+
+cfg_enable?(WEB_SOCKETS) {
+  CFG_INCLUDES_GENERATE_BINDINGS += --include Modules/websockets \\
+}
+
+CFG_INCLUDES_GENERATE_BINDINGS += --include css \\
+CFG_INCLUDES_GENERATE_BINDINGS += --include dom \\
+CFG_INCLUDES_GENERATE_BINDINGS += --include editing \\
+CFG_INCLUDES_GENERATE_BINDINGS += --include fileapi \\
+CFG_INCLUDES_GENERATE_BINDINGS += --include html \\
+CFG_INCLUDES_GENERATE_BINDINGS += --include html/canvas \\
+CFG_INCLUDES_GENERATE_BINDINGS += --include html/shadow \\
+CFG_INCLUDES_GENERATE_BINDINGS += --include html/track \\
+
+cfg_enable?(INSPECTOR) {
+  CFG_INCLUDES_GENERATE_BINDINGS += --include inspector \\
+}
+
+cfg_build?(cache) {
+  CFG_INCLUDES_GENERATE_BINDINGS += --include loader/appcache \\
+}
+
+CFG_INCLUDES_GENERATE_BINDINGS += --include page \\
+
+cfg_build?(plugins) {
+  CFG_INCLUDES_GENERATE_BINDINGS += --include plugins \\
+}
+
+cfg_build?(storage) {
+  CFG_INCLUDES_GENERATE_BINDINGS += --include storage \\
+}
+
+cfg_enable?(SVG) {
+  CFG_INCLUDES_GENERATE_BINDINGS += --include svg \\
+}
+
+CFG_INCLUDES_GENERATE_BINDINGS += --include testing \\
+
+cfg_enable?(WORKERS) {
+  CFG_INCLUDES_GENERATE_BINDINGS += --include workers \\
+}
+
+CFG_INCLUDES_GENERATE_BINDINGS += --include xml # the lasst string, without '\\'
+
+
+dwarning(CFG_INCLUDES_GENERATE_BINDINGS =, $$CFG_INCLUDES_GENERATE_BINDINGS)
+
+
+
 # GENERATOR 1: Generate .h and .cpp from IDLs
 generateBindings.input = IDL_BINDINGS
 generateBindings.script = $$PWD/bindings/scripts/generate-bindings.pl
 generateBindings.commands = $$setEnvironmentVariable(SOURCE_ROOT, $$toSystemPath($$PWD)) && perl -I$$PWD/bindings/scripts $$generateBindings.script \
                             --defines \"$$javascriptFeatureDefines()\" \
                             --generator JS \
-                            --include Modules/filesystem \
-                            --include Modules/geolocation \
-                            --include Modules/indexeddb \
-                            --include Modules/mediasource \
-                            --include Modules/notifications \
-                            --include Modules/quota \
-                            --include Modules/webaudio \
-                            --include Modules/webdatabase \
-                            --include Modules/websockets \
-                            --include css \
-                            --include dom \
-                            --include editing \
-                            --include fileapi \
-                            --include html \
-                            --include html/canvas \
-                            --include html/shadow \
-                            --include html/track \
-                            --include inspector \
-                            --include loader/appcache \
-                            --include page \
-                            --include plugins \
-                            --include storage \
-                            --include svg \
-                            --include testing \
-                            --include workers \
-                            --include xml \
+                            $$CFG_INCLUDES_GENERATE_BINDINGS \
+#                            --include Modules/filesystem \
+#                            --include Modules/geolocation \
+#                            --include Modules/indexeddb \
+#                            --include Modules/mediasource \
+#                            --include Modules/notifications \
+#                            --include Modules/quota \
+#                            --include Modules/webaudio \
+#                            --include Modules/webdatabase \
+#                            --include Modules/websockets \
+#                            --include css \
+#                            --include dom \
+#                            --include editing \
+#                            --include fileapi \
+#                            --include html \
+#                            --include html/canvas \
+#                            --include html/shadow \
+#                            --include html/track \
+#                            --include inspector \
+#                            --include loader/appcache \
+#                            --include page \
+#                            --include plugins \
+#                            --include storage \
+#                            --include svg \
+#                            --include testing \
+#                            --include workers \
+#                            --include xml \
                             --outputDir ${QMAKE_FUNC_FILE_OUT_PATH} \
                             --supplementalDependencyFile ${QMAKE_FUNC_FILE_OUT_PATH}/$$SUPPLEMENTAL_DEPENDENCY_FILE \
                             --idlAttributesFile $${IDL_ATTRIBUTES_FILE} \
@@ -820,6 +980,8 @@ generateBindings.depends = ${QMAKE_FUNC_FILE_OUT_PATH}/$$SUPPLEMENTAL_DEPENDENCY
                            $$IDL_ATTRIBUTES_FILE
 GENERATORS += generateBindings
 
+dwarning(generateBindings.commands =, $$generateBindings.commands)
+
 # GENERATOR 2: inspector idl compiler
 inspectorValidate.output = InspectorProtocolVersion.h
 inspectorValidate.input = INSPECTOR_JSON
@@ -827,41 +989,41 @@ inspectorValidate.script = $$PWD/inspector/generate-inspector-protocol-version
 inspectorValidate.commands = python $$inspectorValidate.script -o ${QMAKE_FILE_OUT} ${QMAKE_FILE_IN}
 inspectorValidate.depends = $$PWD/inspector/generate-inspector-protocol-version
 inspectorValidate.add_output_to_sources = false
-GENERATORS += inspectorValidate
+cfg_enable?(INSPECTOR): GENERATORS += inspectorValidate
 
 inspectorJSON.output = InspectorFrontend.cpp InspectorBackendDispatcher.cpp InspectorTypeBuilder.cpp
 inspectorJSON.input = INSPECTOR_JSON
 inspectorJSON.script = $$PWD/inspector/CodeGeneratorInspector.py
 inspectorJSON.commands = python $$inspectorJSON.script $$PWD/inspector/Inspector.json --output_h_dir ${QMAKE_FUNC_FILE_OUT_PATH} --output_cpp_dir ${QMAKE_FUNC_FILE_OUT_PATH}
 inspectorJSON.depends = $$inspectorJSON.script
-GENERATORS += inspectorJSON
+cfg_enable?(INSPECTOR): GENERATORS += inspectorJSON
 
 inspectorBackendCommands.output = InspectorBackendCommands.qrc
 inspectorBackendCommands.input = INSPECTOR_BACKEND_COMMANDS_QRC
 inspectorBackendCommands.commands = $$QMAKE_COPY $$toSystemPath($$INSPECTOR_BACKEND_COMMANDS_QRC) ${QMAKE_FUNC_FILE_OUT_PATH}$${QMAKE_DIR_SEP}InspectorBackendCommands.qrc
 inspectorBackendCommands.depends = $$INSPECTOR_JSON
 inspectorBackendCommands.add_output_to_sources = false
-GENERATORS += inspectorBackendCommands
+cfg_enable?(INSPECTOR): GENERATORS += inspectorBackendCommands
 
 inspectorOverlayPage.output = InspectorOverlayPage.h
 inspectorOverlayPage.input = INSPECTOR_OVERLAY_PAGE
 inspectorOverlayPage.commands = perl $$PWD/inspector/xxd.pl InspectorOverlayPage_html ${QMAKE_FILE_IN} ${QMAKE_FILE_OUT}
 inspectorOverlayPage.add_output_to_sources = false
-GENERATORS += inspectorOverlayPage
+cfg_enable?(INSPECTOR): GENERATORS += inspectorOverlayPage
 
 # GENERATOR 2: inspector injected script source compiler
 injectedScriptSource.output = InjectedScriptSource.h
 injectedScriptSource.input = INJECTED_SCRIPT_SOURCE
 injectedScriptSource.commands = perl $$PWD/inspector/xxd.pl InjectedScriptSource_js ${QMAKE_FILE_IN} ${QMAKE_FILE_OUT}
 injectedScriptSource.add_output_to_sources = false
-GENERATORS += injectedScriptSource
+cfg_enable?(INSPECTOR): GENERATORS += injectedScriptSource
 
 # GENERATOR 3: inspector canvas injected script source compiler
 InjectedScriptCanvasModuleSource.output = InjectedScriptCanvasModuleSource.h
 InjectedScriptCanvasModuleSource.input = INJECTED_SCRIPT_CANVAS_MODULE_SOURCE
 InjectedScriptCanvasModuleSource.commands = perl $$PWD/inspector/xxd.pl InjectedScriptCanvasModuleSource_js ${QMAKE_FILE_IN} ${QMAKE_FILE_OUT}
 InjectedScriptCanvasModuleSource.add_output_to_sources = false
-GENERATORS += InjectedScriptCanvasModuleSource
+cfg_enable?(INSPECTOR): GENERATORS += InjectedScriptCanvasModuleSource
 
 # GENERATOR 4: CSS grammar
 cssbison.output = CSSGrammar.cpp

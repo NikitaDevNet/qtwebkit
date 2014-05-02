@@ -920,10 +920,16 @@ SOURCES += \
     loader/FrameLoader.cpp \
     loader/FrameLoaderStateMachine.cpp \
     loader/HistoryController.cpp \
-    loader/FTPDirectoryParser.cpp \
-    loader/icon/IconController.cpp \
-    loader/icon/IconDatabaseBase.cpp \
-    loader/icon/IconLoader.cpp \
+    loader/FTPDirectoryParser.cpp
+
+cfg_build?(icon) {
+    SOURCES += \
+        loader/icon/IconController.cpp \
+        loader/icon/IconDatabaseBase.cpp \
+        loader/icon/IconLoader.cpp
+}
+
+SOURCES += \
     loader/ImageLoader.cpp \
     loader/LinkLoader.cpp \
     loader/LoaderStrategy.cpp \
@@ -2170,13 +2176,19 @@ HEADERS += \
     loader/FormState.h \
     loader/FrameLoader.h \
     loader/FrameLoaderStateMachine.h \
-    loader/FTPDirectoryParser.h \
-    loader/icon/IconController.h \
-    loader/icon/IconDatabase.h \
-    loader/icon/IconDatabaseBase.h \
-    loader/icon/IconLoader.h \
-    loader/icon/IconRecord.h \
-    loader/icon/PageURLRecord.h \
+    loader/FTPDirectoryParser.h
+
+cfg_build?(icon) {
+    HEADERS += \
+        loader/icon/IconController.h \
+        loader/icon/IconDatabase.h \
+        loader/icon/IconDatabaseBase.h \
+        loader/icon/IconLoader.h \
+        loader/icon/IconRecord.h \
+        loader/icon/PageURLRecord.h
+}
+
+HEADERS += \
     loader/ImageLoader.h \
     loader/LinkLoader.h \
     loader/LinkLoaderClient.h \
