@@ -20,130 +20,130 @@ CFG_CONFIG_PRI_INCLUDED += cfg_config_file_included
 # For qmake and will added to DEFINES
 CFG_FEATURE_DEFAULTS = \  # = default value  # which block depend from it
 # from features.pri
-    CFG_ENABLE_3D_RENDERING=1 \  # =1  # WebCore
+  CFG_ENABLE_3D_RENDERING=0 \  # =1  # WebCore
     CFG_ENABLE_ACCELERATED_2D_CANVAS=0 \  # =0  # WebCore
     CFG_ENABLE_BATTERY_STATUS=0 \  # =0  # WebCore, WebKit2
-    CFG_ENABLE_BLOB=1 \  # =1  # WebCore, WebKit2
-    CFG_ENABLE_CANVAS_PATH=1 \  # =1  # WebCore
+    CFG_ENABLE_BLOB=0 \  # =1  # WebCore, WebKit2
+    CFG_ENABLE_CANVAS_PATH=0 \  # =1  # WebCore
     CFG_ENABLE_CANVAS_PROXY=0 \  # =0  # WebCore
-    CFG_ENABLE_CHANNEL_MESSAGING=1 \  # =1  # WebCore
+    CFG_ENABLE_CHANNEL_MESSAGING=0 \  # =1  # WebCore
     CFG_ENABLE_CSP_NEXT=0 \  # =0  # WebCore
-    CFG_ENABLE_CSS_BOX_DECORATION_BREAK=1 \  # =1
-    CFG_ENABLE_CSS_COMPOSITING=1 \  # =1  # WebCore, WebKit2
-    CFG_ENABLE_CSS_EXCLUSIONS=1 \  # =1  # WebCore
-    CFG_ENABLE_CSS_FILTERS=1 \  # =1  # WebCore, WebKit2
+    CFG_ENABLE_CSS_BOX_DECORATION_BREAK=0 \  # =1
+    CFG_ENABLE_CSS_COMPOSITING=0 \  # =1  # WebCore, WebKit2
+    CFG_ENABLE_CSS_EXCLUSIONS=0 \  # =1  # WebCore
+    CFG_ENABLE_CSS_FILTERS=0 \  # =1  # WebCore, WebKit2
     CFG_ENABLE_CSS_GRID_LAYOUT=0 \  # =0  # none
     CFG_ENABLE_CSS_HIERARCHIES=0 \  # =0  # none
     CFG_ENABLE_CSS_IMAGE_ORIENTATION=0 \  # =0  # WebCore
     CFG_ENABLE_CSS_IMAGE_RESOLUTION=0 \  # =0  # WebCore
-    CFG_ENABLE_CSS_IMAGE_SET=1 \  # =1  # WebCore
-    CFG_ENABLE_CSS_REGIONS=1 \  # =1  # WebCore, WebKit2
+    CFG_ENABLE_CSS_IMAGE_SET=0 \  # =1  # WebCore
+    CFG_ENABLE_CSS_REGIONS=0 \  # =1  # WebCore, WebKit2
     CFG_ENABLE_CSS_SHADERS=0 \  # =0  # WebCore, WebKit2, ANGLE, WebKit
-    CFG_ENABLE_CSS_SHAPES=1 \  # =1  # WebCore
-    CFG_ENABLE_CSS_STICKY_POSITION=1 \  # =1  # WebCore
-    CFG_ENABLE_CSS_TRANSFORMS_ANIMATIONS_UNPREFIXED=1 \  # =1  # none
+    CFG_ENABLE_CSS_SHAPES=0 \  # =1  # WebCore
+    CFG_ENABLE_CSS_STICKY_POSITION=0 \  # =1  # WebCore
+    CFG_ENABLE_CSS_TRANSFORMS_ANIMATIONS_UNPREFIXED=0 \  # =1  # none
     CFG_ENABLE_CSS_VARIABLES=0 \  # =0  # WebCore
     CFG_ENABLE_CSS3_CONDITIONAL_RULES=0 \  # =0  # WebCore
     CFG_ENABLE_CSS3_TEXT=0 \  # =0  # WebCore
     CFG_ENABLE_CSS3_TEXT_LINE_BREAK=0 \  # =0  # none
     CFG_ENABLE_DASHBOARD_SUPPORT=0 \  # =0  # WebCore, WebKit2
     CFG_ENABLE_DATAGRID=0 \  # =0  # none
-    CFG_ENABLE_DATALIST_ELEMENT=1 \  # =1  # WebCore
+    CFG_ENABLE_DATALIST_ELEMENT=0 \  # =1  # WebCore
     CFG_ENABLE_DATA_TRANSFER_ITEMS=0 \  # =0  # WebCore
-    CFG_ENABLE_DETAILS_ELEMENT=1 \  # =1  # WebCore
-    CFG_ENABLE_DEVICE_ORIENTATION=1 \  # =1  # WebCore, WebKit2, WebKit, widgetsapi
+    CFG_ENABLE_DETAILS_ELEMENT=0 \  # =1  # WebCore
+    CFG_ENABLE_DEVICE_ORIENTATION=0 \  # =1  # WebCore, WebKit2, WebKit, widgetsapi
     CFG_ENABLE_DIRECTORY_UPLOAD=0 \  # =0  # WebCore, WebKit2
-    CFG_ENABLE_DOWNLOAD_ATTRIBUTE=1 \  # =1  # WebCore
-    CFG_ENABLE_FAST_MOBILE_SCROLLING=1 \  # =1  # WebCore
+    CFG_ENABLE_DOWNLOAD_ATTRIBUTE=0 \  # =1  # WebCore
+    CFG_ENABLE_FAST_MOBILE_SCROLLING=0 \  # =1  # WebCore
     CFG_ENABLE_FILE_SYSTEM=0 \  # =0  # WebCore
-    CFG_ENABLE_FILTERS=1 \  # =1  # WebCore
+    CFG_ENABLE_FILTERS=0 \  # =1  # WebCore
     CFG_ENABLE_FONT_LOAD_EVENTS=0 \  # =0  # WebCore
-    CFG_ENABLE_FTPDIR=1 \  # =1  # WebCore
-    CFG_ENABLE_FULLSCREEN_API=1 \  # =1  # WebCore, WebKit2, WebKitTestRunner
+    CFG_ENABLE_FTPDIR=0 \  # =1  # WebCore
+    CFG_ENABLE_FULLSCREEN_API=0 \  # =1  # WebCore, WebKit2, WebKitTestRunner
     CFG_ENABLE_GAMEPAD=0 \  # =0  # WebCore
-    CFG_ENABLE_GEOLOCATION=1 \  # =1  # WebCore, WebKit2, WebKit, widgetsapi
-    CFG_ENABLE_GESTURE_EVENTS=1 \  # =1  # WebCore, WebKit2, WebKit
+    CFG_ENABLE_GEOLOCATION=0 \  # =1  # WebCore, WebKit2, WebKit, widgetsapi
+    CFG_ENABLE_GESTURE_EVENTS=0 \  # =1  # WebCore, WebKit2, WebKit
     CFG_ENABLE_HIGH_DPI_CANVAS=0 \  # =0  # WebCore
-    CFG_ENABLE_ICONDATABASE=1 \  # =1  # WebCore, WebKit2, WebKit
-    CFG_ENABLE_IFRAME_SEAMLESS=1 \  # =1  # WebCore, WebKit2, WebKit
-    CFG_ENABLE_INDEXED_DATABASE=1 \  # =1  # WebCore, WebKit
+    CFG_ENABLE_ICONDATABASE=0 \  # =1  # WebCore, WebKit2, WebKit
+    CFG_ENABLE_IFRAME_SEAMLESS=0 \  # =1  # WebCore, WebKit2, WebKit
+    CFG_ENABLE_INDEXED_DATABASE=0 \  # =1  # WebCore, WebKit
     CFG_ENABLE_INPUT_SPEECH=0 \  # =0  # WebCore
-    CFG_ENABLE_INPUT_TYPE_COLOR=1 \  # =1  # WebCore, WebKit2, WebKit
+    CFG_ENABLE_INPUT_TYPE_COLOR=0 \  # =1  # WebCore, WebKit2, WebKit
     CFG_ENABLE_INPUT_TYPE_DATE=0 \  # =0  # WebCore
     CFG_ENABLE_INPUT_TYPE_DATETIME_INCOMPLETE=0 \  # =0  # WebCore
     CFG_ENABLE_INPUT_TYPE_DATETIMELOCAL=0 \  # =0  # WebCore
     CFG_ENABLE_INPUT_TYPE_MONTH=0 \  # =0  # WebCore
     CFG_ENABLE_INPUT_TYPE_TIME=0 \  # =0  # WebCore
     CFG_ENABLE_INPUT_TYPE_WEEK=0 \  # =0  # WebCore
-    CFG_ENABLE_INSPECTOR=1 \  # =1  # WebCore, WebKit2, WebKit, WebKitTestRunner
-    CFG_ENABLE_INSPECTOR_SERVER=1 \  # =1  # WebKit2
-    CFG_ENABLE_JAVASCRIPT_DEBUGGER=1 \  # =1  # WebCore, WebKit2
+    CFG_ENABLE_INSPECTOR=0 \  # =1  # WebCore, WebKit2, WebKit, WebKitTestRunner
+    CFG_ENABLE_INSPECTOR_SERVER=0 \  # =1  # WebKit2
+    CFG_ENABLE_JAVASCRIPT_DEBUGGER=0 \  # =1  # WebCore, WebKit2
     CFG_ENABLE_LEGACY_CSS_VENDOR_PREFIXES=0 \  # =0  # WebCore
-    CFG_ENABLE_LEGACY_NOTIFICATIONS=1 \  # =1  # WebCore, WebKit2, WebKit
-    CFG_ENABLE_LEGACY_VIEWPORT_ADAPTION=1 \  # =1  # WebCore
-    CFG_ENABLE_LEGACY_VENDOR_PREFIXES=1 \  # =1  # none
-    CFG_ENABLE_LEGACY_WEB_AUDIO=1 \  # =1  # WebCore
-    CFG_ENABLE_LINK_PREFETCH=1 \  # =1  # WebCore
+    CFG_ENABLE_LEGACY_NOTIFICATIONS=0 \  # =1  # WebCore, WebKit2, WebKit
+    CFG_ENABLE_LEGACY_VIEWPORT_ADAPTION=0 \  # =1  # WebCore
+    CFG_ENABLE_LEGACY_VENDOR_PREFIXES=0 \  # =1  # none
+    CFG_ENABLE_LEGACY_WEB_AUDIO=0 \  # =1  # WebCore
+    CFG_ENABLE_LINK_PREFETCH=0 \  # =1  # WebCore
     CFG_ENABLE_MATHML=0 \  # =0  # WebCore
     CFG_ENABLE_MEDIA_SOURCE=0 \  # =0  # WebCore
     CFG_ENABLE_MEDIA_STATISTICS=0 \  # =0  # WebCore
     CFG_ENABLE_MEDIA_STREAM=0 \  # =0  # WebCore
-    CFG_ENABLE_METER_ELEMENT=1 \  # =1  # WebCore
-    CFG_ENABLE_MHTML=1 \  # =1  # WebCore, WebKit2, WebKit
+    CFG_ENABLE_METER_ELEMENT=0 \  # =1  # WebCore
+    CFG_ENABLE_MHTML=0 \  # =1  # WebCore, WebKit2, WebKit
     CFG_ENABLE_MICRODATA=0 \  # =0  # WebCore
     CFG_ENABLE_MOUSE_CURSOR_SCALE=0 \  # =0  # WebCore
     CFG_ENABLE_NAVIGATOR_CONTENT_UTILS=0 \  # =0  # WebCore
     CFG_ENABLE_NETSCAPE_PLUGIN_API=0 \  # =0  # WebCore, WebKit2, WebKit
     CFG_ENABLE_NETWORK_INFO=0 \  # =0  # WebCore, WebKit2
     CFG_ENABLE_NOSNIFF=0 \  # =0  # WebCore
-    CFG_ENABLE_NOTIFICATIONS=1 \  # =1  # WebCore, WebKit2, WebKit
-    CFG_ENABLE_ORIENTATION_EVENTS=1 \  # =1  # WebCore, WebKit
-    CFG_ENABLE_PAGE_VISIBILITY_API=1 \  # =1  # WebCore, WebKit2, WebKit
-    CFG_ENABLE_PROGRESS_ELEMENT=1 \  # =1  # WebCore
+    CFG_ENABLE_NOTIFICATIONS=0 \  # =1  # WebCore, WebKit2, WebKit
+    CFG_ENABLE_ORIENTATION_EVENTS=0 \  # =1  # WebCore, WebKit
+    CFG_ENABLE_PAGE_VISIBILITY_API=0 \  # =1  # WebCore, WebKit2, WebKit
+    CFG_ENABLE_PROGRESS_ELEMENT=0 \  # =1  # WebCore
     CFG_ENABLE_PROXIMITY_EVENTS=0 \  # =0  # WebCore, WebKit2
     CFG_ENABLE_QUOTA=0 \  # =0  # WebCore
-    CFG_ENABLE_RESOLUTION_MEDIA_QUERY=1 \  # =1  # WebCore
+    CFG_ENABLE_RESOLUTION_MEDIA_QUERY=0 \  # =1  # WebCore
     CFG_ENABLE_RESOURCE_TIMING=0 \  # =0  # WebCore
-    CFG_ENABLE_REQUEST_ANIMATION_FRAME=1 \  # =1  # WebCore, WebKit2, WebKit
+    CFG_ENABLE_REQUEST_ANIMATION_FRAME=0 \  # =1  # WebCore, WebKit2, WebKit
     CFG_ENABLE_SCRIPTED_SPEECH=0 \  # =0  # WebCore
     CFG_ENABLE_SECCOMP_FILTERS=0 \  # =0  # WebKit2
     CFG_ENABLE_SHADOW_DOM=0 \  # =0  # WebCore, WebKit2
-    CFG_ENABLE_SHARED_WORKERS=1 \  # =1  # WebCore
-    CFG_ENABLE_SMOOTH_SCROLLING=1 \  # =1  # WebCore, WebKit2, WebKit
-    CFG_ENABLE_SQL_DATABASE=1 \  # =1  # WebCore, WebKit2, WebKit
+    CFG_ENABLE_SHARED_WORKERS=0 \  # =1  # WebCore
+    CFG_ENABLE_SMOOTH_SCROLLING=0 \  # =1  # WebCore, WebKit2, WebKit
+    CFG_ENABLE_SQL_DATABASE=0 \  # =1  # WebCore, WebKit2, WebKit
     CFG_ENABLE_STYLE_SCOPED=0 \  # =0  # WebCore
-    CFG_ENABLE_SUBPIXEL_LAYOUT=1 \  # =1  # WebCore
-    CFG_ENABLE_SVG=1 \  # =1  # WebCore
-    CFG_ENABLE_SVG_FONTS=1 \  # =1  # WebCore
+    CFG_ENABLE_SUBPIXEL_LAYOUT=0 \  # =1  # WebCore
+    CFG_ENABLE_SVG=0 \  # =1  # WebCore
+    CFG_ENABLE_SVG_FONTS=0 \  # =1  # WebCore
     CFG_ENABLE_TEMPLATE_ELEMENT=0 \  # =0  # WebCore
     CFG_ENABLE_TEXT_AUTOSIZING=0 \  # =0  # WebCore
     CFG_ENABLE_THREADED_HTML_PARSER=0 \  # =0  # WebCore
-    CFG_ENABLE_TOUCH_ADJUSTMENT=1 \  # =1  # WebCore, WebKit2, WebKit
-    CFG_ENABLE_TOUCH_EVENTS=1 \  # =1  # WebCore, WebKit2, WebKit, WebKitTestRunner
+    CFG_ENABLE_TOUCH_ADJUSTMENT=0 \  # =1  # WebCore, WebKit2, WebKit
+    CFG_ENABLE_TOUCH_EVENTS=0 \  # =1  # WebCore, WebKit2, WebKit, WebKitTestRunner
     CFG_ENABLE_TOUCH_ICON_LOADING=0 \  # =0  # WebCore
     CFG_ENABLE_USER_TIMING=0 \  # =0  # WebCore
     CFG_ENABLE_VIBRATION=0 \  # =0  # WebCore, WebKit2
     CFG_ENABLE_VIDEO=0 \  # =0  # WebCore, WebKit2, WebKit, widgetsapi
-    CFG_ENABLE_VIDEO_TRACK=1 \  # =1  # WebCore, WebKit2
-    CFG_ENABLE_VIEW_MODE_CSS_MEDIA=1 \  # =1  # WebCore
+    CFG_ENABLE_VIDEO_TRACK=0 \  # =1  # WebCore, WebKit2
+    CFG_ENABLE_VIEW_MODE_CSS_MEDIA=0 \  # =1  # WebCore
     CFG_ENABLE_WEBGL=0 \  # =0  # WebCore, WebKit2, WebKit, widgetsapi, tests, QtTestBrowser
     CFG_ENABLE_WEB_AUDIO=0 \  # =0  # WebCore, WebKit2, WebKit, QtTestBrowser
-    CFG_ENABLE_WEB_SOCKETS=1 \  # =1  # WebCore
-    CFG_ENABLE_WEB_TIMING=1 \  # =1  # WebCore
-    CFG_ENABLE_WORKERS=1 \  # =1  # WebCore, WebKit
-    CFG_ENABLE_XHR_TIMEOUT=1 \  # =1  # WebCore
+    CFG_ENABLE_WEB_SOCKETS=0 \  # =1  # WebCore
+    CFG_ENABLE_WEB_TIMING=0 \  # =1  # WebCore
+    CFG_ENABLE_WORKERS=0 \  # =1  # WebCore, WebKit
+    CFG_ENABLE_XHR_TIMEOUT=0 \  # =1  # WebCore
     CFG_ENABLE_XSLT=0 \  # =0  # WebCore
 # from FeatureDefines.h
     CFG_ENABLE_8BIT_TEXTRUN=0 \  # =0  # WebCore
     CFG_ENABLE_ACCELERATED_OVERFLOW_SCROLLING=0 \  # =0  # WebCore
-    CFG_ENABLE_CONTEXT_MENUS=1 \  # =1  # WebCore, WebKit2, WebKitTestRunner
+    CFG_ENABLE_CONTEXT_MENUS=0 \  # =1  # WebCore, WebKit2, WebKitTestRunner
     CFG_ENABLE_CSS_DEVICE_ADAPTATION=0 \  # =0  # WebCore, WebKit2
     CFG_ENABLE_CSS_TRANSFORMS_ANIMATIONS_TRANSITIONS_UNPREFIXED=0 \  # =0  # none
     CFG_ENABLE_CUSTOM_SCHEME_HANDLER=0 \  # =0  # WebCore
     CFG_ENABLE_DELETION_UI=0 \  # =0  # WebCore, WebKit2
     CFG_ENABLE_DIALOG_ELEMENT=0 \  # =0  # WebCore
     CFG_ENABLE_DRAGGABLE_REGION=0 \  # =0  # WebCore
-    CFG_ENABLE_DRAG_SUPPORT=1 \  # =1  # WebCore, WebKit2
+    CFG_ENABLE_DRAG_SUPPORT=0 \  # =1  # WebCore, WebKit2
     CFG_ENABLE_ENCRYPTED_MEDIA=0 \  # =0  # WebCore
     CFG_ENABLE_ENCRYPTED_MEDIA_V2=0 \  # =0  # WebCore
     CFG_ENABLE_GLIB_SUPPORT=0 \  # =0  # none
@@ -152,7 +152,7 @@ CFG_FEATURE_DEFAULTS = \  # = default value  # which block depend from it
     \
 # This is here only for switch off, not for switch on.
 # For switch on made it in FeatureDefines.h
-#    CFG_ENABLE_DATE_AND_TIME_INPUT_TYPES=0 \  # =0  # WebCore
+    CFG_ENABLE_DATE_AND_TIME_INPUT_TYPES=0 \  # =0  # WebCore
     \
     CFG_ENABLE_JAVASCRIPT_I18N_API=0 \  # =0  # WebCore
     CFG_ENABLE_MEDIA_CAPTURE=0 \  # =0  # WebCore, WebKit2
@@ -163,7 +163,7 @@ CFG_FEATURE_DEFAULTS = \  # = default value  # which block depend from it
     \
 # This is here only for switch off, not for switch on.
 # For switch on made it in FeatureDefines.h
-#    CFG_ENABLE_PAN_SCROLLING=0 \  # =0  # WebCore, WebKit
+    CFG_ENABLE_PAN_SCROLLING=0 \  # =0  # WebCore, WebKit
     \
     CFG_ENABLE_PLUGIN_PACKAGE_SIMPLE_HASH=0 \  # =0  # WebCore
     CFG_ENABLE_PLUGIN_PROXY_FOR_VIDEO=0 \  # =0  # WebCore, WebKit2
@@ -173,17 +173,17 @@ CFG_FEATURE_DEFAULTS = \  # = default value  # which block depend from it
     CFG_ENABLE_SATURATED_LAYOUT_ARITHMETIC=0 \  # =0  # WebCore
     CFG_ENABLE_SPEECH_SYNTHESIS=0 \  # =0  # WebCore
     CFG_ENABLE_SPELLCHECK=0 \  # =0  # none
-    CFG_ENABLE_TEXT_CARET=1 \  # =1  # WebCore
+    CFG_ENABLE_TEXT_CARET=0 \  # =1  # WebCore
     CFG_ENABLE_THREADED_SCROLLING=0 \  # =0  # WebCore, WebKit2
     CFG_ENABLE_VIEWPORT=0 \  # =0  # WebCore
-    CFG_ENABLE_VIEWSOURCE_ATTRIBUTE=1 \  # =1  # WebCore
+    CFG_ENABLE_VIEWSOURCE_ATTRIBUTE=0 \  # =1  # WebCore
     CFG_ENABLE_WEB_ARCHIVE=0 \  # =0  # WebCore, WebKit2
 # from Platform.h
-#    CFG_USE_3D_GRAPHICS=1 \  # =1  # WebCore, WebKit2, WebKit, widgetsapi, api, WebKit.pro
+    CFG_USE_3D_GRAPHICS=0 \  # =1  # WebCore, WebKit2, WebKit, widgetsapi, api, WebKit.pro
     \
 # This is here only for switch off, not for switch on.
 # For switch on made it in Platform.h
-#    CFG_USE_TEXTURE_MAPPER_GL=0 \  # =0  # WebCore, WebKit2, WebKit, widgetsapi
+    CFG_USE_TEXTURE_MAPPER_GL=0 \  # =0  # WebCore, WebKit2, WebKit, widgetsapi
     \
 # This is here only for switch off, not for switch on.
 # For switch on made it in Platform.h
@@ -207,28 +207,33 @@ CFG_FEATURE_DEFAULTS = \  # = default value  # which block depend from it
 
 
 # See these features in Platform.h and change them there, if you need.
-#
+
 # This is without  "#if !defined(...)"  , in fact are hard coded in Platform.h
 #if USE(3D_GRAPHICS) && PLATFORM(QT)
 #WTF_USE_COORDINATED_GRAPHICS=1 \  # =1  # WebCore, WebKit2
-#
+
 # This is without  "#if !defined(...)"  , in fact are hard coded in Platform.h
-#if PLATFORM(QT)
 # Changed in Platform.h
+//#if PLATFORM(QT)
 #if PLATFORM(QT) && !defined(WTF_USE_TEXTURE_MAPPER)
 #WTF_USE_TEXTURE_MAPPER=1 \  # =1
-#
+
 # These are without conditions, hard coded in Platform.h
 #ENABLE_DEBUG_WITH_BREAKPOINT=0 \  # =0  # JavaScriptCore
 #ENABLE_OBJECT_MARK_LOGGING=0 \  # =0  # JavaScriptCore
 #ENABLE_REGEXP_TRACING=0 \  # =0  # JavaScriptCore
 #WTF_USE_GRAMMAR_CHECKING=1 \  # =1  # WebCore
-#
+
 # These are without  "#if !defined(...)"  , in fact are hard coded in Platform.h
 #WTF_USE_ACCELERATED_COMPOSITING=1 \  # =1  # WebCore, WebKit2, WebKit
 #WTF_USE_ACCESSIBILITY_CONTEXT_MENUS=1 \  # =1  # WebCore, WebKit2
 #WTF_USE_AUTOMATIC_TEXT_REPLACEMENT=1 \  # =1  # WebCore, WebKit2
+
+# Changed in Platform.h
+#//#if PLATFORM(WIN)
+#if PLATFORM(WIN) && !defined(WTF_USE_CROSS_PLATFORM_CONTEXT_MENUS)
 #WTF_USE_CROSS_PLATFORM_CONTEXT_MENUS=1 \  # =1  # WebCore, WebKit2
+
 #WTF_USE_COREAUDIO=1 \  # =1  # WebCore
 #WTF_USE_COREMEDIA=1 \  # =1  # WebCore
 #WTF_USE_UNIFIED_TEXT_CHECKING=1 \  # =1  # WebCore, WebKit2
@@ -244,37 +249,37 @@ CFG_BUILD_FEATURES = \  # = default value  # which block depend from it
     CFG_BUILD_PRODUCTION_BUILD=1 \  # =1
     \
 # see also  CFG_USE_3D_GRAPHICS
-    CFG_BUILD_3D_GRAPHICS=1 \  # =1
+    CFG_BUILD_3D_GRAPHICS=0 \  # =1
 # see also  WTF_USE_CROSS_PLATFORM_CONTEXT_MENUS
-    CFG_BUILD_CROSS_PLATFORM_CONTEXT_MENUS=1 \  # =1
-    CFG_BUILD_DRT=1 \  # =1
-    CFG_BUILD_GAMEPAD=1 \  # =1
-    CFG_BUILD_IMAGEDIFF=1 \  # =1
-    CFG_BUILD_INCLUDE_WEBINSPECTOR=1 \  # =1
-    CFG_BUILD_LEVELDB=1 \  # =1  # WebCore
+    CFG_BUILD_CROSS_PLATFORM_CONTEXT_MENUS=0 \  # =1
+    CFG_BUILD_DRT=0 \  # =1
+    CFG_BUILD_GAMEPAD=0 \  # =1
+    CFG_BUILD_IMAGEDIFF=0 \  # =1
+    CFG_BUILD_INCLUDE_WEBINSPECTOR=0 \  # =1
+    CFG_BUILD_LEVELDB=0 \  # =1  # WebCore
     CFG_BUILD_LIBXML2=1 \  # =1  # WebCore
-    CFG_BUILD_MINIBROWSER=1 \  # =1
-    CFG_BUILD_NETSCAPE_PLUGIN_API=1 \  # =1
+    CFG_BUILD_MINIBROWSER=0 \  # =1
+    CFG_BUILD_NETSCAPE_PLUGIN_API=0 \  # =1
     CFG_BUILD_QSTYLE=1 \  # =1
-    CFG_BUILD_QTPOSITIONING=1 \  # =1  # WebKit2, WebKit
-    CFG_BUILD_QTPRINTSUPPORT=1 \  # =1  # WebKit, widgetsapi, DumpRenderTree, QtTestBrowser
-    CFG_BUILD_QTQUICK=1 \  # =1  # WebKit2, widgetsapi, QtWebKit.pro, tests, Tools.pro
-    CFG_BUILD_QTSENSORS=1 \  # =1  # WebCore, WebKit2, WebKit
+    CFG_BUILD_QTPOSITIONING=0 \  # =1  # WebKit2, WebKit
+    CFG_BUILD_QTPRINTSUPPORT=0 \  # =1  # WebKit, widgetsapi, DumpRenderTree, QtTestBrowser
+    CFG_BUILD_QTQUICK=0 \  # =1  # WebKit2, widgetsapi, QtWebKit.pro, tests, Tools.pro
+    CFG_BUILD_QTSENSORS=0 \  # =1  # WebCore, WebKit2, WebKit
     CFG_BUILD_QTTESTLIB=1 \  # =1
-    CFG_BUILD_QTTESTSUPPORT=1 \  # =1  # MiniBrowser
-    CFG_BUILD_TEST_NPAPI=1 \  # =1
-    CFG_BUILD_TESTBROWSER=1 \  # =1
-    CFG_BUILD_TESTS=1 \  # =1
+    CFG_BUILD_QTTESTSUPPORT=0 \  # =1  # MiniBrowser
+    CFG_BUILD_TEST_NPAPI=0 \  # =1
+    CFG_BUILD_TESTBROWSER=0 \  # =1
+    CFG_BUILD_TESTS=0 \  # =1
     CFG_BUILD_TEXTURE_MAPPER=1 \  # =1
-    CFG_BUILD_TILED_BACKING_STORE=1 \  # =1  # WebCore, WebKit2, WebKit
-    CFG_BUILD_VIDEO=1 \  # =1
-    CFG_BUILD_WEBGL=1 \  # =1
+    CFG_BUILD_TILED_BACKING_STORE=0 \  # =1  # WebCore, WebKit2, WebKit
+    CFG_BUILD_VIDEO=0 \  # =1
+    CFG_BUILD_WEBGL=0 \  # =1
     CFG_BUILD_WEBKIT1=1 \  # =1  # WebKit2
-    CFG_BUILD_WEBKIT2=1 \  # =1  # WebKit
-    CFG_BUILD_WEBP=1 \  # =1
-    CFG_BUILD_WTR=1 \  # =1
-    CFG_BUILD_XSLT=1 \  # =1
-    CFG_BUILD_ZLIB=1 \  # =1  # WebCore
+    CFG_BUILD_WEBKIT2=0 \  # =1  # WebKit
+    CFG_BUILD_WEBP=0 \  # =1
+    CFG_BUILD_WTR=0 \  # =1
+    CFG_BUILD_XSLT=0 \  # =1
+    CFG_BUILD_ZLIB=0 \  # =1  # WebCore
     \
     CFG_BUILD_CACHE=1 \  # =1
     CFG_BUILD_EXAMPLES=1 \  # =1
@@ -294,33 +299,33 @@ CFG_BUILD_FEATURES = \  # = default value  # which block depend from it
 # Will added to DEFINES if =1 without "=1"
 CFG_MINIMAL_QT_DEFINES *= \  # = default value  # which block depend from it
 # from minimal_qt.prf
-    QT_NO_ANIMATION=0 \  # =0  # QtTestBrowser
-    QT_NO_BEARERMANAGEMENT=0 \  # =0  # WebCore, WebKit
-    QT_NO_CLIPBOARD=0 \  # =0  # WebCore, WebKit2, WebKit
-    QT_NO_COMBOBOX=0 \  # =0  # WebKit, QtTestBrowser
-    QT_NO_CURSOR=0 \  # =0  # WebCore, WebKit
-    QT_NO_DESKTOPSERVICES=0 \  # =0  # WebKit, QtTestBrowser
-    QT_NO_FILEDIALOG=0 \  # =0  # WebKit, QtTestBrowser
-    QT_NO_IM=0 \  # =0  # WebKit
-    QT_NO_INPUTDIALOG=0 \  # =0  # WebKit, QtTestBrowser
-    QT_NO_LINEEDIT=0 \  # =0  # QtTestBrowser
-    QT_NO_MESSAGEBOX=0 \  # =0  # WebKit, QtTestBrowser
-    QT_NO_OPENSSL=0 \  # =0  # WebCore, WebKit, DumpRenderTreeQt
-    QT_NO_PRINTER=0 \  # =0  # WebKit, QtTestBrowser, DumpRenderTreeQt
-    QT_NO_SHORTCUT=0 \  # =0  # WebKit, QtTestBrowser
-    QT_NO_STYLE_STYLESHEET=0 \  # =0  # WebKit
-    QT_NO_SYSTEMTRAYICON=0 \  # =0  # WebKit
-    QT_NO_TEMPORARYFILE=0 \  # =0  # WebCore
-    QT_NO_TOOLTIP=0 \  # =0  # WebKit, QtTestBrowser
-    QT_NO_UNDOCOMMAND=0 \  # =0  # WebKit
-    QT_NO_UNDOSTACK=0 \  # =0  # WebKit, QtTestBrowser, DumpRenderTreeQt
-    QT_NO_XRENDER=0 \  # =0  # WebCore
+    QT_NO_ANIMATION=1 \  # =0  # QtTestBrowser
+    QT_NO_BEARERMANAGEMENT=1 \  # =0  # WebCore, WebKit
+    QT_NO_CLIPBOARD=1 \  # =0  # WebCore, WebKit2, WebKit
+    QT_NO_COMBOBOX=1 \  # =0  # WebKit, QtTestBrowser
+    QT_NO_CURSOR=1 \  # =0  # WebCore, WebKit
+    QT_NO_DESKTOPSERVICES=1 \  # =0  # WebKit, QtTestBrowser
+    QT_NO_FILEDIALOG=1 \  # =0  # WebKit, QtTestBrowser
+    QT_NO_IM=1 \  # =0  # WebKit
+    QT_NO_INPUTDIALOG=1 \  # =0  # WebKit, QtTestBrowser
+    QT_NO_LINEEDIT=1 \  # =0  # QtTestBrowser
+    QT_NO_MESSAGEBOX=1 \  # =0  # WebKit, QtTestBrowser
+    QT_NO_OPENSSL=1 \  # =0  # WebCore, WebKit, DumpRenderTreeQt
+    QT_NO_PRINTER=1 \  # =0  # WebKit, QtTestBrowser, DumpRenderTreeQt
+    QT_NO_SHORTCUT=1 \  # =0  # WebKit, QtTestBrowser
+    QT_NO_STYLE_STYLESHEET=1 \  # =0  # WebKit
+    QT_NO_SYSTEMTRAYICON=1 \  # =0  # WebKit
+    QT_NO_TEMPORARYFILE=1 \  # =0  # WebCore
+    QT_NO_TOOLTIP=1 \  # =0  # WebKit, QtTestBrowser
+    QT_NO_UNDOCOMMAND=1 \  # =0  # WebKit
+    QT_NO_UNDOSTACK=1 \  # =0  # WebKit, QtTestBrowser, DumpRenderTreeQt
+    QT_NO_XRENDER=1 \  # =0  # WebCore
     \
 # These are not used
-    QT_NO_CONCURRENT=0 \  # =0
-    QT_NO_CRASHHANDLER=0 \  # =0
-    QT_NO_GRAPHICSEFFECT=0 \  # =0
-    QT_NO_QUUID_STRING=0 \  # =0
+    QT_NO_CONCURRENT=1 \  # =0
+    QT_NO_CRASHHANDLER=1 \  # =0
+    QT_NO_GRAPHICSEFFECT=1 \  # =0
+    QT_NO_QUUID_STRING=1 \  # =0
 
 
 

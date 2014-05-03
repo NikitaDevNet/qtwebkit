@@ -968,7 +968,9 @@
 /* Set up a define for a common error that is intended to cause a build error -- thus the space after Error. */
 #define WTF_PLATFORM_CFNETWORK Error USE_macro_should_be_used_with_CFNETWORK
 
-#if PLATFORM(WIN)
+// Changed for cfg_config
+//#if PLATFORM(WIN)
+#if PLATFORM(WIN) && !defined(WTF_USE_CROSS_PLATFORM_CONTEXT_MENUS)
 #define WTF_USE_CROSS_PLATFORM_CONTEXT_MENUS 1
 #endif
 
