@@ -65,7 +65,13 @@ INCLUDEPATH += \
     $$PWD/.. \
     $$PWD/Bindings \
     $${ROOT_WEBKIT_DIR}/Source/WebCore/platform/qt \
-    $${ROOT_WEBKIT_DIR}/Source/WebCore/testing/js \
+
+cfg_build?(javascriptcore) {
+  INCLUDEPATH += \
+    $${ROOT_WEBKIT_DIR}/Source/WebCore/testing/js
+}
+
+INCLUDEPATH += \
     $${ROOT_WEBKIT_DIR}/Source/WebKit/qt/WebCoreSupport
 
 PREFIX_HEADER = $$PWD/../WebKitTestRunnerPrefix.h

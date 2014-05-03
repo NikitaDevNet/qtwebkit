@@ -10,10 +10,18 @@ HEADERS += \
     ../../../../WebCore/platform/network/MIMESniffing.h \
     TestData.h
 
-INCLUDEPATH += \
-    ../../../../WebCore/platform/network \
+cfg_build?(network) {
+  INCLUDEPATH += \
+    ../../../../WebCore/platform/network
+}
+
+cfg_build?(javascriptcore) {
+  INCLUDEPATH += \
     ../../../../JavaScriptCore \
-    ../../../../JavaScriptCore/runtime \
+    ../../../../JavaScriptCore/runtime
+}
+
+INCLUDEPATH += \
     ../../../../WTF
 
 RESOURCES += resources.qrc
