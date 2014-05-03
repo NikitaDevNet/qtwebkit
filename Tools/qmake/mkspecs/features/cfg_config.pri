@@ -190,6 +190,8 @@ CFG_FEATURE_DEFAULTS = \  # = default value  # which block depend from it
 #    CFG_ENABLE_JIT=0 \  # =0  # JavaScriptCore
     \
 # Changed in Platform.h
+    CFG_USE_CROSS_PLATFORM_CONTEXT_MENUS=0 \  # =1  # WebCore, WebKit2
+# Changed in Platform.h
     CFG_USE_TEXTURE_MAPPER=1 \  # =1  # WebCore, WebKit2, WebKit, widgetsapi
     \
     CFG_ENABLE_CACHE=1 \  # =1
@@ -250,7 +252,6 @@ CFG_BUILD_FEATURES = \  # = default value  # which block depend from it
     \
 # see also  CFG_USE_3D_GRAPHICS
     CFG_BUILD_3D_GRAPHICS=0 \  # =1
-# see also  WTF_USE_CROSS_PLATFORM_CONTEXT_MENUS
     CFG_BUILD_CROSS_PLATFORM_CONTEXT_MENUS=0 \  # =1
     CFG_BUILD_DRT=0 \  # =1
     CFG_BUILD_GAMEPAD=0 \  # =1
