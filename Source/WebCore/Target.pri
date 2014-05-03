@@ -78,11 +78,11 @@ SOURCES += \
     accessibility/AccessibilityTableRow.cpp \
     accessibility/AXObjectCache.cpp \
     bindings/generic/ActiveDOMCallback.cpp \
-    bindings/generic/BindingSecurity.cpp \
     bindings/generic/RuntimeEnabledFeatures.cpp
 
 cfg_build?(javascriptcore) {
     SOURCES += \
+        bindings/generic/BindingSecurity.cpp \
         bindings/ScriptControllerBase.cpp \
         bindings/js/ArrayValue.cpp \
         bindings/js/BindingState.cpp \
@@ -1440,13 +1440,13 @@ HEADERS += \
     accessibility/AccessibilityTableHeaderContainer.h \
     accessibility/AccessibilityTableRow.h \
     accessibility/AXObjectCache.h \
-    bindings/ScriptControllerBase.h \
     bindings/generic/ActiveDOMCallback.h \
-    bindings/generic/BindingSecurity.h \
     bindings/generic/RuntimeEnabledFeatures.h
 
 cfg_build?(javascriptcore)
     HEADERS += \
+        bindings/generic/BindingSecurity.h \
+        bindings/ScriptControllerBase.h \
         bindings/js/BindingState.h \
         bindings/js/CachedScriptSourceProvider.h \
         bindings/js/CallbackFunction.h \
@@ -4597,8 +4597,12 @@ ALL_IN_ONE_SOURCES += \
     rendering/RenderingAllInOne.cpp \
     css/CSSAllInOne.cpp \
     css/MediaAllInOne.cpp \
-    dom/DOMAllInOne.cpp \
+    dom/DOMAllInOne.cpp
+
+cfg_build?(javascriptcore) {
+  ALL_IN_ONE_SOURCES += \
     bindings/js/JSBindingsAllInOne.cpp
+}
 
 # Make sure the derived sources are built
 include(DerivedSources.pri)

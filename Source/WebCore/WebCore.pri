@@ -7,7 +7,10 @@
 
 SOURCE_DIR = $${ROOT_WEBKIT_DIR}/Source/WebCore
 
-QT *= network sql core-private gui-private
+QT *= core-private gui-private
+
+cfg_build?(network): QT *= network
+cfg_build?(sqlite3): QT *= sql
 
 WEBCORE_GENERATED_SOURCES_DIR = $${ROOT_BUILD_DIR}/Source/WebCore/$${GENERATED_SOURCES_DESTDIR}
 
