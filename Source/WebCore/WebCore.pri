@@ -9,8 +9,8 @@ SOURCE_DIR = $${ROOT_WEBKIT_DIR}/Source/WebCore
 
 QT *= core-private gui-private
 
-cfg_build?(network): QT *= network
-cfg_build?(sqlite3): QT *= sql
+cfg_enable?(CFG_NETWORK): QT *= network
+cfg_enable?(CFG_SQLITE3): QT *= sql
 
 WEBCORE_GENERATED_SOURCES_DIR = $${ROOT_BUILD_DIR}/Source/WebCore/$${GENERATED_SOURCES_DESTDIR}
 
@@ -188,7 +188,7 @@ cfg_enable?(SVG): INCLUDEPATH += \
     $$SOURCE_DIR/svg/graphics/filters \
     $$SOURCE_DIR/svg/properties \
 
-cfg_build?(tests): INCLUDEPATH += \
+INCLUDEPATH += \
     $$SOURCE_DIR/testing \
 
 cfg_enable?(WEB_SOCKETS): INCLUDEPATH += \
@@ -209,7 +209,7 @@ cfg_enable?(JAVASCRIPTCORE): INCLUDEPATH += \
 INCLUDEPATH += \
     $$SOURCE_DIR/bridge/c \
 
-cfg_build?(tests): cfg_enable?(JAVASCRIPTCORE): INCLUDEPATH += \
+cfg_enable?(JAVASCRIPTCORE): INCLUDEPATH += \
     $$SOURCE_DIR/testing/js
 
 INCLUDEPATH += $$WEBCORE_GENERATED_SOURCES_DIR
@@ -333,7 +333,7 @@ use?(GRAPHICS_SURFACE) {
     }
 }
 
-cfg_build?(sqlite3) {
+cfg_enable?(CFG_SQLITE3) {
     have?(sqlite3) {
         mac {
             LIBS += -lsqlite3

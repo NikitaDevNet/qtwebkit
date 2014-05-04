@@ -35,7 +35,7 @@ QT = core core-private gui gui-private widgets network testlib quick quick-priva
 
 WEBKIT += wtf
 
-cfg_build?(javascriptcore) {
+cfg_enable?(CFG_JAVASCRIPTCORE) {
     WEBKIT += javascriptcore
 }
 

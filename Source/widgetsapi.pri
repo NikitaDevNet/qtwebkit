@@ -48,7 +48,7 @@ use?(3D_GRAPHICS): WEBKIT += ANGLE
 
 WEBKIT += wtf webcore
 
-cfg_build?(javascriptcore) {
+cfg_enable?(CFG_JAVASCRIPTCORE) {
     WEBKIT += javascriptcore
 }
 
@@ -63,7 +63,7 @@ MODULE_BASE_OUTDIR = $$ROOT_BUILD_DIR
 # the QtWebKitWidgets library, and will end up in the library's prl file.
 QT_API_DEPENDS = core gui widgets webkit
 
-cfg_build?(network): QT_API_DEPENDS += network
+cfg_enable?(CFG_NETWORK): QT_API_DEPENDS += network
 
 # ---------------- Custom developer-build handling -------------------
 #

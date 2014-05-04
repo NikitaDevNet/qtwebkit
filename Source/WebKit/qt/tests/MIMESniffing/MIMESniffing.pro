@@ -10,12 +10,12 @@ HEADERS += \
     ../../../../WebCore/platform/network/MIMESniffing.h \
     TestData.h
 
-cfg_build?(network) {
+cfg_enable?(CFG_NETWORK) {
   INCLUDEPATH += \
     ../../../../WebCore/platform/network
 }
 
-cfg_build?(javascriptcore) {
+cfg_enable?(CFG_JAVASCRIPTCORE) {
   INCLUDEPATH += \
     ../../../../JavaScriptCore \
     ../../../../JavaScriptCore/runtime

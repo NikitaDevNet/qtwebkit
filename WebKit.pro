@@ -14,7 +14,7 @@ WTF.file = Source/WTF/WTF.pro
 WTF.makefile = Makefile.WTF
 SUBDIRS += WTF
 
-cfg_build?(javascriptcore) {
+cfg_enable?(CFG_JAVASCRIPTCORE) {
     JavaScriptCore.file = Source/JavaScriptCore/JavaScriptCore.pro
     JavaScriptCore.makefile = Makefile.JavaScriptCore
     SUBDIRS += JavaScriptCore

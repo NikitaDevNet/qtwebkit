@@ -32,17 +32,17 @@ defineTest(cfg_build?) {
 }
 
 defineTest(cfg_have?) {
-    contains(CFG_FEATURE_DEFAULTS, CFG_HAVE_$$upper($$1)=1): return(true)
+    contains(CFG_FEATURE_DEFAULTS, HAVE_$$upper($$1)=1): return(true)
     return(false)
 }
 
 defineTest(cfg_use?) {
-    contains(CFG_FEATURE_DEFAULTS, CFG_USE_$$upper($$1)=1): return(true)
+    contains(CFG_FEATURE_DEFAULTS, USE_$$upper($$1)=1): return(true)
     return(false)
 }
 
 defineTest(cfg_enable?) {
-    contains(CFG_FEATURE_DEFAULTS, CFG_ENABLE_$$upper($$1)=1): return(true)
+    contains(CFG_FEATURE_DEFAULTS, ENABLE_$$upper($$1)=1): return(true)
     return(false)
 }
 

@@ -164,7 +164,7 @@ contains(QT, webkit)|contains(QT, webkitwidgets) {
     force_static_libs_as_shared {
         WEBKIT += wtf webcore
 
-        cfg_build?(javascriptcore) {
+        cfg_enable?(CFG_JAVASCRIPTCORE) {
             WEBKIT += javascriptcore
         }
 

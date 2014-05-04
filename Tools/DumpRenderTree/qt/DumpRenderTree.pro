@@ -11,7 +11,7 @@ DESTDIR = $$ROOT_BUILD_DIR/bin
 
 WEBKIT += wtf webcore
 
-cfg_build?(javascriptcore) {
+cfg_enable?(CFG_JAVASCRIPTCORE) {
     WEBKIT += javascriptcore
 }
 

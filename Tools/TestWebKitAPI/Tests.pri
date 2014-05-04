@@ -2,7 +2,7 @@ TEMPLATE = subdirs
 
 SUBDIRS += Tests/WTF
 
-cfg_build?(javascriptcore) {
+cfg_enable?(CFG_JAVASCRIPTCORE) {
     SUBDIRS += Tests/JavaScriptCore
 }
 

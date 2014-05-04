@@ -11,7 +11,7 @@ include(WebCore.pri)
 
 WEBKIT += wtf
 
-cfg_build?(javascriptcore) {
+cfg_enable?(CFG_JAVASCRIPTCORE) {
     WEBKIT += javascriptcore
 }
 
@@ -80,7 +80,7 @@ SOURCES += \
     bindings/generic/ActiveDOMCallback.cpp \
     bindings/generic/RuntimeEnabledFeatures.cpp
 
-cfg_build?(javascriptcore) {
+cfg_enable?(CFG_JAVASCRIPTCORE) {
     SOURCES += \
         bindings/generic/BindingSecurity.cpp \
         bindings/ScriptControllerBase.cpp \
@@ -601,7 +601,7 @@ SOURCES += \
     fileapi/ThreadableBlobRegistry.cpp \
     fileapi/WebKitBlobBuilder.cpp
 
-cfg_build?(history) {
+cfg_enable?(CFG_HISTORY) {
     SOURCES += \
         history/BackForwardController.cpp \
         history/BackForwardListImpl.cpp \
@@ -865,7 +865,7 @@ cfg_enable?(INSPECTOR) {
         inspector/WorkerRuntimeAgent.cpp
 }
 
-cfg_build?(cache) {
+cfg_enable?(CFG_CACHE) {
     SOURCES += \
         loader/appcache/ApplicationCache.cpp \
         loader/appcache/ApplicationCacheGroup.cpp \
@@ -880,7 +880,7 @@ SOURCES += \
     loader/archive/ArchiveResource.cpp \
     loader/archive/ArchiveResourceCollection.cpp
 
-cfg_build?(cache) {
+cfg_enable?(CFG_CACHE) {
     SOURCES += \
         loader/cache/MemoryCache.cpp \
         loader/cache/CachedCSSStyleSheet.cpp \
@@ -901,7 +901,7 @@ SOURCES += \
     loader/CrossOriginAccessControl.cpp \
     loader/CrossOriginPreflightResultCache.cpp
 
-cfg_build?(cache) {
+cfg_enable?(CFG_CACHE) {
     SOURCES += \
         loader/cache/CachedResourceLoader.cpp \
         loader/cache/CachedResourceRequest.cpp \
@@ -922,7 +922,7 @@ SOURCES += \
     loader/HistoryController.cpp \
     loader/FTPDirectoryParser.cpp
 
-cfg_build?(icon) {
+cfg_enable?(CFG_ICON) {
     SOURCES += \
         loader/icon/IconController.cpp \
         loader/icon/IconDatabaseBase.cpp \
@@ -1017,7 +1017,7 @@ SOURCES += \
     page/WindowFeatures.cpp \
     page/WindowFocusAllowedIndicator.cpp
 
-cfg_build?(plugins) {
+cfg_enable?(CFG_PLUGINS) {
     SOURCES += \
         plugins/PluginData.cpp \
         plugins/DOMPluginArray.cpp \
@@ -1103,7 +1103,7 @@ SOURCES += \
     platform/graphics/TextRun.cpp \
     platform/graphics/TiledBackingStore.cpp
 
-cfg_build?(transforms) {
+cfg_enable?(CFG_TRANSFORMS) {
     SOURCES += \
         platform/graphics/transforms/AffineTransform.cpp \
         platform/graphics/transforms/TransformationMatrix.cpp \
@@ -1132,7 +1132,7 @@ SOURCES += \
     platform/LengthBox.cpp \
     platform/text/LineEnding.cpp
 
-cfg_build?(leveldb) {
+cfg_enable?(CFG_LEVELDB) {
     SOURCES += \
         platform/leveldb/LevelDBDatabase.cpp \
         platform/leveldb/LevelDBTransaction.cpp \
@@ -1150,7 +1150,7 @@ SOURCES += \
     platform/mock/PlatformSpeechSynthesizerMock.cpp \
     platform/mock/ScrollbarThemeMock.cpp
 
-cfg_build?(network) {
+cfg_enable?(CFG_NETWORK) {
     SOURCES += \
         platform/network/AuthenticationChallengeBase.cpp \
         platform/network/BlobData.cpp \
@@ -1194,7 +1194,7 @@ SOURCES += \
     platform/SharedBuffer.cpp \
     platform/SharedBufferChunkReader.cpp
 
-cfg_build?(sqlite3) {
+cfg_enable?(CFG_SQLITE3) {
     SOURCES += \
         platform/sql/SQLiteAuthorizer.cpp \
         platform/sql/SQLiteDatabase.cpp \
@@ -1227,7 +1227,7 @@ SOURCES += \
     platform/Widget.cpp \
     platform/PlatformStrategies.cpp
 
-cfg_build?(plugins) {
+cfg_enable?(CFG_PLUGINS) {
     SOURCES += \
         plugins/IFrameShimSupport.cpp \
         plugins/PluginDatabase.cpp \
@@ -1374,7 +1374,7 @@ SOURCES += \
     rendering/style/StyleTransformData.cpp \
     rendering/style/StyleVisualData.cpp
 
-cfg_build?(storage) {
+cfg_enable?(CFG_STORAGE) {
     SOURCES += \
         storage/StorageThread.cpp \
         storage/Storage.cpp \
@@ -1443,7 +1443,7 @@ HEADERS += \
     bindings/generic/ActiveDOMCallback.h \
     bindings/generic/RuntimeEnabledFeatures.h
 
-cfg_build?(javascriptcore)
+cfg_enable?(CFG_JAVASCRIPTCORE)
     HEADERS += \
         bindings/generic/BindingSecurity.h \
         bindings/ScriptControllerBase.h \
@@ -1519,7 +1519,7 @@ HEADERS += \
     bridge/runtime_object.h \
     bridge/runtime_root.h
 
-cfg_build?(plugins) {
+cfg_enable?(CFG_PLUGINS) {
     HEADERS += \
         plugins/npruntime.h
 }
@@ -1898,7 +1898,7 @@ HEADERS += \
     fileapi/FileThreadTask.h \
     fileapi/WebKitBlobBuilder.h
 
-cfg_build?(history)
+cfg_enable?(CFG_HISTORY)
     HEADERS += \
         history/BackForwardController.h \
         history/BackForwardListImpl.h \
@@ -2126,7 +2126,7 @@ cfg_enable?(INSPECTOR) {
         inspector/WorkerRuntimeAgent.h
 }
 
-cfg_build?(cache) {
+cfg_enable?(CFG_CACHE) {
     HEADERS += \
         loader/appcache/ApplicationCacheGroup.h \
         loader/appcache/ApplicationCacheHost.h \
@@ -2141,7 +2141,7 @@ HEADERS += \
     loader/archive/ArchiveResourceCollection.h \
     loader/archive/ArchiveResource.h \
 
-cfg_build?(cache) {
+cfg_enable?(CFG_CACHE) {
     HEADERS += \
         loader/cache/CachedCSSStyleSheet.h \
         loader/cache/CachedFont.h \
@@ -2163,7 +2163,7 @@ HEADERS += \
     loader/CrossOriginAccessControl.h \
     loader/CrossOriginPreflightResultCache.h \
 
-cfg_build?(cache) {
+cfg_enable?(CFG_CACHE) {
     HEADERS += \
         loader/cache/CachedResourceLoader.h \
         loader/cache/CachedResourceRequest.h \
@@ -2178,7 +2178,7 @@ HEADERS += \
     loader/FrameLoaderStateMachine.h \
     loader/FTPDirectoryParser.h
 
-cfg_build?(icon) {
+cfg_enable?(CFG_ICON) {
     HEADERS += \
         loader/icon/IconController.h \
         loader/icon/IconDatabase.h \
@@ -2315,7 +2315,7 @@ HEADERS += \
     platform/graphics/BitmapImage.h \
     platform/graphics/Color.h
 
-cfg_build?(filters) {
+cfg_enable?(CFG_FILTERS) {
     HEADERS += \
         platform/graphics/cpu/arm/filters/NEONHelpers.h \
         platform/graphics/cpu/arm/filters/FEBlendNEON.h \
@@ -2327,7 +2327,7 @@ cfg_build?(filters) {
 HEADERS += \
     platform/graphics/CrossfadeGeneratedImage.h
 
-cfg_build?(filters) {
+cfg_enable?(CFG_FILTERS) {
     HEADERS += \
         platform/graphics/filters/texmap/TextureMapperPlatformCompiledProgram.h \
         platform/graphics/filters/CustomFilterArrayParameter.h \
@@ -2443,7 +2443,7 @@ HEADERS += \
     platform/graphics/TiledBackingStore.h \
     platform/graphics/TiledBackingStoreClient.h
 
-cfg_build?(transforms) {
+cfg_enable?(CFG_TRANSFORMS) {
     HEADERS += \
         platform/graphics/transforms/Matrix3DTransformOperation.h \
         platform/graphics/transforms/MatrixTransformOperation.h \
@@ -2471,7 +2471,7 @@ HEADERS += \
     platform/Length.h \
     platform/LengthBox.h
 
-cfg_build?(leveldb) {
+cfg_enable?(CFG_LEVELDB) {
     HEADERS += \
         platform/leveldb/LevelDBComparator.h \
         platform/leveldb/LevelDBDatabase.h \
@@ -2495,7 +2495,7 @@ HEADERS += \
     platform/MainThreadTask.h \
     platform/MIMETypeRegistry.h
 
-cfg_build?(network) {
+cfg_enable?(CFG_NETWORK) {
     HEADERS += \
         platform/network/AuthenticationChallengeBase.h \
         platform/network/AuthenticationClient.h \
@@ -2557,7 +2557,7 @@ HEADERS += \
     platform/SharedBuffer.h \
     platform/SharedBufferChunkReader.h
 
-cfg_build?(sqlite3) {
+cfg_enable?(CFG_SQLITE3) {
     HEADERS += \
         platform/sql/SQLiteDatabase.h \
         platform/sql/SQLiteFileSystem.h \
@@ -2593,7 +2593,7 @@ HEADERS += \
     platform/PlatformStrategies.h \
     platform/LocalizedStrings.h
 
-cfg_build?(plugins) {
+cfg_enable?(CFG_PLUGINS) {
     HEADERS += \
         plugins/DOMMimeTypeArray.h \
         plugins/DOMMimeType.h \
@@ -2835,7 +2835,7 @@ cfg_enable?(SVG) {
         rendering/svg/SVGTextRunRenderingContext.h \
 }
 
-cfg_build?(storage) {
+cfg_enable?(CFG_STORAGE) {
     HEADERS += \
         storage/Storage.h \
         storage/StorageArea.h \
@@ -3152,7 +3152,7 @@ cfg_use?(TEXTURE_MAPPER) {
         platform/graphics/texmap/TextureMapperTiledBackingStore.cpp
 }
 
-cfg_build?(network) {
+cfg_enable?(CFG_NETWORK) {
     SOURCES += \
         platform/network/DNSResolveQueue.cpp \
         platform/network/MIMESniffing.cpp \
@@ -4519,7 +4519,7 @@ use?(ZLIB) {
     SOURCES += platform/graphics/WOFFFileFormat.cpp
 }
 
-cfg_build?(sqlite3): !have?(SQLITE3):exists($${SQLITE3SRCDIR}/sqlite3.c) {
+cfg_enable?(CFG_SQLITE3): !have?(SQLITE3):exists($${SQLITE3SRCDIR}/sqlite3.c) {
     # Build sqlite3 into WebCore from source
     # somewhat copied from $$QT_SOURCE_TREE/src/plugins/sqldrivers/sqlite/sqlite.pro
     SOURCES += $${SQLITE3SRCDIR}/sqlite3.c
@@ -4599,7 +4599,7 @@ ALL_IN_ONE_SOURCES += \
     css/MediaAllInOne.cpp \
     dom/DOMAllInOne.cpp
 
-cfg_build?(javascriptcore) {
+cfg_enable?(CFG_JAVASCRIPTCORE) {
   ALL_IN_ONE_SOURCES += \
     bindings/js/JSBindingsAllInOne.cpp
 }

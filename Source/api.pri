@@ -14,7 +14,7 @@ WEBKIT_DESTDIR = $${ROOT_BUILD_DIR}/lib
 
 WEBKIT += wtf webcore
 
-cfg_build?(javascriptcore) {
+cfg_enable?(CFG_JAVASCRIPTCORE) {
     WEBKIT += javascriptcore
 }
 
@@ -38,7 +38,7 @@ CONFIG += creating_module
 # the QtWebKit library, and will end up in the library's prl file.
 QT_API_DEPENDS = core gui network
 
-cfg_build?(network): QT_API_DEPENDS += network
+cfg_enable?(CFG_NETWORK): QT_API_DEPENDS += network
 
 # We want the QtWebKit API forwarding includes to live in the root build dir.
 MODULE_BASE_DIR = $$_PRO_FILE_PWD_

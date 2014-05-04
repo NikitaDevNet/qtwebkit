@@ -52,7 +52,7 @@ QT += core webkit
 
 WEBKIT += wtf webcore
 
-cfg_build?(javascriptcore) {
+cfg_enable?(CFG_JAVASCRIPTCORE) {
     WEBKIT += javascriptcore
 }
 

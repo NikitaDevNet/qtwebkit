@@ -499,7 +499,7 @@ cfg_enable?(INSPECTOR) {
     $$PWD/inspector/ScriptProfileNode.idl
 }
 
-cfg_build?(cache) {
+cfg_enable?(CFG_CACHE) {
   IDL_BINDINGS += \
     $$PWD/loader/appcache/DOMApplicationCache.idl
 }
@@ -530,7 +530,7 @@ IDL_BINDINGS += \
     $$PWD/page/WindowTimers.idl \
     $$PWD/page/WorkerNavigator.idl
 
-cfg_build?(plugins) {
+cfg_enable?(CFG_PLUGINS) {
   IDL_BINDINGS += \
     $$PWD/plugins/DOMPlugin.idl \
     $$PWD/plugins/DOMMimeType.idl \
@@ -538,7 +538,7 @@ cfg_build?(plugins) {
     $$PWD/plugins/DOMMimeTypeArray.idl
 }
 
-cfg_build?(storage) {
+cfg_enable?(CFG_STORAGE) {
   IDL_BINDINGS += \
     $$PWD/storage/Storage.idl \
     $$PWD/storage/StorageEvent.idl
@@ -785,7 +785,7 @@ xlinknames.input = XLINK_NAMES
 GENERATORS += xlinknames
 
 # GENERATOR 6-A:
-# -- NOTE for javascriptFeatureDefines() -->  cfg_build?(javascriptcore) {
+# -- NOTE for javascriptFeatureDefines() -->  cfg_enable?(CFG_JAVASCRIPTCORE) {
 cssprops.script = $$PWD/css/makeprop.pl
 cssprops.output = CSSPropertyNames.cpp
 cssprops.input = WALDOCSSPROPS
@@ -901,17 +901,17 @@ cfg_enable?(INSPECTOR) {
   CFG_INCLUDES_GENERATE_BINDINGS += '--include inspector'
 }
 
-cfg_build?(cache) {
+cfg_enable?(CFG_CACHE) {
   CFG_INCLUDES_GENERATE_BINDINGS += '--include loader/appcache'
 }
 
 CFG_INCLUDES_GENERATE_BINDINGS += '--include page'
 
-cfg_build?(plugins) {
+cfg_enable?(CFG_PLUGINS) {
   CFG_INCLUDES_GENERATE_BINDINGS += '--include plugins'
 }
 
-cfg_build?(storage) {
+cfg_enable?(CFG_STORAGE) {
   CFG_INCLUDES_GENERATE_BINDINGS += '--include storage'
 }
 
@@ -973,7 +973,7 @@ generateBindings.depends = ${QMAKE_FUNC_FILE_OUT_PATH}/$$SUPPLEMENTAL_DEPENDENCY
                            $$PWD/bindings/scripts/InFilesParser.pm \
                            $$PWD/bindings/scripts/preprocessor.pm \
                            $$IDL_ATTRIBUTES_FILE
-cfg_build?(javascriptcore): GENERATORS += generateBindings
+cfg_enable?(CFG_JAVASCRIPTCORE): GENERATORS += generateBindings
 
 # GENERATOR 2: inspector idl compiler
 inspectorValidate.output = InspectorProtocolVersion.h

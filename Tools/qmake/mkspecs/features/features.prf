@@ -43,7 +43,7 @@ defineTest(detectFeatures) {
     cfg_build?(xslt): config_libxslt: WEBKIT_CONFIG += xslt
     cfg_build?(zlib): config_libzlib: WEBKIT_CONFIG += use_zlib
     cfg_build?(webp): config_libwebp: WEBKIT_CONFIG += use_webp
-    cfg_build?(leveldb): config_leveldb: WEBKIT_CONFIG += use_system_leveldb
+    cfg_enable?(CFG_LEVELDB): config_leveldb: WEBKIT_CONFIG += use_system_leveldb
 
     # We can't use Qt's 3rdparty sources for libjpeg and libpng outside of qtbase, but if Qt
     # is using the system libraries, use them to take advantage of the WebCore image decoders as well.
@@ -119,7 +119,7 @@ defineTest(detectFeatures) {
         }
     }
 
-    cfg_build?(sqlite3) {
+    cfg_enable?(CFG_SQLITE3) {
         # Try to use an system wide SQlite installation
         if(!contains(QT_CONFIG, no-pkg-config):packagesExist("sqlite3"))|mac {
             WEBKIT_CONFIG += have_sqlite3

@@ -6,7 +6,7 @@ cfg_build?(webkit2) {
     WEBKIT += webkit2
 }
 
-cfg_build?(javascriptcore) {
+cfg_enable?(CFG_JAVASCRIPTCORE) {
     WEBKIT += javascriptcore
 }
 

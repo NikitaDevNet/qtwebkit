@@ -6,7 +6,7 @@ DEFINES += QT_NO_KEYWORDS
 
 INCLUDEPATH += $$PWD/include $${ROOT_WEBKIT_DIR}/Source/WTF
 
-cfg_build?(javascriptcore): INCLUDEPATH += $${ROOT_WEBKIT_DIR}/Source/JavaScriptCore
+cfg_enable?(CFG_JAVASCRIPTCORE): INCLUDEPATH += $${ROOT_WEBKIT_DIR}/Source/JavaScriptCore
 
 INCLUDEPATH += $$QT.core.includes
 

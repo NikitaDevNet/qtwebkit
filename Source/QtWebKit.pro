@@ -41,7 +41,7 @@ build?(webkit1) {
         SUBDIRS += tests
     }
 
-    cfg_build?(examples) {
+    cfg_build?(qt_examples) {
         examples.file = WebKit/qt/examples/examples.pro
         examples.CONFIG += no_default_target
         examples.makefile = Makefile

@@ -13,7 +13,7 @@ QT = core gui network webkitwidgets
 
 WEBKIT += wtf
 
-cfg_build?(javascriptcore) {
+cfg_enable?(CFG_JAVASCRIPTCORE) {
     WEBKIT += javascriptcore
 }
 

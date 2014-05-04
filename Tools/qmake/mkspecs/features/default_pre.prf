@@ -88,7 +88,7 @@ unix:config_gccdepends {
 }
 
 # Set some defaults for specific platforms
-cfg_build?(include_webinspector): CONFIG += include_webinspector
+CONFIG += include_webinspector
 
 # Make sure we process the PKGCONFIG variable if applicable
 !mac: CONFIG += link_pkgconfig

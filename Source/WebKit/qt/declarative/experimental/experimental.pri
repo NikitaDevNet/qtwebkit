@@ -40,7 +40,7 @@ cfg_build?(webkit2) {
 
 WEBKIT += wtf
 
-cfg_build?(javascriptcore) {
+cfg_enable?(CFG_JAVASCRIPTCORE) {
     WEBKIT += javascriptcore
 }
 
