@@ -364,7 +364,7 @@ IDL_BINDINGS += \
     $$PWD/html/canvas/OESVertexArrayObject.idl \
     $$PWD/html/canvas/OESElementIndexUint.idl
 
-cfg_enable?(WEBGL) {
+cfg_build?(webgl) {
   IDL_BINDINGS += \
     $$PWD/html/canvas/WebGLActiveInfo.idl \
     $$PWD/html/canvas/WebGLBuffer.idl \
@@ -388,7 +388,7 @@ cfg_enable?(WEBGL) {
 IDL_BINDINGS += \
     $$PWD/html/canvas/Int16Array.idl
 
-cfg_enable?(WEBGL) {
+cfg_build?(webgl) {
   IDL_BINDINGS += \
     $$PWD/html/canvas/WebGLTexture.idl \
     $$PWD/html/canvas/WebGLUniformLocation.idl \

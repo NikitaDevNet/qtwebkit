@@ -5,6 +5,8 @@
 # See 'Tools/qmake/README' for an overview of the build system
 # -------------------------------------------------------------------
 
+#CFG_DEBUG_WARNING = ON
+
 TEMPLATE = subdirs
 CONFIG += ordered
 

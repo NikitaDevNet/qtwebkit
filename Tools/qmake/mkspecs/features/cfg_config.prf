@@ -9,21 +9,23 @@
 include(cfg_config.pri)
 
 defineTest(dwarning) {
-# Comment the lines for disable debug warnings.
-#    warning($${EOL})
-#    warning(=========== DEBUG WARNING ==========$${EOL})
-#    warning($${EOL})
 
-#    warning("  $$1")
+    contains(CFG_DEBUG_WARNING, ON) {
+        warning($${EOL})
+        warning(=========== DEBUG WARNING ==========$${EOL})
+        warning($${EOL})
 
-#    for(item, 2) {
-#        warning("      $$item")
-#    }
+        warning("  $$1")
 
-#    warning($${EOL})
-#    warning(------- END OF DEBUG WARNING -------$${EOL})
-#    warning($${EOL})
-#    warning($${EOL})
+        for(item, 2) {
+            warning("      $$item")
+        }
+
+        warning($${EOL})
+        warning(------- END OF DEBUG WARNING -------$${EOL})
+        warning($${EOL})
+        warning($${EOL})
+    }
 }
 
 defineTest(cfg_build?) {

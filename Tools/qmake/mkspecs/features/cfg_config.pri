@@ -200,6 +200,7 @@ CFG_FEATURE_DEFAULTS = \  # = default value  # which block depend from it
 # These are in  # Dependences
 #
 # HERE DO NOT SWITCH ON
+# NOT USE IN cfg_enable?() cfg_use?(), ONLY IN cfg_build?()
 #
 # from  features.pri  (ENABLE_*)
 #    ENABLE_GAMEPAD=0 \  # =0  # WebCore
@@ -251,16 +252,16 @@ CFG_BUILD_FEATURES = \  # = default value  # which block depend from it
     CFG_BUILD_QTTESTLIB=1 \  # =1
     \
 # See also in  # Dependences
-# use_
-    CFG_BUILD_3D_GRAPHICS=0 \  # =1
-    CFG_BUILD_CROSS_PLATFORM_CONTEXT_MENUS=0 \  # =1
-    CFG_BUILD_TEXTURE_MAPPER=1 \  # =1
 # enable_
     CFG_BUILD_GAMEPAD=0 \  # =1
     CFG_BUILD_NETSCAPE_PLUGIN_API=0 \  # =1
     CFG_BUILD_VIDEO=0 \  # =1
     CFG_BUILD_WEBGL=0 \  # =1
     CFG_BUILD_XSLT=0 \  # =1
+# use_
+    CFG_BUILD_3D_GRAPHICS=0 \  # =1
+    CFG_BUILD_CROSS_PLATFORM_CONTEXT_MENUS=0 \  # =1
+    CFG_BUILD_TEXTURE_MAPPER=1 \  # =1
 
 
 
@@ -300,39 +301,6 @@ CFG_MINIMAL_QT_DEFINES = \  # = default value  # which block depend from it
 
 
 # Dependences
-
-# from  Platform.h  (USE_*)
-
-#    USE_3D_GRAPHICS=0 \  # =0  # WebCore, WebKit2, WebKit, widgetsapi, api, WebKit.pro
-contains(CFG_BUILD_FEATURES, CFG_BUILD_3D_GRAPHICS=1) {
-    CFG_FEATURE_DEFAULTS -= USE_3D_GRAPHICS=0
-# See features.prf  #    CFG_FEATURE_DEFAULTS += USE_3D_GRAPHICS=1
-} else {
-    CFG_FEATURE_DEFAULTS -= USE_3D_GRAPHICS=1
-    CFG_FEATURE_DEFAULTS += USE_3D_GRAPHICS=0
-}
-
-# Changed in Platform.h
-#    USE_CROSS_PLATFORM_CONTEXT_MENUS=0 \  # =0  # WebCore, WebKit2
-contains(CFG_BUILD_FEATURES, CFG_BUILD_CROSS_PLATFORM_CONTEXT_MENUS=1) {
-    CFG_FEATURE_DEFAULTS -= USE_CROSS_PLATFORM_CONTEXT_MENUS=0
-# See features.prf  #    CFG_FEATURE_DEFAULTS += USE_CROSS_PLATFORM_CONTEXT_MENUS=1
-} else {
-    CFG_FEATURE_DEFAULTS -= USE_CROSS_PLATFORM_CONTEXT_MENUS=1
-    CFG_FEATURE_DEFAULTS += USE_CROSS_PLATFORM_CONTEXT_MENUS=0
-}
-
-# Changed in Platform.h
-#    USE_TEXTURE_MAPPER=1 \  # =1  # WebCore, WebKit2, WebKit, widgetsapi
-contains(CFG_BUILD_FEATURES, CFG_BUILD_TEXTURE_MAPPER=1) {
-    CFG_FEATURE_DEFAULTS -= USE_TEXTURE_MAPPER=0
-# See WebKit1.pri, widgetsapi.pri  #    CFG_FEATURE_DEFAULTS += USE_TEXTURE_MAPPER=1
-} else {
-    CFG_FEATURE_DEFAULTS -= USE_TEXTURE_MAPPER=1
-    CFG_FEATURE_DEFAULTS += USE_TEXTURE_MAPPER=0
-}
-
-
 
 # from  features.pri  (ENABLE_*)
 
@@ -379,6 +347,39 @@ contains(CFG_BUILD_FEATURES, CFG_BUILD_XSLT=1) {
 } else {
     CFG_FEATURE_DEFAULTS -= ENABLE_XSLT=1
     CFG_FEATURE_DEFAULTS += ENABLE_XSLT=0
+}
+
+
+
+# from  Platform.h  (USE_*)
+
+#    USE_3D_GRAPHICS=0 \  # =0  # WebCore, WebKit2, WebKit, widgetsapi, api, WebKit.pro
+contains(CFG_BUILD_FEATURES, CFG_BUILD_3D_GRAPHICS=1) {
+    CFG_FEATURE_DEFAULTS -= USE_3D_GRAPHICS=0
+# See features.prf  #    CFG_FEATURE_DEFAULTS += USE_3D_GRAPHICS=1
+} else {
+    CFG_FEATURE_DEFAULTS -= USE_3D_GRAPHICS=1
+    CFG_FEATURE_DEFAULTS += USE_3D_GRAPHICS=0
+}
+
+# Changed in Platform.h
+#    USE_CROSS_PLATFORM_CONTEXT_MENUS=0 \  # =0  # WebCore, WebKit2
+contains(CFG_BUILD_FEATURES, CFG_BUILD_CROSS_PLATFORM_CONTEXT_MENUS=1) {
+    CFG_FEATURE_DEFAULTS -= USE_CROSS_PLATFORM_CONTEXT_MENUS=0
+# See features.prf  #    CFG_FEATURE_DEFAULTS += USE_CROSS_PLATFORM_CONTEXT_MENUS=1
+} else {
+    CFG_FEATURE_DEFAULTS -= USE_CROSS_PLATFORM_CONTEXT_MENUS=1
+    CFG_FEATURE_DEFAULTS += USE_CROSS_PLATFORM_CONTEXT_MENUS=0
+}
+
+# Changed in Platform.h
+#    USE_TEXTURE_MAPPER=1 \  # =1  # WebCore, WebKit2, WebKit, widgetsapi
+contains(CFG_BUILD_FEATURES, CFG_BUILD_TEXTURE_MAPPER=1) {
+    CFG_FEATURE_DEFAULTS -= USE_TEXTURE_MAPPER=0
+# See WebKit1.pri, widgetsapi.pri  #    CFG_FEATURE_DEFAULTS += USE_TEXTURE_MAPPER=1
+} else {
+    CFG_FEATURE_DEFAULTS -= USE_TEXTURE_MAPPER=1
+    CFG_FEATURE_DEFAULTS += USE_TEXTURE_MAPPER=0
 }
 
 
@@ -445,11 +446,6 @@ contains(CFG_FEATURE_DEFAULTS, ENABLE_ICONDATABASE=1)|contains(CFG_FEATURE_DEFAU
 #WTF_USE_UNIFIED_TEXT_CHECKING=1 \  # =1  # WebCore, WebKit2
 
 
-
-
-dwarning(CFG_FEATURE_DEFAULTS =, $$CFG_FEATURE_DEFAULTS)
-dwarning(CFG_BUILD_FEATURES =, $$CFG_BUILD_FEATURES)
-dwarning(CFG_MINIMAL_QT_DEFINES =, $$CFG_MINIMAL_QT_DEFINES)
 
 
 dwarning(leaving cfg_config.pri)

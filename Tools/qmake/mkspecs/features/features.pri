@@ -16,7 +16,6 @@
 FEATURE_DEFAULTS =
 
 for(feature, CFG_FEATURE_DEFAULTS) {
-    feature ~= s/^CFG_//
     FEATURE_DEFAULTS += $$upper($$feature)
 }
 

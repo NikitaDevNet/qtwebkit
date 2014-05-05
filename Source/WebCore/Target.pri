@@ -2424,7 +2424,7 @@ HEADERS += \
     platform/graphics/surfaces/GraphicsSurfaceToken.h \
     platform/graphics/SurrogatePairAwareTextIterator.h
 
-cfg_use?(TEXTURE_MAPPER) {
+cfg_build?(texture_mapper) {
     HEADERS += \
         platform/graphics/texmap/GraphicsLayerTextureMapper.h \
         platform/graphics/texmap/TextureMapper.h \
@@ -2675,7 +2675,7 @@ HEADERS += \
     rendering/RenderImage.h \
     rendering/RenderInline.h
 
-cfg_enable?() {
+cfg_enable?(INPUT_SPEECH) {
     HEADERS += \
         rendering/RenderInputSpeech.h
 }
@@ -3139,7 +3139,7 @@ SOURCES += \
     platform/graphics/qt/PatternQt.cpp \
     platform/graphics/qt/StillImageQt.cpp
 
-cfg_use?(TEXTURE_MAPPER) {
+cfg_build?(texture_mapper) {
     SOURCES += \
         platform/graphics/texmap/GraphicsLayerTextureMapper.cpp \
         platform/graphics/texmap/TextureMapper.cpp \
@@ -4399,7 +4399,7 @@ use?(3D_GRAPHICS) {
         platform/graphics/gpu/TilingData.h \
         platform/graphics/opengl/Extensions3DOpenGL.h
 
-    cfg_use?(TEXTURE_MAPPER) {
+    cfg_build?(texture_mapper) {
         HEADERS += \
             platform/graphics/texmap/TextureMapperGL.h \
             platform/graphics/texmap/TextureMapperShaderProgram.h \
@@ -4441,7 +4441,7 @@ use?(3D_GRAPHICS) {
         platform/graphics/opengl/Extensions3DOpenGLCommon.cpp \
         platform/graphics/qt/GraphicsContext3DQt.cpp
 
-    cfg_use?(TEXTURE_MAPPER) {
+    cfg_build?(texture_mapper) {
         SOURCES += \
             platform/graphics/texmap/TextureMapperGL.cpp \
             platform/graphics/texmap/TextureMapperShaderProgram.cpp \

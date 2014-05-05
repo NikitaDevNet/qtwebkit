@@ -10,7 +10,12 @@ Also include in QtWebKit only those blocks, which are needed.
 In Tools/qmake/mkspecs/features added files
 cfg_config.prf (functions) and cfg_config.pri (options).
 
-See also files 'cfg_*' (in the future).
+In end of default_post.prf there are messages of debug warnings.
+For switch on these messages insert variable CFG_DEBUG_WARNING=ON in file,
+which want to control (WebKit.pro, WebCore.pro ...):
+
+CFG_DEBUG_WARNING = ON
+
 
 
 === The original description ===
