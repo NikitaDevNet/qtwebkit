@@ -17,42 +17,64 @@ WEBCORE_GENERATED_SOURCES_DIR = $${ROOT_BUILD_DIR}/Source/WebCore/$${GENERATED_S
 INCLUDEPATH += \
     $$SOURCE_DIR \
 
-cfg_enable?(FILE_SYSTEM): INCLUDEPATH += \
-    $$SOURCE_DIR/Modules/filesystem \
+#cfg_enable?(FILE_SYSTEM) {
+  INCLUDEPATH += \
+    $$SOURCE_DIR/Modules/filesystem
+#}
 
-cfg_enable?(GEOLOCATION): INCLUDEPATH += \
-    $$SOURCE_DIR/Modules/geolocation \
+#cfg_enable?(GEOLOCATION) {
+ INCLUDEPATH += \
+    $$SOURCE_DIR/Modules/geolocation
+#}
 
-cfg_enable?(INDEXED_DATABASE): INCLUDEPATH += \
-    $$SOURCE_DIR/Modules/indexeddb \
+#cfg_enable?(INDEXED_DATABASE) {
+  INCLUDEPATH += \
+    $$SOURCE_DIR/Modules/indexeddb
+#}
 
-cfg_enable?(NAVIGATOR_CONTENT_UTILS): INCLUDEPATH += \
-    $$SOURCE_DIR/Modules/navigatorcontentutils \
+#cfg_enable?(NAVIGATOR_CONTENT_UTILS) {
+  INCLUDEPATH += \
+    $$SOURCE_DIR/Modules/navigatorcontentutils
+#}
 
-cfg_enable?(NOTIFICATIONS): INCLUDEPATH += \
-    $$SOURCE_DIR/Modules/notifications \
+#cfg_enable?(NOTIFICATIONS) {
+  INCLUDEPATH += \
+    $$SOURCE_DIR/Modules/notifications
+#}
 
-cfg_enable?(PROXIMITY_EVENTS): INCLUDEPATH += \
-    $$SOURCE_DIR/Modules/proximity \
+#cfg_enable?(PROXIMITY_EVENTS) {
+  INCLUDEPATH += \
+    $$SOURCE_DIR/Modules/proximity
+#}
 
-cfg_enable?(QUOTA): INCLUDEPATH += \
-    $$SOURCE_DIR/Modules/quota \
+#cfg_enable?(QUOTA) {
+  INCLUDEPATH += \
+    $$SOURCE_DIR/Modules/quota
+#}
 
-cfg_enable?(WEB_AUDIO): INCLUDEPATH += \
-    $$SOURCE_DIR/Modules/webaudio \
+#cfg_enable?(WEB_AUDIO) {
+  INCLUDEPATH += \
+    $$SOURCE_DIR/Modules/webaudio
+#}
 
-cfg_enable?(SQL_DATABASE): INCLUDEPATH += \
-    $$SOURCE_DIR/Modules/webdatabase \
+#cfg_enable?(SQL_DATABASE) {
+  INCLUDEPATH += \
+    $$SOURCE_DIR/Modules/webdatabase
+#}
 
-cfg_enable?(WEB_SOCKETS): INCLUDEPATH += \
-    $$SOURCE_DIR/Modules/websockets \
+#cfg_enable?(WEB_SOCKETS) {
+  INCLUDEPATH += \
+    $$SOURCE_DIR/Modules/websockets
+#}
 
 INCLUDEPATH += \
     $$SOURCE_DIR/accessibility \
 
-cfg_enable?(CFG_JAVASCRIPTCORE): INCLUDEPATH += \
+#cfg_enable?(CFG_JAVASCRIPTCORE) {
+  INCLUDEPATH += \
     $$SOURCE_DIR/bindings \
-    $$SOURCE_DIR/bindings/generic \
+    $$SOURCE_DIR/bindings/generic
+#}
 
 INCLUDEPATH += \
     $$SOURCE_DIR/bridge \
@@ -65,8 +87,10 @@ INCLUDEPATH += \
     $$SOURCE_DIR/editing \
     $$SOURCE_DIR/fileapi \
 
-cfg_enable?(CFG_HISTORY): INCLUDEPATH += \
-    $$SOURCE_DIR/history \
+#cfg_enable?(CFG_HISTORY) {
+  INCLUDEPATH += \
+    $$SOURCE_DIR/history
+#}
 
 INCLUDEPATH += \
     $$SOURCE_DIR/html \
@@ -76,26 +100,36 @@ INCLUDEPATH += \
     $$SOURCE_DIR/html/shadow \
     $$SOURCE_DIR/html/track \
 
-cfg_enable?(INSPECTOR): INCLUDEPATH += \
-    $$SOURCE_DIR/inspector \
+#{cfg_enable?(INSPECTOR) {
+  INCLUDEPATH += \
+    $$SOURCE_DIR/inspector
+#}
 
 INCLUDEPATH += \
     $$SOURCE_DIR/loader \
 
-cfg_enable?(CFG_CACHE): INCLUDEPATH += \
-    $$SOURCE_DIR/loader/appcache \
+#cfg_enable?(CFG_CACHE) {
+  INCLUDEPATH += \
+    $$SOURCE_DIR/loader/appcache
+#}
 
 INCLUDEPATH += \
     $$SOURCE_DIR/loader/archive \
 
-cfg_enable?(CFG_CACHE): INCLUDEPATH += \
-    $$SOURCE_DIR/loader/cache \
+#cfg_enable?(CFG_CACHE) {
+  INCLUDEPATH += \
+    $$SOURCE_DIR/loader/cache
+#}
 
-cfg_enable?(CFG_ICON): INCLUDEPATH += \
-    $$SOURCE_DIR/loader/icon \
+#cfg_enable?(CFG_ICON) {
+  INCLUDEPATH += \
+    $$SOURCE_DIR/loader/icon
+#}
 
-cfg_enable?(MATHML): INCLUDEPATH += \
-    $$SOURCE_DIR/mathml \
+#cfg_enable?(MATHML) {
+  INCLUDEPATH += \
+    $$SOURCE_DIR/mathml
+#}
 
 INCLUDEPATH += \
     $$SOURCE_DIR/page \
@@ -112,26 +146,36 @@ INCLUDEPATH += \
     $$SOURCE_DIR/platform/graphics/cpu/arm \
     $$SOURCE_DIR/platform/graphics/cpu/arm/filters \
 
-cfg_enable?(CFG_FILTERS): INCLUDEPATH += \
-    $$SOURCE_DIR/platform/graphics/filters \
+#cfg_enable?(CFG_FILTERS) {
+  INCLUDEPATH += \
+    $$SOURCE_DIR/platform/graphics/filters
+#}
 
-cfg_enable?(CFG_FILTERS): cfg_build?(texture_mapper): INCLUDEPATH += \
-    $$SOURCE_DIR/platform/graphics/filters/texmap \
+#cfg_enable?(CFG_FILTERS): cfg_build?(texture_mapper) {
+  INCLUDEPATH += \
+    $$SOURCE_DIR/platform/graphics/filters/texmap
+#}
 
-cfg_build?(webgl): INCLUDEPATH += \
-    $$SOURCE_DIR/platform/graphics/opengl \
+#cfg_build?(webgl) {
+  INCLUDEPATH += \
+    $$SOURCE_DIR/platform/graphics/opengl
+#}
 
 INCLUDEPATH += \
     $$SOURCE_DIR/platform/graphics/opentype \
     $$SOURCE_DIR/platform/graphics/qt \
     $$SOURCE_DIR/platform/graphics/surfaces \
 
-cfg_build?(texture_mapper): INCLUDEPATH += \
+#cfg_build?(texture_mapper) {
+  INCLUDEPATH += \
     $$SOURCE_DIR/platform/graphics/texmap \
-    $$SOURCE_DIR/platform/graphics/texmap/coordinated \
+    $$SOURCE_DIR/platform/graphics/texmap/coordinated
+#}
 
-cfg_enable?(CFG_TRANSFORMS): INCLUDEPATH += \
-    $$SOURCE_DIR/platform/graphics/transforms \
+#cfg_enable?(CFG_TRANSFORMS) {
+  INCLUDEPATH += \
+    $$SOURCE_DIR/platform/graphics/transforms
+#}
 
 INCLUDEPATH += \
     $$SOURCE_DIR/platform/image-decoders \
@@ -142,75 +186,99 @@ INCLUDEPATH += \
     $$SOURCE_DIR/platform/image-decoders/png \
     $$SOURCE_DIR/platform/image-decoders/webp \
 
-cfg_enable?(CFG_LEVELDB): INCLUDEPATH += \
-    $$SOURCE_DIR/platform/leveldb \
+#cfg_enable?(CFG_LEVELDB) {
+  INCLUDEPATH += \
+    $$SOURCE_DIR/platform/leveldb
+#}
 
 INCLUDEPATH += \
     $$SOURCE_DIR/platform/mock \
 
-cfg_enable?(CFG_NETWORK): INCLUDEPATH += \
+#cfg_enable?(CFG_NETWORK) {
+  INCLUDEPATH += \
     $$SOURCE_DIR/platform/network \
-    $$SOURCE_DIR/platform/network/qt \
+    $$SOURCE_DIR/platform/network/qt
+#}
 
 INCLUDEPATH += \
     $$SOURCE_DIR/platform/qt \
 
-cfg_enable?(CFG_SQLITE3): INCLUDEPATH += \
-    $$SOURCE_DIR/platform/sql \
+#cfg_enable?(CFG_SQLITE3) {
+  INCLUDEPATH += \
+    $$SOURCE_DIR/platform/sql
+#}
 
 INCLUDEPATH += \
     $$SOURCE_DIR/platform/text \
     $$SOURCE_DIR/platform/text/transcoder \
 
-cfg_enable?(CFG_PLUGINS): INCLUDEPATH += \
-    $$SOURCE_DIR/plugins \
+#cfg_enable?(CFG_PLUGINS) {
+  INCLUDEPATH += \
+    $$SOURCE_DIR/plugins
+#}
 
 INCLUDEPATH += \
     $$SOURCE_DIR/rendering \
 
-cfg_enable?(MATHML): INCLUDEPATH += \
-    $$SOURCE_DIR/rendering/mathml \
+#cfg_enable?(MATHML) {
+  INCLUDEPATH += \
+    $$SOURCE_DIR/rendering/mathml
+#}
 
 INCLUDEPATH += \
     $$SOURCE_DIR/rendering/shapes \
     $$SOURCE_DIR/rendering/style \
 
-cfg_enable?(SVG): INCLUDEPATH += \
-    $$SOURCE_DIR/rendering/svg \
+#cfg_enable?(SVG) {
+  INCLUDEPATH += \
+    $$SOURCE_DIR/rendering/svg
+#}
 
-cfg_enable?(CFG_STORAGE): INCLUDEPATH += \
-    $$SOURCE_DIR/storage \
+#cfg_enable?(CFG_STORAGE) {
+  INCLUDEPATH += \
+    $$SOURCE_DIR/storage
+#}
 
-cfg_enable?(SVG): INCLUDEPATH += \
+#cfg_enable?(SVG) {
+  INCLUDEPATH += \
     $$SOURCE_DIR/svg \
     $$SOURCE_DIR/svg/animation \
     $$SOURCE_DIR/svg/graphics \
     $$SOURCE_DIR/svg/graphics/filters \
-    $$SOURCE_DIR/svg/properties \
+    $$SOURCE_DIR/svg/properties
+#}
 
 INCLUDEPATH += \
     $$SOURCE_DIR/testing \
 
-cfg_enable?(WEB_SOCKETS): INCLUDEPATH += \
-    $$SOURCE_DIR/websockets \
+#cfg_enable?(WEB_SOCKETS) {
+  INCLUDEPATH += \
+    $$SOURCE_DIR/websockets
+#}
 
-cfg_enable?(WORKERS): INCLUDEPATH += \
-    $$SOURCE_DIR/workers \
+#cfg_enable?(WORKERS) {
+  INCLUDEPATH += \
+    $$SOURCE_DIR/workers
+#}
 
 INCLUDEPATH += \
     $$SOURCE_DIR/xml \
     $$SOURCE_DIR/xml/parser \
     $$SOURCE_DIR/../ThirdParty
 
-cfg_enable?(CFG_JAVASCRIPTCORE): INCLUDEPATH += \
+#cfg_enable?(CFG_JAVASCRIPTCORE) {
+  INCLUDEPATH += \
     $$SOURCE_DIR/bridge/jsc \
-    $$SOURCE_DIR/bindings/js \
+    $$SOURCE_DIR/bindings/js
+#}
 
 INCLUDEPATH += \
     $$SOURCE_DIR/bridge/c \
 
-cfg_enable?(CFG_JAVASCRIPTCORE): INCLUDEPATH += \
+#cfg_enable?(CFG_JAVASCRIPTCORE) {
+  INCLUDEPATH += \
     $$SOURCE_DIR/testing/js
+#}
 
 INCLUDEPATH += $$WEBCORE_GENERATED_SOURCES_DIR
 

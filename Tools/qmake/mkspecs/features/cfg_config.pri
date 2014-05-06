@@ -410,7 +410,6 @@ contains(CFG_FEATURE_DEFAULTS, ENABLE_ICONDATABASE=1)|contains(CFG_FEATURE_DEFAU
 
 
 
-
 # See these features in Platform.h and change them there, if you need.
 
 

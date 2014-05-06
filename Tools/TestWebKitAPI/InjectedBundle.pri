@@ -21,7 +21,7 @@ SOURCES += \
     $$PWD/qt/PlatformUtilitiesQt.cpp
 
 cfg_build?(webkit2) {
-SOURCES += \
+  SOURCES += \
     $$PWD/Tests/WebKit2/CanHandleRequest_Bundle.cpp \
     $$PWD/Tests/WebKit2/DocumentStartUserScriptAlertCrash_Bundle.cpp \
     $$PWD/Tests/WebKit2/DOMWindowExtensionBasic_Bundle.cpp \
