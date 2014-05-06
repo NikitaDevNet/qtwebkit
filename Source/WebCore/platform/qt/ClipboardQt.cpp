@@ -56,9 +56,11 @@ DragImageRef Clipboard::createDragImage(IntPoint& location) const
     return 0; // We do not have enough information to create a drag image, use the default icon.
 }
 
+#if ENABLE(DRAG_SUPPORT)
 void Clipboard::declareAndWriteDragImage(Element* element, const KURL& url, const String& label, Frame* frame)
 {
     m_pasteboard->writeImage(element->toNode(), url, label);
 }
+#endif
 
 }
