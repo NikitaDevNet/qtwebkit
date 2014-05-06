@@ -15,11 +15,11 @@ win32-*: CONFIG += console
 win32-msvc*: CONFIG += exceptions_off stl_off
 win32-msvc*|win32-icc: INCLUDEPATH += $$ROOT_WEBKIT_DIR/Source/JavaScriptCore/os-win32
 
-WEBKIT += wtf
-
 cfg_enable?(CFG_JAVASCRIPTCORE) {
     WEBKIT += javascriptcore
 }
+
+WEBKIT += wtf
 
 SOURCES = jsc.cpp
 

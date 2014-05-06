@@ -46,11 +46,11 @@ QT += webkit
 
 use?(3D_GRAPHICS): WEBKIT += ANGLE
 
-WEBKIT += wtf webcore
-
 cfg_enable?(CFG_JAVASCRIPTCORE) {
     WEBKIT += javascriptcore
 }
+
+WEBKIT += wtf webcore
 
 MODULE = webkitwidgets
 CONFIG += creating_module
@@ -61,9 +61,11 @@ MODULE_BASE_OUTDIR = $$ROOT_BUILD_DIR
 
 # This is the canonical list of dependencies for the public API of
 # the QtWebKitWidgets library, and will end up in the library's prl file.
-QT_API_DEPENDS = core gui widgets webkit
+QT_API_DEPENDS = core gui widgets
 
 cfg_enable?(CFG_NETWORK): QT_API_DEPENDS += network
+
+QT_API_DEPENDS = webkit
 
 # ---------------- Custom developer-build handling -------------------
 #

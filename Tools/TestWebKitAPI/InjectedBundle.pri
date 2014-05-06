@@ -50,11 +50,13 @@ DESTDIR = $${ROOT_BUILD_DIR}/lib
 
 QT += core webkit
 
-WEBKIT += wtf webcore
+WEBKIT += wtf
 
 cfg_enable?(CFG_JAVASCRIPTCORE) {
     WEBKIT += javascriptcore
 }
+
+WEBKIT += webcore
 
 cfg_build?(webkit2) {
     WEBKIT += webkit2

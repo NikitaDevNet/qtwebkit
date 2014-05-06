@@ -9,11 +9,13 @@ TARGET = WebKit1
 
 include(WebKit1.pri)
 
-WEBKIT += wtf webcore
+WEBKIT += wtf
 
 cfg_enable?(CFG_JAVASCRIPTCORE) {
     WEBKIT += javascriptcore
 }
+
+WEBKIT += webcore
 
 QT += gui
 

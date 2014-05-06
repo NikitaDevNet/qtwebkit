@@ -162,11 +162,13 @@ contains(QT, webkit)|contains(QT, webkitwidgets) {
     # In addition to the main shared QtWebKit library we also
     # need to link to any intermediate shared libraries.
     force_static_libs_as_shared {
-        WEBKIT += wtf webcore
+        WEBKIT += wtf
 
         cfg_enable?(CFG_JAVASCRIPTCORE) {
             WEBKIT += javascriptcore
         }
+
+        WEBKIT += webcore
 
         build?(webkit1): WEBKIT += webkit1
         build?(webkit2): WEBKIT += webkit2

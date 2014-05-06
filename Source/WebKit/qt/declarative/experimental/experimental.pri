@@ -35,13 +35,16 @@ SOURCES += plugin.cpp
 
 cfg_build?(webkit2) {
     DEFINES += HAVE_WEBKIT2
-    WEBKIT += webkit2
 }
 
 WEBKIT += wtf
 
 cfg_enable?(CFG_JAVASCRIPTCORE) {
     WEBKIT += javascriptcore
+}
+
+cfg_build?(webkit2) {
+    WEBKIT += webkit2
 }
 
 # The fallback to QT_INSTALL_IMPORTS can be removed once we
