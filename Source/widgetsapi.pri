@@ -35,7 +35,8 @@ cfg_build?(texture_mapper): contains(CONFIG, texmap): DEFINES += WTF_USE_TEXTURE
 
 use?(PLUGIN_BACKEND_XLIB): PKGCONFIG += x11
 
-QT += network widgets widgets-private
+cfg_enable?(CFG_NETWORK): QT += network
+QT += widgets widgets-private
 cfg_build?(qtquick): have?(QTQUICK): QT += quick
 cfg_build?(qtprintsupport): have?(QTPRINTSUPPORT): QT += printsupport
 
@@ -65,7 +66,7 @@ QT_API_DEPENDS = core gui widgets
 
 cfg_enable?(CFG_NETWORK): QT_API_DEPENDS += network
 
-QT_API_DEPENDS = webkit
+QT_API_DEPENDS += webkit
 
 # ---------------- Custom developer-build handling -------------------
 #
