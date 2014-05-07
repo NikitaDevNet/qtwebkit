@@ -293,11 +293,13 @@ public:
     void wheelEvent(QWheelEvent*, int wheelScrollLines);
 #endif
 #ifndef QT_NO_DRAGANDDROP
+#if ENABLE(DRAG_SUPPORT)
     Qt::DropAction dragEntered(const QMimeData*, const QPoint&, Qt::DropActions);
     void dragLeaveEvent();
     Qt::DropAction dragUpdated(const QMimeData*, const QPoint&, Qt::DropActions);
     bool performDrag(const QMimeData*, const QPoint&, Qt::DropActions);
-#endif
+#endif // ENABLE(DRAG_SUPPORT)
+#endif // QT_NO_DRAGANDDROP
     void inputMethodEvent(QInputMethodEvent*);
     QVariant inputMethodQuery(Qt::InputMethodQuery property) const;
     void dynamicPropertyChangeEvent(QObject*, QDynamicPropertyChangeEvent*);

@@ -37,8 +37,14 @@ SOURCES += \
     $$PWD/qt/Api/qwebsecurityorigin.cpp \
     $$PWD/qt/Api/qwebsettings.cpp \
     $$PWD/qt/Api/qwebscriptworld.cpp \
-    $$PWD/qt/WebCoreSupport/ChromeClientQt.cpp \
-    $$PWD/qt/WebCoreSupport/ContextMenuClientQt.cpp \
+    $$PWD/qt/WebCoreSupport/ChromeClientQt.cpp
+
+cfg_enable?(CONTEXT_MENUS) {
+  SOURCES += \
+    $$PWD/qt/WebCoreSupport/ContextMenuClientQt.cpp
+}
+
+SOURCES += \
     $$PWD/qt/WebCoreSupport/DragClientQt.cpp \
     $$PWD/qt/WebCoreSupport/DumpRenderTreeSupportQt.cpp \
     $$PWD/qt/WebCoreSupport/EditorClientQt.cpp \

@@ -109,10 +109,14 @@ void DragClientQt::startDrag(DragImageRef dragImage, const IntPoint& dragImageOr
 
         // Send dragEnd event
         PlatformMouseEvent me(m_chromeClient->screenToRootView(QCursor::pos()), QCursor::pos(), LeftButton, PlatformEvent::MouseMoved, 0, false, false, false, false, 0);
+#if ENABLE(DRAG_SUPPORT)
         frame->eventHandler()->dragSourceEndedAt(me, dropActionToDragOperation(actualDropAction));
+#endif
     }
+#if ENABLE(DRAG_SUPPORT)
     frame->page()->dragController()->dragEnded();
 #endif
+#endif  // ifndef QT_NO_DRAGANDDROP
 }
 
 

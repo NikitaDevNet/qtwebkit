@@ -226,7 +226,9 @@ void QWebPageAdapter::initializeWebCorePage()
 #endif
     Page::PageClients pageClients;
     pageClients.chromeClient = new ChromeClientQt(this);
+#if ENABLE(CONTEXT_MENUS)
     pageClients.contextMenuClient = new ContextMenuClientQt();
+#endif
     pageClients.editorClient = new EditorClientQt(this);
     pageClients.dragClient = new DragClientQt(pageClients.chromeClient);
     pageClients.inspectorClient = new InspectorClientQt(this);
@@ -601,6 +603,7 @@ void QWebPageAdapter::wheelEvent(QWheelEvent *ev, int wheelScrollLines)
 #endif // QT_NO_WHEELEVENT
 
 #ifndef QT_NO_DRAGANDDROP
+#if ENABLE(DRAG_SUPPORT)
 
 Qt::DropAction QWebPageAdapter::dragEntered(const QMimeData *data, const QPoint &pos, Qt::DropActions possibleActions)
 {
@@ -625,6 +628,9 @@ bool QWebPageAdapter::performDrag(const QMimeData *data, const QPoint &pos, Qt::
     DragData dragData(data, pos, QCursor::pos(), dropActionToDragOp(possibleActions));
     return page->dragController()->performDrag(&dragData);
 }
+
+#endif // ENABLE(DRAG_SUPPORT)
+#endif // QT_NO_DRAGANDDROP
 
 void QWebPageAdapter::inputMethodEvent(QInputMethodEvent *ev)
 {
@@ -797,7 +803,9 @@ typedef struct {
 void QWebPageAdapter::dynamicPropertyChangeEvent(QObject* obj, QDynamicPropertyChangeEvent* event)
 {
     if (event->propertyName() == "_q_viewMode") {
+#if ENABLE(VIEW_MODE_CSS_MEDIA)
         page->setViewMode(Page::stringToViewMode(obj->property("_q_viewMode").toString()));
+#endif
     } else if (event->propertyName() == "_q_HTMLTokenizerChunkSize") {
         int chunkSize = obj->property("_q_HTMLTokenizerChunkSize").toInt();
         page->setCustomHTMLTokenizerChunkSize(chunkSize);
@@ -851,11 +859,12 @@ void QWebPageAdapter::dynamicPropertyChangeEvent(QObject* obj, QDynamicPropertyC
     }
 }
 
-#endif // QT_NO_DRAGANDDROP
+//#endif // QT_NO_DRAGANDDROP
 
 #define MAP_ACTION_FROM_VALUE(Name, Value) \
     case Value: return QWebPageAdapter::Name
 
+#if ENABLE(CONTEXT_MENUS)
 static QWebPageAdapter::MenuAction adapterActionForContextMenuAction(WebCore::ContextMenuAction action)
 {
     switch (action) {
@@ -869,7 +878,9 @@ static QWebPageAdapter::MenuAction adapterActionForContextMenuAction(WebCore::Co
     }
     return QWebPageAdapter::NoAction;
 }
+#endif // ENABLE(CONTEXT_MENUS)
 
+#if ENABLE(CONTEXT_MENUS)
 QList<MenuItem> descriptionForPlatformMenu(const Vector<ContextMenuItem>& items, Page* page)
 {
     QList<MenuItem> itemDescriptions;
@@ -915,24 +926,29 @@ QList<MenuItem> descriptionForPlatformMenu(const Vector<ContextMenuItem>& items,
     }
     return itemDescriptions;
 }
+#endif
 
 QWebHitTestResultPrivate* QWebPageAdapter::updatePositionDependentMenuActions(const QPoint& pos, QBitArray* visitedWebActions)
 {
     ASSERT(visitedWebActions);
     WebCore::Frame* focusedFrame = page->focusController()->focusedOrMainFrame();
     HitTestResult result = focusedFrame->eventHandler()->hitTestResultAtPoint(focusedFrame->view()->windowToContents(pos));
+#if ENABLE(CONTEXT_MENUS)
     page->contextMenuController()->setHitTestResult(result);
+#endif
 
 #if ENABLE(INSPECTOR)
     if (page->inspectorController()->enabled())
         page->contextMenuController()->addInspectElementItem();
 #endif
 
+#if ENABLE(CONTEXT_MENUS)
     WebCore::ContextMenu* webcoreMenu = page->contextMenuController()->contextMenu();
     QList<MenuItem> itemDescriptions;
     if (client && webcoreMenu)
         itemDescriptions = descriptionForPlatformMenu(webcoreMenu->items(), page);
     createAndSetCurrentContextMenu(itemDescriptions, visitedWebActions);
+#endif
     if (result.scrollbar())
         return 0;
     return new QWebHitTestResultPrivate(result);
@@ -1189,6 +1205,7 @@ void QWebPageAdapter::triggerAction(QWebPageAdapter::MenuAction action, QWebHitT
 }
 
 
+#if ENABLE(CONTEXT_MENUS)
 QString QWebPageAdapter::contextMenuItemTagForAction(QWebPageAdapter::MenuAction action, bool* checkable) const
 {
     ASSERT(checkable);
@@ -1279,6 +1296,7 @@ QString QWebPageAdapter::contextMenuItemTagForAction(QWebPageAdapter::MenuAction
         return QString();
     }
 }
+#endif
 
 #if ENABLE(NOTIFICATIONS) || ENABLE(LEGACY_NOTIFICATIONS)
 void QWebPageAdapter::setNotificationsAllowedForFrame(QWebFrameAdapter* frame, bool allowed)
@@ -1496,6 +1514,7 @@ bool QWebPageAdapter::touchEvent(QTouchEvent* event)
 #endif
 }
 
+#if ENABLE(CONTEXT_MENUS)
 bool QWebPageAdapter::swallowContextMenuEvent(QContextMenuEvent *event, QWebFrameAdapter *webFrame)
 {
     // Check the first and last enum values match at least, since we cast.
@@ -1539,3 +1558,4 @@ bool QWebPageAdapter::swallowContextMenuEvent(QContextMenuEvent *event, QWebFram
 
     return !menu;
 }
+#endif
