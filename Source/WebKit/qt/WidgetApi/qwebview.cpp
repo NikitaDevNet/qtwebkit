@@ -696,10 +696,12 @@ bool QWebView::event(QEvent *e)
             if (!isEnabled())
                 return false;
             QContextMenuEvent *event = static_cast<QContextMenuEvent *>(e);
+#if ENABLE(CONTEXT_MENUS)
             if (d->page->swallowContextMenuEvent(event)) {
                 e->accept();
                 return true;
             }
+#endif // ENABLE(CONTEXT_MENUS)
             d->page->updatePositionDependentActions(event->pos());
         } else
 #endif // QT_NO_CONTEXTMENU

@@ -177,7 +177,9 @@ public:
     virtual void setToolTip(const QString&) = 0;
     virtual QStringList chooseFiles(QWebFrameAdapter*, bool allowMultiple, const QStringList& suggestedFileNames) = 0;
     virtual QColor colorSelectionRequested(const QColor& selectedColor) = 0;
+#ifndef QT_NO_COMBOBOX
     virtual QWebSelectMethod* createSelectPopup() = 0;
+#endif
     virtual QRect viewRectRelativeToWindow() = 0;
 
 #if USE(QT_MULTIMEDIA)
@@ -192,13 +194,17 @@ public:
     virtual void respondToChangedSelection() = 0;
     virtual void microFocusChanged() = 0;
     virtual void triggerCopyAction() = 0;
+#ifndef QT_NO_SHORTCUT
     virtual void triggerActionForKeyEvent(QKeyEvent*) = 0;
+#endif
     virtual void clearUndoStack() = 0;
     virtual bool canUndo() const = 0;
     virtual bool canRedo() const = 0;
     virtual void undo() = 0;
     virtual void redo() = 0;
+#ifndef QT_NO_SHORTCUT
     virtual const char* editorCommandForKeyEvent(QKeyEvent*) = 0;
+#endif
     virtual void createUndoStep(QSharedPointer<UndoStepQt>) = 0;
 
     virtual void updateNavigationActions() = 0;
@@ -310,12 +316,16 @@ public:
     bool handleShortcutOverrideEvent(QKeyEvent*);
     // Returns whether the default action was cancelled in the JS event handler
     bool touchEvent(QTouchEvent*);
+#if ENABLE(CONTEXT_MENUS)
     bool swallowContextMenuEvent(QContextMenuEvent *, QWebFrameAdapter*);
+#endif
 
     QWebHitTestResultPrivate* updatePositionDependentMenuActions(const QPoint&, QBitArray*);
     void updateActionInternal(MenuAction, const char* commandName, bool* enabled, bool* checked);
     void triggerAction(MenuAction, QWebHitTestResultPrivate*, const char* commandName, bool endToEndReload);
+#if ENABLE(CONTEXT_MENUS)
     QString contextMenuItemTagForAction(MenuAction, bool* checkable) const;
+#endif
 
     QStringList supportedContentTypes() const;
 #if ENABLE(GEOLOCATION) && HAVE(QTPOSITIONING)

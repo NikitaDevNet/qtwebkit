@@ -99,7 +99,9 @@ public:
     virtual QWebFrameAdapter* mainFrameAdapter() OVERRIDE;
     virtual QStringList chooseFiles(QWebFrameAdapter*, bool allowMultiple, const QStringList& suggestedFileNames) OVERRIDE;
     virtual QColor colorSelectionRequested(const QColor& selectedColor) OVERRIDE;
+#ifndef QT_NO_COMBOBOX
     virtual QWebSelectMethod* createSelectPopup() OVERRIDE;
+#endif
     virtual QRect viewRectRelativeToWindow() OVERRIDE;
     virtual void geolocationPermissionRequested(QWebFrameAdapter*) OVERRIDE;
     virtual void geolocationPermissionRequestCancelled(QWebFrameAdapter*) OVERRIDE;
@@ -110,14 +112,18 @@ public:
     virtual void respondToChangedSelection() OVERRIDE;
     virtual void microFocusChanged() OVERRIDE;
     virtual void triggerCopyAction() OVERRIDE;
+#ifndef QT_NO_SHORTCUT
     virtual void triggerActionForKeyEvent(QKeyEvent*) OVERRIDE;
+#endif
     virtual void clearUndoStack() OVERRIDE;
     virtual bool canUndo() const OVERRIDE;
     virtual bool canRedo() const OVERRIDE;
     virtual void undo() OVERRIDE;
     virtual void redo() OVERRIDE;
     virtual void createUndoStep(QSharedPointer<UndoStepQt>) OVERRIDE;
+#ifndef QT_NO_SHORTCUT
     virtual const char* editorCommandForKeyEvent(QKeyEvent*) OVERRIDE;
+#endif
 
     void updateNavigationActions() OVERRIDE;
 

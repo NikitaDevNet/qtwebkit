@@ -34,7 +34,9 @@ public:
     virtual void update(const QRect &) OVERRIDE;
     virtual void setGeometryAndClip(const QRect&, const QRect&, bool isVisible) OVERRIDE;
     virtual void setVisible(bool) OVERRIDE;
+#ifndef QT_NO_STYLE_STYLESHEET
     virtual void setStyleSheet(const QString&) OVERRIDE;
+#endif
     virtual void setWidgetParent(QObject *) OVERRIDE;
     virtual QObject* handle() const OVERRIDE;
 private:

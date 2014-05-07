@@ -52,10 +52,12 @@ void QWidgetPluginImpl::setVisible(bool visible)
     m_widget->setVisible(visible && !mask.isEmpty());
 }
 
+#ifndef QT_NO_STYLE_STYLESHEET
 void QWidgetPluginImpl::setStyleSheet(const QString &stylesheet)
 {
     m_widget->setStyleSheet(stylesheet);
 }
+#endif
 
 void QWidgetPluginImpl::setWidgetParent(QObject *parent)
 {

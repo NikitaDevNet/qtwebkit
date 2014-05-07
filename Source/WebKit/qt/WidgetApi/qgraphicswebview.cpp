@@ -387,10 +387,12 @@ bool QGraphicsWebView::event(QEvent* event)
 
             QGraphicsSceneContextMenuEvent* ev = static_cast<QGraphicsSceneContextMenuEvent*>(event);
             QContextMenuEvent fakeEvent(QContextMenuEvent::Reason(ev->reason()), ev->pos().toPoint());
+#if ENABLE(CONTEXT_MENUS)
             if (d->page->swallowContextMenuEvent(&fakeEvent)) {
                 event->accept();
                 return true;
             }
+#endif // ENABLE(CONTEXT_MENUS)
             d->page->updatePositionDependentActions(fakeEvent.pos());
         } else
 #endif // QT_NO_CONTEXTMENU

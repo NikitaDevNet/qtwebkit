@@ -882,32 +882,38 @@ template<class T>
 void QWebPagePrivate::dragEnterEvent(T* ev)
 {
 #ifndef QT_NO_DRAGANDDROP
+#if ENABLE(DRAG_SUPPORT)
     Qt::DropAction action = dragEntered(ev->mimeData(), QPointF(ev->pos()).toPoint(), ev->possibleActions());
     ev->setDropAction(action);
     ev->acceptProposedAction();
-#endif
+#endif //ENABLE(DRAG_SUPPORT)
+#endif // ifndef QT_NO_DRAGANDDROP
 }
 
 template<class T>
 void QWebPagePrivate::dragMoveEvent(T *ev)
 {
 #ifndef QT_NO_DRAGANDDROP
+#if ENABLE(DRAG_SUPPORT)
     m_lastDropAction = dragUpdated(ev->mimeData(), QPointF(ev->pos()).toPoint(), ev->possibleActions());
     ev->setDropAction(m_lastDropAction);
     if (m_lastDropAction != Qt::IgnoreAction)
         ev->accept();
-#endif
+#endif //ENABLE(DRAG_SUPPORT)
+#endif // ifndef QT_NO_DRAGANDDROP
 }
 
 template<class T>
 void QWebPagePrivate::dropEvent(T *ev)
 {
 #ifndef QT_NO_DRAGANDDROP
+#if ENABLE(DRAG_SUPPORT)
     if (performDrag(ev->mimeData(), QPointF(ev->pos()).toPoint(), ev->possibleActions())) {
         ev->setDropAction(m_lastDropAction);
         ev->accept();
     }
-#endif
+#endif //ENABLE(DRAG_SUPPORT)
+#endif // ifndef QT_NO_DRAGANDDROP
 }
 
 void QWebPagePrivate::leaveEvent(QEvent*)
@@ -1795,10 +1801,12 @@ QColor QWebPagePrivate::colorSelectionRequested(const QColor &selectedColor)
     return ret;
 }
 
+#ifndef QT_NO_COMBOBOX
 QWebSelectMethod *QWebPagePrivate::createSelectPopup()
 {
     return new QtFallbackWebPopup(this);
 }
+#endif
 
 QRect QWebPagePrivate::viewRectRelativeToWindow()
 {
@@ -1855,11 +1863,13 @@ void QWebPagePrivate::triggerCopyAction()
     q->triggerAction(QWebPage::Copy);
 }
 
+#ifndef QT_NO_SHORTCUT
 void QWebPagePrivate::triggerActionForKeyEvent(QKeyEvent* event)
 {
     QWebPage::WebAction action = editorActionForKeyEvent(event);
     q->triggerAction(action);
 }
+#endif
 
 void QWebPagePrivate::clearUndoStack()
 {
@@ -1916,11 +1926,13 @@ void QWebPagePrivate::createUndoStep(QSharedPointer<UndoStepQt> step)
 #endif
 }
 
+#ifndef QT_NO_SHORTCUT
 const char *QWebPagePrivate::editorCommandForKeyEvent(QKeyEvent* event)
 {
     QWebPage::WebAction action = editorActionForKeyEvent(event);
     return editorCommandForWebActions(action);
 }
+#endif
 
 QSize QWebPage::viewportSize() const
 {
@@ -2433,8 +2445,10 @@ QAction *QWebPage::action(WebAction action) const
         default:
             break;
     }
+#if ENABLE(CONTEXT_MENUS)
     if (mappedAction != QWebPageAdapter::NoAction)
         text = d->contextMenuItemTagForAction(mappedAction, &checkable);
+#endif
 
     if (text.isEmpty())
         return 0;
@@ -2581,10 +2595,12 @@ bool QWebPage::event(QEvent *ev)
     case QEvent::DragEnter:
         d->dragEnterEvent(static_cast<QDragEnterEvent*>(ev));
         break;
+#if ENABLE(DRAG_SUPPORT)
     case QEvent::DragLeave:
         d->dragLeaveEvent();
         ev->accept();
         break;
+#endif // ENABLE(DRAG_SUPPORT)
     case QEvent::DragMove:
         d->dragMoveEvent(static_cast<QDragMoveEvent*>(ev));
         break;
@@ -2598,16 +2614,20 @@ bool QWebPage::event(QEvent *ev)
     case QEvent::GraphicsSceneDragMove:
         d->dragMoveEvent(static_cast<QGraphicsSceneDragDropEvent*>(ev));
         break;
+#ifndef QT_NO_DRAGANDDROP
+#if ENABLE(DRAG_SUPPORT)
     case QEvent::GraphicsSceneDragLeave:
         d->dragLeaveEvent();
         ev->accept();
         break;
+#endif // ENABLE(DRAG_SUPPORT)
+#endif // QT_NO_DRAGANDDROP
     case QEvent::GraphicsSceneDrop:
         d->dropEvent(static_cast<QGraphicsSceneDragDropEvent*>(ev));
         break;
 #endif
 
-#endif
+#endif // QT_NO_DRAGANDDROP
     case QEvent::InputMethod:
         d->inputMethodEvent(static_cast<QInputMethodEvent*>(ev));
         break;
@@ -2774,11 +2794,13 @@ bool QWebPagePrivate::handleScrollbarContextMenuEvent(QContextMenuEvent* event, 
     menus to be implemented in HTML/JavaScript. This is used by \l{http://maps.google.com/}{Google
     Maps}, for example.
 */
+#if ENABLE(CONTEXT_MENUS)
 bool QWebPage::swallowContextMenuEvent(QContextMenuEvent *event)
 {
     QWebFrame* webFrame = frameAt(event->pos());
     return d->swallowContextMenuEvent(event, webFrame ? webFrame->d : 0);
 }
+#endif // ENABLE(CONTEXT_MENUS)
 #endif // QT_NO_CONTEXTMENU
 
 /*!

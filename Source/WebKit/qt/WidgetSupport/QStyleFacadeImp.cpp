@@ -170,6 +170,7 @@ QRect QStyleFacadeImp::buttonSubElementRect(QStyleFacade::ButtonSubElement butto
     return style()->subElementRect(subElement, &option);
 }
 
+#ifndef QT_NO_LINEEDIT
 int QStyleFacadeImp::findFrameLineWidth() const
 {
     if (!m_lineEdit)
@@ -177,6 +178,7 @@ int QStyleFacadeImp::findFrameLineWidth() const
 
     return style()->pixelMetric(QStyle::PM_DefaultFrameWidth, 0, m_lineEdit.data());
 }
+#endif
 
 int QStyleFacadeImp::simplePixelMetric(QStyleFacade::PixelMetric metric, State state) const
 {
@@ -262,7 +264,9 @@ void QStyleFacadeImp::paintTextField(QPainter *painter, const QStyleFacadeOption
 
     MappedStyleOption<QStyleOptionFrameV2> panel(widget, proxyOption);
 
+#ifndef QT_NO_LINEEDIT
     panel.lineWidth = findFrameLineWidth();
+#endif
     panel.features = QStyleOptionFrameV2::None;
 
     style()->drawPrimitive(QStyle::PE_PanelLineEdit, &panel, painter, widget);
@@ -339,6 +343,7 @@ void QStyleFacadeImp::paintSliderThumb(QPainter* painter, const QStyleFacadeOpti
     style()->drawComplexControl(QStyle::CC_Slider, &option, painter, widget);
 }
 
+#ifndef QT_NO_SPINBOX
 void QStyleFacadeImp::paintInnerSpinButton(QPainter* painter, const QStyleFacadeOption& proxyOption, bool spinBoxUp)
 {
     QWidget* widget = qobject_cast<QWidget*>(widgetForPainter(painter));
@@ -381,6 +386,7 @@ void QStyleFacadeImp::paintInnerSpinButton(QPainter* painter, const QStyleFacade
 
     style()->drawComplexControl(QStyle::CC_SpinBox, &option, painter, widget);
 }
+#endif
 
 void QStyleFacadeImp::paintProgressBar(QPainter* painter, const QStyleFacadeOption& proxyOption, double progress, double animationProgress)
 {

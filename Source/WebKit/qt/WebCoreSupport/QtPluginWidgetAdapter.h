@@ -33,7 +33,9 @@ public:
     virtual void update(const QRect&) = 0;
     virtual void setGeometryAndClip(const QRect&, const QRect&, bool isVisible = false) = 0;
     virtual void setVisible(bool) = 0;
+#ifndef QT_NO_STYLE_STYLESHEET
     virtual void setStyleSheet(const QString&) = 0;
+#endif
     virtual void setWidgetParent(QObject*) = 0;
     virtual QObject* handle() const = 0;
 };
