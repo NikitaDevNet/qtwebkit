@@ -255,8 +255,10 @@ String PluginDatabase::MIMETypeForExtension(const String& extension) const
                 if (equalIgnoringCase(extensions[i], extension)) {
                     PluginPackage* plugin = (*it).get();
 
+#if ENABLE(PLUGIN_PACKAGE_SIMPLE_HASH)
                     if (preferredPlugin && PluginPackage::equal(*plugin, *preferredPlugin))
                         return mimeType;
+#endif
 
 #if ENABLE(NETSCAPE_PLUGIN_METADATA_CACHE)
                     if (!plugin->ensurePluginLoaded())
@@ -326,7 +328,10 @@ void PluginDatabase::getDeletedPlugins(PluginSet& plugins) const
     PluginSet::const_iterator end = m_plugins.end();
     for (PluginSet::const_iterator it = m_plugins.begin(); it != end; ++it) {
         if (!fileExistsAndIsNotDisabled((*it)->path()))
-            plugins.add(*it);
+#if ENABLE(PLUGIN_PACKAGE_SIMPLE_HASH)
+            plugins.add(*it)
+#endif
+                    ;
     }
 }
 
@@ -336,8 +341,10 @@ bool PluginDatabase::add(PassRefPtr<PluginPackage> prpPackage)
 
     RefPtr<PluginPackage> package = prpPackage;
 
+#if ENABLE(PLUGIN_PACKAGE_SIMPLE_HASH)
     if (!m_plugins.add(package).isNewEntry)
         return false;
+#endif
 
     m_pluginsByPath.add(package->path(), package);
     return true;
@@ -353,7 +360,9 @@ void PluginDatabase::remove(PluginPackage* package)
             m_preferredPlugins.remove(packageInMap);
     }
 
+#if ENABLE(PLUGIN_PACKAGE_SIMPLE_HASH)
     m_plugins.remove(package);
+#endif
     m_pluginsByPath.remove(package->path());
 }
 

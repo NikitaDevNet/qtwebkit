@@ -364,10 +364,13 @@ void SQLiteDatabase::disableThreadingChecks()
 
 int SQLiteDatabase::authorizerFunction(void* userData, int actionCode, const char* parameter1, const char* parameter2, const char* /*databaseName*/, const char* /*trigger_or_view*/)
 {
+#if ENABLE(SQL_DATABASE)
     DatabaseAuthorizer* auth = static_cast<DatabaseAuthorizer*>(userData);
     ASSERT(auth);
+#endif // ENABLE(SQL_DATABASE)
 
     switch (actionCode) {
+#if ENABLE(SQL_DATABASE)
         case SQLITE_CREATE_INDEX:
             return auth->createIndex(parameter1, parameter2);
         case SQLITE_CREATE_TABLE:
@@ -432,12 +435,14 @@ int SQLiteDatabase::authorizerFunction(void* userData, int actionCode, const cha
         case SQLITE_FUNCTION:
             return auth->allowFunction(parameter2);
 #endif
+#endif // ENABLE(SQL_DATABASE)
         default:
             ASSERT_NOT_REACHED();
             return SQLAuthDeny;
     }
 }
 
+#if ENABLE(SQL_DATABASE)
 void SQLiteDatabase::setAuthorizer(PassRefPtr<DatabaseAuthorizer> auth)
 {
     if (!m_db) {
@@ -452,6 +457,7 @@ void SQLiteDatabase::setAuthorizer(PassRefPtr<DatabaseAuthorizer> auth)
     
     enableAuthorizer(true);
 }
+#endif // ENABLE(SQL_DATABASE)
 
 void SQLiteDatabase::enableAuthorizer(bool enable)
 {

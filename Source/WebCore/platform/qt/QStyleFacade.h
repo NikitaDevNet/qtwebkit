@@ -117,7 +117,9 @@ public:
 
     virtual QRect buttonSubElementRect(ButtonSubElement buttonElement, State, const QRect& originalRect) const = 0;
 
+#ifndef QT_NO_LINEEDIT
     virtual int findFrameLineWidth() const = 0;
+#endif
     virtual int simplePixelMetric(PixelMetric, State = State_None) const = 0;
     virtual int buttonMargin(State, const QRect& originalRect) const = 0;
     virtual int sliderLength(Qt::Orientation) const = 0;
@@ -141,7 +143,9 @@ public:
 
     virtual void paintSliderTrack(QPainter*, const QStyleFacadeOption&) = 0;
     virtual void paintSliderThumb(QPainter*, const QStyleFacadeOption&) = 0;
+#ifndef QT_NO_SPINBOX
     virtual void paintInnerSpinButton(QPainter*, const QStyleFacadeOption&, bool spinBoxUp) = 0;
+#endif
     virtual void paintProgressBar(QPainter*, const QStyleFacadeOption&, double progress, double animationProgress) = 0;
 
     virtual int scrollBarExtent(bool mini) = 0;

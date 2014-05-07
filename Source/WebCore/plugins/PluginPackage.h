@@ -60,8 +60,10 @@ namespace WebCore {
         const MIMEToDescriptionsMap& mimeToDescriptions() const { return m_mimeToDescriptions; }
         const MIMEToExtensionsMap& mimeToExtensions() const { return m_mimeToExtensions; }
 
+#if ENABLE(PLUGIN_PACKAGE_SIMPLE_HASH)
         unsigned hash() const;
         static bool equal(const PluginPackage& a, const PluginPackage& b);
+#endif
 
         bool load();
         void unload();
@@ -130,11 +132,13 @@ namespace WebCore {
     };
 
     struct PluginPackageHash {
+#if ENABLE(PLUGIN_PACKAGE_SIMPLE_HASH)
         static unsigned hash(const uintptr_t key) { return reinterpret_cast<PluginPackage*>(key)->hash(); }
         static unsigned hash(const RefPtr<PluginPackage>& key) { return key->hash(); }
 
         static bool equal(const uintptr_t a, const uintptr_t b) { return equal(reinterpret_cast<PluginPackage*>(a), reinterpret_cast<PluginPackage*>(b)); }
         static bool equal(const RefPtr<PluginPackage>& a, const RefPtr<PluginPackage>& b) { return PluginPackage::equal(*a.get(), *b.get()); }
+#endif
         static const bool safeToCompareToEmptyOrDeleted = false;
     };
 

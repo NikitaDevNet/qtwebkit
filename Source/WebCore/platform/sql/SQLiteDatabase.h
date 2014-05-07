@@ -111,7 +111,9 @@ public:
         return m_db;
     }
     
+#if ENABLE(SQL_DATABASE)
     void setAuthorizer(PassRefPtr<DatabaseAuthorizer>);
+#endif
 
     Mutex& databaseMutex() { return m_lockingMutex; }
     bool isAutoCommitOn() const;

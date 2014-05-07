@@ -138,8 +138,10 @@ public:
     { qStyle->paintSliderTrack(painter, styleOption); }
     void paintSliderThumb()
     { qStyle->paintSliderThumb(painter, styleOption); }
+#ifndef QT_NO_SPINBOX
     void paintInnerSpinButton(bool spinBoxUp)
     { qStyle->paintInnerSpinButton(painter, styleOption, spinBoxUp); }
+#endif
     void paintProgressBar(double progress, double animationProgress)
     { qStyle->paintProgressBar(painter, styleOption, progress, animationProgress); }
     void paintScrollCorner(const QRect& rect)

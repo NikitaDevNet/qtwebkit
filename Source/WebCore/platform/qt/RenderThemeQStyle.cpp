@@ -161,6 +161,7 @@ void RenderThemeQStyle::computeSizeBasedOnStyle(RenderStyle* renderStyle) const
     switch (renderStyle->appearance()) {
     case TextAreaPart:
     case SearchFieldPart:
+#ifndef QT_NO_LINEEDIT
     case TextFieldPart: {
         int padding = m_qStyle->findFrameLineWidth();
         renderStyle->setPaddingLeft(Length(padding, Fixed));
@@ -169,6 +170,7 @@ void RenderThemeQStyle::computeSizeBasedOnStyle(RenderStyle* renderStyle) const
         renderStyle->setPaddingBottom(Length(padding, Fixed));
         break;
     }
+#endif
     default:
         break;
     }
