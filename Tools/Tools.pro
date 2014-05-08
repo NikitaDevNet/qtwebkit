@@ -14,7 +14,9 @@ build?(webkit1) {
 
 build?(webkit2) {
     # WTR's InjectedBundle depends currently on WK1's DumpRenderTreeSupport
-    cfg_build?(qtquick): build?(webkit1):build?(wtr):have?(QTQUICK): SUBDIRS += WebKitTestRunner/WebKitTestRunner.pro
+#    cfg_build?(qtquick) {
+        build?(webkit1):build?(wtr):have?(QTQUICK): SUBDIRS += WebKitTestRunner/WebKitTestRunner.pro
+#    }
 
     build?(minibrowser) {
         have?(QTQUICK): SUBDIRS += MiniBrowser/qt/MiniBrowser.pro

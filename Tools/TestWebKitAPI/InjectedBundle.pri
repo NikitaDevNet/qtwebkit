@@ -20,7 +20,7 @@ SOURCES += \
     $$PWD/qt/InjectedBundleControllerQt.cpp \
     $$PWD/qt/PlatformUtilitiesQt.cpp
 
-cfg_build?(webkit2) {
+#cfg_build?(webkit2) {
   SOURCES += \
     $$PWD/Tests/WebKit2/CanHandleRequest_Bundle.cpp \
     $$PWD/Tests/WebKit2/DocumentStartUserScriptAlertCrash_Bundle.cpp \
@@ -43,7 +43,7 @@ cfg_build?(webkit2) {
     $$PWD/Tests/WebKit2/UserMessage_Bundle.cpp \
     $$PWD/Tests/WebKit2/WillSendSubmitEvent_Bundle.cpp \
     $$PWD/Tests/WebKit2/WKConnection_Bundle.cpp
-}
+#}
 
 
 DESTDIR = $${ROOT_BUILD_DIR}/lib

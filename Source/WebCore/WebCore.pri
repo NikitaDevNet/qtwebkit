@@ -401,7 +401,7 @@ use?(GRAPHICS_SURFACE) {
     }
 }
 
-cfg_enable?(CFG_SQLITE3) {
+#cfg_enable?(CFG_SQLITE3) {
     have?(sqlite3) {
         mac {
             LIBS += -lsqlite3
@@ -419,7 +419,7 @@ cfg_enable?(CFG_SQLITE3) {
             LIBS += -lsqlite3
         }
     }
-}
+#}
 
 use?(system_leveldb): LIBS += -lleveldb -lmemenv
 

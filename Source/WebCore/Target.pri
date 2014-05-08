@@ -30,15 +30,15 @@ CONFIG += staticlib
 }
 
 
-cfg_enable?(GEOLOCATION) {
+#cfg_enable?(GEOLOCATION) {
     SOURCES += \
         Modules/geolocation/Coordinates.cpp \
         Modules/geolocation/Geolocation.cpp \
         Modules/geolocation/GeolocationController.cpp \
         Modules/geolocation/NavigatorGeolocation.cpp
-}
+#}
 
-cfg_enable?(SQL_DATABASE) {
+#cfg_enable?(SQL_DATABASE) {
     SOURCES += \
         Modules/webdatabase/DOMWindowWebDatabase.cpp \
         Modules/webdatabase/Database.cpp \
@@ -48,7 +48,7 @@ cfg_enable?(SQL_DATABASE) {
         Modules/webdatabase/DatabaseServer.cpp \
         Modules/webdatabase/DatabaseSync.cpp \
         Modules/webdatabase/WorkerGlobalScopeWebDatabase.cpp
-}
+#}
 
 SOURCES += \
     accessibility/AccessibilityImageMapLink.cpp \
@@ -80,7 +80,7 @@ SOURCES += \
     bindings/generic/ActiveDOMCallback.cpp \
     bindings/generic/RuntimeEnabledFeatures.cpp
 
-cfg_enable?(CFG_JAVASCRIPTCORE) {
+#cfg_enable?(CFG_JAVASCRIPTCORE) {
     SOURCES += \
         bindings/generic/BindingSecurity.cpp \
         bindings/ScriptControllerBase.cpp \
@@ -231,9 +231,9 @@ cfg_enable?(CFG_JAVASCRIPTCORE) {
         bridge/runtime_object.cpp \
         bridge/runtime_root.cpp \
         testing/js/WebCoreTestSupport.cpp
-}
+#}
 
-cfg_enable?(FILE_SYSTEM) {
+#cfg_enable?(FILE_SYSTEM) {
     SOURCES += \
         Modules/filesystem/DOMFilePath.cpp \
         Modules/filesystem/DOMFileSystem.cpp \
@@ -256,27 +256,27 @@ cfg_enable?(FILE_SYSTEM) {
         Modules/filesystem/FileWriterSync.cpp \
         Modules/filesystem/LocalFileSystem.cpp \
         Modules/filesystem/WorkerGlobalScopeFileSystem.cpp
-}
+#}
 
-cfg_enable?(NAVIGATOR_CONTENT_UTILS) {
+#cfg_enable?(NAVIGATOR_CONTENT_UTILS) {
     SOURCES += \
         Modules/navigatorcontentutils/NavigatorContentUtils.cpp
-}
+#}
 
-cfg_enable?(NOTIFICATIONS) {
+#cfg_enable?(NOTIFICATIONS) {
     SOURCES += \
         Modules/notifications/DOMWindowNotifications.cpp \
         Modules/notifications/Notification.cpp \
         Modules/notifications/NotificationCenter.cpp \
         Modules/notifications/NotificationController.cpp \
         Modules/notifications/WorkerGlobalScopeNotifications.cpp
-}
+#}
 
-cfg_enable?(PROXIMITY_EVENTS) {
+#cfg_enable?(PROXIMITY_EVENTS) {
     SOURCES += \
         Modules/proximity/DeviceProximityController.cpp \
         Modules/proximity/DeviceProximityEvent.cpp
-}
+#}
 
 SOURCES += \
     css/BasicShapeFunctions.cpp \
@@ -601,7 +601,7 @@ SOURCES += \
     fileapi/ThreadableBlobRegistry.cpp \
     fileapi/WebKitBlobBuilder.cpp
 
-cfg_enable?(CFG_HISTORY) {
+#cfg_enable?(CFG_HISTORY) {
     SOURCES += \
         history/BackForwardController.cpp \
         history/BackForwardListImpl.cpp \
@@ -610,7 +610,7 @@ cfg_enable?(CFG_HISTORY) {
         history/HistoryItem.cpp \
         history/qt/HistoryItemQt.cpp \
         history/PageCache.cpp
-}
+#}
 
 SOURCES += \
     html/BaseButtonInputType.cpp \
@@ -802,7 +802,7 @@ SOURCES += \
     html/shadow/SpinButtonElement.cpp \
     html/shadow/TextControlInnerElements.cpp
 
-cfg_enable?(INSPECTOR) {
+#cfg_enable?(INSPECTOR) {
     SOURCES += \
         inspector/ConsoleMessage.cpp \
         inspector/ContentSearchUtils.cpp \
@@ -863,9 +863,9 @@ cfg_enable?(INSPECTOR) {
         inspector/WorkerDebuggerAgent.cpp \
         inspector/WorkerInspectorController.cpp \
         inspector/WorkerRuntimeAgent.cpp
-}
+#}
 
-cfg_enable?(CFG_CACHE) {
+#cfg_enable?(CFG_CACHE) {
     SOURCES += \
         loader/appcache/ApplicationCache.cpp \
         loader/appcache/ApplicationCacheGroup.cpp \
@@ -874,13 +874,13 @@ cfg_enable?(CFG_CACHE) {
         loader/appcache/ApplicationCacheResource.cpp \
         loader/appcache/DOMApplicationCache.cpp \
         loader/appcache/ManifestParser.cpp
-}
+#}
 
 SOURCES += \
     loader/archive/ArchiveResource.cpp \
     loader/archive/ArchiveResourceCollection.cpp
 
-cfg_enable?(CFG_CACHE) {
+#cfg_enable?(CFG_CACHE) {
     SOURCES += \
         loader/cache/MemoryCache.cpp \
         loader/cache/CachedCSSStyleSheet.cpp \
@@ -894,19 +894,19 @@ cfg_enable?(CFG_CACHE) {
         loader/cache/CachedSVGDocument.cpp \
         loader/cache/CachedSVGDocumentReference.cpp \
         loader/cache/CachedXSLStyleSheet.cpp
-}
+#}
 
 SOURCES += \
     loader/CookieJar.cpp \
     loader/CrossOriginAccessControl.cpp \
     loader/CrossOriginPreflightResultCache.cpp
 
-cfg_enable?(CFG_CACHE) {
+#cfg_enable?(CFG_CACHE) {
     SOURCES += \
         loader/cache/CachedResourceLoader.cpp \
         loader/cache/CachedResourceRequest.cpp \
         loader/cache/CachedResourceRequestInitiators.cpp
-}
+#}
 
 SOURCES += \
     loader/DocumentLoadTiming.cpp \
@@ -922,12 +922,12 @@ SOURCES += \
     loader/HistoryController.cpp \
     loader/FTPDirectoryParser.cpp
 
-cfg_enable?(CFG_ICON) {
+#cfg_enable?(CFG_ICON) {
     SOURCES += \
         loader/icon/IconController.cpp \
         loader/icon/IconDatabaseBase.cpp \
         loader/icon/IconLoader.cpp
-}
+#}
 
 SOURCES += \
     loader/ImageLoader.cpp \
@@ -1017,7 +1017,7 @@ SOURCES += \
     page/WindowFeatures.cpp \
     page/WindowFocusAllowedIndicator.cpp
 
-cfg_enable?(CFG_PLUGINS) {
+#cfg_enable?(CFG_PLUGINS) {
     SOURCES += \
         plugins/PluginData.cpp \
         plugins/DOMPluginArray.cpp \
@@ -1025,7 +1025,7 @@ cfg_enable?(CFG_PLUGINS) {
         plugins/PluginMainThreadScheduler.cpp \
         plugins/DOMMimeType.cpp \
         plugins/DOMMimeTypeArray.cpp
-}
+#}
 
 SOURCES += \
     platform/animation/Animation.cpp \
@@ -1103,7 +1103,7 @@ SOURCES += \
     platform/graphics/TextRun.cpp \
     platform/graphics/TiledBackingStore.cpp
 
-cfg_enable?(CFG_TRANSFORMS) {
+#cfg_enable?(CFG_TRANSFORMS) {
     SOURCES += \
         platform/graphics/transforms/AffineTransform.cpp \
         platform/graphics/transforms/TransformationMatrix.cpp \
@@ -1116,7 +1116,7 @@ cfg_enable?(CFG_TRANSFORMS) {
         platform/graphics/transforms/TransformOperations.cpp \
         platform/graphics/transforms/TransformState.cpp \
         platform/graphics/transforms/TranslateTransformOperation.cpp
-}
+#}
 
 SOURCES += \
     platform/graphics/WidthIterator.cpp \
@@ -1132,12 +1132,12 @@ SOURCES += \
     platform/LengthBox.cpp \
     platform/text/LineEnding.cpp
 
-cfg_enable?(CFG_LEVELDB) {
+#cfg_enable?(CFG_LEVELDB) {
     SOURCES += \
         platform/leveldb/LevelDBDatabase.cpp \
         platform/leveldb/LevelDBTransaction.cpp \
         platform/leveldb/LevelDBWriteBatch.cpp
-}
+#}
 
 SOURCES += \
     platform/LinkHash.cpp \
@@ -1150,7 +1150,7 @@ SOURCES += \
     platform/mock/PlatformSpeechSynthesizerMock.cpp \
     platform/mock/ScrollbarThemeMock.cpp
 
-cfg_enable?(CFG_NETWORK) {
+#cfg_enable?(CFG_NETWORK) {
     SOURCES += \
         platform/network/AuthenticationChallengeBase.cpp \
         platform/network/BlobData.cpp \
@@ -1175,7 +1175,7 @@ cfg_enable?(CFG_NETWORK) {
         platform/network/ResourceLoadTiming.cpp \
         platform/network/ResourceRequestBase.cpp \
         platform/network/ResourceResponseBase.cpp
-}
+#}
 
 SOURCES += \
     platform/NotImplemented.cpp \
@@ -1194,7 +1194,7 @@ SOURCES += \
     platform/SharedBuffer.cpp \
     platform/SharedBufferChunkReader.cpp
 
-cfg_enable?(CFG_SQLITE3) {
+#cfg_enable?(CFG_SQLITE3) {
     SOURCES += \
         platform/sql/SQLiteAuthorizer.cpp \
         platform/sql/SQLiteDatabase.cpp \
@@ -1202,7 +1202,7 @@ cfg_enable?(CFG_SQLITE3) {
         platform/sql/SQLiteStatement.cpp \
         platform/sql/SQLiteTransaction.cpp \
         platform/sql/SQLValue.cpp
-}
+#}
 
 SOURCES += \
     platform/text/SegmentedString.cpp \
@@ -1227,7 +1227,7 @@ SOURCES += \
     platform/Widget.cpp \
     platform/PlatformStrategies.cpp
 
-cfg_enable?(CFG_PLUGINS) {
+#cfg_enable?(CFG_PLUGINS) {
     SOURCES += \
         plugins/IFrameShimSupport.cpp \
         plugins/PluginDatabase.cpp \
@@ -1235,7 +1235,7 @@ cfg_enable?(CFG_PLUGINS) {
         plugins/PluginPackage.cpp \
         plugins/PluginStream.cpp \
         plugins/PluginView.cpp
-}
+#}
 
 SOURCES += \
     rendering/AutoTableLayout.cpp \
@@ -1374,7 +1374,7 @@ SOURCES += \
     rendering/style/StyleTransformData.cpp \
     rendering/style/StyleVisualData.cpp
 
-cfg_enable?(CFG_STORAGE) {
+#cfg_enable?(CFG_STORAGE) {
     SOURCES += \
         storage/StorageThread.cpp \
         storage/Storage.cpp \
@@ -1388,7 +1388,7 @@ cfg_enable?(CFG_STORAGE) {
         storage/StorageSyncManager.cpp \
         storage/StorageStrategy.cpp \
         storage/StorageTracker.cpp
-}
+#}
 
 SOURCES += \
     testing/Internals.cpp \
@@ -3139,7 +3139,7 @@ SOURCES += \
     platform/graphics/qt/PatternQt.cpp \
     platform/graphics/qt/StillImageQt.cpp
 
-cfg_build?(texture_mapper) {
+#cfg_build?(texture_mapper) {
     SOURCES += \
         platform/graphics/texmap/GraphicsLayerTextureMapper.cpp \
         platform/graphics/texmap/TextureMapper.cpp \
@@ -3150,9 +3150,9 @@ cfg_build?(texture_mapper) {
         platform/graphics/texmap/TextureMapperSurfaceBackingStore.cpp \
         platform/graphics/texmap/TextureMapperTile.cpp \
         platform/graphics/texmap/TextureMapperTiledBackingStore.cpp
-}
+#}
 
-cfg_enable?(CFG_NETWORK) {
+#cfg_enable?(CFG_NETWORK) {
     SOURCES += \
         platform/network/DNSResolveQueue.cpp \
         platform/network/MIMESniffing.cpp \
@@ -3165,7 +3165,7 @@ cfg_enable?(CFG_NETWORK) {
         platform/network/qt/ProxyServerQt.cpp \
         platform/network/qt/QtMIMETypeSniffer.cpp \
         platform/network/qt/QNetworkReplyHandler.cpp
-}
+#}
 
 SOURCES += \
     platform/Cursor.cpp \
@@ -4399,7 +4399,7 @@ use?(3D_GRAPHICS) {
         platform/graphics/gpu/TilingData.h \
         platform/graphics/opengl/Extensions3DOpenGL.h
 
-#    cfg_build?(texture_mapper) {
+    #cfg_build?(texture_mapper) {
         HEADERS += \
             platform/graphics/texmap/TextureMapperGL.h \
             platform/graphics/texmap/TextureMapperShaderProgram.h \
@@ -4416,7 +4416,7 @@ use?(3D_GRAPHICS) {
             platform/graphics/texmap/coordinated/CoordinatedTile.h \
             platform/graphics/texmap/coordinated/SurfaceUpdateInfo.h \
             platform/graphics/texmap/coordinated/UpdateAtlas.h
-#    }
+    #}
 
     #use?(3D_GRAPHICS)
     # see above
@@ -4441,7 +4441,7 @@ use?(3D_GRAPHICS) {
         platform/graphics/opengl/Extensions3DOpenGLCommon.cpp \
         platform/graphics/qt/GraphicsContext3DQt.cpp
 
-    cfg_build?(texture_mapper) {
+    #cfg_build?(texture_mapper) {
         SOURCES += \
             platform/graphics/texmap/TextureMapperGL.cpp \
             platform/graphics/texmap/TextureMapperShaderProgram.cpp \
@@ -4454,7 +4454,7 @@ use?(3D_GRAPHICS) {
             platform/graphics/texmap/coordinated/CoordinatedSurface.cpp \
             platform/graphics/texmap/coordinated/CoordinatedTile.cpp \
             platform/graphics/texmap/coordinated/UpdateAtlas.cpp
-    }
+    #}
 
     INCLUDEPATH += $$PWD/platform/graphics/gpu
 
@@ -4519,11 +4519,11 @@ use?(ZLIB) {
     SOURCES += platform/graphics/WOFFFileFormat.cpp
 }
 
-cfg_enable?(CFG_SQLITE3): !have?(SQLITE3):exists($${SQLITE3SRCDIR}/sqlite3.c) {
+#cfg_enable?(CFG_SQLITE3): !have?(SQLITE3):exists($${SQLITE3SRCDIR}/sqlite3.c) {
     # Build sqlite3 into WebCore from source
     # somewhat copied from $$QT_SOURCE_TREE/src/plugins/sqldrivers/sqlite/sqlite.pro
     SOURCES += $${SQLITE3SRCDIR}/sqlite3.c
-}
+#}
 
 win32:!mingw:contains(QMAKE_HOST.arch, x86_64):{
     asm_compiler.commands = ml64 /c
@@ -4588,8 +4588,18 @@ build?(qttestsupport) {
 
 ALL_IN_ONE_SOURCES += \
     accessibility/AccessibilityAllInOne.cpp \
+
+#cfg_enable?(INSPECTOR) {
+  ALL_IN_ONE_SOURCES += \
     inspector/InspectorAllInOne.cpp \
+#}
+
+#cfg_enable?(CFG_CACHE) {
+  ALL_IN_ONE_SOURCES += \
     loader/appcache/ApplicationCacheAllInOne.cpp \
+#}
+
+ALL_IN_ONE_SOURCES += \
     platform/text/TextAllInOne.cpp \
     rendering/style/StyleAllInOne.cpp \
     html/HTMLElementsAllInOne.cpp \
@@ -4599,10 +4609,10 @@ ALL_IN_ONE_SOURCES += \
     css/MediaAllInOne.cpp \
     dom/DOMAllInOne.cpp
 
-cfg_enable?(CFG_JAVASCRIPTCORE) {
+#cfg_enable?(CFG_JAVASCRIPTCORE) {
   ALL_IN_ONE_SOURCES += \
     bindings/js/JSBindingsAllInOne.cpp
-}
+#}
 
 # Make sure the derived sources are built
 include(DerivedSources.pri)
