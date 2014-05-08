@@ -269,7 +269,6 @@ CFG_BUILD_FEATURES = \  # = default value  # which block depend from it
 # Will added to DEFINES if =1 without "=1"
 CFG_MINIMAL_QT_DEFINES = \  # = default value  # which block depend from it
 # from minimal_qt.prf
-    QT_NO_ANIMATION=1 \  # =0  # QtTestBrowser
     QT_NO_BEARERMANAGEMENT=1 \  # =0  # WebCore, WebKit
     QT_NO_CLIPBOARD=1 \  # =0  # WebCore, WebKit2, WebKit
     QT_NO_COMBOBOX=1 \  # =0  # WebKit, QtTestBrowser
@@ -278,7 +277,6 @@ CFG_MINIMAL_QT_DEFINES = \  # = default value  # which block depend from it
     QT_NO_FILEDIALOG=1 \  # =0  # WebKit, QtTestBrowser
     QT_NO_IM=1 \  # =0  # WebKit
     QT_NO_INPUTDIALOG=1 \  # =0  # WebKit, QtTestBrowser
-    QT_NO_LINEEDIT=1 \  # =0  # QtTestBrowser
     QT_NO_MESSAGEBOX=1 \  # =0  # WebKit, QtTestBrowser
     QT_NO_OPENSSL=1 \  # =0  # WebCore, WebKit, DumpRenderTreeQt
     QT_NO_PRINTER=1 \  # =0  # WebKit, QtTestBrowser, DumpRenderTreeQt
@@ -291,11 +289,28 @@ CFG_MINIMAL_QT_DEFINES = \  # = default value  # which block depend from it
     QT_NO_UNDOSTACK=1 \  # =0  # WebKit, QtTestBrowser, DumpRenderTreeQt
     QT_NO_XRENDER=1 \  # =0  # WebCore
     \
+    QT_NO_ANIMATION=1 \  # =0  # QtTestBrowser
+    QT_NO_LINEEDIT=1 \  # =0  # QtTestBrowser
+    \
 # These are not used
     QT_NO_CONCURRENT=1 \  # =0
     QT_NO_CRASHHANDLER=1 \  # =0
     QT_NO_GRAPHICSEFFECT=1 \  # =0
     QT_NO_QUUID_STRING=1 \  # =0
+    \
+# From sources
+    QT_NO_ACCESSIBILITY=1 \  # =0  # WebKit
+    QT_NO_ACTION=1 \  # =0  # WebKit
+    QT_NO_COLORDIALOG=1 \  # =0  # WebKit
+    QT_NO_CONTEXTMENU=1 \  # =0  # WebKit
+    QT_NO_DRAGANDDROP=1 \  # =0  # WebKit
+    QT_NO_GESTURES=1 \  # =0  # WebKit, DumpRenderTree
+    QT_NO_GRAPHICSVIEW=1 \  # =0  # WebKit
+    QT_NO_MENU=1 \  # =0  # WebKit
+    QT_NO_SPINBOX=1 \  # =0  # WebCore, WebKit
+    QT_NO_SSL=1 \  # =0  # WebKit2
+    QT_NO_WHEELEVENT=1 \  # =0  # WebKit, DumpRenderTree
+
 
 
 
