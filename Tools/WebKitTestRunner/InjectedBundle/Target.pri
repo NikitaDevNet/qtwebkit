@@ -52,9 +52,9 @@ QT += widgets webkit
 
 WEBKIT += wtf
 
-cfg_enable?(CFG_JAVASCRIPTCORE) {
+#cfg_enable?(CFG_JAVASCRIPTCORE) {
     WEBKIT += javascriptcore
-}
+#}
 
 WEBKIT += webcore
 
@@ -66,12 +66,12 @@ INCLUDEPATH += \
     $$PWD \
     $$PWD/.. \
     $$PWD/Bindings \
-    $${ROOT_WEBKIT_DIR}/Source/WebCore/platform/qt \
+    $${ROOT_WEBKIT_DIR}/Source/WebCore/platform/qt
 
-cfg_enable?(CFG_JAVASCRIPTCORE) {
+#cfg_enable?(CFG_JAVASCRIPTCORE) {
   INCLUDEPATH += \
     $${ROOT_WEBKIT_DIR}/Source/WebCore/testing/js
-}
+#}
 
 INCLUDEPATH += \
     $${ROOT_WEBKIT_DIR}/Source/WebKit/qt/WebCoreSupport

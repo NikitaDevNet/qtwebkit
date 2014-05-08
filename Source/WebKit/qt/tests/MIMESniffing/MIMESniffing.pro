@@ -15,11 +15,11 @@ HEADERS += \
     ../../../../WebCore/platform/network
 #}
 
-cfg_enable?(CFG_JAVASCRIPTCORE) {
+#cfg_enable?(CFG_JAVASCRIPTCORE) {
   INCLUDEPATH += \
     ../../../../JavaScriptCore \
     ../../../../JavaScriptCore/runtime
-}
+#}
 
 INCLUDEPATH += \
     ../../../../WTF

@@ -4587,16 +4587,16 @@ build?(qttestsupport) {
 }
 
 ALL_IN_ONE_SOURCES += \
-    accessibility/AccessibilityAllInOne.cpp \
+    accessibility/AccessibilityAllInOne.cpp
 
 #cfg_enable?(INSPECTOR) {
   ALL_IN_ONE_SOURCES += \
-    inspector/InspectorAllInOne.cpp \
+    inspector/InspectorAllInOne.cpp
 #}
 
 #cfg_enable?(CFG_CACHE) {
   ALL_IN_ONE_SOURCES += \
-    loader/appcache/ApplicationCacheAllInOne.cpp \
+    loader/appcache/ApplicationCacheAllInOne.cpp
 #}
 
 ALL_IN_ONE_SOURCES += \

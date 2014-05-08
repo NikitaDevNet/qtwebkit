@@ -38,7 +38,7 @@ CONFIG += creating_module
 
 # This is the canonical list of dependencies for the public API of
 # the QtWebKit library, and will end up in the library's prl file.
-QT_API_DEPENDS = core gui network
+QT_API_DEPENDS = core gui
 
 cfg_enable?(CFG_NETWORK): QT_API_DEPENDS += network
 
