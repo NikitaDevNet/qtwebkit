@@ -145,7 +145,9 @@ public:
     virtual QtPluginWidgetAdapter* adapterForWidget(QObject *) const OVERRIDE;
     virtual bool requestSoftwareInputPanel() const OVERRIDE;
     virtual void createAndSetCurrentContextMenu(const QList<MenuItemDescription>&, QBitArray*) OVERRIDE;
+#ifndef QT_NO_CONTEXTMENU
     virtual bool handleScrollbarContextMenuEvent(QContextMenuEvent*, bool, ScrollDirection*, ScrollGranularity*) OVERRIDE;
+#endif
 
 
     void createMainFrame();
@@ -169,7 +171,9 @@ public:
     void shortcutOverrideEvent(QKeyEvent*);
     void leaveEvent(QEvent*);
 
+#ifndef QT_NO_GESTURES
     bool gestureEvent(QGestureEvent*);
+#endif
 
     void updateWindow();
     void _q_updateScreen(QScreen*);

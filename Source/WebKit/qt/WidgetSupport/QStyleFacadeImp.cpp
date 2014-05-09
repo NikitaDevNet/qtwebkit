@@ -23,6 +23,8 @@
 
 #include "config.h"
 
+#ifndef QT_NO_ACTION
+
 #include "QStyleFacadeImp.h"
 
 #include <QApplication>
@@ -386,7 +388,7 @@ void QStyleFacadeImp::paintInnerSpinButton(QPainter* painter, const QStyleFacade
 
     style()->drawComplexControl(QStyle::CC_SpinBox, &option, painter, widget);
 }
-#endif
+#endif // ifndef QT_NO_SPINBOX
 
 void QStyleFacadeImp::paintProgressBar(QPainter* painter, const QStyleFacadeOption& proxyOption, double progress, double animationProgress)
 {
@@ -502,3 +504,5 @@ QStyle* QStyleFacadeImp::style() const
 }
 
 }
+
+#endif // ifndef QT_NO_ACTION

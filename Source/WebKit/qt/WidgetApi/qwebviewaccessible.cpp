@@ -17,6 +17,8 @@
  * Boston, MA 02110-1301, USA.
  */
 
+#ifndef QT_NO_ACCESSIBILITY
+
 #include "config.h"
 #include "qwebviewaccessible_p.h"
 
@@ -150,3 +152,5 @@ QAccessibleInterface* QWebViewAccessible::child(int index) const
         return new QWebPageAccessible(view()->page());
     return 0;
 }
+
+#endif // ifndef QT_NO_ACCESSIBILITY

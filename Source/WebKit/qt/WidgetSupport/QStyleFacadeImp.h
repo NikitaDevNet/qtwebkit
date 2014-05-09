@@ -23,6 +23,8 @@
 #ifndef QStyleFacadeImp_h
 #define QStyleFacadeImp_h
 
+#ifndef QT_NO_ACTION
+
 #include <QPointer>
 #include <QStyleFacade.h>
 
@@ -52,6 +54,7 @@ public:
 #ifndef QT_NO_LINEEDIT
     virtual int findFrameLineWidth() const;
 #endif
+
     virtual int simplePixelMetric(PixelMetric, State = State_None) const;
     virtual int buttonMargin(State, const QRect& originalRect) const;
     virtual int sliderLength(Qt::Orientation) const;
@@ -69,9 +72,11 @@ public:
 
     virtual void paintSliderTrack(QPainter*, const WebCore::QStyleFacadeOption&);
     virtual void paintSliderThumb(QPainter*, const WebCore::QStyleFacadeOption&);
+
 #ifndef QT_NO_SPINBOX
     virtual void paintInnerSpinButton(QPainter*, const WebCore::QStyleFacadeOption&, bool spinBoxUp);
 #endif
+
     virtual void paintProgressBar(QPainter*, const WebCore::QStyleFacadeOption&, double progress, double animationProgress);
 
     virtual int scrollBarExtent(bool mini);
@@ -101,4 +106,5 @@ private:
 
 }
 
+#endif // ifndef QT_NO_ACTION
 #endif // QStyleFacadeImp_h

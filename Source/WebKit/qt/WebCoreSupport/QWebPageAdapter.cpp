@@ -1531,7 +1531,11 @@ bool QWebPageAdapter::swallowContextMenuEvent(QContextMenuEvent *event, QWebFram
             bool horizontal = (scrollBar->orientation() == HorizontalScrollbar);
             QWebPageAdapter::ScrollDirection direction = QWebPageAdapter::InvalidScrollDirection;
             QWebPageAdapter::ScrollGranularity granularity = QWebPageAdapter::InvalidScrollGranularity;
+#ifndef QT_NO_CONTEXTMENU
             bool scroll = handleScrollbarContextMenuEvent(event, horizontal, &direction, &granularity);
+#else
+            bool scroll = false;
+#endif
             if (!scroll)
                 return true;
             if (direction == QWebPageAdapter::InvalidScrollDirection || granularity == QWebPageAdapter::InvalidScrollGranularity) {

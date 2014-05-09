@@ -548,7 +548,7 @@ void QWebPagePrivate::createAndSetCurrentContextMenu(const QList<MenuItemDescrip
 
     currentContextMenu = createContextMenu(q, items, visitedWebActions);
 #else
-    Q_UNUSED(menuDescription);
+// was not declared //    Q_UNUSED(menuDescription);
     Q_UNUSED(visitedWebActions);
 #endif // QT_NO_CONTEXTMENU
 }
@@ -960,6 +960,7 @@ void QWebPagePrivate::shortcutOverrideEvent(QKeyEvent* event)
 
 }
 
+#ifndef QT_NO_GESTURES
 bool QWebPagePrivate::gestureEvent(QGestureEvent* event)
 {
     QWebFrameAdapter* frame = mainFrame.data()->d;
@@ -996,6 +997,7 @@ bool QWebPagePrivate::gestureEvent(QGestureEvent* event)
     event->setAccepted(handled);
     return handled;
 }
+#endif // ifndef QT_NO_GESTURES
 
 /*!
   This method is used by the input method to query a set of properties of the page

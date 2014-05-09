@@ -266,7 +266,9 @@ public:
         QString title;
     };
     virtual void createAndSetCurrentContextMenu(const QList<MenuItemDescription>&, QBitArray*) = 0;
+#ifndef QT_NO_CONTEXTMENU
     virtual bool handleScrollbarContextMenuEvent(QContextMenuEvent*, bool, ScrollDirection*, ScrollGranularity*) = 0;
+#endif
 
     void setVisibilityState(VisibilityState);
     VisibilityState visibilityState() const;

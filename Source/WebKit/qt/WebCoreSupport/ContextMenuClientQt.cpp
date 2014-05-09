@@ -23,7 +23,11 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+
 #include "config.h"
+
+#if ENABLE(CONTEXT_MENUS)
+
 #include "ContextMenuClientQt.h"
 
 #include "ContextMenu.h"
@@ -83,3 +87,4 @@ void ContextMenuClientQt::searchWithGoogle(const Frame*)
 
 }
 
+#endif // ENABLE(CONTEXT_MENUS)

@@ -38,7 +38,11 @@
 #include <qgraphicswidget.h>
 #include <qmetaobject.h>
 #include <qscrollbar.h>
+
+#if !defined(QT_NO_GRAPHICSVIEW)
 #include <qstyleoption.h>
+#endif
+
 #include <qtimer.h>
 #include <qwidget.h>
 

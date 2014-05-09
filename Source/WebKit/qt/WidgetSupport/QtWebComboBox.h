@@ -21,10 +21,10 @@
 #ifndef QtWebComboBox_h
 #define QtWebComboBox_h
 
+#ifndef QT_NO_COMBOBOX
+
 #include <QComboBox>
 #include <wtf/Platform.h>
-
-#ifndef QT_NO_COMBOBOX
 
 namespace WebCore {
 

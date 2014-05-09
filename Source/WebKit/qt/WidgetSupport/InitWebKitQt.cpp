@@ -36,7 +36,10 @@ QWEBKITWIDGETS_EXPORT void initializeWebKitWidgets()
     if (initialized)
         return;
 
+#ifndef QT_NO_ACTION
     setWebKitWidgetsInitCallback(QStyleFacadeImp::create);
+#endif
+
     initializeWebKitQt();
 
     // QWebSettings::SearchCancelButtonGraphic

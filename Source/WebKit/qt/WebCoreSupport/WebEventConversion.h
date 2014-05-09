@@ -26,15 +26,19 @@
 
 QT_BEGIN_NAMESPACE
 class QInputEvent;
+#ifndef QT_NO_WHEELEVENT
 class QWheelEvent;
+#endif
 class QTouchEvent;
 QT_END_NAMESPACE
 
+#ifndef QT_NO_GESTURES
 struct QGestureEventFacade {
     Qt::GestureType type;
     QPoint globalPos;
     QPoint pos;
 };
+#endif
 
 namespace WebCore {
 
@@ -42,17 +46,21 @@ class PlatformMouseEvent;
 class PlatformWheelEvent;
 
 PlatformMouseEvent convertMouseEvent(QInputEvent*, int clickCount);
+#ifndef QT_NO_WHEELEVENT
 PlatformWheelEvent convertWheelEvent(QWheelEvent*, int wheelScrollLines);
+#endif
 
 #if ENABLE(TOUCH_EVENTS)
 class PlatformTouchEvent;
 PlatformTouchEvent convertTouchEvent(QTouchEvent*);
 #endif
 
+#ifndef QT_NO_GESTURES
 #if ENABLE(GESTURE_EVENTS)
 class PlatformGestureEvent;
 PlatformGestureEvent convertGesture(QGestureEventFacade*);
-#endif
+#endif // ENABLE(GESTURE_EVENTS)
+#endif // ifndef QT_NO_GESTURES
 }
 
 #endif
