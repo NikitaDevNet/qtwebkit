@@ -4,6 +4,9 @@
 # See 'Tools/qmake/README' for an overview of the build system
 # -------------------------------------------------------------------
 
+CFG_FILE_QTWEBKIT_PRO = Source\QtWebKit.pro
+cfg_warning_file_in($$CFG_FILE_QTWEBKIT_PRO)
+
 TEMPLATE = subdirs
 CONFIG += ordered
 
@@ -48,3 +51,5 @@ build?(webkit1) {
         SUBDIRS += examples
     }
 }
+
+cfg_warning_file_out($$CFG_FILE_QTWEBKIT_PRO)

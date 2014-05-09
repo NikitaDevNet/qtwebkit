@@ -4,6 +4,9 @@
 # See 'Tools/qmake/README' for an overview of the build system
 # -------------------------------------------------------------------
 
+CFG_FILE_WC_DERIVEDSOURCES_PRI = Source\WebCore\DerivedSources.pri
+cfg_warning_file_in($$CFG_FILE_WC_DERIVEDSOURCES_PRI)
+
 # This file is both a top level target, and included from Target.pri,
 # so that the resulting generated sources can be added to SOURCES.
 # We only set the template if we're a top level target, so that we
@@ -1175,3 +1178,5 @@ webkitversion.commands = perl $$webkitversion.script --config $$PWD/../WebKit/ma
 webkitversion.clean = ${QMAKE_FUNC_FILE_OUT_PATH}/WebKitVersion.h
 webkitversion.add_output_to_sources = false
 GENERATORS += webkitversion
+
+cfg_warning_file_out($$CFG_FILE_WC_DERIVEDSOURCES_PRI)

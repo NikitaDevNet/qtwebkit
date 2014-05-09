@@ -7,6 +7,9 @@
 
 #CFG_DEBUG_WARNING = ON
 
+CFG_FILE_WEBKIT_PRO = WebKit.pro
+cfg_warning_file_in($$CFG_FILE_WEBKIT_PRO)
+
 TEMPLATE = subdirs
 CONFIG += ordered
 
@@ -69,3 +72,5 @@ Tools.makefile = Makefile.Tools
 SUBDIRS += Tools
 
 # Number of times incremental builds have failed: 1
+
+cfg_warning_file_out($$CFG_FILE_WEBKIT_PRO)

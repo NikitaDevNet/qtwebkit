@@ -4,6 +4,9 @@
 # See 'Tools/qmake/README' for an overview of the build system
 # -------------------------------------------------------------------
 
+CFG_FILE_WTR_TARGET_PRI = Tools\WebKitTestRunner\Target.pri
+cfg_warning_file_in($$CFG_FILE_WTR_TARGET_PRI)
+
 TEMPLATE = app
 TARGET = WebKitTestRunner
 
@@ -55,3 +58,5 @@ PREFIX_HEADER = WebKitTestRunnerPrefix.h
 *-clang*:QMAKE_CXXFLAGS += "-include $$PREFIX_HEADER"
 
 RESOURCES = qt/WebKitTestRunner.qrc
+
+cfg_warning_file_out($$CFG_FILE_WTR_TARGET_PRI)

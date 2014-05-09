@@ -8,6 +8,9 @@
 # This file is read after .qmake.cache, but before command line options,
 # which means we might have a config from a previous build.
 
+CFG_FILE_FTR_CONFIGURE_PRF = Tools\qmake\mkspecs\features\configure.prf
+cfg_warning_file_in($$CFG_FILE_FTR_CONFIGURE_PRF)
+
 load(features)
 load(configure)
 
@@ -304,3 +307,5 @@ defineTest(finalizeConfigure) {
         }
     }
 }
+
+cfg_warning_file_out($$CFG_FILE_FTR_CONFIGURE_PRF)

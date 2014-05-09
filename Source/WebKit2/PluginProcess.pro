@@ -4,6 +4,9 @@
 # See 'Tools/qmake/README' for an overview of the build system
 # -------------------------------------------------------------------
 
+CFG_FILE_WK2_PLUGINPROCESS_PRO = Source\WebKit2\PluginProcess.pro
+cfg_warning_file_in($$CFG_FILE_WK2_PLUGINPROCESS_PRO)
+
 TEMPLATE = app
 
 QT += webkit
@@ -29,3 +32,5 @@ isEmpty(INSTALL_BINS) {
 } else {
     target.path = $$INSTALL_BINS
 }
+
+cfg_warning_file_out($$CFG_FILE_WK2_PLUGINPROCESS_PRO)

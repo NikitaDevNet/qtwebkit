@@ -5,6 +5,9 @@
 # See 'Tools/qmake/README' for an overview of the build system
 # -------------------------------------------------------------------
 
+CFG_FILE_WC_WEBCORE_PRI = Source\WebCore\WebCore.pri
+cfg_warning_file_in($$CFG_FILE_WC_WEBCORE_PRI)
+
 SOURCE_DIR = $${ROOT_WEBKIT_DIR}/Source/WebCore
 
 cfg_enable?(CFG_NETWORK): QT *= network
@@ -483,3 +486,4 @@ enable_fast_mobile_scrolling: DEFINES += ENABLE_FAST_MOBILE_SCROLLING=1
 
 build?(qttestsupport):have?(FONTCONFIG): PKGCONFIG += fontconfig
 
+cfg_warning_file_out($$CFG_FILE_WC_WEBCORE_PRI)

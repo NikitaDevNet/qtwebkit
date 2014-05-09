@@ -4,6 +4,9 @@
 # See 'Tools/qmake/README' for an overview of the build system
 # -------------------------------------------------------------------
 
+CFG_FILE_DRT_DUMPRENDERTREE_PRO = Tools\DumpRenderTree\qt\DumpRenderTree.pro
+cfg_warning_file_in($$CFG_FILE_DRT_DUMPRENDERTREE_PRO)
+
 TEMPLATE = app
 
 TARGET = DumpRenderTree
@@ -64,3 +67,5 @@ DEFINES -= USE_SYSTEM_MALLOC=0
 DEFINES += USE_SYSTEM_MALLOC=1
 
 RESOURCES = DumpRenderTree.qrc
+
+cfg_warning_file_out($$CFG_FILE_DRT_DUMPRENDERTREE_PRO)

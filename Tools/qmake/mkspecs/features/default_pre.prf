@@ -5,6 +5,8 @@
 # See 'Tools/qmake/README' for an overview of the build system
 # -------------------------------------------------------------------
 
+CFG_FILE_FTR_DEFAULT_PRE_PRF = Tools\qmake\mkspecs\features\default_pre.prf
+
 # Allow environment tweaks to pre-loaded .qmake.cache content
 env_cache = $$(QMAKE_CACHE_EVAL)
 eval($$env_cache)
@@ -12,6 +14,7 @@ eval($$env_cache)
 
 # The global config of QtWebKit
 load(cfg_config)
+cfg_warning_file_in($$CFG_FILE_FTR_DEFAULT_PRE_PRF)
 
 
 load(functions)
@@ -115,3 +118,5 @@ win32: FLEX = win_flex
 
 BIN_EXTENSION =
 win32: BIN_EXTENSION = .exe
+
+cfg_warning_file_out($$CFG_FILE_FTR_DEFAULT_PRE_PRF)

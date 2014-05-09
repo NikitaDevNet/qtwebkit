@@ -4,6 +4,9 @@
 # See 'Tools/qmake/README' for an overview of the build system
 # -------------------------------------------------------------------
 
+CFG_FILE_WK_WEBKIT1_PRO = Source\WebKit\WebKit1.pro
+cfg_warning_file_in($$CFG_FILE_WK_WEBKIT1_PRO)
+
 TEMPLATE = lib
 TARGET = WebKit1
 
@@ -134,4 +137,4 @@ enable?(VIDEO) {
     }
 }
 
-
+cfg_warning_file_out($$CFG_FILE_WK_WEBKIT1_PRO)

@@ -1,3 +1,6 @@
+CFG_FILE_TWAPI_TESTS_PRI = Tools\TestWebKitAPI\Tests.pri
+cfg_warning_file_in($$CFG_FILE_TWAPI_TESTS_PRI)
+
 TEMPLATE = subdirs
 
 SUBDIRS += Tests/WTF
@@ -9,3 +12,5 @@ SUBDIRS += Tests/WTF
 #cfg_build?(webkit2) {
     SUBDIRS += Tests/WebKit2
 #}
+
+cfg_warning_file_out($$CFG_FILE_TWAPI_TESTS_PRI)

@@ -4,6 +4,9 @@
 # See 'Tools/qmake/README' for an overview of the build system
 # -------------------------------------------------------------------
 
+CFG_FILE_TOOLS_TOOLS_PRO = Tools\Tools.pro
+cfg_warning_file_in($$CFG_FILE_TOOLS_TOOLS_PRO)
+
 TEMPLATE = subdirs
 CONFIG += ordered
 
@@ -51,3 +54,5 @@ OTHER_FILES = \
     qmake/mkspecs/features/mac/*.prf \
     qmake/mkspecs/features/unix/*.prf \
     qmake/mkspecs/features/win32/*.prf
+
+cfg_warning_file_out($$CFG_FILE_TOOLS_TOOLS_PRO)

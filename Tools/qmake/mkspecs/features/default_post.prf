@@ -5,6 +5,9 @@
 # See 'Tools/qmake/README' for an overview of the build system
 # -------------------------------------------------------------------
 
+CFG_FILE_FTR_DEFAULT_POST_PRF = Tools\qmake\mkspecs\features\default_post.prf
+cfg_warning_file_in($$CFG_FILE_FTR_DEFAULT_POST_PRF)
+
 # Flag that we're now done processing the project file. This allows
 # a feature to distinguish between being processed due to a load()
 # or include() and a CONFIG += feature.
@@ -345,5 +348,7 @@ dwarning(FEATURE_DEFAULTS =, $$FEATURE_DEFAULTS)
 dwarning(WEBKIT_CONFIG =, $$WEBKIT_CONFIG)
 dwarning(CONFIG =, $$CONFIG)
 dwarning(DEFINES =, $$DEFINES)
+
+cfg_warning_file_out($$CFG_FILE_FTR_DEFAULT_POST_PRF)
 
 CFG_DEBUG_WARNING = OFF

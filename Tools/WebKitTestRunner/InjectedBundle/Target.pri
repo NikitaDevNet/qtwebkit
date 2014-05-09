@@ -4,6 +4,9 @@
 # See 'Tools/qmake/README' for an overview of the build system
 # -------------------------------------------------------------------
 
+CFG_FILE_INB_TARGET_PRI = Tools\WebKitTestRunner\InjectedBundle\Target.pri
+cfg_warning_file_in($$CFG_FILE_INB_TARGET_PRI)
+
 TEMPLATE = lib
 TARGET = WTRInjectedBundle
 
@@ -82,3 +85,5 @@ PREFIX_HEADER = $$PWD/../WebKitTestRunnerPrefix.h
 linux-* {
     QMAKE_LFLAGS += -Wl,--no-undefined
 }
+
+cfg_warning_file_out($$CFG_FILE_INB_TARGET_PRI)

@@ -4,6 +4,9 @@
 # See 'Tools/qmake/README' for an overview of the build system
 # -------------------------------------------------------------------
 
+CFG_FILE_TWAPI_INJECTEDBUNDLE_PRI = Tools\TestWebKitAPI\InjectedBundle.pri
+cfg_warning_file_in($$CFG_FILE_TWAPI_INJECTEDBUNDLE_PRI)
+
 TEMPLATE = lib
 TARGET = TestWebKitAPIInjectedBundle
 
@@ -68,3 +71,5 @@ LIBS += -L$${ROOT_BUILD_DIR}/Source/ThirdParty/gtest/$$targetSubDir() -lgtest
 
 DEFINES += APITEST_SOURCE_DIR=\\\"$$PWD\\\" \
            ROOT_BUILD_DIR=\\\"$${ROOT_BUILD_DIR}\\\"
+
+cfg_warning_file_out($$CFG_FILE_TWAPI_INJECTEDBUNDLE_PRI)

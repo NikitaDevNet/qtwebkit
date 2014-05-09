@@ -4,6 +4,9 @@
 # See 'Tools/qmake/README' for an overview of the build system
 # -------------------------------------------------------------------
 
+CFG_FILE_WC_TARGET_PRI = Source\WebCore\Target.pri
+cfg_warning_file_in($$CFG_FILE_WC_TARGET_PRI)
+
 TEMPLATE = lib
 TARGET = WebCore
 
@@ -4616,3 +4619,5 @@ ALL_IN_ONE_SOURCES += \
 
 # Make sure the derived sources are built
 include(DerivedSources.pri)
+
+cfg_warning_file_out($$CFG_FILE_WC_TARGET_PRI)

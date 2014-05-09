@@ -5,6 +5,9 @@
 # See 'Tools/qmake/README' for an overview of the build system
 # -------------------------------------------------------------------
 
+CFG_FILE_FTR_FEATURES_PRF = Tools\qmake\mkspecs\features\features.prf
+cfg_warning_file_in($$CFG_FILE_FTR_FEATURES_PRF)
+
 defineTest(detectFeatures) {
 
     # -------------- Fill in static defaults --------------
@@ -185,3 +188,5 @@ defineTest(santizeFeatures) {
 
     export(WEBKIT_CONFIG)
 }
+
+cfg_warning_file_out($$CFG_FILE_FTR_FEATURES_PRF)

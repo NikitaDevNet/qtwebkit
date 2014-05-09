@@ -1,3 +1,6 @@
+CFG_FILE_GTEST_GTEST_PRO = Source\ThirdParty\gtest\gtest.pro
+cfg_warning_file_in($$CFG_FILE_GTEST_GTEST_PRO)
+
 TEMPLATE = lib
 CONFIG += static
 TARGET = gtest
@@ -18,3 +21,5 @@ SOURCES = $$PWD/src/gtest-all.cc
 QT =
 
 CONFIG += compiling_thirdparty_code
+
+cfg_warning_file_out($$CFG_FILE_GTEST_GTEST_PRO)

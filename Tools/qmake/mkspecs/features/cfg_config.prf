@@ -28,22 +28,47 @@ defineTest(dwarning) {
     }
 }
 
+defineTest(cfg_warning_file_in) {
+
+#    contains(CFG_DEBUG_WARNING, ON) {
+        warning($${EOL})
+        warning(=========== ENTERING $$1 ==========$${EOL})
+        warning($${EOL})
+
+#    }
+}
+
+defineTest(cfg_warning_file_out) {
+
+#    contains(CFG_DEBUG_WARNING, ON) {
+        warning($${EOL})
+        warning(=========== LAEVING $$1 ==========$${EOL})
+        warning($${EOL})
+
+#    }
+}
+
+
 defineTest(cfg_build?) {
+    warning(=== cfg_build?($$1) ===$${EOL})
     contains(CFG_BUILD_FEATURES, CFG_BUILD_$$upper($$1)=1): return(true)
     return(false)
 }
 
 defineTest(cfg_have?) {
+    warning(=== cfg_have?($$1) ===$${EOL})
     contains(CFG_FEATURE_DEFAULTS, HAVE_$$upper($$1)=1): return(true)
     return(false)
 }
 
 defineTest(cfg_use?) {
+    warning(=== cfg_use?($$1) ===$${EOL})
     contains(CFG_FEATURE_DEFAULTS, USE_$$upper($$1)=1): return(true)
     return(false)
 }
 
 defineTest(cfg_enable?) {
+    warning(=== cfg_enable?($$1) ===$${EOL})
     contains(CFG_FEATURE_DEFAULTS, ENABLE_$$upper($$1)=1): return(true)
     return(false)
 }

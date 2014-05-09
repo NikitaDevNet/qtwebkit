@@ -4,6 +4,9 @@
 # See 'Tools/qmake/README' for an overview of the build system
 # -------------------------------------------------------------------
 
+CFG_FILE_JS_JSC_PRO = Source\JavaScriptCore\jsc.pro
+cfg_warning_file_in($$CFG_FILE_JS_JSC_PRO)
+
 TEMPLATE = app
 
 TARGET = jsc
@@ -35,3 +38,4 @@ wince* {
 contains(QT_CONFIG, reduce_exports):CONFIG += hide_symbols
 unix:contains(QT_CONFIG, reduce_relocations):CONFIG += bsymbolic_functions
 
+cfg_warning_file_out($$CFG_FILE_JS_JSC_PRO)

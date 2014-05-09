@@ -4,6 +4,9 @@
 # See 'Tools/qmake/README' for an overview of the build system
 # -------------------------------------------------------------------
 
+CFG_FILE_SRC_API_PRI = Source\api.pri
+cfg_warning_file_in($$CFG_FILE_SRC_API_PRI)
+
 # Use Qt5's module system
 load(qt_build_config)
 
@@ -118,3 +121,5 @@ qnx {
     QMAKE_EXTRA_TARGETS += dummyfile
     GENERATED_SOURCES += $$dummyfile.target
 }
+
+cfg_warning_file_out($$CFG_FILE_SRC_API_PRI)
