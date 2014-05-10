@@ -238,18 +238,18 @@ CFG_BUILD_FEATURES = \  # = default value  # which block depend from it
     CFG_BUILD_QT_EXAMPLES=0 \  # =1
     \
 # use_
-    CFG_BUILD_LIBXML2=1 \  # =1  # WebCore
+    CFG_BUILD_LIBXML2=0 \  # =1  # WebCore
     CFG_BUILD_TILED_BACKING_STORE=0 \  # =1  # WebCore, WebKit2, WebKit
     CFG_BUILD_WEBP=0 \  # =1
     CFG_BUILD_ZLIB=0 \  # =1  # WebCore
     \
 # have_
-    CFG_BUILD_QSTYLE=1 \  # =1
+    CFG_BUILD_QSTYLE=0 \  # =1
     CFG_BUILD_QTPOSITIONING=0 \  # =1  # WebKit2, WebKit
     CFG_BUILD_QTPRINTSUPPORT=0 \  # =1  # WebKit, widgetsapi, DumpRenderTree, QtTestBrowser
     CFG_BUILD_QTQUICK=0 \  # =1  # WebKit2, widgetsapi, QtWebKit.pro, tests, Tools.pro
     CFG_BUILD_QTSENSORS=0 \  # =1  # WebCore, WebKit2, WebKit
-    CFG_BUILD_QTTESTLIB=1 \  # =1
+    CFG_BUILD_QTTESTLIB=0 \  # =1
     \
 # See also in  # Dependences
 # enable_
@@ -261,7 +261,7 @@ CFG_BUILD_FEATURES = \  # = default value  # which block depend from it
 # use_
     CFG_BUILD_3D_GRAPHICS=0 \  # =1
     CFG_BUILD_CROSS_PLATFORM_CONTEXT_MENUS=0 \  # =1
-    CFG_BUILD_TEXTURE_MAPPER=1 \  # =1
+    CFG_BUILD_TEXTURE_MAPPER=0 \  # =1
 
 
 
@@ -298,7 +298,7 @@ CFG_MINIMAL_QT_DEFINES = \  # = default value  # which block depend from it
     QT_NO_GRAPHICSEFFECT=1 \  # =0
     QT_NO_QUUID_STRING=1 \  # =0
     \
-# From sources
+# From sources of WebKit
     QT_NO_ACCESSIBILITY=1 \  # =0  # WebKit
     QT_NO_ACTION=1 \  # =0  # WebKit
     QT_NO_COLORDIALOG=1 \  # =0  # WebKit
