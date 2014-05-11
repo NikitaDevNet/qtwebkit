@@ -41,7 +41,7 @@ SUBDIRS += \
 #    SUBDIRS += $$WEBKIT_TESTS_DIR/benchmarks/webgl
 #}
 
-build?(webkit2): {
+build?(webkit2) {
     WEBKIT2_TESTS_DIR = $$PWD/WebKit2/UIProcess/API/qt/tests
 
     have?(QTQUICK):SUBDIRS += \

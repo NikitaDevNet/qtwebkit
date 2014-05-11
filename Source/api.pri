@@ -28,7 +28,7 @@ build?(webkit2): WEBKIT += webkit2
 
 # Ensure that changes to the WebKit1 and WebKit2 API will trigger a qmake of this
 # file, which in turn runs syncqt to update the forwarding headers.
-build?(webkit1): {
+build?(webkit1) {
     QMAKE_INTERNAL_INCLUDED_FILES *= WebKit/WebKit1.pro
 }
 build?(webkit2): QMAKE_INTERNAL_INCLUDED_FILES *= WebKit2/Target.pri

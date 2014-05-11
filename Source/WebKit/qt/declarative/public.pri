@@ -35,7 +35,7 @@ RPATHDIR_RELATIVE_TO_DESTDIR = ../../lib
 
 SOURCES += plugin.cpp
 
-build?(webkit2): {
+build?(webkit2) {
     DEFINES += HAVE_WEBKIT2
     QT += network
 }
