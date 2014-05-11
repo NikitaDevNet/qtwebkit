@@ -17,6 +17,9 @@ which want to control (WebKit.pro, WebCore.pro ...):
 CFG_DEBUG_WARNING = ON
 
 
+Folder '.git' must be at least empty in root of module.
+
+
 
 === The original description ===
 
