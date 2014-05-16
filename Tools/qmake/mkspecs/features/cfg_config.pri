@@ -261,7 +261,7 @@ CFG_BUILD_FEATURES = \  # = default value  # which block depend from it
 # use_
     CFG_BUILD_3D_GRAPHICS=0 \  # =1
     CFG_BUILD_CROSS_PLATFORM_CONTEXT_MENUS=0 \  # =1
-    CFG_BUILD_TEXTURE_MAPPER=0 \  # =1
+    CFG_BUILD_TEXTURE_MAPPER=1 \  # =1
 
 
 
@@ -299,7 +299,7 @@ CFG_MINIMAL_QT_DEFINES = \  # = default value  # which block depend from it
     QT_NO_QUUID_STRING=1 \  # =0
     \
 # From sources of WebKit
-    QT_NO_ACCESSIBILITY=1 \  # =0  # WebKit
+    QT_NO_ACCESSIBILITY=0 \  # =0  # WebKit
     QT_NO_ACTION=1 \  # =0  # WebKit
     QT_NO_COLORDIALOG=1 \  # =0  # WebKit
     QT_NO_CONTEXTMENU=1 \  # =0  # WebKit
@@ -311,6 +311,18 @@ CFG_MINIMAL_QT_DEFINES = \  # = default value  # which block depend from it
     QT_NO_SSL=1 \  # =0  # WebKit2
     QT_NO_WHEELEVENT=1 \  # =0  # WebKit, DumpRenderTree
 
+
+#define QT_NO_ACCESSIBILITY  // !
+#define QT_NO_ACTION
+#define QT_NO_COLORDIALOG
+#define QT_NO_CONTEXTMENU
+#define QT_NO_DRAGANDDROP
+#define QT_NO_GESTURES
+#define QT_NO_GRAPHICSVIEW
+#define QT_NO_MENU
+#define QT_NO_SPINBOX
+#define QT_NO_SSL
+#define QT_NO_WHEELEVENT
 
 
 

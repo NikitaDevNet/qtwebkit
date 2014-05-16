@@ -21,8 +21,6 @@
 #ifndef QWEBPAGE_H
 #define QWEBPAGE_H
 
-#include "config.h"
-
 #include <QtWebKit/qwebkitglobal.h>
 #include <QtWebKit/qwebsettings.h>
 
@@ -334,9 +332,9 @@ public:
     bool isContentEditable() const;
 
 #ifndef QT_NO_CONTEXTMENU
-#if ENABLE(CONTEXT_MENUS)
+#if (defined ENABLE_CONTEXT_MENUS  && ENABLE_CONTEXT_MENUS)  //#ifdef ENABLE_CONTEXT_MENUS
     bool swallowContextMenuEvent(QContextMenuEvent *event);
-#endif // ENABLE(CONTEXT_MENUS)
+#endif // if (defined ENABLE_CONTEXT_MENUS  && ENABLE_CONTEXT_MENUS)
 #endif // ifndef QT_NO_CONTEXTMENU
     void updatePositionDependentActions(const QPoint &pos);
 
