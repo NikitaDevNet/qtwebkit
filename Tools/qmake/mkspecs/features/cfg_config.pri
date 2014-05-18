@@ -61,6 +61,7 @@ CFG_FEATURE_DEFAULTS = \  # = default value  # which block depend from it
     ENABLE_FONT_LOAD_EVENTS=0 \  # =0  # WebCore
     ENABLE_FTPDIR=0 \  # =1  # WebCore
     ENABLE_FULLSCREEN_API=0 \  # =1  # WebCore, WebKit2, WebKitTestRunner
+    ENABLE_GAMEPAD=0 \  # =0  # WebCore
     ENABLE_GEOLOCATION=0 \  # =1  # WebCore, WebKit2, WebKit, widgetsapi
     ENABLE_GESTURE_EVENTS=0 \  # =1  # WebCore, WebKit2, WebKit
     ENABLE_HIGH_DPI_CANVAS=0 \  # =0  # WebCore
@@ -93,6 +94,7 @@ CFG_FEATURE_DEFAULTS = \  # = default value  # which block depend from it
     ENABLE_MICRODATA=0 \  # =0  # WebCore
     ENABLE_MOUSE_CURSOR_SCALE=0 \  # =0  # WebCore
     ENABLE_NAVIGATOR_CONTENT_UTILS=0 \  # =0  # WebCore
+    ENABLE_NETSCAPE_PLUGIN_API=0 \  # =0  # WebCore, WebKit2, WebKit
     ENABLE_NETWORK_INFO=0 \  # =0  # WebCore, WebKit2
     ENABLE_NOSNIFF=0 \  # =0  # WebCore
     ENABLE_NOTIFICATIONS=0 \  # =1  # WebCore, WebKit2, WebKit
@@ -122,13 +124,16 @@ CFG_FEATURE_DEFAULTS = \  # = default value  # which block depend from it
     ENABLE_TOUCH_ICON_LOADING=0 \  # =0  # WebCore
     ENABLE_USER_TIMING=0 \  # =0  # WebCore
     ENABLE_VIBRATION=0 \  # =0  # WebCore, WebKit2
+    ENABLE_VIDEO=0 \  # =0  # WebCore, WebKit2, WebKit, widgetsapi
     ENABLE_VIDEO_TRACK=0 \  # =1  # WebCore, WebKit2
     ENABLE_VIEW_MODE_CSS_MEDIA=0 \  # =1  # WebCore
+    ENABLE_WEBGL=0 \  # =0  # WebCore, WebKit2, WebKit, widgetsapi, tests, QtTestBrowser
     ENABLE_WEB_AUDIO=0 \  # =0  # WebCore, WebKit2, WebKit, QtTestBrowser
     ENABLE_WEB_SOCKETS=0 \  # =1  # WebCore
     ENABLE_WEB_TIMING=0 \  # =1  # WebCore
     ENABLE_WORKERS=0 \  # =1  # WebCore, WebKit
     ENABLE_XHR_TIMEOUT=0 \  # =1  # WebCore
+    ENABLE_XSLT=0 \  # =0  # WebCore
 # from FeatureDefines.h
     ENABLE_8BIT_TEXTRUN=0 \  # =0  # WebCore
     ENABLE_ACCELERATED_OVERFLOW_SCROLLING=0 \  # =0  # WebCore
@@ -203,11 +208,6 @@ CFG_FEATURE_DEFAULTS = \  # = default value  # which block depend from it
 # NOT USE IN cfg_enable?() cfg_use?(), ONLY IN cfg_build?()
 #
 # from  features.pri  (ENABLE_*)
-#    ENABLE_GAMEPAD=0 \  # =0  # WebCore
-#    ENABLE_NETSCAPE_PLUGIN_API=0 \  # =0  # WebCore, WebKit2, WebKit
-#    ENABLE_VIDEO=0 \  # =0  # WebCore, WebKit2, WebKit, widgetsapi
-#    ENABLE_WEBGL=0 \  # =0  # WebCore, WebKit2, WebKit, widgetsapi, tests, QtTestBrowser
-#    ENABLE_XSLT=0 \  # =0  # WebCore
 # from  Platform.h  (USE_*)
 #    USE_3D_GRAPHICS=1 \  # =1  # WebCore, WebKit2, WebKit, widgetsapi, api, WebKit.pro
 #    USE_CROSS_PLATFORM_CONTEXT_MENUS=0 \  # =1  # WebCore, WebKit2
@@ -238,29 +238,30 @@ CFG_BUILD_FEATURES = \  # = default value  # which block depend from it
     CFG_BUILD_QT_EXAMPLES=0 \  # =1
     \
 # use_
-    CFG_BUILD_LIBXML2=0 \  # =1  # WebCore
-    CFG_BUILD_TILED_BACKING_STORE=0 \  # =1  # WebCore, WebKit2, WebKit
-    CFG_BUILD_WEBP=0 \  # =1
-    CFG_BUILD_ZLIB=0 \  # =1  # WebCore
+    CFG_BUILD_LIBXML2=1 \  # =1  # WebCore
+    CFG_BUILD_TILED_BACKING_STORE=1 \  # =1  # WebCore, WebKit2, WebKit
+    CFG_BUILD_WEBP=1 \  # =1
+    CFG_BUILD_ZLIB=1 \  # =1  # WebCore
     \
 # have_
-    CFG_BUILD_QSTYLE=0 \  # =1
-    CFG_BUILD_QTPOSITIONING=0 \  # =1  # WebKit2, WebKit
-    CFG_BUILD_QTPRINTSUPPORT=0 \  # =1  # WebKit, widgetsapi, DumpRenderTree, QtTestBrowser
-    CFG_BUILD_QTQUICK=0 \  # =1  # WebKit2, widgetsapi, QtWebKit.pro, tests, Tools.pro
-    CFG_BUILD_QTSENSORS=0 \  # =1  # WebCore, WebKit2, WebKit
-    CFG_BUILD_QTTESTLIB=0 \  # =1
+    CFG_BUILD_QSTYLE=1 \  # =1
+    CFG_BUILD_QTPOSITIONING=1 \  # =1  # WebKit2, WebKit
+    CFG_BUILD_QTPRINTSUPPORT=1 \  # =1  # WebKit, widgetsapi, DumpRenderTree, QtTestBrowser
+    CFG_BUILD_QTQUICK=1 \  # =1  # WebKit2, widgetsapi, QtWebKit.pro, tests, Tools.pro
+    CFG_BUILD_QTSENSORS=1 \  # =1  # WebCore, WebKit2, WebKit
+    CFG_BUILD_QTTESTLIB=1 \  # =1
     \
 # See also in  # Dependences
 # enable_
-    CFG_BUILD_GAMEPAD=0 \  # =1
-    CFG_BUILD_NETSCAPE_PLUGIN_API=0 \  # =1
+    CFG_BUILD_GAMEPAD=1 \  # =1
+    CFG_BUILD_NETSCAPE_PLUGIN_API=1 \  # =1
     CFG_BUILD_VIDEO=0 \  # =1
     CFG_BUILD_WEBGL=0 \  # =1
-    CFG_BUILD_XSLT=0 \  # =1
+    CFG_BUILD_XSLT=1 \  # =1
+# See also in  # Dependences
 # use_
     CFG_BUILD_3D_GRAPHICS=0 \  # =1
-    CFG_BUILD_CROSS_PLATFORM_CONTEXT_MENUS=0 \  # =1
+    CFG_BUILD_CROSS_PLATFORM_CONTEXT_MENUS=1 \  # =1
     CFG_BUILD_TEXTURE_MAPPER=1 \  # =1
 
 
@@ -300,16 +301,16 @@ CFG_MINIMAL_QT_DEFINES = \  # = default value  # which block depend from it
     \
 # From sources of WebKit
     QT_NO_ACCESSIBILITY=0 \  # =0  # WebKit
-    QT_NO_ACTION=1 \  # =0  # WebKit
-    QT_NO_COLORDIALOG=1 \  # =0  # WebKit
-    QT_NO_CONTEXTMENU=1 \  # =0  # WebKit
-    QT_NO_DRAGANDDROP=1 \  # =0  # WebKit
-    QT_NO_GESTURES=1 \  # =0  # WebKit, DumpRenderTree
-    QT_NO_GRAPHICSVIEW=1 \  # =0  # WebKit
-    QT_NO_MENU=1 \  # =0  # WebKit
-    QT_NO_SPINBOX=1 \  # =0  # WebCore, WebKit
-    QT_NO_SSL=1 \  # =0  # WebKit2
-    QT_NO_WHEELEVENT=1 \  # =0  # WebKit, DumpRenderTree
+    QT_NO_ACTION=0 \  # =0  # WebKit
+    QT_NO_COLORDIALOG=0 \  # =0  # WebKit
+    QT_NO_CONTEXTMENU=0 \  # =0  # WebKit
+    QT_NO_DRAGANDDROP=0 \  # =0  # WebKit
+    QT_NO_GESTURES=0 \  # =0  # WebKit, DumpRenderTree
+    QT_NO_GRAPHICSVIEW=0 \  # =0  # WebKit
+    QT_NO_MENU=0 \  # =0  # WebKit
+    QT_NO_SPINBOX=0 \  # =0  # WebCore, WebKit
+    QT_NO_SSL=0 \  # =0  # WebKit2
+    QT_NO_WHEELEVENT=0 \  # =0  # WebKit, DumpRenderTree
 
 
 #define QT_NO_ACCESSIBILITY  // !
@@ -328,55 +329,6 @@ CFG_MINIMAL_QT_DEFINES = \  # = default value  # which block depend from it
 
 
 # Dependences
-
-# from  features.pri  (ENABLE_*)
-
-#    ENABLE_GAMEPAD=0 \  # =0  # WebCore
-contains(CFG_BUILD_FEATURES, CFG_BUILD_GAMEPAD=1) {
-    CFG_FEATURE_DEFAULTS -= ENABLE_GAMEPAD=0
-# See features.prf  #    CFG_FEATURE_DEFAULTS += ENABLE_GAMEPAD=1
-} else {
-    CFG_FEATURE_DEFAULTS -= ENABLE_GAMEPAD=1
-    CFG_FEATURE_DEFAULTS += ENABLE_GAMEPAD=0
-}
-
-#    ENABLE_NETSCAPE_PLUGIN_API=0 \  # =0  # WebCore, WebKit2, WebKit
-contains(CFG_BUILD_FEATURES, CFG_BUILD_NETSCAPE_PLUGIN_API=1) {
-    CFG_FEATURE_DEFAULTS -= ENABLE_NETSCAPE_PLUGIN_API=0
-# See features.prf  #    CFG_FEATURE_DEFAULTS += ENABLE_NETSCAPE_PLUGIN_API=1
-} else {
-    CFG_FEATURE_DEFAULTS -= ENABLE_NETSCAPE_PLUGIN_API=1
-    CFG_FEATURE_DEFAULTS += ENABLE_NETSCAPE_PLUGIN_API=0
-}
-
-#    ENABLE_VIDEO=0 \  # =0  # WebCore, WebKit2, WebKit, widgetsapi
-contains(CFG_BUILD_FEATURES, CFG_BUILD_VIDEO=1) {
-    CFG_FEATURE_DEFAULTS -= ENABLE_VIDEO=0
-# See features.prf  #    CFG_FEATURE_DEFAULTS += ENABLE_VIDEO=1
-} else {
-    CFG_FEATURE_DEFAULTS -= ENABLE_VIDEO=1
-    CFG_FEATURE_DEFAULTS += ENABLE_VIDEO=0
-}
-
-#    ENABLE_WEBGL=0 \  # =0  # WebCore, WebKit2, WebKit, widgetsapi, tests, QtTestBrowser
-contains(CFG_BUILD_FEATURES, CFG_BUILD_WEBGL=1) {
-    CFG_FEATURE_DEFAULTS -= ENABLE_WEBGL=0
-# See features.prf  #    CFG_FEATURE_DEFAULTS += ENABLE_WEBGL=1
-} else {
-    CFG_FEATURE_DEFAULTS -= ENABLE_WEBGL=1
-    CFG_FEATURE_DEFAULTS += ENABLE_WEBGL=0
-}
-
-#    ENABLE_XSLT=0 \  # =0  # WebCore
-contains(CFG_BUILD_FEATURES, CFG_BUILD_XSLT=1) {
-    CFG_FEATURE_DEFAULTS -= ENABLE_XSLT=0
-# See features.prf  #    CFG_FEATURE_DEFAULTS += ENABLE_XSLT=1
-} else {
-    CFG_FEATURE_DEFAULTS -= ENABLE_XSLT=1
-    CFG_FEATURE_DEFAULTS += ENABLE_XSLT=0
-}
-
-
 
 # from  Platform.h  (USE_*)
 
