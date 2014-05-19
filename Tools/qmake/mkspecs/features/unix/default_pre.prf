@@ -13,6 +13,6 @@ SBOX_CHECK = $$(_SBOX_DIR)
 !isEmpty(SBOX_CHECK): CONFIG += scratchbox
 
 # Reduce linking memory pressure on 32-bit debug builds on Linux
-linux-g++*:CONFIG(debug, debug|release):isEqual(QT_ARCH,i386): CONFIG += use_all_in_one_files
+cfg_build?(all_in_one_files): linux-g++*:CONFIG(debug, debug|release):isEqual(QT_ARCH,i386): CONFIG += use_all_in_one_files
 
 load(default_pre)

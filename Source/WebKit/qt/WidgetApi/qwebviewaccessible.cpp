@@ -17,9 +17,10 @@
  * Boston, MA 02110-1301, USA.
  */
 
+#include "config.h"
+
 #ifndef QT_NO_ACCESSIBILITY
 
-#include "config.h"
 #include "qwebviewaccessible_p.h"
 
 #include "qwebframe.h"

@@ -6,5 +6,5 @@
 
 load(default_pre)
 
-debug: CONFIG += use_all_in_one_files
+cfg_build?(all_in_one_files): debug: CONFIG += use_all_in_one_files
 

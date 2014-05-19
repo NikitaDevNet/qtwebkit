@@ -307,6 +307,7 @@ abort:
     return false;
 }
 
+#if ENABLE(PLUGIN_PACKAGE_SIMPLE_HASH)
 unsigned PluginPackage::hash() const
 { 
     const unsigned hashCodes[] = {
@@ -337,6 +338,8 @@ bool PluginPackage::equal(const PluginPackage& a, const PluginPackage& b)
 
     return true;
 }
+#endif // ENABLE(PLUGIN_PACKAGE_SIMPLE_HASH)
+
 
 uint16_t PluginPackage::NPVersion() const
 {

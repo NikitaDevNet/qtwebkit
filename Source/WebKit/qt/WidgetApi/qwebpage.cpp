@@ -672,7 +672,7 @@ static QStringList iterateContextMenu(QMenu* menu)
 
 QStringList QWebPagePrivate::menuActionsAsText()
 {
-#ifndef QT_NO_MENU
+#if !defined(QT_NO_MENU) && !defined(QT_NO_CONTEXTMENU)
     return iterateContextMenu(currentContextMenu.data());
 #else
     return QStringList();

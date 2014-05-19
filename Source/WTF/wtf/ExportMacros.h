@@ -50,8 +50,14 @@
 
 #if OS(WINDOWS)
 
+#if ENABLE(CFG_STATIC)
+#define WTF_EXPORT_DECLARATION
+#define WTF_IMPORT_DECLARATION
+#else
 #define WTF_EXPORT_DECLARATION __declspec(dllexport)
 #define WTF_IMPORT_DECLARATION __declspec(dllimport)
+#endif
+
 #define WTF_HIDDEN_DECLARATION
 
 #elif defined(__GNUC__) && !defined(__CC_ARM) && !defined(__ARMCC__)

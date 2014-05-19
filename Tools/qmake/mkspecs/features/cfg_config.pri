@@ -238,31 +238,33 @@ CFG_BUILD_FEATURES = \  # = default value  # which block depend from it
     CFG_BUILD_QT_EXAMPLES=0 \  # =1
     \
 # use_
-    CFG_BUILD_LIBXML2=1 \  # =1  # WebCore
-    CFG_BUILD_TILED_BACKING_STORE=1 \  # =1  # WebCore, WebKit2, WebKit
-    CFG_BUILD_WEBP=1 \  # =1
-    CFG_BUILD_ZLIB=1 \  # =1  # WebCore
+# may be CFG_BUILD_ALL_IN_ONE_FILES=0 for static build
+    CFG_BUILD_ALL_IN_ONE_FILES=1 \  # =1  # WebCore
+    CFG_BUILD_LIBXML2=0 \  # =1  # WebCore
+    CFG_BUILD_TILED_BACKING_STORE=0 \  # =1  # WebCore, WebKit2, WebKit
+    CFG_BUILD_WEBP=0 \  # =1
+    CFG_BUILD_ZLIB=0 \  # =1  # WebCore
     \
 # have_
-    CFG_BUILD_QSTYLE=1 \  # =1
-    CFG_BUILD_QTPOSITIONING=1 \  # =1  # WebKit2, WebKit
-    CFG_BUILD_QTPRINTSUPPORT=1 \  # =1  # WebKit, widgetsapi, DumpRenderTree, QtTestBrowser
-    CFG_BUILD_QTQUICK=1 \  # =1  # WebKit2, widgetsapi, QtWebKit.pro, tests, Tools.pro
-    CFG_BUILD_QTSENSORS=1 \  # =1  # WebCore, WebKit2, WebKit
-    CFG_BUILD_QTTESTLIB=1 \  # =1
+    CFG_BUILD_QSTYLE=0 \  # =1
+    CFG_BUILD_QTPOSITIONING=0 \  # =1  # WebKit2, WebKit
+    CFG_BUILD_QTPRINTSUPPORT=0 \  # =1  # WebKit, widgetsapi, DumpRenderTree, QtTestBrowser
+    CFG_BUILD_QTQUICK=0 \  # =1  # WebKit2, widgetsapi, QtWebKit.pro, tests, Tools.pro
+    CFG_BUILD_QTSENSORS=0 \  # =1  # WebCore, WebKit2, WebKit
+    CFG_BUILD_QTTESTLIB=0 \  # =1
     \
 # See also in  # Dependences
 # enable_
-    CFG_BUILD_GAMEPAD=1 \  # =1
-    CFG_BUILD_NETSCAPE_PLUGIN_API=1 \  # =1
+    CFG_BUILD_GAMEPAD=0 \  # =1
+    CFG_BUILD_NETSCAPE_PLUGIN_API=0 \  # =1
     CFG_BUILD_VIDEO=0 \  # =1
     CFG_BUILD_WEBGL=0 \  # =1
-    CFG_BUILD_XSLT=1 \  # =1
+    CFG_BUILD_XSLT=0 \  # =1
 # See also in  # Dependences
 # use_
     CFG_BUILD_3D_GRAPHICS=0 \  # =1
-    CFG_BUILD_CROSS_PLATFORM_CONTEXT_MENUS=1 \  # =1
-    CFG_BUILD_TEXTURE_MAPPER=1 \  # =1
+    CFG_BUILD_CROSS_PLATFORM_CONTEXT_MENUS=0 \  # =1
+    CFG_BUILD_TEXTURE_MAPPER=0 \  # =1
 
 
 
@@ -300,35 +302,38 @@ CFG_MINIMAL_QT_DEFINES = \  # = default value  # which block depend from it
     QT_NO_QUUID_STRING=1 \  # =0
     \
 # From sources of WebKit
-    QT_NO_ACCESSIBILITY=0 \  # =0  # WebKit
-    QT_NO_ACTION=0 \  # =0  # WebKit
-    QT_NO_COLORDIALOG=0 \  # =0  # WebKit
-    QT_NO_CONTEXTMENU=0 \  # =0  # WebKit
-    QT_NO_DRAGANDDROP=0 \  # =0  # WebKit
-    QT_NO_GESTURES=0 \  # =0  # WebKit, DumpRenderTree
-    QT_NO_GRAPHICSVIEW=0 \  # =0  # WebKit
-    QT_NO_MENU=0 \  # =0  # WebKit
-    QT_NO_SPINBOX=0 \  # =0  # WebCore, WebKit
-    QT_NO_SSL=0 \  # =0  # WebKit2
-    QT_NO_WHEELEVENT=0 \  # =0  # WebKit, DumpRenderTree
+    QT_NO_ACCESSIBILITY=1 \  # =0  # WebKit
+    QT_NO_COLORDIALOG=1 \  # =0  # WebKit
+    QT_NO_GESTURES=1 \  # =0  # WebKit, DumpRenderTree
+    QT_NO_GRAPHICSVIEW=1 \  # =0  # WebKit
+    QT_NO_SPINBOX=1 \  # =0  # WebCore, WebKit
+    QT_NO_SSL=1 \  # =0  # WebKit2
 
 
-#define QT_NO_ACCESSIBILITY  // !
-#define QT_NO_ACTION
-#define QT_NO_COLORDIALOG
-#define QT_NO_CONTEXTMENU
-#define QT_NO_DRAGANDDROP
-#define QT_NO_GESTURES
-#define QT_NO_GRAPHICSVIEW
-#define QT_NO_MENU
-#define QT_NO_SPINBOX
-#define QT_NO_SSL
-#define QT_NO_WHEELEVENT
+# compile errors
+#    QT_NO_ACTION=0 \  # =0  # WebKit
+# run errors
+#    QT_NO_CONTEXTMENU=0 \  # =0  # WebKit
+#    QT_NO_MENU=0 \  # =0  # WebKit
+#    QT_NO_WHEELEVENT=0 \  # =0  # WebKit, DumpRenderTree
+# run with problems
+#    QT_NO_DRAGANDDROP=0 \  # =0  # WebKit
 
 
 
 
 # Dependences
+
+# for static build
+contains(CONFIG, static) {
+  CFG_FEATURE_DEFAULTS -= ENABLE_CFG_STATIC=0
+  CFG_FEATURE_DEFAULTS += ENABLE_CFG_STATIC=1
+} else {
+  CFG_FEATURE_DEFAULTS -= ENABLE_CFG_STATIC=1
+  CFG_FEATURE_DEFAULTS += ENABLE_CFG_STATIC=0
+}
+
+
 
 # from  Platform.h  (USE_*)
 
