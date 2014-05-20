@@ -5,12 +5,12 @@
 # -------------------------------------------------------------------
 
 
-dwarning(entering cfg_config.pri)
+cfg_dwarning(entering cfg_config.pri)
 
 
 # warn when multiply included
 contains (CFG_CONFIG_PRI_INCLUDED, cfg_config_file_included) {
-    dwarning (multiple inclusion of cfg_config.pri)
+    cfg_dwarning (multiple inclusion of cfg_config.pri)
 }
 CFG_CONFIG_PRI_INCLUDED += cfg_config_file_included
 
@@ -189,6 +189,7 @@ CFG_FEATURE_DEFAULTS = \  # = default value  # which block depend from it
     \
 # for  cfg_config  (ENABLE_CFG_*)
 # See also in  # Dependences
+    ENABLE_CFG_ACCESSIBILITY=1 \  # =1
     ENABLE_CFG_CACHE=1 \  # =1
     ENABLE_CFG_FILTERS=1 \  # =1
     ENABLE_CFG_HISTORY=1 \  # =1
@@ -238,7 +239,10 @@ CFG_BUILD_FEATURES = \  # = default value  # which block depend from it
     CFG_BUILD_QT_EXAMPLES=0 \  # =1
     \
 # use_
-# may be CFG_BUILD_ALL_IN_ONE_FILES=0 for static build
+# All in one files reduce memory usage at link time. At compiler time the code
+# visibility for the compiler increases and faster more compact code can be produced,
+# so turn it on in production builds.
+# CFG_BUILD_ALL_IN_ONE_FILES=0 -- less memory for compiling, more time for compiling (~25%)
     CFG_BUILD_ALL_IN_ONE_FILES=1 \  # =1  # WebCore
     CFG_BUILD_LIBXML2=0 \  # =1  # WebCore
     CFG_BUILD_TILED_BACKING_STORE=0 \  # =1  # WebCore, WebKit2, WebKit
@@ -431,4 +435,4 @@ contains(CFG_FEATURE_DEFAULTS, ENABLE_ICONDATABASE=1)|contains(CFG_FEATURE_DEFAU
 
 
 
-dwarning(leaving cfg_config.pri)
+cfg_dwarning(leaving cfg_config.pri)

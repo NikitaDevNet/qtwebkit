@@ -5,7 +5,7 @@
 # -------------------------------------------------------------------
 
 CFG_FILE_JS_JSC_PRO = Source\JavaScriptCore\jsc.pro
-cfg_warning_file_in($$CFG_FILE_JS_JSC_PRO)
+cfg_dwarning_file_in($$CFG_FILE_JS_JSC_PRO)
 
 TEMPLATE = app
 
@@ -38,4 +38,4 @@ wince* {
 contains(QT_CONFIG, reduce_exports):CONFIG += hide_symbols
 unix:contains(QT_CONFIG, reduce_relocations):CONFIG += bsymbolic_functions
 
-cfg_warning_file_out($$CFG_FILE_JS_JSC_PRO)
+cfg_dwarning_file_out($$CFG_FILE_JS_JSC_PRO)

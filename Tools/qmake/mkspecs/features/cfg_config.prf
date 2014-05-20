@@ -8,7 +8,7 @@
 
 include(cfg_config.pri)
 
-defineTest(dwarning) {
+defineTest(cfg_dwarning) {
 
     contains(CFG_DEBUG_WARNING, ON) {
 #        warning($${EOL})
@@ -28,48 +28,40 @@ defineTest(dwarning) {
     }
 }
 
-defineTest(cfg_warning_file_in) {
-
-#    contains(CFG_DEBUG_WARNING, ON) {
-        warning(=========== ENTERING $$1 ==========$${EOL})
-
-#    }
+defineTest(cfg_dwarning_file_in) {
+    cfg_dwarning(=========== ENTERING $$1 ==========$${EOL})
 }
 
-defineTest(cfg_warning_file_out) {
-
-#    contains(CFG_DEBUG_WARNING, ON) {
-        warning(=========== LAEVING $$1 ==========$${EOL})
-
-#    }
+defineTest(cfg_dwarning_file_out) {
+    cfg_dwarning(=========== LAEVING $$1 ==========$${EOL})
 }
 
 
 defineTest(cfg_build?) {
-    dwarning(=== cfg_build?($$1) ===$${EOL})
+    cfg_dwarning(=== cfg_build?($$1) ===$${EOL})
     contains(CFG_BUILD_FEATURES, CFG_BUILD_$$upper($$1)=1): return(true)
     return(false)
 }
 
 defineTest(cfg_have?) {
-    dwarning(=== cfg_have?($$1) ===$${EOL})
+    cfg_dwarning(=== cfg_have?($$1) ===$${EOL})
     contains(CFG_FEATURE_DEFAULTS, HAVE_$$upper($$1)=1): return(true)
     return(false)
 }
 
 defineTest(cfg_use?) {
-    dwarning(=== cfg_use?($$1) ===$${EOL})
+    cfg_dwarning(=== cfg_use?($$1) ===$${EOL})
     contains(CFG_FEATURE_DEFAULTS, USE_$$upper($$1)=1): return(true)
     return(false)
 }
 
 defineTest(cfg_enable?) {
-    dwarning(=== cfg_enable?($$1) ===$${EOL})
+    cfg_dwarning(=== cfg_enable?($$1) ===$${EOL})
     contains(CFG_FEATURE_DEFAULTS, ENABLE_$$upper($$1)=1): return(true)
     return(false)
 }
 
-defineReplace(cfgMinimalQtDefines) {
+defineReplace(cfg_MinimalQtDefines) {
     unset(cfg_defines)
 
     for(cfg_define, CFG_MINIMAL_QT_DEFINES) {
@@ -81,4 +73,23 @@ defineReplace(cfgMinimalQtDefines) {
     }
 
     return($$cfg_defines)
+}
+
+
+defineTest(cfg_AllInOneSourcesOff) {
+    collection = $$CFG_ALL_IN_ONE_SOURCES_OFF
+
+    for(collectionFile, collection) {
+        lines = $$cat($$_PRO_FILE_PWD_/$$collectionFile, lines)
+        for(line, lines) {
+            line = $$find(line, "^.+include \"(.*)\"")
+            isEmpty(line): next()
+            line ~= s/^.+include \"(.*)\"/\\1/
+            source = $$dirname(collectionFile)/$$line
+            contains(SOURCES, $$source) {
+                SOURCES -= $$source
+                tookFromSources = true
+            }
+        }
+    }
 }

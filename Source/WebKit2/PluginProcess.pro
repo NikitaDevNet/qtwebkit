@@ -5,7 +5,7 @@
 # -------------------------------------------------------------------
 
 CFG_FILE_WK2_PLUGINPROCESS_PRO = Source\WebKit2\PluginProcess.pro
-cfg_warning_file_in($$CFG_FILE_WK2_PLUGINPROCESS_PRO)
+cfg_dwarning_file_in($$CFG_FILE_WK2_PLUGINPROCESS_PRO)
 
 TEMPLATE = app
 
@@ -33,4 +33,4 @@ isEmpty(INSTALL_BINS) {
     target.path = $$INSTALL_BINS
 }
 
-cfg_warning_file_out($$CFG_FILE_WK2_PLUGINPROCESS_PRO)
+cfg_dwarning_file_out($$CFG_FILE_WK2_PLUGINPROCESS_PRO)

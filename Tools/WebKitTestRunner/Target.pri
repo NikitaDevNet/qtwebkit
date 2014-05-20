@@ -5,7 +5,7 @@
 # -------------------------------------------------------------------
 
 CFG_FILE_WTR_TARGET_PRI = Tools\WebKitTestRunner\Target.pri
-cfg_warning_file_in($$CFG_FILE_WTR_TARGET_PRI)
+cfg_dwarning_file_in($$CFG_FILE_WTR_TARGET_PRI)
 
 TEMPLATE = app
 TARGET = WebKitTestRunner
@@ -59,4 +59,4 @@ PREFIX_HEADER = WebKitTestRunnerPrefix.h
 
 RESOURCES = qt/WebKitTestRunner.qrc
 
-cfg_warning_file_out($$CFG_FILE_WTR_TARGET_PRI)
+cfg_dwarning_file_out($$CFG_FILE_WTR_TARGET_PRI)

@@ -5,7 +5,7 @@
 # -------------------------------------------------------------------
 
 CFG_FILE_SRC_API_PRI = Source\api.pri
-cfg_warning_file_in($$CFG_FILE_SRC_API_PRI)
+cfg_dwarning_file_in($$CFG_FILE_SRC_API_PRI)
 
 # Use Qt5's module system
 load(qt_build_config)
@@ -122,4 +122,4 @@ qnx {
     GENERATED_SOURCES += $$dummyfile.target
 }
 
-cfg_warning_file_out($$CFG_FILE_SRC_API_PRI)
+cfg_dwarning_file_out($$CFG_FILE_SRC_API_PRI)

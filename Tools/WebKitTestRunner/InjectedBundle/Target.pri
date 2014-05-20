@@ -5,7 +5,7 @@
 # -------------------------------------------------------------------
 
 CFG_FILE_INB_TARGET_PRI = Tools\WebKitTestRunner\InjectedBundle\Target.pri
-cfg_warning_file_in($$CFG_FILE_INB_TARGET_PRI)
+cfg_dwarning_file_in($$CFG_FILE_INB_TARGET_PRI)
 
 TEMPLATE = lib
 TARGET = WTRInjectedBundle
@@ -55,9 +55,9 @@ QT += widgets webkit
 
 WEBKIT += wtf
 
-#cfg_enable?(CFG_JAVASCRIPTCORE) {
+cfg_enable?(CFG_JAVASCRIPTCORE) {
     WEBKIT += javascriptcore
-#}
+}
 
 WEBKIT += webcore
 
@@ -86,4 +86,4 @@ linux-* {
     QMAKE_LFLAGS += -Wl,--no-undefined
 }
 
-cfg_warning_file_out($$CFG_FILE_INB_TARGET_PRI)
+cfg_dwarning_file_out($$CFG_FILE_INB_TARGET_PRI)

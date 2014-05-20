@@ -5,7 +5,7 @@
 # -------------------------------------------------------------------
 
 CFG_FILE_SRC_WIDGETSAPI_PRI = Source\widgetsapi.pri
-cfg_warning_file_in($$CFG_FILE_SRC_WIDGETSAPI_PRI)
+cfg_dwarning_file_in($$CFG_FILE_SRC_WIDGETSAPI_PRI)
 
 # Use Qt5's module system
 load(qt_build_config)
@@ -174,4 +174,4 @@ use?(QT_MULTIMEDIA) {
     HEADERS += $$PWD/WebKit/qt/WidgetSupport/DefaultFullScreenVideoHandler.h
 }
 
-cfg_warning_file_out($$CFG_FILE_SRC_WIDGETSAPI_PRI)
+cfg_dwarning_file_out($$CFG_FILE_SRC_WIDGETSAPI_PRI)

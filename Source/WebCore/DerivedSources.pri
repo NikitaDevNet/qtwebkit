@@ -5,7 +5,7 @@
 # -------------------------------------------------------------------
 
 CFG_FILE_WC_DERIVEDSOURCES_PRI = Source\WebCore\DerivedSources.pri
-cfg_warning_file_in($$CFG_FILE_WC_DERIVEDSOURCES_PRI)
+cfg_dwarning_file_in($$CFG_FILE_WC_DERIVEDSOURCES_PRI)
 
 # This file is both a top level target, and included from Target.pri,
 # so that the resulting generated sources can be added to SOURCES.
@@ -1179,4 +1179,4 @@ webkitversion.clean = ${QMAKE_FUNC_FILE_OUT_PATH}/WebKitVersion.h
 webkitversion.add_output_to_sources = false
 GENERATORS += webkitversion
 
-cfg_warning_file_out($$CFG_FILE_WC_DERIVEDSOURCES_PRI)
+cfg_dwarning_file_out($$CFG_FILE_WC_DERIVEDSOURCES_PRI)

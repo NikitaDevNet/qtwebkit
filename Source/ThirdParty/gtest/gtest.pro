@@ -1,5 +1,5 @@
 CFG_FILE_GTEST_GTEST_PRO = Source\ThirdParty\gtest\gtest.pro
-cfg_warning_file_in($$CFG_FILE_GTEST_GTEST_PRO)
+cfg_dwarning_file_in($$CFG_FILE_GTEST_GTEST_PRO)
 
 TEMPLATE = lib
 CONFIG += static
@@ -22,4 +22,4 @@ QT =
 
 CONFIG += compiling_thirdparty_code
 
-cfg_warning_file_out($$CFG_FILE_GTEST_GTEST_PRO)
+cfg_dwarning_file_out($$CFG_FILE_GTEST_GTEST_PRO)

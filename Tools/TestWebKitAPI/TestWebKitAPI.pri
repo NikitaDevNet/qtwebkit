@@ -1,5 +1,5 @@
 CFG_FILE_TWAPI_TWAPI_PRI = Tools\TestWebKitAPI\TestWebKitAPI.pri
-cfg_warning_file_in($$CFG_FILE_TWAPI_TWAPI_PRI)
+cfg_dwarning_file_in($$CFG_FILE_TWAPI_TWAPI_PRI)
 
 INCLUDEPATH += $$PWD $${ROOT_WEBKIT_DIR}/Source/ThirdParty/gtest/include
 WEBKIT += wtf
@@ -30,4 +30,4 @@ LIBS += -L$${ROOT_BUILD_DIR}/Source/ThirdParty/gtest/$$targetSubDir() -lgtest
 
 DEFINES += ROOT_BUILD_DIR=\\\"$${ROOT_BUILD_DIR}\\\"
 
-cfg_warning_file_out($$CFG_FILE_TWAPI_TWAPI_PRI)
+cfg_dwarning_file_out($$CFG_FILE_TWAPI_TWAPI_PRI)

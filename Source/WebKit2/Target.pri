@@ -5,7 +5,7 @@
 # -------------------------------------------------------------------
 
 CFG_FILE_WK2_TARGET_PRI = Source\WebKit2\Target.pri
-cfg_warning_file_in($$CFG_FILE_WK2_TARGET_PRI)
+cfg_dwarning_file_in($$CFG_FILE_WK2_TARGET_PRI)
 
 TEMPLATE = lib
 TARGET = WebKit2
@@ -961,4 +961,4 @@ use?(PLUGIN_BACKEND_XLIB) {
 
 include(DerivedSources.pri)
 
-cfg_warning_file_out($$CFG_FILE_WK2_TARGET_PRI)
+cfg_dwarning_file_out($$CFG_FILE_WK2_TARGET_PRI)

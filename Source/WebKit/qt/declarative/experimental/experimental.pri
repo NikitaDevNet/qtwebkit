@@ -5,7 +5,7 @@
 # -------------------------------------------------------------------
 
 CFG_FILE_EXP_EXPERIMENTAL_PRI = Source\WebKit\qt\declarative\experimental\experimental.pri
-cfg_warning_file_in($$CFG_FILE_EXP_EXPERIMENTAL_PRI)
+cfg_dwarning_file_in($$CFG_FILE_EXP_EXPERIMENTAL_PRI)
 
 TEMPLATE = lib
 TARGET  = qmlwebkitexperimentalplugin
@@ -63,4 +63,4 @@ qmldir.path +=  $${importPath}/$${TARGET.module_name}
 
 INSTALLS += target qmldir
 
-cfg_warning_file_out($$CFG_FILE_EXP_EXPERIMENTAL_PRI)
+cfg_dwarning_file_out($$CFG_FILE_EXP_EXPERIMENTAL_PRI)

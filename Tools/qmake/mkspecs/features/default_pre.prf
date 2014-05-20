@@ -14,7 +14,7 @@ eval($$env_cache)
 
 # The global config of QtWebKit
 load(cfg_config)
-cfg_warning_file_in($$CFG_FILE_FTR_DEFAULT_PRE_PRF)
+cfg_dwarning_file_in($$CFG_FILE_FTR_DEFAULT_PRE_PRF)
 
 
 load(functions)
@@ -119,4 +119,4 @@ win32: FLEX = win_flex
 BIN_EXTENSION =
 win32: BIN_EXTENSION = .exe
 
-cfg_warning_file_out($$CFG_FILE_FTR_DEFAULT_PRE_PRF)
+cfg_dwarning_file_out($$CFG_FILE_FTR_DEFAULT_PRE_PRF)

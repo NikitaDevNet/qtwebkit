@@ -6,7 +6,7 @@
 # -------------------------------------------------------------------
 
 CFG_FILE_WK_WEBKIT1_PRI = Source\WebKit\WebKit1.pri
-cfg_warning_file_in($$CFG_FILE_WK_WEBKIT1_PRI)
+cfg_dwarning_file_in($$CFG_FILE_WK_WEBKIT1_PRI)
 
 SOURCE_DIR = $${ROOT_WEBKIT_DIR}/Source/WebKit
 
@@ -25,4 +25,4 @@ use?(PLUGIN_BACKEND_XLIB): PKGCONFIG += x11
 
 QT += network
 
-cfg_warning_file_out($$CFG_FILE_WK_WEBKIT1_PRI)
+cfg_dwarning_file_out($$CFG_FILE_WK_WEBKIT1_PRI)

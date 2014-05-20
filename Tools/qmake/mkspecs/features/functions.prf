@@ -374,7 +374,7 @@ defineReplace(configDefines) {
         }
     }
 
-    defines += $$cfgMinimalQtDefines()
+    defines += $$cfg_MinimalQtDefines()
 
     return($$defines)
 }

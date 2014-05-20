@@ -5,7 +5,7 @@
 # -------------------------------------------------------------------
 
 CFG_FILE_TOOLS_TOOLS_PRO = Tools\Tools.pro
-cfg_warning_file_in($$CFG_FILE_TOOLS_TOOLS_PRO)
+cfg_dwarning_file_in($$CFG_FILE_TOOLS_TOOLS_PRO)
 
 TEMPLATE = subdirs
 CONFIG += ordered
@@ -17,9 +17,9 @@ build?(webkit1) {
 
 build?(webkit2) {
     # WTR's InjectedBundle depends currently on WK1's DumpRenderTreeSupport
-#    cfg_build?(qtquick) {
+    cfg_build?(qtquick) {
         build?(webkit1):build?(wtr):have?(QTQUICK): SUBDIRS += WebKitTestRunner/WebKitTestRunner.pro
-#    }
+    }
 
     build?(minibrowser) {
         have?(QTQUICK): SUBDIRS += MiniBrowser/qt/MiniBrowser.pro
@@ -55,4 +55,4 @@ OTHER_FILES = \
     qmake/mkspecs/features/unix/*.prf \
     qmake/mkspecs/features/win32/*.prf
 
-cfg_warning_file_out($$CFG_FILE_TOOLS_TOOLS_PRO)
+cfg_dwarning_file_out($$CFG_FILE_TOOLS_TOOLS_PRO)

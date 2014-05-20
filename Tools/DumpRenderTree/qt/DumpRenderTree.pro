@@ -5,7 +5,7 @@
 # -------------------------------------------------------------------
 
 CFG_FILE_DRT_DUMPRENDERTREE_PRO = Tools\DumpRenderTree\qt\DumpRenderTree.pro
-cfg_warning_file_in($$CFG_FILE_DRT_DUMPRENDERTREE_PRO)
+cfg_dwarning_file_in($$CFG_FILE_DRT_DUMPRENDERTREE_PRO)
 
 TEMPLATE = app
 
@@ -68,4 +68,4 @@ DEFINES += USE_SYSTEM_MALLOC=1
 
 RESOURCES = DumpRenderTree.qrc
 
-cfg_warning_file_out($$CFG_FILE_DRT_DUMPRENDERTREE_PRO)
+cfg_dwarning_file_out($$CFG_FILE_DRT_DUMPRENDERTREE_PRO)

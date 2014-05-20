@@ -6,7 +6,7 @@
 # -------------------------------------------------------------------
 
 CFG_FILE_FTR_DEFAULT_POST_PRF = Tools\qmake\mkspecs\features\default_post.prf
-cfg_warning_file_in($$CFG_FILE_FTR_DEFAULT_POST_PRF)
+cfg_dwarning_file_in($$CFG_FILE_FTR_DEFAULT_POST_PRF)
 
 # Flag that we're now done processing the project file. This allows
 # a feature to distinguish between being processed due to a load()
@@ -298,6 +298,8 @@ contains(TEMPLATE, lib) {
     }
 }
 
+cfg_AllInOneSourcesOff()
+
 # Remove duplicated sources
 SOURCES = $$unique(SOURCES)
 OBJECTIVE_SOURCES = $$unique(OBJECTIVE_SOURCES)
@@ -329,26 +331,26 @@ load(default_post) # Load Qt's defaults
 
 
 
-dwarning("  ==== FROM default_post.prf ====")
+cfg_dwarning("  ==== FROM default_post.prf ====")
 
-dwarning(TARGET = $$TARGET)
-dwarning(TEMPLATE = $$TEMPLATE)
-dwarning(BASE_TARGET = $$BASE_TARGET)
-dwarning(MODULE = $$MODULE)
-dwarning(INSTALLS =, $$INSTALLS)
-dwarning(MOBILITY =, $$MOBILITY)
-dwarning(WEBKIT =, $$WEBKIT)
-dwarning(QT =, $$QT)
-dwarning(QT_CONFIG =, $$QT_CONFIG)
-dwarning(QT_API_DEPENDS =, $$QT_API_DEPENDS)
-dwarning(CFG_FEATURE_DEFAULTS =, $$CFG_FEATURE_DEFAULTS)
-dwarning(CFG_BUILD_FEATURES =, $$CFG_BUILD_FEATURES)
-dwarning(CFG_MINIMAL_QT_DEFINES =, $$CFG_MINIMAL_QT_DEFINES)
-dwarning(FEATURE_DEFAULTS =, $$FEATURE_DEFAULTS)
-dwarning(WEBKIT_CONFIG =, $$WEBKIT_CONFIG)
-dwarning(CONFIG =, $$CONFIG)
-dwarning(DEFINES =, $$DEFINES)
+cfg_dwarning(TARGET = $$TARGET)
+cfg_dwarning(TEMPLATE = $$TEMPLATE)
+cfg_dwarning(BASE_TARGET = $$BASE_TARGET)
+cfg_dwarning(MODULE = $$MODULE)
+cfg_dwarning(INSTALLS =, $$INSTALLS)
+cfg_dwarning(MOBILITY =, $$MOBILITY)
+cfg_dwarning(WEBKIT =, $$WEBKIT)
+cfg_dwarning(QT =, $$QT)
+cfg_dwarning(QT_CONFIG =, $$QT_CONFIG)
+cfg_dwarning(QT_API_DEPENDS =, $$QT_API_DEPENDS)
+cfg_dwarning(CFG_FEATURE_DEFAULTS =, $$CFG_FEATURE_DEFAULTS)
+cfg_dwarning(CFG_BUILD_FEATURES =, $$CFG_BUILD_FEATURES)
+cfg_dwarning(CFG_MINIMAL_QT_DEFINES =, $$CFG_MINIMAL_QT_DEFINES)
+cfg_dwarning(FEATURE_DEFAULTS =, $$FEATURE_DEFAULTS)
+cfg_dwarning(WEBKIT_CONFIG =, $$WEBKIT_CONFIG)
+cfg_dwarning(CONFIG =, $$CONFIG)
+cfg_dwarning(DEFINES =, $$DEFINES)
 
-cfg_warning_file_out($$CFG_FILE_FTR_DEFAULT_POST_PRF)
+cfg_dwarning_file_out($$CFG_FILE_FTR_DEFAULT_POST_PRF)
 
 CFG_DEBUG_WARNING = OFF

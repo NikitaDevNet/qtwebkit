@@ -5,7 +5,7 @@
 # -------------------------------------------------------------------
 
 CFG_FILE_QTWEBKIT_PRO = Source\QtWebKit.pro
-cfg_warning_file_in($$CFG_FILE_QTWEBKIT_PRO)
+cfg_dwarning_file_in($$CFG_FILE_QTWEBKIT_PRO)
 
 TEMPLATE = subdirs
 CONFIG += ordered
@@ -52,4 +52,4 @@ build?(webkit1) {
     }
 }
 
-cfg_warning_file_out($$CFG_FILE_QTWEBKIT_PRO)
+cfg_dwarning_file_out($$CFG_FILE_QTWEBKIT_PRO)

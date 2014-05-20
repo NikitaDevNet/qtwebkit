@@ -5,7 +5,7 @@
 # -------------------------------------------------------------------
 
 CFG_FILE_WK_WEBKIT1_PRO = Source\WebKit\WebKit1.pro
-cfg_warning_file_in($$CFG_FILE_WK_WEBKIT1_PRO)
+cfg_dwarning_file_in($$CFG_FILE_WK_WEBKIT1_PRO)
 
 TEMPLATE = lib
 TARGET = WebKit1
@@ -42,10 +42,10 @@ SOURCES += \
     $$PWD/qt/Api/qwebscriptworld.cpp \
     $$PWD/qt/WebCoreSupport/ChromeClientQt.cpp
 
-#cfg_enable?(CONTEXT_MENUS) {
+cfg_enable?(CONTEXT_MENUS) {
   SOURCES += \
     $$PWD/qt/WebCoreSupport/ContextMenuClientQt.cpp
-#}
+}
 
 SOURCES += \
     $$PWD/qt/WebCoreSupport/DragClientQt.cpp \
@@ -137,4 +137,4 @@ enable?(VIDEO) {
     }
 }
 
-cfg_warning_file_out($$CFG_FILE_WK_WEBKIT1_PRO)
+cfg_dwarning_file_out($$CFG_FILE_WK_WEBKIT1_PRO)
