@@ -153,12 +153,12 @@ HEADERS += \
     HEADERS += $$PWD/WebKit/qt/Api/qwebkitplatformplugin.h
 }
 
-cfg_enable?(CFG_ACCESSIBILITY) {
+#cfg_enable?(CFG_ACCESSIBILITY) {
     contains(QT_CONFIG, accessibility) {
         SOURCES += $$PWD/WebKit/qt/WidgetApi/qwebviewaccessible.cpp
         HEADERS += $$PWD/WebKit/qt/WidgetApi/qwebviewaccessible_p.h
     }
-}
+#}
 
 INCLUDEPATH += \
     $$PWD/qt/Api \

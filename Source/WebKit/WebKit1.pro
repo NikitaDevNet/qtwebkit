@@ -42,10 +42,10 @@ SOURCES += \
     $$PWD/qt/Api/qwebscriptworld.cpp \
     $$PWD/qt/WebCoreSupport/ChromeClientQt.cpp
 
-cfg_enable?(CONTEXT_MENUS) {
+#cfg_enable?(CONTEXT_MENUS) {
   SOURCES += \
     $$PWD/qt/WebCoreSupport/ContextMenuClientQt.cpp
-}
+#}
 
 SOURCES += \
     $$PWD/qt/WebCoreSupport/DragClientQt.cpp \
