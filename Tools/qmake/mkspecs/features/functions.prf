@@ -366,7 +366,7 @@ defineReplace(configDefines) {
         anyFeatureDefine = $$find(define, =.$)
         isEmpty(anyFeatureDefine): next()
 
-        match = $$find(anyFeatureDefine, "^use_")
+        match = $$find(anyFeatureDefine, "^USE_")
         !isEmpty(match) {
             anyFeatureDefine = WTF_$$anyFeatureDefine
         }
