@@ -366,6 +366,11 @@ defineReplace(configDefines) {
         anyFeatureDefine = $$find(define, =.$)
         isEmpty(anyFeatureDefine): next()
 
+        match = $$find(anyFeatureDefine, "^use_")
+        !isEmpty(match) {
+            anyFeatureDefine = WTF_$$anyFeatureDefine
+        }
+
         enabledFeature = $$replace(anyFeatureDefine, =.$, =1)
         disabledFeature = $$replace(anyFeatureDefine, =.$, =0)
 
