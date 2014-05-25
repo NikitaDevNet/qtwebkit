@@ -16,10 +16,10 @@ DESTDIR = $${ROOT_BUILD_DIR}/bin
 
 SOURCES += qt/PluginMainQt.cpp
 
-#cfg_enable?(CFG_JAVASCRIPTCORE) {
+cfg_enable?(CFG_JAVASCRIPTCORE) {
     INCLUDEPATH = \
         $$PWD/../JavaScriptCore
-#}
+}
 
 INCLUDEPATH += \
     $$PWD/../WTF \

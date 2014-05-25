@@ -33,7 +33,7 @@ CONFIG += staticlib
 }
 
 
-cfg_enable?(GEOLOCATION) {
+cfg_enable?(CFG_GEOLOCATION) {
     SOURCES += \
         Modules/geolocation/Coordinates.cpp \
         Modules/geolocation/Geolocation.cpp \
@@ -41,7 +41,7 @@ cfg_enable?(GEOLOCATION) {
         Modules/geolocation/NavigatorGeolocation.cpp
 }
 
-cfg_enable?(SQL_DATABASE) {
+cfg_enable?(CFG_SQL_DATABASE) {
     SOURCES += \
         Modules/webdatabase/DOMWindowWebDatabase.cpp \
         Modules/webdatabase/Database.cpp \
@@ -240,7 +240,7 @@ cfg_enable?(CFG_JAVASCRIPTCORE) {
         testing/js/WebCoreTestSupport.cpp
 }
 
-cfg_enable?(FILE_SYSTEM) {
+cfg_enable?(CFG_FILE_SYSTEM) {
     SOURCES += \
         Modules/filesystem/DOMFilePath.cpp \
         Modules/filesystem/DOMFileSystem.cpp \
@@ -265,12 +265,12 @@ cfg_enable?(FILE_SYSTEM) {
         Modules/filesystem/WorkerGlobalScopeFileSystem.cpp
 }
 
-cfg_enable?(NAVIGATOR_CONTENT_UTILS) {
+cfg_enable?(CFG_NAVIGATOR_CONTENT_UTILS) {
     SOURCES += \
         Modules/navigatorcontentutils/NavigatorContentUtils.cpp
 }
 
-cfg_enable?(NOTIFICATIONS) {
+cfg_enable?(CFG_NOTIFICATIONS) {
     SOURCES += \
         Modules/notifications/DOMWindowNotifications.cpp \
         Modules/notifications/Notification.cpp \
@@ -279,7 +279,7 @@ cfg_enable?(NOTIFICATIONS) {
         Modules/notifications/WorkerGlobalScopeNotifications.cpp
 }
 
-cfg_enable?(PROXIMITY_EVENTS) {
+cfg_enable?(CFG_PROXIMITY_EVENTS) {
     SOURCES += \
         Modules/proximity/DeviceProximityController.cpp \
         Modules/proximity/DeviceProximityEvent.cpp
@@ -809,7 +809,7 @@ SOURCES += \
     html/shadow/SpinButtonElement.cpp \
     html/shadow/TextControlInnerElements.cpp
 
-cfg_enable?(INSPECTOR) {
+cfg_enable?(CFG_INSPECTOR) {
     SOURCES += \
         inspector/ConsoleMessage.cpp \
         inspector/ContentSearchUtils.cpp \
@@ -872,7 +872,7 @@ cfg_enable?(INSPECTOR) {
         inspector/WorkerRuntimeAgent.cpp
 }
 
-cfg_enable?(CFG_CACHE) {
+cfg_enable?(CFG_APPCACHE) {
     SOURCES += \
         loader/appcache/ApplicationCache.cpp \
         loader/appcache/ApplicationCacheGroup.cpp \
@@ -883,9 +883,11 @@ cfg_enable?(CFG_CACHE) {
         loader/appcache/ManifestParser.cpp
 }
 
-SOURCES += \
+cfg_enable?(CFG_ARCHIVE) {
+  SOURCES += \
     loader/archive/ArchiveResource.cpp \
     loader/archive/ArchiveResourceCollection.cpp
+}
 
 cfg_enable?(CFG_CACHE) {
     SOURCES += \
@@ -1425,7 +1427,7 @@ SOURCES += \
     xml/XPathVariableReference.cpp \
     xml/parser/XMLDocumentParser.cpp \
 
-#cfg_enable?(CFG_ACCESSIBILITY) {
+cfg_enable?(CFG_ACCESSIBILITY) {
   HEADERS += \
     accessibility/AccessibilityARIAGridCell.h \
     accessibility/AccessibilityARIAGrid.h \
@@ -1448,13 +1450,13 @@ SOURCES += \
     accessibility/AccessibilityTableHeaderContainer.h \
     accessibility/AccessibilityTableRow.h \
     accessibility/AXObjectCache.h
-#}
+}
 
 HEADERS += \
     bindings/generic/ActiveDOMCallback.h \
     bindings/generic/RuntimeEnabledFeatures.h
 
-#cfg_enable?(CFG_JAVASCRIPTCORE)
+cfg_enable?(CFG_JAVASCRIPTCORE)
     HEADERS += \
         bindings/generic/BindingSecurity.h \
         bindings/ScriptControllerBase.h \
@@ -1509,7 +1511,7 @@ HEADERS += \
         bindings/js/WebCoreJSClientData.h \
         bindings/js/WorkerScriptController.h \
         bindings/js/WorkerScriptDebugServer.h
-#}
+}
 
 HEADERS += \
     bridge/Bridge.h \
@@ -1530,12 +1532,12 @@ HEADERS += \
     bridge/runtime_object.h \
     bridge/runtime_root.h
 
-#cfg_enable?(CFG_PLUGINS) {
+cfg_enable?(CFG_PLUGINS) {
     HEADERS += \
         plugins/npruntime.h
-#}
+}
 
-#cfg_enable?(GEOLOCATION) {
+cfg_enable?(CFG_GEOLOCATION) {
     HEADERS += \
         Modules/geolocation/Coordinates.h \
         Modules/geolocation/Geolocation.h \
@@ -1547,9 +1549,9 @@ HEADERS += \
         Modules/geolocation/PositionError.h \
         Modules/geolocation/PositionErrorCallback.h \
         Modules/geolocation/PositionOptions.h
-#}
+}
 
-#cfg_enable?(NOTIFICATIONS) {
+cfg_enable?(CFG_NOTIFICATIONS) {
     HEADERS += \
         Modules/notifications/DOMWindowNotifications.h \
         Modules/notifications/Notification.h \
@@ -1557,16 +1559,16 @@ HEADERS += \
         Modules/notifications/NotificationClient.h \
         Modules/notifications/NotificationController.h \
         Modules/notifications/WorkerGlobalScopeNotifications.h
-#}
+}
 
-#cfg_enable?(PROXIMITY_EVENTS) {
+cfg_enable?(CFG_PROXIMITY_EVENTS) {
     HEADERS += \
         Modules/proximity/DeviceProximityClient.h \
         Modules/proximity/DeviceProximityController.h \
         Modules/proximity/DeviceProximityEvent.h
-#}
+}
 
-#cfg_enable?(SQL_DATABASE) {
+cfg_enable?(CFG_SQL_DATABASE) {
     HEADERS += \
         Modules/webdatabase/AbstractDatabaseServer.h \
         Modules/webdatabase/AbstractSQLStatement.h \
@@ -1607,7 +1609,7 @@ HEADERS += \
         Modules/webdatabase/SQLTransactionSync.h \
         Modules/webdatabase/SQLTransactionSyncCallback.h \
         Modules/webdatabase/WorkerGlobalScopeWebDatabase.h
-#}
+}
 
 HEADERS += \
     css/BasicShapeFunctions.h \
@@ -1909,7 +1911,7 @@ HEADERS += \
     fileapi/FileThreadTask.h \
     fileapi/WebKitBlobBuilder.h
 
-#cfg_enable?(CFG_HISTORY)
+cfg_enable?(CFG_HISTORY)
     HEADERS += \
         history/BackForwardController.h \
         history/BackForwardListImpl.h \
@@ -1918,7 +1920,7 @@ HEADERS += \
         history/CachedPage.h \
         history/HistoryItem.h \
         history/PageCache.h
-#}
+}
 
 HEADERS += \
     html/canvas/CanvasGradient.h \
@@ -2075,7 +2077,7 @@ HEADERS += \
     html/shadow/MediaControlsApple.h \
     html/shadow/DetailsMarkerControl.h
 
-#cfg_enable?(INSPECTOR) {
+cfg_enable?(CFG_INSPECTOR) {
     HEADERS += \
         inspector/BindingVisitors.h \
         inspector/ConsoleAPITypes.h \
@@ -2135,9 +2137,9 @@ HEADERS += \
         inspector/WorkerConsoleAgent.h \
         inspector/WorkerDebuggerAgent.h \
         inspector/WorkerRuntimeAgent.h
-#}
+}
 
-#cfg_enable?(CFG_CACHE) {
+cfg_enable?(CFG_APPCACHE) {
     HEADERS += \
         loader/appcache/ApplicationCacheGroup.h \
         loader/appcache/ApplicationCacheHost.h \
@@ -2146,13 +2148,15 @@ HEADERS += \
         loader/appcache/ApplicationCacheStorage.h \
         loader/appcache/DOMApplicationCache.h \
         loader/appcache/ManifestParser.h \
-#}
+}
 
-HEADERS += \
+cfg_enable?(CFG_ARCHIVE) {
+  HEADERS += \
     loader/archive/ArchiveResourceCollection.h \
-    loader/archive/ArchiveResource.h \
+    loader/archive/ArchiveResource.h
+}
 
-#cfg_enable?(CFG_CACHE) {
+cfg_enable?(CFG_CACHE) {
     HEADERS += \
         loader/cache/CachedCSSStyleSheet.h \
         loader/cache/CachedFont.h \
@@ -2167,19 +2171,19 @@ HEADERS += \
         loader/cache/CachedSVGDocument.h \
         loader/cache/CachedXSLStyleSheet.h \
         loader/cache/MemoryCache.h \
-#}
+}
 
 HEADERS += \
     loader/CookieJar.h \
     loader/CrossOriginAccessControl.h \
     loader/CrossOriginPreflightResultCache.h \
 
-#cfg_enable?(CFG_CACHE) {
+cfg_enable?(CFG_CACHE) {
     HEADERS += \
         loader/cache/CachedResourceLoader.h \
         loader/cache/CachedResourceRequest.h \
         loader/cache/CachedResourceRequestInitiators.h \
-#}
+}
 
 HEADERS += \
     loader/DocumentLoader.h \
@@ -2189,7 +2193,7 @@ HEADERS += \
     loader/FrameLoaderStateMachine.h \
     loader/FTPDirectoryParser.h
 
-#cfg_enable?(CFG_ICON) {
+cfg_enable?(CFG_ICON) {
     HEADERS += \
         loader/icon/IconController.h \
         loader/icon/IconDatabase.h \
@@ -2197,7 +2201,7 @@ HEADERS += \
         loader/icon/IconLoader.h \
         loader/icon/IconRecord.h \
         loader/icon/PageURLRecord.h
-#}
+}
 
 HEADERS += \
     loader/ImageLoader.h \
@@ -2218,13 +2222,13 @@ HEADERS += \
     loader/ThreadableLoader.h \
     loader/WorkerThreadableLoader.h \
 
-#cfg_enable?(MATHML) {
+cfg_enable?(CFG_MATHML) {
     HEADERS += \
         mathml/MathMLElement.h \
         mathml/MathMLInlineContainerElement.h \
         mathml/MathMLMathElement.h \
         mathml/MathMLTextElement.h
-#}
+}
 
 HEADERS += \
     page/animation/AnimationBase.h \
@@ -2280,7 +2284,7 @@ HEADERS += \
     page/Settings.h \
     page/SpatialNavigation.h \
 
-#cfg_enable?(INPUT_SPEECH) {
+cfg_enable?(CFG_INPUT_SPEECH) {
     HEADERS += \
         page/SpeechInput.h \
         page/SpeechInputClient.h \
@@ -2288,7 +2292,7 @@ HEADERS += \
         page/SpeechInputListener.h \
         page/SpeechInputResult.h \
         page/SpeechInputResultList.h
-#}
+}
 
 HEADERS += \
     page/TouchAdjustment.h \
@@ -2326,19 +2330,19 @@ HEADERS += \
     platform/graphics/BitmapImage.h \
     platform/graphics/Color.h
 
-#cfg_enable?(CFG_FILTERS) {
+cfg_enable?(CFG_FILTERS) {
     HEADERS += \
         platform/graphics/cpu/arm/filters/NEONHelpers.h \
         platform/graphics/cpu/arm/filters/FEBlendNEON.h \
         platform/graphics/cpu/arm/filters/FECompositeArithmeticNEON.h \
         platform/graphics/cpu/arm/filters/FEGaussianBlurNEON.h \
         platform/graphics/cpu/arm/filters/FELightingNEON.h
-#}
+}
 
 HEADERS += \
     platform/graphics/CrossfadeGeneratedImage.h
 
-#cfg_enable?(CFG_FILTERS) {
+cfg_enable?(CFG_FILTERS) {
     HEADERS += \
         platform/graphics/filters/texmap/TextureMapperPlatformCompiledProgram.h \
         platform/graphics/filters/CustomFilterArrayParameter.h \
@@ -2382,7 +2386,7 @@ HEADERS += \
         platform/graphics/filters/LightSource.h \
         platform/graphics/filters/SourceAlpha.h \
         platform/graphics/filters/SourceGraphic.h
-#}
+}
 
 HEADERS += \
     platform/graphics/FloatPoint3D.h \
@@ -2435,7 +2439,7 @@ HEADERS += \
     platform/graphics/surfaces/GraphicsSurfaceToken.h \
     platform/graphics/SurrogatePairAwareTextIterator.h
 
-#cfg_build?(texture_mapper) {
+cfg_build?(texture_mapper) {
     HEADERS += \
         platform/graphics/texmap/GraphicsLayerTextureMapper.h \
         platform/graphics/texmap/TextureMapper.h \
@@ -2447,14 +2451,14 @@ HEADERS += \
         platform/graphics/texmap/TextureMapperSurfaceBackingStore.h \
         platform/graphics/texmap/TextureMapperTile.h \
         platform/graphics/texmap/TextureMapperTiledBackingStore.h
-#}
+}
 
 HEADERS += \
     platform/graphics/Tile.h \
     platform/graphics/TiledBackingStore.h \
     platform/graphics/TiledBackingStoreClient.h
 
-#cfg_enable?(CFG_TRANSFORMS) {
+cfg_enable?(CFG_TRANSFORMS) {
     HEADERS += \
         platform/graphics/transforms/Matrix3DTransformOperation.h \
         platform/graphics/transforms/MatrixTransformOperation.h \
@@ -2466,7 +2470,7 @@ HEADERS += \
         platform/graphics/transforms/TransformOperations.h \
         platform/graphics/transforms/TransformState.h \
         platform/graphics/transforms/TranslateTransformOperation.h
-#}
+}
 
 HEADERS += \
     platform/graphics/WidthIterator.h \
@@ -2482,7 +2486,7 @@ HEADERS += \
     platform/Length.h \
     platform/LengthBox.h
 
-#cfg_enable?(CFG_LEVELDB) {
+cfg_enable?(CFG_LEVELDB) {
     HEADERS += \
         platform/leveldb/LevelDBComparator.h \
         platform/leveldb/LevelDBDatabase.h \
@@ -2490,7 +2494,7 @@ HEADERS += \
         platform/leveldb/LevelDBSlice.h \
         platform/leveldb/LevelDBTransaction.h \
         platform/leveldb/LevelDBWriteBatch.h
-#}
+}
 
 HEADERS += \
     platform/text/BidiRunList.h \
@@ -2506,7 +2510,7 @@ HEADERS += \
     platform/MainThreadTask.h \
     platform/MIMETypeRegistry.h
 
-#cfg_enable?(CFG_NETWORK) {
+cfg_enable?(CFG_NETWORK) {
     HEADERS += \
         platform/network/AuthenticationChallengeBase.h \
         platform/network/AuthenticationClient.h \
@@ -2543,7 +2547,7 @@ HEADERS += \
         platform/network/ResourceResponseBase.h \
         platform/network/qt/NetworkStateNotifierPrivate.h \
         platform/network/qt/CookieJarQt.h
-#}
+}
 
 HEADERS += \
     platform/PlatformExportMacros.h \
@@ -2568,14 +2572,14 @@ HEADERS += \
     platform/SharedBuffer.h \
     platform/SharedBufferChunkReader.h
 
-#cfg_enable?(CFG_SQLITE3) {
+cfg_enable?(CFG_SQLITE3) {
     HEADERS += \
         platform/sql/SQLiteDatabase.h \
         platform/sql/SQLiteFileSystem.h \
         platform/sql/SQLiteStatement.h \
         platform/sql/SQLiteTransaction.h \
         platform/sql/SQLValue.h
-#}
+}
 
 HEADERS += \
     platform/text/BidiContext.h \
@@ -2604,7 +2608,7 @@ HEADERS += \
     platform/PlatformStrategies.h \
     platform/LocalizedStrings.h
 
-#cfg_enable?(CFG_PLUGINS) {
+cfg_enable?(CFG_PLUGINS) {
     HEADERS += \
         plugins/DOMMimeTypeArray.h \
         plugins/DOMMimeType.h \
@@ -2619,7 +2623,7 @@ HEADERS += \
         plugins/PluginStream.h \
         plugins/PluginView.h \
         plugins/win/PluginMessageThrottlerWin.h
-#}
+}
 
 HEADERS += \
     rendering/AutoTableLayout.h \
@@ -2638,7 +2642,7 @@ HEADERS += \
     rendering/LayoutState.h \
     rendering/LogicalSelectionOffsetCaches.h
 
-#cfg_enable?(MATHML) {
+cfg_enable?(CFG_MATHML) {
     HEADERS += \
         rendering/mathml/RenderMathMLBlock.h \
         rendering/mathml/RenderMathMLFenced.h \
@@ -2651,7 +2655,7 @@ HEADERS += \
         rendering/mathml/RenderMathMLSquareRoot.h \
         rendering/mathml/RenderMathMLSubSup.h \
         rendering/mathml/RenderMathMLUnderOver.h
-#}
+}
 
 HEADERS += \
     rendering/Pagination.h \
@@ -2686,10 +2690,10 @@ HEADERS += \
     rendering/RenderImage.h \
     rendering/RenderInline.h
 
-#cfg_enable?(INPUT_SPEECH) {
+cfg_enable?(CFG_INPUT_SPEECH) {
     HEADERS += \
         rendering/RenderInputSpeech.h
-#}
+}
 
 HEADERS += \
     rendering/RenderLayer.h \
@@ -2786,7 +2790,7 @@ HEADERS += \
     rendering/style/StyleVisualData.h \
     rendering/style/GridTrackSize.h
 
-#cfg_enable?(SVG) {
+cfg_enable?(CFG_SVG) {
     HEADERS += \
         rendering/style/SVGRenderStyleDefs.h \
         rendering/style/SVGRenderStyle.h \
@@ -2844,9 +2848,9 @@ HEADERS += \
         rendering/svg/SVGTextMetricsBuilder.h \
         rendering/svg/SVGTextQuery.h \
         rendering/svg/SVGTextRunRenderingContext.h \
-#}
+}
 
-#cfg_enable?(CFG_STORAGE) {
+cfg_enable?(CFG_STORAGE) {
     HEADERS += \
         storage/Storage.h \
         storage/StorageArea.h \
@@ -2861,9 +2865,9 @@ HEADERS += \
         storage/StorageThread.h \
         storage/StorageTracker.h \
         storage/StorageTrackerClient.h
-#}
+}
 
-#cfg_enable?(SVG) {
+cfg_enable?(CFG_SVG) {
     HEADERS += \
         svg/animation/SMILTimeContainer.h \
         svg/animation/SMILTime.h \
@@ -3072,7 +3076,7 @@ HEADERS += \
         svg/SVGVKernElement.h \
         svg/SVGZoomAndPan.h \
         svg/SVGZoomEvent.h
-#}
+}
 
 HEADERS += \
     testing/Internals.h \
@@ -3081,7 +3085,7 @@ HEADERS += \
     testing/MemoryInfo.h \
     testing/TypeConversions.h
 
-#cfg_enable?(WORKERS) {
+cfg_enable?(CFG_WORKERS) {
     HEADERS += \
         workers/AbstractWorker.h \
         workers/DedicatedWorkerGlobalScope.h \
@@ -3095,7 +3099,7 @@ HEADERS += \
         workers/WorkerRunLoop.h \
         workers/WorkerScriptLoader.h \
         workers/WorkerThread.h
-#}
+}
 
 HEADERS += \
     xml/parser/CharacterReferenceParserInlines.h \
@@ -4421,7 +4425,7 @@ use?(3D_GRAPHICS) {
         platform/graphics/gpu/TilingData.h \
         platform/graphics/opengl/Extensions3DOpenGL.h
 
-    #cfg_build?(texture_mapper) {
+    cfg_build?(texture_mapper) {
         HEADERS += \
             platform/graphics/texmap/TextureMapperGL.h \
             platform/graphics/texmap/TextureMapperShaderProgram.h \
@@ -4438,7 +4442,7 @@ use?(3D_GRAPHICS) {
             platform/graphics/texmap/coordinated/CoordinatedTile.h \
             platform/graphics/texmap/coordinated/SurfaceUpdateInfo.h \
             platform/graphics/texmap/coordinated/UpdateAtlas.h
-    #}
+    }
 
     #use?(3D_GRAPHICS)
     # see above
@@ -4616,7 +4620,7 @@ cfg_enable?(CFG_ACCESSIBILITY) {
     accessibility/AccessibilityAllInOne.cpp
 }
 
-cfg_enable?(INSPECTOR) {
+cfg_enable?(CFG_INSPECTOR) {
   ALL_IN_ONE_SOURCES += \
     inspector/InspectorAllInOne.cpp
 } else {
@@ -4624,7 +4628,7 @@ cfg_enable?(INSPECTOR) {
     inspector/InspectorAllInOne.cpp
 }
 
-cfg_enable?(CFG_CACHE) {
+cfg_enable?(CFG_APPCACHE) {
   ALL_IN_ONE_SOURCES += \
     loader/appcache/ApplicationCacheAllInOne.cpp
 } else {

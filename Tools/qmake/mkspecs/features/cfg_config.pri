@@ -190,6 +190,8 @@ CFG_FEATURE_DEFAULTS = \  # = default value  # which block depend from it
 # for  cfg_config  (ENABLE_CFG_*)
 # See also in  # Dependences
     ENABLE_CFG_ACCESSIBILITY=1 \  # =1
+    ENABLE_CFG_APPCACHE=1 \  # =1
+    ENABLE_CFG_ARCHIVE=1 \  # =1
     ENABLE_CFG_CACHE=1 \  # =1
     ENABLE_CFG_FILTERS=1 \  # =1
     ENABLE_CFG_HISTORY=1 \  # =1
@@ -201,6 +203,27 @@ CFG_FEATURE_DEFAULTS = \  # = default value  # which block depend from it
     ENABLE_CFG_SQLITE3=1 \  # =1
     ENABLE_CFG_STORAGE=1 \  # =1
     ENABLE_CFG_TRANSFORMS=1 \  # =1
+    \
+# form original options
+    ENABLE_CFG_CONTEXT_MENUS=1 \  # =1
+    ENABLE_CFG_FILE_SYSTEM=1 \  # =1
+    ENABLE_CFG_GEOLOCATION=1 \  # =1
+    ENABLE_CFG_INDEXED_DATABASE=1 \  # =1
+    ENABLE_CFG_INPUT_SPEECH=1 \  # =1
+    ENABLE_CFG_INSPECTOR=1 \  # =1
+    ENABLE_CFG_MATHML=1 \  # =1
+    ENABLE_CFG_MEDIA_SOURCE=1 \  # =1
+    ENABLE_CFG_NAVIGATOR_CONTENT_UTILS=1 \  # =1
+    ENABLE_CFG_NOTIFICATIONS=1 \  # =1
+    ENABLE_CFG_PROXIMITY_EVENTS=1 \  # =1
+    ENABLE_CFG_QUOTA=1 \  # =1
+    ENABLE_CFG_SQL_DATABASE=1 \  # =1
+    ENABLE_CFG_SVG=1 \  # =1
+    ENABLE_CFG_WEB_AUDIO=1 \  # =1
+    ENABLE_CFG_WEB_SOCKETS=1 \  # =1
+    ENABLE_CFG_WORKERS=1 \  # =1
+
+
 
 #
 # These are in  # Dependences
@@ -243,7 +266,7 @@ CFG_BUILD_FEATURES = \  # = default value  # which block depend from it
 # visibility for the compiler increases and faster more compact code can be produced,
 # so turn it on in production builds.
 # CFG_BUILD_ALL_IN_ONE_FILES=0 -- less memory for compiling, more time for compiling (~25%)
-    CFG_BUILD_ALL_IN_ONE_FILES=1 \  # =1  # WebCore
+    CFG_BUILD_ALL_IN_ONE_FILES=0 \  # =1  # WebCore
     CFG_BUILD_LIBXML2=0 \  # =1  # WebCore
     CFG_BUILD_TILED_BACKING_STORE=0 \  # =1  # WebCore, WebKit2, WebKit
     CFG_BUILD_WEBP=0 \  # =1
@@ -268,7 +291,9 @@ CFG_BUILD_FEATURES = \  # = default value  # which block depend from it
 # use_
     CFG_BUILD_3D_GRAPHICS=0 \  # =1
     CFG_BUILD_CROSS_PLATFORM_CONTEXT_MENUS=0 \  # =1
-    CFG_BUILD_TEXTURE_MAPPER=0 \  # =1
+    \
+# TODO: remove using of CFG_BUILD_TEXTURE_MAPPER
+    CFG_BUILD_TEXTURE_MAPPER=1 \  # =1
 
 
 
