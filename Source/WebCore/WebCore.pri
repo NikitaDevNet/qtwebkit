@@ -70,8 +70,10 @@ cfg_enable?(CFG_WEB_SOCKETS) {
     $$SOURCE_DIR/Modules/websockets
 }
 
-INCLUDEPATH += \
-    $$SOURCE_DIR/accessibility \
+cfg_enable?(CFG_ACCESSIBILITY) {
+  INCLUDEPATH += \
+    $$SOURCE_DIR/accessibility
+}
 
 cfg_enable?(CFG_JAVASCRIPTCORE) {
   INCLUDEPATH += \
@@ -81,14 +83,14 @@ cfg_enable?(CFG_JAVASCRIPTCORE) {
 
 INCLUDEPATH += \
     $$SOURCE_DIR/bridge \
-    $$SOURCE_DIR/bridge/qt \
+    $$SOURCE_DIR/bridge/qt
 
 INCLUDEPATH += \
     $$SOURCE_DIR/css \
     $$SOURCE_DIR/dom \
     $$SOURCE_DIR/dom/default \
     $$SOURCE_DIR/editing \
-    $$SOURCE_DIR/fileapi \
+    $$SOURCE_DIR/fileapi
 
 cfg_enable?(CFG_HISTORY) {
   INCLUDEPATH += \
@@ -101,7 +103,7 @@ INCLUDEPATH += \
     $$SOURCE_DIR/html/forms \
     $$SOURCE_DIR/html/parser \
     $$SOURCE_DIR/html/shadow \
-    $$SOURCE_DIR/html/track \
+    $$SOURCE_DIR/html/track
 
 cfg_enable?(CFG_INSPECTOR) {
   INCLUDEPATH += \
@@ -109,7 +111,7 @@ cfg_enable?(CFG_INSPECTOR) {
 }
 
 INCLUDEPATH += \
-    $$SOURCE_DIR/loader \
+    $$SOURCE_DIR/loader
 
 cfg_enable?(CFG_APPCACHE) {
   INCLUDEPATH += \
@@ -117,7 +119,7 @@ cfg_enable?(CFG_APPCACHE) {
 }
 
 INCLUDEPATH += \
-    $$SOURCE_DIR/loader/archive \
+    $$SOURCE_DIR/loader/archive
 
 cfg_enable?(CFG_CACHE) {
   INCLUDEPATH += \
@@ -139,7 +141,7 @@ INCLUDEPATH += \
     $$SOURCE_DIR/page/animation \
     $$SOURCE_DIR/page/qt \
     $$SOURCE_DIR/page/scrolling \
-    $$SOURCE_DIR/page/scrolling/coordinatedgraphics \
+    $$SOURCE_DIR/page/scrolling/coordinatedgraphics
 
 INCLUDEPATH += \
     $$SOURCE_DIR/platform \
@@ -147,7 +149,7 @@ INCLUDEPATH += \
     $$SOURCE_DIR/platform/audio \
     $$SOURCE_DIR/platform/graphics \
     $$SOURCE_DIR/platform/graphics/cpu/arm \
-    $$SOURCE_DIR/platform/graphics/cpu/arm/filters \
+    $$SOURCE_DIR/platform/graphics/cpu/arm/filters
 
 cfg_enable?(CFG_FILTERS) {
   INCLUDEPATH += \
@@ -167,7 +169,7 @@ cfg_build?(webgl) {
 INCLUDEPATH += \
     $$SOURCE_DIR/platform/graphics/opentype \
     $$SOURCE_DIR/platform/graphics/qt \
-    $$SOURCE_DIR/platform/graphics/surfaces \
+    $$SOURCE_DIR/platform/graphics/surfaces
 
 cfg_build?(texture_mapper) {
   INCLUDEPATH += \
@@ -187,7 +189,7 @@ INCLUDEPATH += \
     $$SOURCE_DIR/platform/image-decoders/gif \
     $$SOURCE_DIR/platform/image-decoders/jpeg \
     $$SOURCE_DIR/platform/image-decoders/png \
-    $$SOURCE_DIR/platform/image-decoders/webp \
+    $$SOURCE_DIR/platform/image-decoders/webp
 
 cfg_enable?(CFG_LEVELDB) {
   INCLUDEPATH += \
@@ -195,7 +197,7 @@ cfg_enable?(CFG_LEVELDB) {
 }
 
 INCLUDEPATH += \
-    $$SOURCE_DIR/platform/mock \
+    $$SOURCE_DIR/platform/mock
 
 cfg_enable?(CFG_NETWORK) {
   INCLUDEPATH += \
@@ -204,7 +206,7 @@ cfg_enable?(CFG_NETWORK) {
 }
 
 INCLUDEPATH += \
-    $$SOURCE_DIR/platform/qt \
+    $$SOURCE_DIR/platform/qt
 
 cfg_enable?(CFG_SQLITE3) {
   INCLUDEPATH += \
@@ -213,7 +215,7 @@ cfg_enable?(CFG_SQLITE3) {
 
 INCLUDEPATH += \
     $$SOURCE_DIR/platform/text \
-    $$SOURCE_DIR/platform/text/transcoder \
+    $$SOURCE_DIR/platform/text/transcoder
 
 cfg_enable?(CFG_PLUGINS) {
   INCLUDEPATH += \
@@ -221,7 +223,7 @@ cfg_enable?(CFG_PLUGINS) {
 }
 
 INCLUDEPATH += \
-    $$SOURCE_DIR/rendering \
+    $$SOURCE_DIR/rendering
 
 cfg_enable?(CFG_MATHML) {
   INCLUDEPATH += \
@@ -230,7 +232,7 @@ cfg_enable?(CFG_MATHML) {
 
 INCLUDEPATH += \
     $$SOURCE_DIR/rendering/shapes \
-    $$SOURCE_DIR/rendering/style \
+    $$SOURCE_DIR/rendering/style
 
 cfg_enable?(CFG_SVG) {
   INCLUDEPATH += \
@@ -252,7 +254,7 @@ cfg_enable?(CFG_SVG) {
 }
 
 INCLUDEPATH += \
-    $$SOURCE_DIR/testing \
+    $$SOURCE_DIR/testing
 
 cfg_enable?(CFG_WEB_SOCKETS) {
   INCLUDEPATH += \
@@ -276,7 +278,7 @@ cfg_enable?(CFG_JAVASCRIPTCORE) {
 }
 
 INCLUDEPATH += \
-    $$SOURCE_DIR/bridge/c \
+    $$SOURCE_DIR/bridge/c
 
 cfg_enable?(CFG_JAVASCRIPTCORE) {
   INCLUDEPATH += \

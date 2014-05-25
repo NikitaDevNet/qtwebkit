@@ -189,19 +189,19 @@ CFG_FEATURE_DEFAULTS = \  # = default value  # which block depend from it
     \
 # for  cfg_config  (ENABLE_CFG_*)
 # See also in  # Dependences
-    ENABLE_CFG_ACCESSIBILITY=0 \  # =1
-    ENABLE_CFG_APPCACHE=0 \  # =1
+    ENABLE_CFG_ACCESSIBILITY=1 \  # =1
+    ENABLE_CFG_APPCACHE=1 \  # =1
     ENABLE_CFG_ARCHIVE=1 \  # =1
-    ENABLE_CFG_CACHE=0 \  # =1
+    ENABLE_CFG_CACHE=1 \  # =1
     ENABLE_CFG_FILTERS=1 \  # =1
-    ENABLE_CFG_HISTORY=0 \  # =1
-    ENABLE_CFG_ICON=0 \  # =1
-    ENABLE_CFG_LEVELDB=0 \  # =1  # WebCore
-    ENABLE_CFG_NETWORK=0 \  # =1
-    ENABLE_CFG_PLUGINS=0 \  # =1
+    ENABLE_CFG_HISTORY=1 \  # =1
+    ENABLE_CFG_ICON=1 \  # =1
+    ENABLE_CFG_LEVELDB=1 \  # =1  # WebCore
+    ENABLE_CFG_NETWORK=1 \  # =1
+    ENABLE_CFG_PLUGINS=1 \  # =1
     ENABLE_CFG_SQLITE3=1 \  # =1
-    ENABLE_CFG_STORAGE=0 \  # =1
-    ENABLE_CFG_TRANSFORMS=0 \  # =1
+    ENABLE_CFG_STORAGE=1 \  # =1
+    ENABLE_CFG_TRANSFORMS=1 \  # =1
     \
 # from original options
 # See also in  # Dependences

@@ -20,6 +20,49 @@ CFG_DEBUG_WARNING = ON
 Folder '.git' must be at least empty in root of module.
 
 
+TODO:
+-----
+
+1. Turn on commented
+contains(CFG_FEATURE_DEFAULTS, ENABLE_ICONDATABASE=1)|contains(CFG_FEATURE_DEFAULTS, ENABLE_SQL_DATABASE=1)|contains(CFG_FEATURE_DEFAULTS, ENABLE_SHARED_WORKERS=1)|contains(CFG_FEATURE_DEFAULTS, ENABLE_WORKERS=1) {
+    CFG_FEATURE_DEFAULTS -= ENABLE_CFG_SQLITE3=0
+    CFG_FEATURE_DEFAULTS += ENABLE_CFG_SQLITE3=1
+#} else {
+#    CFG_FEATURE_DEFAULTS -= ENABLE_CFG_SQLITE3=1
+#    CFG_FEATURE_DEFAULTS += ENABLE_CFG_SQLITE3=0
+}
+
+2. Turn off these:
+ENABLE_CFG_ACCESSIBILITY=1 \  # =1
+ENABLE_CFG_APPCACHE=1 \  # =1
+ENABLE_CFG_ARCHIVE=1 \  # =1
+ENABLE_CFG_CACHE=1 \  # =1
+ENABLE_CFG_FILTERS=1 \  # =1
+ENABLE_CFG_HISTORY=1 \  # =1
+ENABLE_CFG_ICON=1 \  # =1
+ENABLE_CFG_LEVELDB=1 \  # =1  # WebCore
+ENABLE_CFG_NETWORK=1 \  # =1
+ENABLE_CFG_PLUGINS=1 \  # =1
+ENABLE_CFG_SQLITE3=1 \  # =1
+ENABLE_CFG_STORAGE=1 \  # =1
+ENABLE_CFG_TRANSFORMS=1 \  # =1
+
+3. Work with
+# compile errors
+#    QT_NO_ACTION=0 \  # =0  # WebKit
+# run errors
+#    QT_NO_CONTEXTMENU=0 \  # =0  # WebKit
+#    QT_NO_MENU=0 \  # =0  # WebKit
+#    QT_NO_WHEELEVENT=0 \  # =0  # WebKit, DumpRenderTree
+# run with problems
+#    QT_NO_DRAGANDDROP=0 \  # =0  # WebKit
+
+4. Remove using of CFG_BUILD_TEXTURE_MAPPER
+
+5. New options for SOURCES and HEADERS in *.pr*
+(css, dom, editing, fileapi, html, loader, page, platform, rendering, testing, xml,  ...)
+
+
 
 === The original description ===
 
