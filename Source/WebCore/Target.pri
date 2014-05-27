@@ -1456,7 +1456,7 @@ HEADERS += \
     bindings/generic/ActiveDOMCallback.h \
     bindings/generic/RuntimeEnabledFeatures.h
 
-cfg_enable?(CFG_JAVASCRIPTCORE)
+cfg_enable?(CFG_JAVASCRIPTCORE) {
     HEADERS += \
         bindings/generic/BindingSecurity.h \
         bindings/ScriptControllerBase.h \
@@ -1911,7 +1911,7 @@ HEADERS += \
     fileapi/FileThreadTask.h \
     fileapi/WebKitBlobBuilder.h
 
-cfg_enable?(CFG_HISTORY)
+cfg_enable?(CFG_HISTORY) {
     HEADERS += \
         history/BackForwardController.h \
         history/BackForwardListImpl.h \
@@ -2219,8 +2219,12 @@ HEADERS += \
     loader/SubresourceLoader.h \
     loader/SubstituteData.h \
     loader/TextResourceDecoder.h \
-    loader/ThreadableLoader.h \
-    loader/WorkerThreadableLoader.h \
+    loader/ThreadableLoader.h
+
+cfg_enable?(CFG_WORKERS) {
+  HEADERS += \
+    loader/WorkerThreadableLoader.h
+}
 
 cfg_enable?(CFG_MATHML) {
     HEADERS += \
