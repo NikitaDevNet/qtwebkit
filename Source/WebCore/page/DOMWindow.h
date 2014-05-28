@@ -64,7 +64,9 @@ namespace WebCore {
     class PostMessageTimer;
     class ScheduledAction;
     class Screen;
+#if ENABLE(CFG_INSPECTOR)
     class ScriptCallStack;
+#endif
     class SecurityOrigin;
     class SerializedScriptValue;
     class Storage;
@@ -243,7 +245,11 @@ namespace WebCore {
         // Needed for Objective-C bindings (see bug 28774).
         void postMessage(PassRefPtr<SerializedScriptValue> message, MessagePort*, const String& targetOrigin, DOMWindow* source, ExceptionCode&);
         void postMessageTimerFired(PassOwnPtr<PostMessageTimer>);
-        void dispatchMessageEventWithOriginCheck(SecurityOrigin* intendedTargetOrigin, PassRefPtr<Event>, PassRefPtr<ScriptCallStack>);
+        void dispatchMessageEventWithOriginCheck(SecurityOrigin* intendedTargetOrigin, PassRefPtr<Event>
+#if ENABLE(CFG_INSPECTOR)
+                                                 , PassRefPtr<ScriptCallStack>
+#endif
+                                                 );
 
         void scrollBy(int x, int y) const;
         void scrollTo(int x, int y) const;

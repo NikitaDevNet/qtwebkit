@@ -28,7 +28,11 @@
 #include "Console.h"
 #include "DOMWindow.h"
 #include "Frame.h"
+
+#if ENABLE(CFG_INSPECTOR)
 #include "InspectorController.h"
+#endif
+
 #include "JSDOMWindowCustom.h"
 #include "JSNode.h"
 #include "Logging.h"

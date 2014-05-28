@@ -63,10 +63,18 @@
 #include "HTMLTableCellElement.h"
 #include "HitTestResult.h"
 #include "ImageBuffer.h"
+
+#if ENABLE(CFG_INSPECTOR)
 #include "InspectorInstrumentation.h"
+#endif
+
 #include "JSDOMWindowShell.h"
 #include "Logging.h"
+
+#if ENABLE(CFG_MATHML)
 #include "MathMLNames.h"
+#endif
+
 #include "MediaFeatureNames.h"
 #include "Navigator.h"
 #include "NodeList.h"
@@ -81,7 +89,11 @@
 #include "RenderTheme.h"
 #include "RenderView.h"
 #include "RuntimeEnabledFeatures.h"
+
+#if ENABLE(CFG_SVG)
 #include "SVGNames.h"
+#endif
+
 #include "ScriptController.h"
 #include "ScriptSourceCode.h"
 #include "ScriptValue.h"
@@ -173,9 +185,13 @@ inline Frame::Frame(Page* page, HTMLFrameOwnerElement* ownerElement, FrameLoader
     HTMLNames::init();
     QualifiedName::init();
     MediaFeatureNames::init();
+#if ENABLE(CFG_SVG)
     SVGNames::init();
+#endif
     XLinkNames::init();
+#if ENABLE(CFG_MATHML)
     MathMLNames::init();
+#endif
     XMLNSNames::init();
     XMLNames::init();
     WebKitFontFamilyNames::init();

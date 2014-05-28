@@ -26,7 +26,9 @@
 #ifndef DatabaseStrategy_h
 #define DatabaseStrategy_h
 
+#if ENABLE(CFG_SQL_DATABASE)
 #include "AbstractDatabaseServer.h"
+#endif
 
 namespace WebCore {
 

@@ -45,7 +45,11 @@
 #include "HTMLFormElement.h"
 #include "HTMLFrameOwnerElement.h"
 #include "HistoryItem.h"
+
+#if ENABLE(CFG_INSPECTOR)
 #include "InspectorInstrumentation.h"
+#endif
+
 #include "Page.h"
 #include "ScriptController.h"
 #include "UserGestureIndicator.h"
@@ -288,8 +292,10 @@ bool NavigationScheduler::locationChangePending()
 
 void NavigationScheduler::clear()
 {
+#if ENABLE(CFG_INSPECTOR)
     if (m_timer.isActive())
         InspectorInstrumentation::frameClearedScheduledNavigation(m_frame);
+#endif
     m_timer.stop();
     m_redirect.clear();
 }
@@ -416,7 +422,9 @@ void NavigationScheduler::timerFired(Timer<NavigationScheduler>*)
     if (!m_frame->page())
         return;
     if (m_frame->page()->defersLoading()) {
+#if ENABLE(CFG_INSPECTOR)
         InspectorInstrumentation::frameClearedScheduledNavigation(m_frame);
+#endif
         return;
     }
 
@@ -424,7 +432,9 @@ void NavigationScheduler::timerFired(Timer<NavigationScheduler>*)
 
     OwnPtr<ScheduledNavigation> redirect(m_redirect.release());
     redirect->fire(m_frame);
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentation::frameClearedScheduledNavigation(m_frame);
+#endif
 }
 
 void NavigationScheduler::schedule(PassOwnPtr<ScheduledNavigation> redirect)
@@ -467,13 +477,17 @@ void NavigationScheduler::startTimer()
 
     m_timer.startOneShot(m_redirect->delay());
     m_redirect->didStartTimer(m_frame, &m_timer);
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentation::frameScheduledNavigation(m_frame, m_redirect->delay());
+#endif
 }
 
 void NavigationScheduler::cancel(bool newLoadInProgress)
 {
+#if ENABLE(CFG_INSPECTOR)
     if (m_timer.isActive())
         InspectorInstrumentation::frameClearedScheduledNavigation(m_frame);
+#endif
     m_timer.stop();
 
     OwnPtr<ScheduledNavigation> redirect(m_redirect.release());

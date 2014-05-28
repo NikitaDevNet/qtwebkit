@@ -35,7 +35,11 @@
 #include "FrameLoader.h"
 #include "FrameLoaderClient.h"
 #include "HTMLParserIdioms.h"
+
+#if ENABLE(CFG_INSPECTOR)
 #include "InspectorValues.h"
+#endif
+
 #include "PingLoader.h"
 #include "SecurityOrigin.h"
 #include <wtf/text/StringBuilder.h>
@@ -72,6 +76,7 @@ static inline String buildConsoleError(const XSSInfo& xssInfo, const String& url
     return message.toString();
 }
 
+#if ENABLE(CFG_INSPECTOR)
 PassRefPtr<FormData> XSSAuditorDelegate::generateViolationReport()
 {
     ASSERT(isMainThread());
@@ -92,6 +97,7 @@ PassRefPtr<FormData> XSSAuditorDelegate::generateViolationReport()
 
     return FormData::create(reportObject->toJSONString().utf8().data());
 }
+#endif
 
 void XSSAuditorDelegate::didBlockScript(const XSSInfo& xssInfo)
 {
@@ -108,8 +114,10 @@ void XSSAuditorDelegate::didBlockScript(const XSSInfo& xssInfo)
 
         frameLoader->client()->didDetectXSS(m_document->url(), xssInfo.m_didBlockEntirePage);
 
+#if ENABLE(CFG_INSPECTOR)
         if (!m_reportURL.isEmpty())
             PingLoader::sendViolationReport(m_document->frame(), m_reportURL, generateViolationReport());
+#endif
     }
 
     if (xssInfo.m_didBlockEntirePage)

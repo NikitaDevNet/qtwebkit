@@ -32,8 +32,11 @@
 #ifndef NotificationPresenterClientQt_h
 #define NotificationPresenterClientQt_h
 
+#if ENABLE(CFG_NOTIFICATIONS)
 #include "Notification.h"
 #include "NotificationClient.h"
+#endif
+
 #include "QtPlatformPlugin.h"
 #include "Timer.h"
 #include "qwebkitplatformplugin.h"

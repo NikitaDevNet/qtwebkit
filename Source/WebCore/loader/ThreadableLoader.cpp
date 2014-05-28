@@ -35,9 +35,12 @@
 #include "DocumentThreadableLoader.h"
 #include "ScriptExecutionContext.h"
 #include "SecurityOrigin.h"
+
+#if ENABLE(CFG_WORKERS)
 #include "WorkerGlobalScope.h"
 #include "WorkerRunLoop.h"
 #include "WorkerThreadableLoader.h"
+#endif
 
 namespace WebCore {
 

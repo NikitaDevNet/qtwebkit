@@ -42,9 +42,17 @@
 #include "HTMLToken.h"
 #include "HTMLTokenizer.h"
 #include "LocalizedStrings.h"
+
+#if ENABLE(CFG_MATHML)
 #include "MathMLNames.h"
+#endif
+
 #include "NotImplemented.h"
+
+#if ENABLE(CFG_SVG)
 #include "SVGNames.h"
+#endif
+
 #include "XLinkNames.h"
 #include "XMLNSNames.h"
 #include "XMLNames.h"
@@ -557,8 +565,10 @@ static void adjustSVGTagNameCase(AtomicHTMLToken* token)
     static PrefixedNameToQualifiedNameMap* caseMap = 0;
     if (!caseMap) {
         caseMap = new PrefixedNameToQualifiedNameMap;
+#if ENABLE(CFG_SVG)
         QualifiedName** svgTags = SVGNames::getSVGTags();
         mapLoweredLocalNameToName(caseMap, svgTags, SVGNames::SVGTagsCount);
+#endif
     }
 
     const QualifiedName& casedName = caseMap->get(token->name());
@@ -587,12 +597,16 @@ static void adjustAttributes(AtomicHTMLToken* token)
 
 static void adjustSVGAttributes(AtomicHTMLToken* token)
 {
+#if ENABLE(CFG_SVG)
     adjustAttributes<SVGNames::getSVGAttrs, SVGNames::SVGAttrsCount>(token);
+#endif
 }
 
 static void adjustMathMLAttributes(AtomicHTMLToken* token)
 {
+#if ENABLE(CFG_MATHML)
     adjustAttributes<MathMLNames::getMathMLAttrs, MathMLNames::MathMLAttrsCount>(token);
+#endif
 }
 
 static void addNamesWithPrefix(PrefixedNameToQualifiedNameMap* map, const AtomicString& prefix, QualifiedName** names, size_t length)
@@ -915,6 +929,7 @@ void HTMLTreeBuilder::processStartTagForInBody(AtomicHTMLToken* token)
         m_tree.insertHTMLElement(token);
         return;
     }
+#if ENABLE(CFG_MATHML)
     if (token->name() == MathMLNames::mathTag.localName()) {
         m_tree.reconstructTheActiveFormattingElements();
         adjustMathMLAttributes(token);
@@ -922,6 +937,8 @@ void HTMLTreeBuilder::processStartTagForInBody(AtomicHTMLToken* token)
         m_tree.insertForeignElement(token, MathMLNames::mathmlNamespaceURI);
         return;
     }
+#endif
+#if ENABLE(CFG_SVG)
     if (token->name() == SVGNames::svgTag.localName()) {
         m_tree.reconstructTheActiveFormattingElements();
         adjustSVGAttributes(token);
@@ -929,6 +946,7 @@ void HTMLTreeBuilder::processStartTagForInBody(AtomicHTMLToken* token)
         m_tree.insertForeignElement(token, SVGNames::svgNamespaceURI);
         return;
     }
+#endif
     if (isCaptionColOrColgroupTag(token->name())
         || token->name() == frameTag
         || token->name() == headTag
@@ -2779,16 +2797,21 @@ bool HTMLTreeBuilder::shouldProcessTokenInForeignContent(AtomicHTMLToken* token)
         return false;
     if (HTMLElementStack::isMathMLTextIntegrationPoint(item)) {
         if (token->type() == HTMLToken::StartTag
+#if ENABLE(CFG_MATHML)
             && token->name() != MathMLNames::mglyphTag
-            && token->name() != MathMLNames::malignmarkTag)
+            && token->name() != MathMLNames::malignmarkTag
+#endif
+                )
             return false;
         if (token->type() == HTMLToken::Character)
             return false;
     }
+#if ENABLE(CFG_MATHML) && ENABLE(CFG_SVG)
     if (item->hasTagName(MathMLNames::annotation_xmlTag)
         && token->type() == HTMLToken::StartTag
         && token->name() == SVGNames::svgTag)
         return false;
+#endif
     if (HTMLElementStack::isHTMLIntegrationPoint(item)) {
         if (token->type() == HTMLToken::StartTag)
             return false;
@@ -2856,17 +2879,22 @@ void HTMLTreeBuilder::processTokenInForeignContent(AtomicHTMLToken* token)
             return;
         }
         const AtomicString& currentNamespace = m_tree.currentStackItem()->namespaceURI();
+#if ENABLE(CFG_MATHML)
         if (currentNamespace == MathMLNames::mathmlNamespaceURI)
             adjustMathMLAttributes(token);
+#endif
+#if ENABLE(CFG_SVG)
         if (currentNamespace == SVGNames::svgNamespaceURI) {
             adjustSVGTagNameCase(token);
             adjustSVGAttributes(token);
         }
+#endif
         adjustForeignAttributes(token);
         m_tree.insertForeignElement(token, currentNamespace);
         break;
     }
     case HTMLToken::EndTag: {
+#if ENABLE(CFG_SVG)
         if (m_tree.currentStackItem()->namespaceURI() == SVGNames::svgNamespaceURI)
             adjustSVGTagNameCase(token);
 
@@ -2876,6 +2904,7 @@ void HTMLTreeBuilder::processTokenInForeignContent(AtomicHTMLToken* token)
             m_tree.openElements()->pop();
             return;
         }
+#endif
         if (!m_tree.currentStackItem()->isInHTMLNamespace()) {
             // FIXME: This code just wants an Element* iterator, instead of an ElementRecord*
             HTMLElementStack::ElementRecord* nodeRecord = m_tree.openElements()->topRecord();

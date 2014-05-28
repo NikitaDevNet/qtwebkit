@@ -27,7 +27,10 @@
 #include "config.h"
 #include "SQLiteDatabase.h"
 
+#if ENABLE(CFG_SQL_DATABASE)
 #include "DatabaseAuthorizer.h"
+#endif
+
 #include "Logging.h"
 #include "SQLiteFileSystem.h"
 #include "SQLiteStatement.h"
@@ -37,6 +40,12 @@
 #include <wtf/text/WTFString.h>
 
 namespace WebCore {
+
+#if !ENABLE(CFG_SQL_DATABASE)
+const int SQLAuthAllow = SQLITE_OK;
+const int SQLAuthIgnore = SQLITE_IGNORE;
+const int SQLAuthDeny = SQLITE_DENY;
+#endif
 
 const int SQLResultDone = SQLITE_DONE;
 const int SQLResultError = SQLITE_ERROR;
@@ -461,9 +470,11 @@ void SQLiteDatabase::setAuthorizer(PassRefPtr<DatabaseAuthorizer> auth)
 
 void SQLiteDatabase::enableAuthorizer(bool enable)
 {
+#if ENABLE(CFG_SQL_DATABASE)
     if (m_authorizer && enable)
         sqlite3_set_authorizer(m_db, SQLiteDatabase::authorizerFunction, m_authorizer.get());
     else
+#endif
         sqlite3_set_authorizer(m_db, NULL, 0);
 }
 

@@ -50,8 +50,12 @@
 #include "HTMLElement.h"
 #include "HistoryController.h"
 #include "HistoryItem.h"
+
+#if ENABLE(CFG_INSPECTOR)
 #include "InspectorController.h"
 #include "InspectorInstrumentation.h"
+#endif
+
 #include "Logging.h"
 #include "MediaCanStartListener.h"
 #include "Navigator.h"
@@ -105,7 +109,9 @@ static void networkStateChanged(bool isOnLine)
     for (HashSet<Page*>::iterator it = allPages->begin(); it != end; ++it) {
         for (Frame* frame = (*it)->mainFrame(); frame; frame = frame->tree()->traverseNext())
             frames.append(frame);
+#if ENABLE(CFG_INSPECTOR)
         InspectorInstrumentation::networkStateChanged(*it);
+#endif
     }
 
     AtomicString eventName = isOnLine ? eventNames().onlineEvent : eventNames().offlineEvent;
@@ -1593,7 +1599,9 @@ Page::PageClients::PageClients()
 #endif
     , editorClient(0)
     , dragClient(0)
+#if ENABLE(CFG_INSPECTOR)
     , inspectorClient(0)
+#endif
     , plugInClient(0)
     , validationMessageClient(0)
 {

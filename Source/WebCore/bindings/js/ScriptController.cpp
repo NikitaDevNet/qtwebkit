@@ -29,7 +29,11 @@
 #include "FrameLoaderClient.h"
 #include "GCController.h"
 #include "HTMLPlugInElement.h"
+
+#if ENABLE(CFG_INSPECTOR)
 #include "InspectorInstrumentation.h"
+#endif
+
 #include "JSDOMWindow.h"
 #include "JSDocument.h"
 #include "JSMainThreadExecState.h"
@@ -37,7 +41,11 @@
 #include "Page.h"
 #include "PageGroup.h"
 #include "PluginView.h"
+
+#if ENABLE(CFG_INSPECTOR)
 #include "ScriptCallStack.h"
+#endif
+
 #include "ScriptSourceCode.h"
 #include "ScriptValue.h"
 #include "ScriptableDocumentParser.h"
@@ -135,13 +143,17 @@ ScriptValue ScriptController::evaluateInWorld(const ScriptSourceCode& sourceCode
 
     RefPtr<Frame> protect = m_frame;
 
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentationCookie cookie = InspectorInstrumentation::willEvaluateScript(m_frame, sourceURL, sourceCode.startLine());
+#endif
 
     JSValue evaluationException;
 
     JSValue returnValue = JSMainThreadExecState::evaluate(exec, jsSourceCode, shell, &evaluationException);
 
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentation::didEvaluateScript(cookie);
+#endif
 
     if (evaluationException) {
         reportException(exec, evaluationException, sourceCode.cachedScript());

@@ -45,11 +45,13 @@ namespace WebCore {
 class ScriptArguments;
 class ScriptCallStack;
 
+#if ENABLE(CFG_INSPECTOR)
 PassRefPtr<ScriptCallStack> createScriptCallStack(size_t maxStackSize, bool emptyStackIsAllowed);
 PassRefPtr<ScriptCallStack> createScriptCallStack(JSC::ExecState*, size_t maxStackSize);
 PassRefPtr<ScriptCallStack> createScriptCallStackFromException(JSC::ExecState*, JSC::JSValue& exception, size_t maxStackSize);
 PassRefPtr<ScriptCallStack> createScriptCallStackForConsole(JSC::ExecState*);
 PassRefPtr<ScriptArguments> createScriptArguments(JSC::ExecState*, unsigned skipArgumentCount);
+#endif
 
 } // namespace WebCore
 

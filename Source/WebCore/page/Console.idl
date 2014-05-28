@@ -31,17 +31,19 @@
     GenerateIsReachable=ImplFrame,
 ] interface Console {
 
-    [CallWith=ScriptArguments&ScriptState] void debug();
-    [CallWith=ScriptArguments&ScriptState] void error();
-    [CallWith=ScriptArguments&ScriptState] void info();
-    [CallWith=ScriptArguments&ScriptState] void log();
-    [CallWith=ScriptArguments&ScriptState] void warn();
-    [CallWith=ScriptArguments&ScriptState] void dir();
-    [CallWith=ScriptArguments&ScriptState] void dirxml();
-    [CallWith=ScriptArguments&ScriptState] void table();
-    [CallWith=ScriptArguments&ScriptState] void trace();
-    [CallWith=ScriptArguments&ScriptState, ImplementedAs=assertCondition] void assert(boolean condition);
-    [CallWith=ScriptArguments&ScriptState] void count();
+#if defined(ENABLE_CFG_INSPECTOR) && ENABLE_CFG_INSPECTOR
+    [Conditional=CFG_INSPECTOR, CallWith=ScriptArguments&ScriptState] void debug();
+    [Conditional=CFG_INSPECTOR, CallWith=ScriptArguments&ScriptState] void error();
+    [Conditional=CFG_INSPECTOR, CallWith=ScriptArguments&ScriptState] void info();
+    [Conditional=CFG_INSPECTOR, CallWith=ScriptArguments&ScriptState] void log();
+    [Conditional=CFG_INSPECTOR, CallWith=ScriptArguments&ScriptState] void warn();
+    [Conditional=CFG_INSPECTOR, CallWith=ScriptArguments&ScriptState] void dir();
+    [Conditional=CFG_INSPECTOR, CallWith=ScriptArguments&ScriptState] void dirxml();
+    [Conditional=CFG_INSPECTOR, CallWith=ScriptArguments&ScriptState] void table();
+    [Conditional=CFG_INSPECTOR, CallWith=ScriptArguments&ScriptState] void trace();
+    [Conditional=CFG_INSPECTOR, CallWith=ScriptArguments&ScriptState, ImplementedAs=assertCondition] void assert(boolean condition);
+    [Conditional=CFG_INSPECTOR, CallWith=ScriptArguments&ScriptState] void count();
+#endif
 
     // As per spec: http://www.w3.org/TR/WebIDL/#idl-sequence
     // "Sequences must not be used as the type of an attribute, constant or exception field."
@@ -52,10 +54,14 @@
 
     void time([TreatNullAs=NullString, TreatUndefinedAs=NullString] DOMString title);
     [CallWith=ScriptState] void timeEnd([TreatNullAs=NullString, TreatUndefinedAs=NullString] DOMString title);
-    [CallWith=ScriptArguments] void timeStamp();
-    [CallWith=ScriptArguments&ScriptState] void group();
-    [CallWith=ScriptArguments&ScriptState] void groupCollapsed();
+#if defined(ENABLE_CFG_INSPECTOR) && ENABLE_CFG_INSPECTOR
+    [Conditional=CFG_INSPECTOR, CallWith=ScriptArguments] void timeStamp();
+    [Conditional=CFG_INSPECTOR, CallWith=ScriptArguments&ScriptState] void group();
+    [Conditional=CFG_INSPECTOR, CallWith=ScriptArguments&ScriptState] void groupCollapsed();
+#endif
     void groupEnd();
-    [CallWith=ScriptArguments&ScriptState] void clear();
+#if defined(ENABLE_CFG_INSPECTOR) && ENABLE_CFG_INSPECTOR
+    [Conditional=CFG_INSPECTOR, CallWith=ScriptArguments&ScriptState] void clear();
+#endif
 };
 

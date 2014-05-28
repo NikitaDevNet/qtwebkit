@@ -26,7 +26,10 @@
 #ifndef JSMainThreadExecState_h
 #define JSMainThreadExecState_h
 
+#if ENABLE(CFG_INSPECTOR)
 #include "InspectorInstrumentation.h"
+#endif
+
 #include "JSDOMBinding.h"
 #include <runtime/Completion.h>
 #include <runtime/Executable.h>
@@ -56,6 +59,7 @@ public:
         return JSC::call(exec, functionObject, callType, callData, thisValue, args);
     };
 
+#if ENABLE(CFG_INSPECTOR)
     static inline InspectorInstrumentationCookie instrumentFunctionCall(ScriptExecutionContext* context, JSC::CallType callType, const JSC::CallData& callData)
     {
         if (!InspectorInstrumentation::timelineAgentEnabled(context))
@@ -69,6 +73,7 @@ public:
             resourceName = "undefined";
         return InspectorInstrumentation::willCallFunction(context, resourceName, lineNumber);
     }
+#endif
 
     static JSC::JSValue evaluate(JSC::ExecState* exec, const JSC::SourceCode& source, JSC::JSValue thisValue, JSC::JSValue* exception)
     {

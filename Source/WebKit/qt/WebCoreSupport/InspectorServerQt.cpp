@@ -18,6 +18,9 @@
 */
 
 #include "config.h"
+
+#if ENABLE(CFG_INSPECTOR)
+
 #include "InspectorServerQt.h"
 
 #include "InspectorClientQt.h"
@@ -365,3 +368,5 @@ void InspectorServerRequestHandlerQt::webSocketReadyRead()
 }
 
 #include "moc_InspectorServerQt.cpp"
+
+#endif // ENABLE(CFG_INSPECTOR)

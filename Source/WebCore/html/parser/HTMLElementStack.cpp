@@ -33,8 +33,15 @@
 #include "HTMLOptGroupElement.h"
 #include "HTMLOptionElement.h"
 #include "HTMLTableElement.h"
+
+#if ENABLE(CFG_MATHML)
 #include "MathMLNames.h"
+#endif
+
+#if ENABLE(CFG_SVG)
 #include "SVGNames.h"
+#endif
+
 #include <wtf/PassOwnPtr.h>
 
 namespace WebCore {
@@ -59,15 +66,19 @@ inline bool isScopeMarker(HTMLStackItem* item)
         || isHTMLTableElement(item->node())
         || item->hasTagName(tdTag)
         || item->hasTagName(thTag)
+#if ENABLE(CFG_MATHML)
         || item->hasTagName(MathMLNames::miTag)
         || item->hasTagName(MathMLNames::moTag)
         || item->hasTagName(MathMLNames::mnTag)
         || item->hasTagName(MathMLNames::msTag)
         || item->hasTagName(MathMLNames::mtextTag)
         || item->hasTagName(MathMLNames::annotation_xmlTag)
+#endif
+#if ENABLE(CFG_SVG)
         || item->hasTagName(SVGNames::foreignObjectTag)
         || item->hasTagName(SVGNames::descTag)
         || item->hasTagName(SVGNames::titleTag)
+#endif
 #if ENABLE(TEMPLATE_ELEMENT)
         || item->hasTagName(templateTag)
 #endif
@@ -278,11 +289,15 @@ bool HTMLElementStack::isMathMLTextIntegrationPoint(HTMLStackItem* item)
 {
     if (!item->isElementNode())
         return false;
+#if ENABLE(CFG_MATHML)
     return item->hasTagName(MathMLNames::miTag)
         || item->hasTagName(MathMLNames::moTag)
         || item->hasTagName(MathMLNames::mnTag)
         || item->hasTagName(MathMLNames::msTag)
         || item->hasTagName(MathMLNames::mtextTag);
+#else
+    return false;
+#endif
 }
 
 // http://www.whatwg.org/specs/web-apps/current-work/multipage/tree-construction.html#html-integration-point
@@ -290,6 +305,7 @@ bool HTMLElementStack::isHTMLIntegrationPoint(HTMLStackItem* item)
 {
     if (!item->isElementNode())
         return false;
+#if ENABLE(CFG_MATHML)
     if (item->hasTagName(MathMLNames::annotation_xmlTag)) {
         Attribute* encodingAttr = item->getAttributeItem(MathMLNames::encodingAttr);
         if (encodingAttr) {
@@ -299,9 +315,14 @@ bool HTMLElementStack::isHTMLIntegrationPoint(HTMLStackItem* item)
         }
         return false;
     }
+#endif
+#if ENABLE(CFG_SVG)
     return item->hasTagName(SVGNames::foreignObjectTag)
         || item->hasTagName(SVGNames::descTag)
         || item->hasTagName(SVGNames::titleTag);
+#else
+    return false;
+#endif
 }
 
 void HTMLElementStack::popUntilForeignContentScopeMarker()

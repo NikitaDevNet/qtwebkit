@@ -32,6 +32,7 @@
 #ifndef GeolocationClientMock_h
 #define GeolocationClientMock_h
 
+#if ENABLE(CFG_GEOLOCATION)
 #include "GeolocationClient.h"
 #include "Timer.h"
 #include <wtf/HashSet.h>
@@ -95,5 +96,7 @@ private:
 };
 
 }
+
+#endif // ENABLE(CFG_GEOLOCATION)
 
 #endif

@@ -39,8 +39,12 @@
 #include "Page.h"
 #include "PageGroup.h"
 #include "ProcessingInstruction.h"
+
+#if ENABLE(CFG_SVG)
 #include "SVGNames.h"
 #include "SVGStyleElement.h"
+#endif
+
 #include "SelectorChecker.h"
 #include "Settings.h"
 #include "StyleInvalidationAnalysis.h"

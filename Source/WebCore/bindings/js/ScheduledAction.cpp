@@ -105,14 +105,18 @@ void ScheduledAction::executeFunctionInContext(JSGlobalObject* globalObject, JSV
     for (size_t i = 0; i < size; ++i)
         args.append(m_args[i].get());
 
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentationCookie cookie = JSMainThreadExecState::instrumentFunctionCall(context, callType, callData);
+#endif
 
     if (context->isDocument())
         JSMainThreadExecState::call(exec, m_function.get(), callType, callData, thisValue, args);
     else
         JSC::call(exec, m_function.get(), callType, callData, thisValue, args);
 
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentation::didCallFunction(cookie);
+#endif
 
     if (exec->hadException())
         reportCurrentException(exec);

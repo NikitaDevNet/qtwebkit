@@ -33,11 +33,16 @@
 #include "ApplicationCacheHost.h"
 #include "AsyncFileStream.h"
 #include "AuthenticationChallenge.h"
+#include "Document.h"
 #include "DocumentLoader.h"
 #include "Frame.h"
 #include "FrameLoader.h"
 #include "FrameLoaderClient.h"
+
+#if ENABLE(CFG_INSPECTOR)
 #include "InspectorInstrumentation.h"
+#endif
+
 #include "LoaderStrategy.h"
 #include "Page.h"
 #include "PlatformStrategies.h"
@@ -471,16 +476,24 @@ void ResourceLoader::didReceiveResponse(ResourceHandle*, const ResourceResponse&
 
 void ResourceLoader::didReceiveData(ResourceHandle*, const char* data, int length, int encodedDataLength)
 {
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentationCookie cookie = InspectorInstrumentation::willReceiveResourceData(m_frame.get(), identifier(), encodedDataLength);
+#endif
     didReceiveData(data, length, encodedDataLength, DataPayloadBytes);
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentation::didReceiveResourceData(cookie);
+#endif
 }
 
 void ResourceLoader::didReceiveBuffer(ResourceHandle*, PassRefPtr<SharedBuffer> buffer, int encodedDataLength)
 {
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentationCookie cookie = InspectorInstrumentation::willReceiveResourceData(m_frame.get(), identifier(), encodedDataLength);
+#endif
     didReceiveBuffer(buffer, encodedDataLength, DataPayloadBytes);
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentation::didReceiveResourceData(cookie);
+#endif
 }
 
 void ResourceLoader::didFinishLoading(ResourceHandle*, double finishTime)

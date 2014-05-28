@@ -47,7 +47,11 @@
 #include "ContentSecurityPolicy.h"
 #include "DOMImplementation.h"
 #include "DOMWindow.h"
+
+#if ENABLE(CFG_SQL_DATABASE)
 #include "DatabaseManager.h"
+#endif
+
 #include "Document.h"
 #include "DocumentLoadTiming.h"
 #include "DocumentLoader.h"
@@ -76,8 +80,12 @@
 #include "HistoryController.h"
 #include "HistoryItem.h"
 #include "IconController.h"
+
+#if ENABLE(CFG_INSPECTOR)
 #include "InspectorController.h"
 #include "InspectorInstrumentation.h"
+#endif
+
 #include "LoaderStrategy.h"
 #include "Logging.h"
 #include "MIMETypeRegistry.h"
@@ -95,7 +103,11 @@
 #include "ResourceHandle.h"
 #include "ResourceRequest.h"
 #include "SchemeRegistry.h"
+
+#if ENABLE(CFG_INSPECTOR)
 #include "ScriptCallStack.h"
+#endif
+
 #include "ScriptController.h"
 #include "ScriptSourceCode.h"
 #include "ScrollAnimator.h"
@@ -579,7 +591,9 @@ void FrameLoader::clear(Document* newDocument, bool clearWindowProperties, bool 
 
     // Do this after detaching the document so that the unload event works.
     if (clearWindowProperties) {
+#if ENABLE(CFG_INSPECTOR)
         InspectorInstrumentation::frameWindowDiscarded(m_frame, m_frame->document()->domWindow());
+#endif
         m_frame->document()->domWindow()->resetUnlessSuspendedForPageCache();
         m_frame->script()->clearWindowShell(newDocument->domWindow(), m_frame->document()->inPageCache());
     }
@@ -2379,7 +2393,9 @@ int FrameLoader::numPendingOrLoadingRequests(bool recurse) const
 String FrameLoader::userAgent(const KURL& url) const
 {
     String userAgent = m_client->userAgent(url);
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentation::applyUserAgentOverride(m_frame, &userAgent);
+#endif
     return userAgent;
 }
 
@@ -2410,7 +2426,9 @@ void FrameLoader::detachFromParent()
     // handlers might start a new subresource load in this frame.
     stopAllLoaders();
 
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentation::frameDetachedFromParent(m_frame);
+#endif
 
     detachViewsAndDocumentLoader();
 
@@ -2957,14 +2975,18 @@ void FrameLoader::loadedResourceFromMemoryCache(CachedResource* resource, Resour
         return;
 
     if (!page->areMemoryCacheClientCallsEnabled()) {
+#if ENABLE(CFG_INSPECTOR)
         InspectorInstrumentation::didLoadResourceFromMemoryCache(page, m_documentLoader.get(), resource);
+#endif
         m_documentLoader->recordMemoryCacheLoadForFutureClientNotification(resource->resourceRequest());
         m_documentLoader->didTellClientAboutLoad(resource->url());
         return;
     }
 
     if (m_client->dispatchDidLoadResourceFromMemoryCache(m_documentLoader.get(), newRequest, resource->response(), resource->encodedSize())) {
+#if ENABLE(CFG_INSPECTOR)
         InspectorInstrumentation::didLoadResourceFromMemoryCache(page, m_documentLoader.get(), resource);
+#endif
         m_documentLoader->didTellClientAboutLoad(resource->url());
         return;
     }
@@ -2972,7 +2994,9 @@ void FrameLoader::loadedResourceFromMemoryCache(CachedResource* resource, Resour
     unsigned long identifier;
     ResourceError error;
     requestFromDelegate(newRequest, identifier, error);
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentation::markResourceAsCached(page, identifier);
+#endif
     notifier()->sendRemainingDelegateMessages(m_documentLoader.get(), identifier, newRequest, resource->response(), 0, resource->encodedSize(), 0, error);
 }
 
@@ -3289,7 +3313,9 @@ void FrameLoader::dispatchDidClearWindowObjectInWorld(DOMWrapperWorld* world)
         page->inspectorController()->didClearWindowObjectInWorld(m_frame, world);
 #endif
 
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentation::didClearWindowObjectInWorld(m_frame, world);
+#endif
 }
 
 void FrameLoader::dispatchGlobalObjectAvailableInAllWorlds()
@@ -3341,7 +3367,9 @@ void FrameLoader::dispatchDidCommitLoad()
         m_frame->page()->resetSeenMediaEngines();
     }
 
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentation::didCommitLoad(m_frame, m_documentLoader.get());
+#endif
 
     if (m_frame->page()->mainFrame() == m_frame)
         m_frame->page()->featureObserver()->didCommitLoad();

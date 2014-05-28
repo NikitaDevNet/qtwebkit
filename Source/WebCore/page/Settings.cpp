@@ -30,7 +30,11 @@
 #include "CachedResourceLoader.h"
 #include "CookieStorage.h"
 #include "DOMTimer.h"
+
+#if ENABLE(CFG_SQL_DATABASE)
 #include "Database.h"
+#endif
+
 #include "Document.h"
 #include "Font.h"
 #include "FontGenericFamilies.h"
@@ -39,7 +43,11 @@
 #include "FrameView.h"
 #include "HTMLMediaElement.h"
 #include "HistoryItem.h"
+
+#if ENABLE(CFG_INSPECTOR)
 #include "InspectorInstrumentation.h"
+#endif
+
 #include "Page.h"
 #include "PageCache.h"
 #include "StorageMap.h"
@@ -359,7 +367,9 @@ void Settings::imageLoadingSettingsTimerFired(Timer<Settings>*)
 void Settings::setScriptEnabled(bool isScriptEnabled)
 {
     m_isScriptEnabled = isScriptEnabled;
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentation::scriptsEnabled(m_page, m_isScriptEnabled);
+#endif
 }
 
 void Settings::setJavaEnabled(bool isJavaEnabled)

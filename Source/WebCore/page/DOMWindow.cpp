@@ -46,7 +46,11 @@
 #include "DOMURL.h"
 #include "DOMWindowCSS.h"
 #include "DOMWindowExtension.h"
+
+#if ENABLE(CFG_NOTIFICATIONS)
 #include "DOMWindowNotifications.h"
+#endif
+
 #include "DeviceMotionController.h"
 #include "DeviceOrientationController.h"
 #include "Document.h"
@@ -69,7 +73,11 @@
 #include "FrameView.h"
 #include "HTMLFrameOwnerElement.h"
 #include "History.h"
+
+#if ENABLE(CFG_INSPECTOR)
 #include "InspectorInstrumentation.h"
+#endif
+
 #include "KURL.h"
 #include "Location.h"
 #include "MediaQueryList.h"
@@ -85,7 +93,11 @@
 #include "RuntimeEnabledFeatures.h"
 #include "ScheduledAction.h"
 #include "Screen.h"
+
+#if ENABLE(CFG_INSPECTOR)
 #include "ScriptCallStack.h"
+#endif
+
 #include "ScriptCallStackFactory.h"
 #include "ScriptController.h"
 #include "SecurityOrigin.h"
@@ -123,14 +135,20 @@ namespace WebCore {
 
 class PostMessageTimer : public TimerBase {
 public:
-    PostMessageTimer(DOMWindow* window, PassRefPtr<SerializedScriptValue> message, const String& sourceOrigin, PassRefPtr<DOMWindow> source, PassOwnPtr<MessagePortChannelArray> channels, SecurityOrigin* targetOrigin, PassRefPtr<ScriptCallStack> stackTrace)
+    PostMessageTimer(DOMWindow* window, PassRefPtr<SerializedScriptValue> message, const String& sourceOrigin, PassRefPtr<DOMWindow> source, PassOwnPtr<MessagePortChannelArray> channels, SecurityOrigin* targetOrigin
+                 #if ENABLE(CFG_NOTIFICATIONS)
+                     , PassRefPtr<ScriptCallStack> stackTrace
+#endif
+                     )
         : m_window(window)
         , m_message(message)
         , m_origin(sourceOrigin)
         , m_source(source)
         , m_channels(channels)
         , m_targetOrigin(targetOrigin)
+#if ENABLE(CFG_NOTIFICATIONS)
         , m_stackTrace(stackTrace)
+#endif
     {
     }
 
@@ -140,7 +158,9 @@ public:
         return MessageEvent::create(messagePorts.release(), m_message, m_origin, "", m_source);
     }
     SecurityOrigin* targetOrigin() const { return m_targetOrigin.get(); }
+#if ENABLE(CFG_NOTIFICATIONS)
     ScriptCallStack* stackTrace() const { return m_stackTrace.get(); }
+#endif
 
 private:
     virtual void fired()
@@ -155,7 +175,9 @@ private:
     RefPtr<DOMWindow> m_source;
     OwnPtr<MessagePortChannelArray> m_channels;
     RefPtr<SecurityOrigin> m_targetOrigin;
+#if ENABLE(CFG_NOTIFICATIONS)
     RefPtr<ScriptCallStack> m_stackTrace;
+#endif
 };
 
 typedef HashCountedSet<DOMWindow*> DOMWindowSet;
@@ -477,7 +499,9 @@ void DOMWindow::frameDestroyed()
 
 void DOMWindow::willDetachPage()
 {
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentation::frameWindowDiscarded(m_frame, this);
+#endif
 }
 
 void DOMWindow::willDestroyCachedFrame()
@@ -859,12 +883,18 @@ void DOMWindow::postMessage(PassRefPtr<SerializedScriptValue> message, const Mes
     String sourceOrigin = sourceDocument->securityOrigin()->toString();
 
     // Capture stack trace only when inspector front-end is loaded as it may be time consuming.
+#if ENABLE(CFG_INSPECTOR)
     RefPtr<ScriptCallStack> stackTrace;
     if (InspectorInstrumentation::consoleAgentEnabled(sourceDocument))
         stackTrace = createScriptCallStack(ScriptCallStack::maxCallStackSizeToCapture, true);
+#endif
 
     // Schedule the message.
-    PostMessageTimer* timer = new PostMessageTimer(this, message, sourceOrigin, source, channels.release(), target.get(), stackTrace.release());
+    PostMessageTimer* timer = new PostMessageTimer(this, message, sourceOrigin, source, channels.release(), target.get()
+#if ENABLE(CFG_INSPECTOR)
+                                                   , stackTrace.release()
+#endif
+                                                   );
     timer->startOneShot(0);
 }
 
@@ -883,17 +913,27 @@ void DOMWindow::postMessageTimerFired(PassOwnPtr<PostMessageTimer> t)
     if (m_frame->loader()->client()->willCheckAndDispatchMessageEvent(timer->targetOrigin(), event.get()))
         return;
 
-    dispatchMessageEventWithOriginCheck(timer->targetOrigin(), event, timer->stackTrace());
+    dispatchMessageEventWithOriginCheck(timer->targetOrigin(), event
+#if ENABLE(CFG_INSPECTOR)
+                                        , timer->stackTrace()
+#endif
+                                        );
 }
 
-void DOMWindow::dispatchMessageEventWithOriginCheck(SecurityOrigin* intendedTargetOrigin, PassRefPtr<Event> event, PassRefPtr<ScriptCallStack> stackTrace)
+void DOMWindow::dispatchMessageEventWithOriginCheck(SecurityOrigin* intendedTargetOrigin, PassRefPtr<Event> event
+#if ENABLE(CFG_INSPECTOR)
+                                                    , PassRefPtr<ScriptCallStack> stackTrace
+#endif
+                                                    )
 {
     if (intendedTargetOrigin) {
         // Check target origin now since the target document may have changed since the timer was scheduled.
         if (!intendedTargetOrigin->isSameSchemeHostPort(document()->securityOrigin())) {
             String message = "Unable to post message to " + intendedTargetOrigin->toString() +
                              ". Recipient has origin " + document()->securityOrigin()->toString() + ".\n";
+#if ENABLE(CFG_INSPECTOR)
             pageConsole()->addMessage(SecurityMessageSource, ErrorMessageLevel, message, stackTrace);
+#endif
             return;
         }
     }
@@ -1179,7 +1219,12 @@ int DOMWindow::innerHeight() const
         return 0;
 
     // If the device height is overridden, do not include the horizontal scrollbar into the innerHeight (since it is absent on the real device).
+// TODO: (cfg_config) may be error
+#if ENABLE(CFG_INSPECTOR)
     bool includeScrollbars = !InspectorInstrumentation::shouldApplyScreenHeightOverride(m_frame);
+#else
+    bool includeScrollbars = true;
+#endif
     return view->mapFromLayoutToCSSUnits(static_cast<int>(view->visibleContentRect(includeScrollbars ? ScrollableArea::IncludeScrollbars : ScrollableArea::ExcludeScrollbars).height()));
 }
 
@@ -1193,7 +1238,12 @@ int DOMWindow::innerWidth() const
         return 0;
 
     // If the device width is overridden, do not include the vertical scrollbar into the innerWidth (since it is absent on the real device).
+// TODO: (cfg_config) may be error
+#if ENABLE(CFG_INSPECTOR)
     bool includeScrollbars = !InspectorInstrumentation::shouldApplyScreenWidthOverride(m_frame);
+#else
+    bool includeScrollbars = true;
+#endif
     return view->mapFromLayoutToCSSUnits(static_cast<int>(view->visibleContentRect(includeScrollbars ? ScrollableArea::IncludeScrollbars : ScrollableArea::ExcludeScrollbars).width()));
 }
 
@@ -1721,7 +1771,9 @@ void DOMWindow::dispatchLoadEvent()
     if (ownerElement)
         ownerElement->dispatchEvent(Event::create(eventNames().loadEvent, false, false));
 
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentation::loadEventFired(frame());
+#endif
 }
 
 bool DOMWindow::dispatchEvent(PassRefPtr<Event> prpEvent, PassRefPtr<EventTarget> prpTarget)
@@ -1733,11 +1785,15 @@ bool DOMWindow::dispatchEvent(PassRefPtr<Event> prpEvent, PassRefPtr<EventTarget
     event->setCurrentTarget(this);
     event->setEventPhase(Event::AT_TARGET);
 
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentationCookie cookie = InspectorInstrumentation::willDispatchEventOnWindow(frame(), *event, this);
+#endif
 
     bool result = fireEventListeners(event.get());
 
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentation::didDispatchEventOnWindow(cookie);
+#endif
 
     return result;
 }

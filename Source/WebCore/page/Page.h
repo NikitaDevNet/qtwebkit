@@ -71,7 +71,9 @@ class Frame;
 class FrameSelection;
 class HaltablePlugin;
 class HistoryItem;
+#if ENABLE(CFG_INSPECTOR)
 class InspectorClient;
+#endif
 class InspectorController;
 class MediaCanStartListener;
 class Node;
@@ -132,7 +134,9 @@ public:
 #endif
         EditorClient* editorClient;
         DragClient* dragClient;
+#if ENABLE(CFG_INSPECTOR)
         InspectorClient* inspectorClient;
+#endif
         PlugInClient* plugInClient;
         RefPtr<BackForwardList> backForwardClient;
         ValidationMessageClient* validationMessageClient;

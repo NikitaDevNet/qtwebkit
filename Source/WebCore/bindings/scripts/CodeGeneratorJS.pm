@@ -2875,7 +2875,7 @@ sub GenerateCallWith
     }
     if ($function and $codeGenerator->ExtendedAttributeContains($callWith, "ScriptArguments")) {
         push(@$outputArray, "    RefPtr<ScriptArguments> scriptArguments(createScriptArguments(exec, " . @{$function->parameters} . "));\n");
-        $implIncludes{"ScriptArguments.h"} = 1;
+        $implIncludes{"ScriptArguments.h"} = "CFG_INSPECTOR";
         $implIncludes{"ScriptCallStackFactory.h"} = 1;
         push(@callWithArgs, "scriptArguments.release()");
     }

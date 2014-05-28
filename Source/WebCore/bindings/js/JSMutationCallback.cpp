@@ -84,11 +84,15 @@ void JSMutationCallback::call(const Vector<RefPtr<MutationRecord> >& mutations, 
     args.append(jsArray(exec, globalObject, mutations));
     args.append(jsObserver);
 
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentationCookie cookie = JSMainThreadExecState::instrumentFunctionCall(context, callType, callData);
+#endif
 
     JSMainThreadExecState::call(exec, callback, callType, callData, jsObserver, args);
 
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentation::didCallFunction(cookie);
+#endif
 
     if (exec->hadException())
         reportCurrentException(exec);

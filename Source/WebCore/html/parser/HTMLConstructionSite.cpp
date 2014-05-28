@@ -76,7 +76,10 @@ static bool shouldUseLengthLimit(const ContainerNode* node)
 {
     return !node->hasTagName(scriptTag)
         && !node->hasTagName(styleTag)
-        && !node->hasTagName(SVGNames::scriptTag);
+#if ENABLE(CFG_SVG)
+        && !node->hasTagName(SVGNames::scriptTag)
+#endif
+            ;
 }
 
 static inline bool isAllWhitespace(const String& string)

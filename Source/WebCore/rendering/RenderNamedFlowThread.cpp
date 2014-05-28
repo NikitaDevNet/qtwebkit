@@ -29,7 +29,11 @@
 #include "ExceptionCodePlaceholder.h"
 #include "FlowThreadController.h"
 #include "InlineTextBox.h"
+
+#if ENABLE(CFG_INSPECTOR)
 #include "InspectorInstrumentation.h"
+#endif
+
 #include "NodeRenderingContext.h"
 #include "NodeTraversal.h"
 #include "Position.h"
@@ -471,7 +475,9 @@ bool RenderNamedFlowThread::isChildAllowed(RenderObject* child, RenderStyle* sty
 void RenderNamedFlowThread::dispatchRegionLayoutUpdateEvent()
 {
     RenderFlowThread::dispatchRegionLayoutUpdateEvent();
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentation::didUpdateRegionLayout(document(), m_namedFlow.get());
+#endif
 
     if (!m_regionLayoutUpdateEventTimer.isActive() && m_namedFlow->hasEventListeners())
         m_regionLayoutUpdateEventTimer.startOneShot(0);
@@ -480,7 +486,9 @@ void RenderNamedFlowThread::dispatchRegionLayoutUpdateEvent()
 void RenderNamedFlowThread::dispatchRegionOversetChangeEvent()
 {
     RenderFlowThread::dispatchRegionOversetChangeEvent();
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentation::didChangeRegionOverset(document(), m_namedFlow.get());
+#endif
     
     if (!m_regionOversetChangeEventTimer.isActive() && m_namedFlow->hasEventListeners())
         m_regionOversetChangeEventTimer.startOneShot(0);

@@ -60,7 +60,11 @@
 #include "HitTestRequest.h"
 #include "HitTestResult.h"
 #include "Image.h"
+
+#if ENABLE(CFG_INSPECTOR)
 #include "InspectorInstrumentation.h"
+#endif
+
 #include "KeyboardEvent.h"
 #include "MouseEvent.h"
 #include "MouseEventWithHitTestResults.h"
@@ -1502,10 +1506,12 @@ bool EventHandler::handleMousePressEvent(const PlatformMouseEvent& mouseEvent)
 {
     RefPtr<FrameView> protector(m_frame->view());
 
+#if ENABLE(CFG_INSPECTOR)
     if (InspectorInstrumentation::handleMousePress(m_frame->page())) {
         invalidateClick();
         return true;
     }
+#endif
 
 #if ENABLE(TOUCH_EVENTS)
     bool defaultPrevented = dispatchSyntheticTouchEventIfEnabled(mouseEvent);
@@ -3940,8 +3946,10 @@ bool EventHandler::handleTouchEvent(const PlatformTouchEvent& event)
             if (node->isTextNode())
                 node = EventPathWalker::parent(node);
 
+#if ENABLE(CFG_INSPECTOR)
             if (InspectorInstrumentation::handleTouchEvent(m_frame->page(), node))
                 return true;
+#endif
 
             Document* doc = node->document();
             // Record the originating touch document even if it does not have a touch listener.

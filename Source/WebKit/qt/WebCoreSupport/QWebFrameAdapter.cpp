@@ -34,7 +34,11 @@
 #include "HTMLMetaElement.h"
 #include "HTTPParsers.h"
 #include "HitTestResult.h"
+
+#if ENABLE(CFG_INSPECTOR)
 #include "InspectorController.h"
+#endif
+
 #include "JSDOMWindowBase.h"
 #include "KURL.h"
 #include "NavigationScheduler.h"

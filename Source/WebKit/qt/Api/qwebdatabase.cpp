@@ -18,6 +18,9 @@
 */
 
 #include "config.h"
+
+#if ENABLE(CFG_SQL_DATABASE)
+
 #include "qwebdatabase.h"
 
 #include "qwebdatabase_p.h"
@@ -196,3 +199,4 @@ QWebDatabase::~QWebDatabase()
 {
 }
 
+#endif // ENABLE(CFG_SQL_DATABASE)

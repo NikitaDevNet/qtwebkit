@@ -33,7 +33,11 @@
 #include "ApplicationCacheStorage.h"
 #include "ColorChooser.h"
 #include "ColorChooserClient.h"
+
+#if ENABLE(CFG_SQL_DATABASE)
 #include "DatabaseManager.h"
+#endif
+
 #include "Document.h"
 #include "FileChooser.h"
 #include "FileIconLoader.h"
@@ -42,7 +46,11 @@
 #include "FrameLoader.h"
 #include "FrameLoaderClientQt.h"
 #include "FrameView.h"
+
+#if ENABLE(CFG_GEOLOCATION)
 #include "Geolocation.h"
+#endif
+
 #if USE(ACCELERATED_COMPOSITING)
 #include "GraphicsLayer.h"
 #endif

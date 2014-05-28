@@ -31,15 +31,27 @@
 
 #include "Chrome.h"
 #include "ChromeClient.h"
+
+#if ENABLE(CFG_INSPECTOR)
 #include "ConsoleAPITypes.h"
+#endif
+
 #include "ConsoleTypes.h"
 #include "Document.h"
 #include "Frame.h"
+
+#if ENABLE(CFG_INSPECTOR)
 #include "InspectorConsoleInstrumentation.h"
 #include "InspectorController.h"
+#endif
+
 #include "Page.h"
+
+#if ENABLE(CFG_INSPECTOR)
 #include "ScriptArguments.h"
 #include "ScriptCallStack.h"
+#endif
+
 #include "ScriptCallStackFactory.h"
 #include "ScriptValue.h"
 #include "ScriptableDocumentParser.h"
@@ -143,14 +155,19 @@ void PageConsole::addMessage(MessageSource source, MessageLevel level, const Str
         if (!parser->isWaitingForScripts() && !parser->isExecutingScript())
             line = parser->lineNumber().oneBasedInt();
     }
+#if ENABLE(CFG_INSPECTOR)
     addMessage(source, level, message, url, line, 0, 0, 0, requestIdentifier);
+#endif
 }
 
+#if ENABLE(CFG_INSPECTOR)
 void PageConsole::addMessage(MessageSource source, MessageLevel level, const String& message, PassRefPtr<ScriptCallStack> callStack)
 {
     addMessage(source, level, message, String(), 0, 0, callStack, 0);
 }
+#endif
 
+#if ENABLE(CFG_INSPECTOR)
 void PageConsole::addMessage(MessageSource source, MessageLevel level, const String& message, const String& url, unsigned lineNumber, unsigned columnNumber, PassRefPtr<ScriptCallStack> callStack, ScriptState* state, unsigned long requestIdentifier)
 {
     if (muteCount && source != ConsoleAPIMessageSource)
@@ -160,10 +177,12 @@ void PageConsole::addMessage(MessageSource source, MessageLevel level, const Str
     if (!page)
         return;
 
+#if ENABLE(CFG_INSPECTOR)
     if (callStack)
         InspectorInstrumentation::addMessageToConsole(page, source, LogMessageType, level, message, callStack, requestIdentifier);
     else
         InspectorInstrumentation::addMessageToConsole(page, source, LogMessageType, level, message, url, lineNumber, columnNumber, state, requestIdentifier);
+#endif
 
     if (source == CSSMessageSource)
         return;
@@ -181,6 +200,7 @@ void PageConsole::addMessage(MessageSource source, MessageLevel level, const Str
 
     printf(" %s\n", message.utf8().data());
 }
+#endif
 
 // static
 void PageConsole::mute()

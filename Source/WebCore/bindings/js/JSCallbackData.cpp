@@ -70,14 +70,18 @@ JSValue JSCallbackData::invokeCallback(JSValue thisValue, MarkedArgumentBuffer& 
     if (!context)
         return JSValue();
 
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentationCookie cookie = JSMainThreadExecState::instrumentFunctionCall(context, callType, callData);
+#endif
 
     bool contextIsDocument = context->isDocument();
     JSValue result = contextIsDocument
         ? JSMainThreadExecState::call(exec, function, callType, callData, thisValue, args)
         : JSC::call(exec, function, callType, callData, thisValue, args);
 
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentation::didCallFunction(cookie);
+#endif
 
     if (contextIsDocument)
         Document::updateStyleForAllDocuments();

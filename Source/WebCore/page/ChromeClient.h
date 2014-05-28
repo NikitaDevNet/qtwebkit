@@ -23,7 +23,11 @@
 #define ChromeClient_h
 
 #include "AXObjectCache.h"
+
+#if ENABLE(CFG_INSPECTOR)
 #include "ConsoleAPITypes.h"
+#endif
+
 #include "ConsoleTypes.h"
 #include "Cursor.h"
 #include "FocusDirection.h"
@@ -124,10 +128,12 @@ public:
 
     virtual void addMessageToConsole(MessageSource, MessageLevel, const String& message, unsigned lineNumber, unsigned columnNumber, const String& sourceID) = 0;
     // FIXME: Remove this MessageType variant once all the clients are updated.
+#if ENABLE(CFG_INSPECTOR)
     virtual void addMessageToConsole(MessageSource source, MessageType, MessageLevel level, const String& message, unsigned lineNumber, unsigned columnNumber, const String& sourceID)
     {
         addMessageToConsole(source, level, message, lineNumber, columnNumber, sourceID);
     }
+#endif
 
     virtual bool canRunBeforeUnloadConfirmPanel() = 0;
     virtual bool runBeforeUnloadConfirmPanel(const String& message, Frame*) = 0;

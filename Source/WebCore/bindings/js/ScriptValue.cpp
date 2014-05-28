@@ -30,7 +30,10 @@
 #include "config.h"
 #include "ScriptValue.h"
 
+#if ENABLE(CFG_INSPECTOR)
 #include "InspectorValues.h"
+#endif
+
 #include "JSDOMBinding.h"
 #include "SerializedScriptValue.h"
 

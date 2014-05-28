@@ -36,7 +36,11 @@
 #include "Node.h"
 #include "Page.h"
 #include "ScriptController.h"
+
+#if ENABLE(CFG_WORKERS)
 #include "WorkerGlobalScope.h"
+#endif
+
 #include "WorkerScriptController.h"
 #include <heap/StrongInlines.h>
 #include <interpreter/CallFrame.h>

@@ -72,7 +72,11 @@
 #include "Rect.h"
 #include "RenderTheme.h"
 #include "RuntimeEnabledFeatures.h"
+
+#if ENABLE(CFG_SVG)
 #include "SVGParserUtilities.h"
+#endif
+
 #include "Settings.h"
 #include "ShadowValue.h"
 #include "StylePropertySet.h"
@@ -11577,7 +11581,9 @@ void CSSParser::logError(const String& message, int lineNumber)
 {
     // FIXME: <http://webkit.org/b/114313> CSS Parser ConsoleMessage errors should include column numbers
     PageConsole* console = m_styleSheet->singleOwnerDocument()->page()->console();
+#if ENABLE(CFG_INSPECTOR)
     console->addMessage(CSSMessageSource, WarningMessageLevel, message, m_styleSheet->baseURL().string(), lineNumber + 1, 0);
+#endif
 }
 
 StyleRuleKeyframes* CSSParser::createKeyframesRule(const String& name, PassOwnPtr<Vector<RefPtr<StyleKeyframe> > > popKeyframes)

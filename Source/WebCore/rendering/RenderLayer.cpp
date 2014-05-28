@@ -81,7 +81,11 @@
 #include "RenderInline.h"
 #include "RenderMarquee.h"
 #include "RenderReplica.h"
+
+#if ENABLE(CFG_SVG)
 #include "RenderSVGResourceClipper.h"
+#endif
+
 #include "RenderScrollbar.h"
 #include "RenderScrollbarPart.h"
 #include "RenderTheme.h"
@@ -2200,7 +2204,9 @@ void RenderLayer::scrollTo(int x, int y)
     m_scrollOffset = newScrollOffset;
 
     Frame* frame = renderer()->frame();
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentation::willScrollLayer(frame);
+#endif
 
     RenderView* view = renderer()->view();
     
@@ -2256,7 +2262,9 @@ void RenderLayer::scrollTo(int x, int y)
     if (renderer()->node())
         renderer()->node()->document()->eventQueue()->enqueueOrDispatchScrollEvent(renderer()->node(), DocumentEventQueue::ScrollEventElementTarget);
 
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentation::didScrollLayer(frame);
+#endif
     if (scrollsOverflow())
         frame->loader()->client()->didChangeScrollOffset(); 
 }

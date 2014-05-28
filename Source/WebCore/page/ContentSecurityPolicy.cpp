@@ -33,13 +33,21 @@
 #include "FormData.h"
 #include "FormDataList.h"
 #include "Frame.h"
+
+#if ENABLE(CFG_INSPECTOR)
 #include "InspectorInstrumentation.h"
 #include "InspectorValues.h"
+#endif
+
 #include "KURL.h"
 #include "PingLoader.h"
 #include "RuntimeEnabledFeatures.h"
 #include "SchemeRegistry.h"
+
+#if ENABLE(CFG_INSPECTOR)
 #include "ScriptCallStack.h"
+#endif
+
 #include "ScriptCallStackFactory.h"
 #include "ScriptState.h"
 #include "SecurityOrigin.h"
@@ -165,6 +173,7 @@ FeatureObserver::Feature getFeatureObserverType(ContentSecurityPolicy::HeaderTyp
     return FeatureObserver::NumberOfFeatures;
 }
 
+#if ENABLE(CFG_INSPECTOR)
 const ScriptCallFrame& getFirstNonNativeFrame(PassRefPtr<ScriptCallStack> stack)
 {
     int frameNumber = 0;
@@ -173,6 +182,7 @@ const ScriptCallFrame& getFirstNonNativeFrame(PassRefPtr<ScriptCallStack> stack)
 
     return stack->at(frameNumber);
 }
+#endif
 
 } // namespace
 
@@ -1737,6 +1747,7 @@ static void gatherSecurityPolicyViolationEventData(SecurityPolicyViolationEventI
 
 void ContentSecurityPolicy::reportViolation(const String& directiveText, const String& effectiveDirective, const String& consoleMessage, const KURL& blockedURL, const Vector<KURL>& reportURIs, const String& header, const String& contextURL, const WTF::OrdinalNumber& contextLine, ScriptState* state) const
 {
+#if ENABLE(CFG_INSPECTOR)
     logToConsole(consoleMessage, contextURL, contextLine, state);
 
     // FIXME: Support sending reports from worker.
@@ -1801,6 +1812,7 @@ void ContentSecurityPolicy::reportViolation(const String& directiveText, const S
 
     for (size_t i = 0; i < reportURIs.size(); ++i)
         PingLoader::sendViolationReport(frame, reportURIs[i], report);
+#endif
 }
 
 void ContentSecurityPolicy::reportUnsupportedDirective(const String& name) const
@@ -1899,7 +1911,9 @@ void ContentSecurityPolicy::logToConsole(const String& message, const String& co
 
 void ContentSecurityPolicy::reportBlockedScriptExecutionToInspector(const String& directiveText) const
 {
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentation::scriptExecutionBlockedByCSP(m_scriptExecutionContext, directiveText);
+#endif
 }
 
 bool ContentSecurityPolicy::experimentalFeaturesEnabled() const

@@ -39,12 +39,17 @@
 #include "HTMLImageElement.h"
 #include "HTMLInputElement.h"
 #include "HTMLMapElement.h"
+
 #include "HTMLNames.h"
 #include "HitTestResult.h"
 #include "Page.h"
 #include "PaintInfo.h"
 #include "RenderView.h"
+
+#if ENABLE(CFG_SVG)
 #include "SVGImage.h"
+#endif
+
 #include <wtf/StackStats.h>
 
 using namespace std;

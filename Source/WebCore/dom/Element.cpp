@@ -62,7 +62,11 @@
 #include "HTMLParserIdioms.h"
 #include "HTMLTableRowsCollection.h"
 #include "InsertionPoint.h"
+
+#if ENABLE(CFG_INSPECTOR)
 #include "InspectorInstrumentation.h"
+#endif
+
 #include "MutationObserverInterestGroup.h"
 #include "MutationRecord.h"
 #include "NamedNodeMap.h"
@@ -3023,21 +3027,27 @@ void Element::willModifyAttribute(const QualifiedName& name, const AtomicString&
 void Element::didAddAttribute(const QualifiedName& name, const AtomicString& value)
 {
     attributeChanged(name, value);
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentation::didModifyDOMAttr(document(), this, name.localName(), value);
+#endif
     dispatchSubtreeModifiedEvent();
 }
 
 void Element::didModifyAttribute(const QualifiedName& name, const AtomicString& value)
 {
     attributeChanged(name, value);
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentation::didModifyDOMAttr(document(), this, name.localName(), value);
+#endif
     // Do not dispatch a DOMSubtreeModified event here; see bug 81141.
 }
 
 void Element::didRemoveAttribute(const QualifiedName& name)
 {
     attributeChanged(name, nullAtom);
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentation::didRemoveDOMAttr(document(), this, name.localName());
+#endif
     dispatchSubtreeModifiedEvent();
 }
 

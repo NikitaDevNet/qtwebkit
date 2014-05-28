@@ -58,7 +58,11 @@
 #include "RenderTextFragment.h"
 #include "RenderTheme.h"
 #include "RenderView.h"
+
+#if ENABLE(CFG_SVG)
 #include "SVGTextRunRenderingContext.h"
+#endif
+
 #include "Settings.h"
 #include "ShadowRoot.h"
 #include "TransformState.h"
@@ -8116,8 +8120,10 @@ static inline TextRun constructTextRunInternal(RenderObject* context, const Font
     bool directionalOverride = style->rtlOrdering() == VisualOrder;
 
     TextRun run(characters, length, 0, 0, expansion, textDirection, directionalOverride);
+#if ENABLE(CFG_SVG)
     if (textRunNeedsRenderingContext(font))
         run.setRenderingContext(SVGTextRunRenderingContext::create(context));
+#endif
 
     return run;
 }
@@ -8136,8 +8142,10 @@ static inline TextRun constructTextRunInternal(RenderObject* context, const Font
             directionalOverride |= isOverride(style->unicodeBidi());
     }
     TextRun run(characters, length, 0, 0, expansion, textDirection, directionalOverride);
+#if ENABLE(CFG_SVG)
     if (textRunNeedsRenderingContext(font))
         run.setRenderingContext(SVGTextRunRenderingContext::create(context));
+#endif
 
     return run;
 }

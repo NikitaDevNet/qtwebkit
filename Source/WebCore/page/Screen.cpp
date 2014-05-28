@@ -33,7 +33,11 @@
 #include "FloatRect.h"
 #include "Frame.h"
 #include "FrameView.h"
+
+#if ENABLE(CFG_INSPECTOR)
 #include "InspectorInstrumentation.h"
+#endif
+
 #include "PlatformScreen.h"
 #include "Settings.h"
 #include "Widget.h"
@@ -50,7 +54,9 @@ unsigned Screen::height() const
     if (!m_frame)
         return 0;
     long height = static_cast<long>(screenRect(m_frame->view()).height());
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentation::applyScreenHeightOverride(m_frame, &height);
+#endif
     return static_cast<unsigned>(height);
 }
 
@@ -59,7 +65,9 @@ unsigned Screen::width() const
     if (!m_frame)
         return 0;
     long width = static_cast<long>(screenRect(m_frame->view()).width());
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentation::applyScreenWidthOverride(m_frame, &width);
+#endif
     return static_cast<unsigned>(width);
 }
 

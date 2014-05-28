@@ -53,10 +53,15 @@
 #include "HTMLFrameSetElement.h"
 #include "HTMLNames.h"
 #include "HTMLPlugInImageElement.h"
+
+#if ENABLE(CFG_INSPECTOR)
 #include "InspectorClient.h"
 #include "InspectorController.h"
 #include "InspectorInstrumentation.h"
+#endif
+
 #include "OverflowEvent.h"
+#include "Page.h"
 #include "ProgressTracker.h"
 #include "RenderArena.h"
 #include "RenderEmbeddedObject.h"
@@ -1172,7 +1177,9 @@ void FrameView::layout(bool allowSubtree)
     if (isPainting())
         return;
 
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentationCookie cookie = InspectorInstrumentation::willLayout(m_frame.get());
+#endif
 
     if (!allowSubtree && m_layoutRoot) {
         m_layoutRoot->markContainingBlocksForLayout(false);
@@ -1203,7 +1210,9 @@ void FrameView::layout(bool allowSubtree)
             document->styleResolverChanged(DeferRecalcStyle);
             // FIXME: This instrumentation event is not strictly accurate since cached media query results
             //        do not persist across StyleResolver rebuilds.
+#if ENABLE(CFG_INSPECTOR)
             InspectorInstrumentation::mediaQueryResultChanged(document);
+#endif
         } else
             document->evaluateMediaQueryList();
 
@@ -1422,7 +1431,9 @@ void FrameView::layout(bool allowSubtree)
         m_actionScheduler->resume();
     }
 
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentation::didLayout(cookie, root);
+#endif
 
     m_nestedLayoutCount--;
     if (m_nestedLayoutCount)
@@ -1487,7 +1498,9 @@ String FrameView::mediaType() const
 {
     // See if we have an override type.
     String overrideType = m_frame->loader()->client()->overrideMediaType();
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentation::applyEmulatedMedia(m_frame.get(), &overrideType);
+#endif
     if (!overrideType.isNull())
         return overrideType;
     return m_mediaType;
@@ -2456,7 +2469,9 @@ void FrameView::scheduleRelayout()
         return;
     if (!m_frame->document()->shouldScheduleLayout())
         return;
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentation::didInvalidateLayout(m_frame.get());
+#endif
     // When frame flattening is enabled, the contents of the frame could affect the layout of the parent frames.
     // Also invalidate parent frame starting from the owner element of this frame.
     if (m_frame->ownerRenderer() && isInChildFrameWithFrameFlattening())
@@ -2509,21 +2524,27 @@ void FrameView::scheduleRelayoutOfSubtree(RenderObject* relayoutRoot)
                 m_layoutRoot->markContainingBlocksForLayout(false, relayoutRoot);
                 m_layoutRoot = relayoutRoot;
                 ASSERT(!m_layoutRoot->container() || !m_layoutRoot->container()->needsLayout());
+#if ENABLE(CFG_INSPECTOR)
                 InspectorInstrumentation::didInvalidateLayout(m_frame.get());
+#endif
             } else {
                 // Just do a full relayout
                 if (m_layoutRoot)
                     m_layoutRoot->markContainingBlocksForLayout(false);
                 m_layoutRoot = 0;
                 relayoutRoot->markContainingBlocksForLayout(false);
+#if ENABLE(CFG_INSPECTOR)
                 InspectorInstrumentation::didInvalidateLayout(m_frame.get());
+#endif
             }
         }
     } else if (m_layoutSchedulingEnabled) {
         int delay = m_frame->document()->minimumLayoutDelay();
         m_layoutRoot = relayoutRoot;
         ASSERT(!m_layoutRoot->container() || !m_layoutRoot->container()->needsLayout());
+#if ENABLE(CFG_INSPECTOR)
         InspectorInstrumentation::didInvalidateLayout(m_frame.get());
+#endif
         m_delayedLayout = delay != 0;
         m_layoutTimer.startOneShot(delay * 0.001);
     }
@@ -3596,8 +3617,10 @@ void FrameView::paintContents(GraphicsContext* p, const IntRect& rect)
     if (needsLayout())
         return;
 
+#if ENABLE(CFG_INSPECTOR)
     if (!p->paintingDisabled())
         InspectorInstrumentation::willPaint(renderView);
+#endif
 
     bool isTopLevelPainter = !sCurrentPaintTimeStamp;
     if (isTopLevelPainter)
@@ -3662,7 +3685,9 @@ void FrameView::paintContents(GraphicsContext* p, const IntRect& rect)
         sCurrentPaintTimeStamp = 0;
 
     if (!p->paintingDisabled()) {
+#if ENABLE(CFG_INSPECTOR)
         InspectorInstrumentation::didPaint(renderView, p, rect);
+#endif
         // FIXME: should probably not fire milestones for snapshot painting. https://bugs.webkit.org/show_bug.cgi?id=117623
         firePaintRelatedMilestones();
     }

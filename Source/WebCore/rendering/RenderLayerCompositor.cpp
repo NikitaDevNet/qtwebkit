@@ -40,7 +40,11 @@
 #include "HTMLIFrameElement.h"
 #include "HTMLNames.h"
 #include "HitTestResult.h"
+
+#if ENABLE(CFG_INSPECTOR)
 #include "InspectorInstrumentation.h"
+#endif
+
 #include "Logging.h"
 #include "NodeList.h"
 #include "Page.h"
@@ -625,13 +629,17 @@ void RenderLayerCompositor::updateCompositingLayers(CompositingUpdateType update
         enableCompositingMode(false);
 
     // Inform the inspector that the layer tree has changed.
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentation::layerTreeDidChange(page());
+#endif
 }
 
 void RenderLayerCompositor::layerBecameNonComposited(const RenderLayer* renderLayer)
 {
     // Inform the inspector that the given RenderLayer was destroyed.
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentation::renderLayerDestroyed(page(), renderLayer);
+#endif
 
     ASSERT(m_compositedLayerCount > 0);
     --m_compositedLayerCount;

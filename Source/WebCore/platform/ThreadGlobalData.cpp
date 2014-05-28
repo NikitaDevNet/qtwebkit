@@ -29,7 +29,11 @@
 
 #include "CachedResourceRequestInitiators.h"
 #include "EventNames.h"
+
+#if ENABLE(CFG_INSPECTOR)
 #include "InspectorCounters.h"
+#endif
+
 #include "ThreadTimers.h"
 #include <wtf/MainThread.h>
 #include <wtf/WTFThreadData.h>

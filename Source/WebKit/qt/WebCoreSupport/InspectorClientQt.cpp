@@ -29,6 +29,9 @@
  */
 
 #include "config.h"
+
+#if ENABLE(CFG_INSPECTOR)
+
 #include "InspectorClientQt.h"
 
 #include "Frame.h"
@@ -385,3 +388,4 @@ void InspectorFrontendClientQt::inspectorClientDestroyed()
 #endif
 }
 
+#endif // ENABLE(CFG_INSPECTOR)

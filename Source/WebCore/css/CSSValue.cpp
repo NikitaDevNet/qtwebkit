@@ -53,8 +53,12 @@
 #include "FontValue.h"
 #include "FontFeatureValue.h"
 #include "ShadowValue.h"
+
+#if ENABLE(CFG_SVG)
 #include "SVGColor.h"
 #include "SVGPaint.h"
+#endif
+
 #include "WebKitCSSArrayFunctionValue.h"
 #include "WebKitCSSFilterValue.h"
 #include "WebKitCSSMatFunctionValue.h"

@@ -69,7 +69,11 @@
 #include "HTMLNames.h"
 #include "HTMLStyleElement.h"
 #include "InsertionPoint.h"
+
+#if ENABLE(CFG_INSPECTOR)
 #include "InspectorCounters.h"
+#endif
+
 #include "KeyboardEvent.h"
 #include "LabelsNodeList.h"
 #include "LiveNodeList.h"
@@ -433,7 +437,9 @@ Node::~Node()
 
     m_treeScope->guardDeref();
 
+#if ENABLE(CFG_INSPECTOR)
     InspectorCounters::decrementCounter(InspectorCounters::NodeCounter);
+#endif
 }
 
 void Node::willBeDeletedFrom(Document* document)

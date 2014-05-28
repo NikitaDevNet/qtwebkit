@@ -36,17 +36,26 @@
 #include "EventNames.h"
 #include "ExceptionCode.h"
 #include "File.h"
+#include "Frame.h"
 #include "HTMLDocument.h"
 #include "HTTPParsers.h"
 #include "HistogramSupport.h"
+
+#if ENABLE(CFG_INSPECTOR)
 #include "InspectorInstrumentation.h"
+#endif
+
 #include "JSDOMBinding.h"
 #include "JSDOMWindow.h"
 #include "MemoryCache.h"
 #include "ParsedContentType.h"
 #include "ResourceError.h"
 #include "ResourceRequest.h"
+
+#if ENABLE(CFG_INSPECTOR)
 #include "ScriptCallStack.h"
+#endif
+
 #include "ScriptController.h"
 #include "ScriptProfile.h"
 #include "Settings.h"
@@ -413,16 +422,24 @@ void XMLHttpRequest::callReadyStateChangeListener()
     if (!scriptExecutionContext())
         return;
 
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentationCookie cookie = InspectorInstrumentation::willDispatchXHRReadyStateChangeEvent(scriptExecutionContext(), this);
+#endif
 
     if (m_async || (m_state <= OPENED || m_state == DONE))
         m_progressEventThrottle.dispatchReadyStateChangeEvent(XMLHttpRequestProgressEvent::create(eventNames().readystatechangeEvent), m_state == DONE ? FlushProgressEvent : DoNotFlushProgressEvent);
 
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentation::didDispatchXHRReadyStateChangeEvent(cookie);
+#endif
     if (m_state == DONE && !m_error) {
+#if ENABLE(CFG_INSPECTOR)
         InspectorInstrumentationCookie cookie = InspectorInstrumentation::willDispatchXHRLoadEvent(scriptExecutionContext(), this);
+#endif
         m_progressEventThrottle.dispatchEvent(XMLHttpRequestProgressEvent::create(eventNames().loadEvent));
+#if ENABLE(CFG_INSPECTOR)
         InspectorInstrumentation::didDispatchXHRLoadEvent(cookie);
+#endif
         m_progressEventThrottle.dispatchEvent(XMLHttpRequestProgressEvent::create(eventNames().loadendEvent));
     }
 }
@@ -768,7 +785,9 @@ void XMLHttpRequest::createRequest(ExceptionCode& ec)
     request.setTargetType(ResourceRequest::TargetIsXHR);
 #endif
 
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentation::willLoadXHR(scriptExecutionContext(), this, m_method, m_url, m_async, m_requestEntityBody ? m_requestEntityBody->deepCopy() : 0, m_requestHeaders, m_includeCredentials);
+#endif
 
     if (m_requestEntityBody) {
         ASSERT(m_method != "GET");
@@ -814,9 +833,13 @@ void XMLHttpRequest::createRequest(ExceptionCode& ec)
             setPendingActivity(this);
         }
     } else {
+#if ENABLE(CFG_INSPECTOR)
         InspectorInstrumentation::willLoadXHRSynchronously(scriptExecutionContext());
+#endif
         ThreadableLoader::loadResourceSynchronously(scriptExecutionContext(), request, *this, options);
+#if ENABLE(CFG_INSPECTOR)
         InspectorInstrumentation::didLoadXHRSynchronously(scriptExecutionContext());
+#endif
     }
 
     if (!m_exceptionCode && m_error)
@@ -870,7 +893,9 @@ void XMLHttpRequest::internalAbort()
 
     m_decoder = 0;
 
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentation::didFailXHRLoading(scriptExecutionContext(), this);
+#endif
 
     if (hadLoader)
         dropProtection();
@@ -1143,7 +1168,9 @@ void XMLHttpRequest::didFinishLoading(unsigned long identifier, double)
 
     m_responseBuilder.shrinkToFit();
 
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentation::didFinishXHRLoading(scriptExecutionContext(), this, identifier, m_responseBuilder.toStringPreserveCapacity(), m_url, m_lastSendURL, m_lastSendLineNumber);
+#endif
 
     bool hadLoader = m_loader;
     m_loader = 0;
@@ -1173,7 +1200,9 @@ void XMLHttpRequest::didSendData(unsigned long long bytesSent, unsigned long lon
 
 void XMLHttpRequest::didReceiveResponse(unsigned long identifier, const ResourceResponse& response)
 {
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentation::didReceiveXHRResponse(scriptExecutionContext(), identifier);
+#endif
 
     m_response = response;
     if (!m_mimeTypeOverride.isEmpty()) {

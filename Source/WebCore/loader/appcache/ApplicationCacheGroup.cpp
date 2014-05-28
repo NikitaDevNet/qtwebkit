@@ -39,7 +39,11 @@
 #include "Frame.h"
 #include "FrameLoader.h"
 #include "FrameLoaderClient.h"
+
+#if ENABLE(CFG_INSPECTOR)
 #include "InspectorInstrumentation.h"
+#endif
+
 #include "ManifestParser.h"
 #include "Page.h"
 #include "ResourceBuffer.h"

@@ -44,7 +44,11 @@
 #include "RenderRubyText.h"
 #include "RenderTheme.h"
 #include "Settings.h"
+
+#if ENABLE(CFG_SVG)
 #include "SVGTextRunRenderingContext.h"
+#endif
+
 #include "Text.h"
 #include "break_lines.h"
 #include <wtf/text/CString.h>
@@ -1635,8 +1639,10 @@ TextRun InlineTextBox::constructTextRun(RenderStyle* style, const Font& font, St
 
     TextRun run(string, textPos(), expansion(), expansionBehavior(), direction(), dirOverride() || style->rtlOrdering() == VisualOrder, !textRenderer->canUseSimpleFontCodePath());
     run.setTabSize(!style->collapseWhiteSpace(), style->tabSize());
+#if ENABLE(CFG_SVG)
     if (textRunNeedsRenderingContext(font))
         run.setRenderingContext(SVGTextRunRenderingContext::create(textRenderer));
+#endif
 
     // Propagate the maximum length of the characters buffer to the TextRun, even when we're only processing a substring.
     run.setCharactersLength(maximumLength);

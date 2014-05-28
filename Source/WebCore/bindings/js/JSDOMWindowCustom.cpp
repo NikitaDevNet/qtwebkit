@@ -35,7 +35,10 @@
 #include "Location.h"
 #include "ScheduledAction.h"
 #include "Settings.h"
+
+#if ENABLE(CFG_WORKERS)
 #include "SharedWorkerRepository.h"
+#endif
 
 #if ENABLE(WORKERS)
 #include "JSWorker.h"

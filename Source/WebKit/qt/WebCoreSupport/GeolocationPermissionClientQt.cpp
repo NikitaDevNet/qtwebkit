@@ -31,6 +31,7 @@
 #include "config.h"
 #include "GeolocationPermissionClientQt.h"
 
+#if ENABLE(CFG_GEOLOCATION)
 #include "Geolocation.h"
 #include "QWebFrameAdapter.h"
 #include "QWebPageAdapter.h"
@@ -89,3 +90,5 @@ void GeolocationPermissionClientQt::setPermission(QWebFrameAdapter* webFrame, bo
 
 #endif // ENABLE(GEOLOCATION)
 }
+
+#endif // ENABLE(CFG_GEOLOCATION)

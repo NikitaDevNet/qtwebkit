@@ -60,8 +60,10 @@ void fillWithEmptyClients(Page::PageClients& pageClients)
     static EditorClient* dummyEditorClient = adoptPtr(new EmptyEditorClient).leakPtr();
     pageClients.editorClient = dummyEditorClient;
 
+#if ENABLE(CFG_INSPECTOR)
     static InspectorClient* dummyInspectorClient = adoptPtr(new EmptyInspectorClient).leakPtr();
     pageClients.inspectorClient = dummyInspectorClient;
+#endif
 }
 
 class EmptyPopupMenu : public PopupMenu {

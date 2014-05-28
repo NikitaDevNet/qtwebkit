@@ -35,7 +35,11 @@
 #include "Frame.h"
 #include "FrameLoader.h"
 #include "FrameLoaderClient.h"
+
+#if ENABLE(CFG_INSPECTOR)
 #include "InspectorInstrumentation.h"
+#endif
+
 #include "Page.h"
 #include "ProgressTracker.h"
 #include "ResourceLoader.h"
@@ -97,7 +101,9 @@ void ResourceLoadNotifier::didFailToLoad(ResourceLoader* loader, const ResourceE
     if (!error.isNull())
         m_frame->loader()->client()->dispatchDidFailLoading(loader->documentLoader(), loader->identifier(), error);
 
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentation::didFailLoading(m_frame, loader->documentLoader(), loader->identifier(), error);
+#endif
 }
 
 void ResourceLoadNotifier::assignIdentifierToInitialRequest(unsigned long identifier, DocumentLoader* loader, const ResourceRequest& request)
@@ -116,7 +122,9 @@ void ResourceLoadNotifier::dispatchWillSendRequest(DocumentLoader* loader, unsig
     if (!request.isNull() && oldRequestURL != request.url().string())
         m_frame->loader()->documentLoader()->didTellClientAboutLoad(request.url());
 
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentation::willSendRequest(m_frame, identifier, loader, request, redirectResponse);
+#endif
 
     // Report WebTiming for all frames.
     if (loader && !request.isNull() && request.url() == loader->requestURL())
@@ -129,30 +137,40 @@ void ResourceLoadNotifier::dispatchWillSendRequest(DocumentLoader* loader, unsig
 
 void ResourceLoadNotifier::dispatchDidReceiveResponse(DocumentLoader* loader, unsigned long identifier, const ResourceResponse& r, ResourceLoader* resourceLoader)
 {
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentationCookie cookie = InspectorInstrumentation::willReceiveResourceResponse(m_frame, identifier, r);
+#endif
     m_frame->loader()->client()->dispatchDidReceiveResponse(loader, identifier, r);
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentation::didReceiveResourceResponse(cookie, identifier, loader, r, resourceLoader);
+#endif
 }
 
 void ResourceLoadNotifier::dispatchDidReceiveData(DocumentLoader* loader, unsigned long identifier, const char* data, int dataLength, int encodedDataLength)
 {
     m_frame->loader()->client()->dispatchDidReceiveContentLength(loader, identifier, dataLength);
 
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentation::didReceiveData(m_frame, identifier, data, dataLength, encodedDataLength);
+#endif
 }
 
 void ResourceLoadNotifier::dispatchDidFinishLoading(DocumentLoader* loader, unsigned long identifier, double finishTime)
 {
     m_frame->loader()->client()->dispatchDidFinishLoading(loader, identifier);
 
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentation::didFinishLoading(m_frame, loader, identifier, finishTime);
+#endif
 }
 
 void ResourceLoadNotifier::dispatchDidFailLoading(DocumentLoader* loader, unsigned long identifier, const ResourceError& error)
 {
     m_frame->loader()->client()->dispatchDidFailLoading(loader, identifier, error);
 
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentation::didFailLoading(m_frame, loader, identifier, error);
+#endif
 }
 
 void ResourceLoadNotifier::sendRemainingDelegateMessages(DocumentLoader* loader, unsigned long identifier, const ResourceRequest& request, const ResourceResponse& response, const char* data, int dataLength, int encodedDataLength, const ResourceError& error)

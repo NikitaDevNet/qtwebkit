@@ -33,10 +33,18 @@
 #include "ErrorEvent.h"
 #include "MessagePort.h"
 #include "PublicURLManager.h"
+
+#if ENABLE(CFG_INSPECTOR)
 #include "ScriptCallStack.h"
+#endif
+
 #include "Settings.h"
+
+#if ENABLE(CFG_WORKERS)
 #include "WorkerGlobalScope.h"
 #include "WorkerThread.h"
+#endif
+
 #include <wtf/MainThread.h>
 
 // FIXME: This is a layering violation.
@@ -64,19 +72,27 @@ public:
 class ScriptExecutionContext::PendingException {
     WTF_MAKE_NONCOPYABLE(PendingException);
 public:
-    PendingException(const String& errorMessage, int lineNumber, int columnNumber, const String& sourceURL, PassRefPtr<ScriptCallStack> callStack)
+    PendingException(const String& errorMessage, int lineNumber, int columnNumber, const String& sourceURL
+#if ENABLE(CFG_INSPECTOR)
+                     , PassRefPtr<ScriptCallStack> callStack
+#endif
+                     )
         : m_errorMessage(errorMessage)
         , m_lineNumber(lineNumber)
         , m_columnNumber(columnNumber)
         , m_sourceURL(sourceURL)
+#if ENABLE(CFG_INSPECTOR)
         , m_callStack(callStack)
+#endif
     {
     }
     String m_errorMessage;
     int m_lineNumber;
     int m_columnNumber;
     String m_sourceURL;
+#if ENABLE(CFG_INSPECTOR)
     RefPtr<ScriptCallStack> m_callStack;
+#endif
 };
 
 void ScriptExecutionContext::AddConsoleMessageTask::performTask(ScriptExecutionContext* context)
@@ -289,6 +305,7 @@ bool ScriptExecutionContext::sanitizeScriptError(String& errorMessage, int& line
     return true;
 }
 
+#if ENABLE(CFG_INSPECTOR)
 void ScriptExecutionContext::reportException(const String& errorMessage, int lineNumber, int columnNumber, const String& sourceURL, PassRefPtr<ScriptCallStack> callStack, CachedScript* cachedScript)
 {
     if (m_inDispatchErrorEvent) {
@@ -311,10 +328,13 @@ void ScriptExecutionContext::reportException(const String& errorMessage, int lin
     }
     m_pendingExceptions.clear();
 }
+#endif
 
 void ScriptExecutionContext::addConsoleMessage(MessageSource source, MessageLevel level, const String& message, const String& sourceURL, unsigned lineNumber, unsigned columnNumber, ScriptState* state, unsigned long requestIdentifier)
 {
+#if ENABLE(CFG_INSPECTOR)
     addMessage(source, level, message, sourceURL, lineNumber, columnNumber, 0, state, requestIdentifier);
+#endif
 }
 
 bool ScriptExecutionContext::dispatchErrorEvent(const String& errorMessage, int lineNumber, int columnNumber, const String& sourceURL, CachedScript* cachedScript)

@@ -42,7 +42,11 @@
 #include "PlatformMouseEvent.h"
 #include "RenderImage.h"
 #include "ResourceRequest.h"
+
+#if ENABLE(CFG_SVG)
 #include "SVGImage.h"
+#endif
+
 #include "SecurityOrigin.h"
 #include "SecurityPolicy.h"
 #include "Settings.h"

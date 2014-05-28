@@ -30,6 +30,7 @@
 #ifndef InspectorClientQt_h
 #define InspectorClientQt_h
 
+#if ENABLE(CFG_INSPECTOR)
 #include "InspectorClient.h"
 #include "InspectorFrontendChannel.h"
 #include "InspectorFrontendClientLocal.h"
@@ -112,5 +113,7 @@ private:
     InspectorClientQt* m_inspectorClient;
 };
 }
+
+#endif // ENABLE(CFG_INSPECTOR)
 
 #endif

@@ -85,10 +85,12 @@ PluginStrategy* PlatformStrategiesQt::createPluginStrategy()
     return this;
 }
 
+#if ENABLE(CFG_WORKERS)
 SharedWorkerStrategy* PlatformStrategiesQt::createSharedWorkerStrategy()
 {
     return this;
 }
+#endif
 
 StorageStrategy* PlatformStrategiesQt::createStorageStrategy()
 {

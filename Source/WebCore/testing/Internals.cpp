@@ -51,6 +51,7 @@
 #include "Frame.h"
 #include "FrameLoader.h"
 #include "FrameView.h"
+#include "HitTestResult.h"
 #include "HTMLContentElement.h"
 #include "HTMLInputElement.h"
 #include "HTMLNames.h"
@@ -58,6 +59,8 @@
 #include "HTMLTextAreaElement.h"
 #include "HistoryController.h"
 #include "HistoryItem.h"
+
+#if ENABLE(CFG_INSPECTOR)
 #include "InspectorClient.h"
 #include "InspectorConsoleAgent.h"
 #include "InspectorController.h"
@@ -67,6 +70,8 @@
 #include "InspectorInstrumentation.h"
 #include "InspectorOverlay.h"
 #include "InstrumentingAgents.h"
+#endif
+
 #include "InternalSettings.h"
 #include "IntRect.h"
 #include "Language.h"
@@ -96,7 +101,11 @@
 #include "TreeScope.h"
 #include "TypeConversions.h"
 #include "ViewportArguments.h"
+
+#if ENABLE(CFG_WORKERS)
 #include "WorkerThread.h"
+#endif
+
 #include <wtf/text/CString.h>
 #include <wtf/text/StringBuffer.h>
 

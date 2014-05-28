@@ -39,7 +39,9 @@ struct sqlite3;
 
 namespace WebCore {
 
+#if ENABLE(CFG_SQL_DATABASE)
 class DatabaseAuthorizer;
+#endif
 class SQLiteStatement;
 class SQLiteTransaction;
 
@@ -152,7 +154,9 @@ private:
     bool m_sharable;
     
     Mutex m_authorizerLock;
+#if ENABLE(CFG_SQL_DATABASE)
     RefPtr<DatabaseAuthorizer> m_authorizer;
+#endif
 
     Mutex m_lockingMutex;
     ThreadIdentifier m_openingThread;

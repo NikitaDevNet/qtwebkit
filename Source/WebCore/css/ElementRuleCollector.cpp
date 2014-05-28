@@ -37,7 +37,11 @@
 #include "CSSValueKeywords.h"
 #include "HTMLElement.h"
 #include "RenderRegion.h"
+
+#if ENABLE(CFG_SVG)
 #include "SVGElement.h"
+#endif
+
 #include "SelectorCheckerFastPath.h"
 #include "StylePropertySet.h"
 #include "StyledElement.h"
@@ -385,10 +389,12 @@ inline bool ElementRuleCollector::ruleMatches(const RuleData& ruleData, const Co
 
 void ElementRuleCollector::collectMatchingRulesForList(const Vector<RuleData>* rules, const MatchRequest& matchRequest, StyleResolver::RuleRange& ruleRange)
 {
+#if ENABLE(CFG_INSPECTOR)
     if (UNLIKELY(InspectorInstrumentation::hasFrontends())) {
         doCollectMatchingRulesForList<true>(rules, matchRequest, ruleRange);
         return;
     }
+#endif
     doCollectMatchingRulesForList<false>(rules, matchRequest, ruleRange);
 }
 
@@ -407,30 +413,41 @@ void ElementRuleCollector::doCollectMatchingRulesForList(const Vector<RuleData>*
             continue;
 
         StyleRule* rule = ruleData.rule();
+#if ENABLE(CFG_INSPECTOR)
         InspectorInstrumentationCookie cookie;
+#endif
+#if ENABLE(CFG_INSPECTOR)
         if (hasInspectorFrontends)
             cookie = InspectorInstrumentation::willMatchRule(document(), rule, m_inspectorCSSOMWrappers, document()->styleSheetCollection());
+#endif
+
         PseudoId dynamicPseudo = NOPSEUDO;
         if (ruleMatches(ruleData, matchRequest.scope, dynamicPseudo)) {
             // If the rule has no properties to apply, then ignore it in the non-debug mode.
             const StylePropertySet* properties = rule->properties();
             if (!properties || (properties->isEmpty() && !matchRequest.includeEmptyRules)) {
                 if (hasInspectorFrontends)
+#if ENABLE(CFG_INSPECTOR)
                     InspectorInstrumentation::didMatchRule(cookie, false);
+#endif
                 continue;
             }
             // FIXME: Exposing the non-standard getMatchedCSSRules API to web is the only reason this is needed.
             if (m_sameOriginOnly && !ruleData.hasDocumentSecurityOrigin()) {
+#if ENABLE(CFG_INSPECTOR)
                 if (hasInspectorFrontends)
                     InspectorInstrumentation::didMatchRule(cookie, false);
+#endif
                 continue;
             }
             // If we're matching normal rules, set a pseudo bit if
             // we really just matched a pseudo-element.
             if (dynamicPseudo != NOPSEUDO && m_pseudoStyleRequest.pseudoId == NOPSEUDO) {
                 if (m_mode == SelectorChecker::CollectingRules) {
+#if ENABLE(CFG_INSPECTOR)
                     if (hasInspectorFrontends)
                         InspectorInstrumentation::didMatchRule(cookie, false);
+#endif
                     continue;
                 }
                 if (dynamicPseudo < FIRST_INTERNAL_PSEUDOID)
@@ -443,13 +460,17 @@ void ElementRuleCollector::doCollectMatchingRulesForList(const Vector<RuleData>*
 
                 // Add this rule to our list of matched rules.
                 addMatchedRule(&ruleData);
+#if ENABLE(CFG_INSPECTOR)
                 if (hasInspectorFrontends)
                     InspectorInstrumentation::didMatchRule(cookie, true);
+#endif
                 continue;
             }
         }
+#if ENABLE(CFG_INSPECTOR)
         if (hasInspectorFrontends)
             InspectorInstrumentation::didMatchRule(cookie, false);
+#endif
     }
 }
 

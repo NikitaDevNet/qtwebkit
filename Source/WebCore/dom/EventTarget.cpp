@@ -34,7 +34,12 @@
 
 #include "Event.h"
 #include "EventException.h"
+#include "FeatureObserver.h"
+
+#if ENABLE(CFG_INSPECTOR)
 #include "InspectorInstrumentation.h"
+#endif
+
 #include "ScriptController.h"
 #include "WebKitTransitionEvent.h"
 #include <wtf/MainThread.h>
@@ -242,13 +247,17 @@ void EventTarget::fireEventListeners(Event* event, EventTargetData* d, EventList
             break;
 
         ScriptExecutionContext* context = scriptExecutionContext();
+#if ENABLE(CFG_INSPECTOR)
         InspectorInstrumentationCookie cookie = InspectorInstrumentation::willHandleEvent(context, event);
+#endif
         // To match Mozilla, the AT_TARGET phase fires both capturing and bubbling
         // event listeners, even though that violates some versions of the DOM spec.
         registeredListener.listener->handleEvent(context, event);
         if (!userEventWasHandled && ScriptController::processingUserGesture())
             userEventWasHandled = true;
+#if ENABLE(CFG_INSPECTOR)
         InspectorInstrumentation::didHandleEvent(cookie);
+#endif
     }
     d->firingEventIterators->removeLast();
     if (userEventWasHandled) {

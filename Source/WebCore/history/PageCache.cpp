@@ -31,7 +31,11 @@
 #include "MemoryCache.h"
 #include "CachedPage.h"
 #include "DOMWindow.h"
+
+#if ENABLE(CFG_SQL_DATABASE)
 #include "DatabaseManager.h"
+#endif
+
 #include "DeviceMotionController.h"
 #include "DeviceOrientationController.h"
 #include "Document.h"
@@ -47,7 +51,11 @@
 #include "Logging.h"
 #include "Page.h"
 #include "Settings.h"
+
+#if ENABLE(CFG_WORKERS)
 #include "SharedWorkerRepository.h"
+#endif
+
 #include <wtf/CurrentTime.h>
 #include <wtf/text/CString.h>
 #include <wtf/text/StringConcatenate.h>

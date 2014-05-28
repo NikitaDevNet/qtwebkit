@@ -32,12 +32,19 @@
 #include "config.h"
 #include "ScriptCallStackFactory.h"
 
+#if ENABLE(CFG_INSPECTOR)
 #include "InspectorInstrumentation.h"
+#endif
+
 #include "JSDOMBinding.h"
 #include "JSMainThreadExecState.h"
+
+#if ENABLE(CFG_INSPECTOR)
 #include "ScriptArguments.h"
 #include "ScriptCallFrame.h"
 #include "ScriptCallStack.h"
+#endif
+
 #include "ScriptValue.h"
 #include <interpreter/CallFrame.h>
 #include <interpreter/Interpreter.h>
@@ -53,6 +60,7 @@ namespace WebCore {
 
 class ScriptExecutionContext;
 
+#if ENABLE(CFG_INSPECTOR)
 PassRefPtr<ScriptCallStack> createScriptCallStack(size_t maxStackSize, bool emptyIsAllowed)
 {
     Vector<ScriptCallFrame> frames;
@@ -148,5 +156,6 @@ PassRefPtr<ScriptArguments> createScriptArguments(JSC::ExecState* exec, unsigned
         arguments.append(ScriptValue(exec->vm(), exec->argument(i)));
     return ScriptArguments::create(exec, arguments);
 }
+#endif
 
 } // namespace WebCore

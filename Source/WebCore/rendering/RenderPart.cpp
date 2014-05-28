@@ -31,7 +31,11 @@
 #include "HitTestResult.h"
 #include "PluginViewBase.h"
 #include "RenderLayer.h"
+
+#if ENABLE(CFG_SVG)
 #include "RenderSVGRoot.h"
+#endif
+
 #include "RenderView.h"
 
 using namespace std;

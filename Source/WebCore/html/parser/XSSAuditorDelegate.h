@@ -66,7 +66,9 @@ public:
     void setReportURL(const KURL& url) { m_reportURL = url; }
 
 private:
+#if ENABLE(CFG_INSPECTOR)
     PassRefPtr<FormData> generateViolationReport();
+#endif
 
     Document* m_document;
     bool m_didSendNotifications;

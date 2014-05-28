@@ -33,7 +33,11 @@
 #include <LoaderStrategy.h>
 #include <PlatformStrategies.h>
 #include <PluginStrategy.h>
+
+#if ENABLE(CFG_WORKERS)
 #include <SharedWorkerStrategy.h>
+#endif
+
 #include <StorageStrategy.h>
 #include <VisitedLinkStrategy.h>
 
@@ -41,7 +45,11 @@ namespace WebCore {
 class PasteboardStrategy;
 }
 
-class PlatformStrategiesQt : public WebCore::PlatformStrategies, private WebCore::CookiesStrategy, private WebCore::DatabaseStrategy, private WebCore::LoaderStrategy, private WebCore::PluginStrategy, private WebCore::SharedWorkerStrategy, private WebCore::StorageStrategy, private WebCore::VisitedLinkStrategy {
+class PlatformStrategiesQt : public WebCore::PlatformStrategies, private WebCore::CookiesStrategy, private WebCore::DatabaseStrategy, private WebCore::LoaderStrategy, private WebCore::PluginStrategy
+#if ENABLE(CFG_WORKERS)
+        , private WebCore::SharedWorkerStrategy
+#endif
+        , private WebCore::StorageStrategy, private WebCore::VisitedLinkStrategy {
 public:
     static void initialize();
 
@@ -54,7 +62,9 @@ private:
     virtual WebCore::LoaderStrategy* createLoaderStrategy();
     virtual WebCore::PasteboardStrategy* createPasteboardStrategy();
     virtual WebCore::PluginStrategy* createPluginStrategy();
+#if ENABLE(CFG_WORKERS)
     virtual WebCore::SharedWorkerStrategy* createSharedWorkerStrategy();
+#endif
     virtual WebCore::StorageStrategy* createStorageStrategy();
     virtual WebCore::VisitedLinkStrategy* createVisitedLinkStrategy();
     

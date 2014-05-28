@@ -27,7 +27,10 @@
  */
 
 #include "config.h"
+
+#if ENABLE(CFG_SQL_DATABASE)
 #include "DatabaseAuthorizer.h"
+#endif
 
 #include <sqlite3.h>
 

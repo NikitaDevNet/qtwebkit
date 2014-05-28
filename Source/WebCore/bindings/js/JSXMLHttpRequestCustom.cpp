@@ -37,7 +37,11 @@
 #include "Frame.h"
 #include "FrameLoader.h"
 #include "HTMLDocument.h"
+
+#if ENABLE(CFG_INSPECTOR)
 #include "InspectorInstrumentation.h"
+#endif
+
 #include "JSArrayBuffer.h"
 #include "JSArrayBufferView.h"
 #include "JSBlob.h"
@@ -110,7 +114,9 @@ JSValue JSXMLHttpRequest::open(ExecState* exec)
 
 JSValue JSXMLHttpRequest::send(ExecState* exec)
 {
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentation::willSendXMLHttpRequest(impl()->scriptExecutionContext(), impl()->url());
+#endif
 
     ExceptionCode ec = 0;
     if (!exec->argumentCount())

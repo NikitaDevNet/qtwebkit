@@ -37,7 +37,11 @@
 #include "HTMLNames.h"
 #include "InlineTextBox.h"
 #include "InsertionPoint.h"
+
+#if ENABLE(CFG_INSPECTOR)
 #include "InspectorInstrumentation.h"
+#endif
+
 #include "JSNode.h"
 #include "LoaderStrategy.h"
 #include "MemoryCache.h"
@@ -280,7 +284,9 @@ bool ContainerNode::insertBefore(PassRefPtr<Node> newChild, Node* refChild, Exce
     if (!checkAcceptChildGuaranteedNodeTypes(this, newChild.get(), ec))
         return false;
 
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentation::willInsertDOMNode(document(), this);
+#endif
 
     ChildListMutationScope mutation(this);
     for (NodeVector::const_iterator it = targets.begin(); it != targets.end(); ++it) {
@@ -412,7 +418,9 @@ bool ContainerNode::replaceChild(PassRefPtr<Node> newChild, Node* oldChild, Exce
     if (!checkReplaceChild(this, newChild.get(), oldChild, ec))
         return false;
 
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentation::willInsertDOMNode(document(), this);
+#endif
 
     // Add the new child(ren)
     for (NodeVector::const_iterator it = targets.begin(); it != targets.end(); ++it) {
@@ -657,7 +665,9 @@ bool ContainerNode::appendChild(PassRefPtr<Node> newChild, ExceptionCode& ec, At
     if (!checkAcceptChildGuaranteedNodeTypes(this, newChild.get(), ec))
         return false;
 
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentation::willInsertDOMNode(document(), this);
+#endif
 
     // Now actually add the child(ren)
     ChildListMutationScope mutation(this);
@@ -1009,14 +1019,18 @@ static void dispatchChildInsertionEvents(Node* child)
 static void dispatchChildRemovalEvents(Node* child)
 {
     if (child->isInShadowTree()) {
+#if ENABLE(CFG_INSPECTOR)
         InspectorInstrumentation::willRemoveDOMNode(child->document(), child);
+#endif
         return;
     }
 
     ASSERT(!NoEventDispatchAssertion::isEventDispatchForbidden());
 
     willCreatePossiblyOrphanedTreeByRemoval(child);
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentation::willRemoveDOMNode(child->document(), child);
+#endif
 
     RefPtr<Node> c = child;
     RefPtr<Document> document = child->document();

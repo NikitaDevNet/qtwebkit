@@ -26,7 +26,11 @@
 #include "EventNames.h"
 #include "ExceptionCode.h"
 #include "FrameSelection.h"
+
+#if ENABLE(CFG_INSPECTOR)
 #include "InspectorInstrumentation.h"
+#endif
+
 #include "MutationEvent.h"
 #include "MutationObserverInterestGroup.h"
 #include "MutationRecord.h"

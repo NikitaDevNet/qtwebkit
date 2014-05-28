@@ -30,7 +30,13 @@
 #include "DeviceOrientationClient.h"
 #include "DeviceOrientationData.h"
 #include "DeviceOrientationEvent.h"
+
+#if ENABLE(CFG_INSPECTOR)
 #include "InspectorInstrumentation.h"
+#endif
+
+#include "Page.h"
+
 
 namespace WebCore {
 
@@ -49,7 +55,10 @@ PassOwnPtr<DeviceOrientationController> DeviceOrientationController::create(Page
 
 void DeviceOrientationController::didChangeDeviceOrientation(DeviceOrientationData* orientation)
 {
+// TODO: (cfg_config) may be error
+#if ENABLE(CFG_INSPECTOR)
     orientation = InspectorInstrumentation::overrideDeviceOrientation(m_page, orientation);
+#endif
     dispatchDeviceEvent(DeviceOrientationEvent::create(eventNames().deviceorientationEvent, orientation));
 }
 

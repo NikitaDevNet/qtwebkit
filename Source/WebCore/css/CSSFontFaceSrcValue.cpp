@@ -32,7 +32,11 @@
 #include "Document.h"
 #include "FontCustomPlatformData.h"
 #include "Node.h"
+
+#if ENABLE(CFG_SVG)
 #include "SVGFontFaceElement.h"
+#endif
+
 #include "StyleSheetContents.h"
 #include <wtf/text/StringBuilder.h>
 

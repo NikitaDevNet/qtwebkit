@@ -44,15 +44,27 @@
 #include "FrameLoaderClientQt.h"
 #include "FrameView.h"
 #include "GCController.h"
+
+#if ENABLE(CFG_GEOLOCATION)
 #include "GeolocationClient.h"
+#endif
+
 #include "GeolocationClientMock.h"
+
+#if ENABLE(CFG_GEOLOCATION)
 #include "GeolocationController.h"
 #include "GeolocationError.h"
 #include "GeolocationPosition.h"
+#endif
+
 #include "HTMLFormElement.h"
 #include "HTMLInputElement.h"
 #include "HistoryItem.h"
+
+#if ENABLE(CFG_INSPECTOR)
 #include "InspectorController.h"
+#endif
+
 #include "JSNode.h"
 #include "NodeList.h"
 #include "NotificationPresenterClientQt.h"
@@ -60,7 +72,11 @@
 #include "PageGroup.h"
 #include "PluginDatabase.h"
 #include "PluginView.h"
+
+#if ENABLE(CFG_GEOLOCATION)
 #include "PositionError.h"
+#endif
+
 #include "PrintContext.h"
 #include "QWebFrameAdapter.h"
 #include "QWebPageAdapter.h"

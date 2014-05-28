@@ -30,7 +30,11 @@
 #define PageConsole_h
 
 #include "ConsoleTypes.h"
+
+#if ENABLE(CFG_INSPECTOR)
 #include "ScriptCallStack.h"
+#endif
+
 #include "ScriptState.h"
 #include <wtf/Forward.h>
 #include <wtf/PassOwnPtr.h>
@@ -48,8 +52,10 @@ public:
     static void printSourceURLAndLine(const String& sourceURL, unsigned lineNumber);
     static void printMessageSourceAndLevelPrefix(MessageSource, MessageLevel);
 
+#if ENABLE(CFG_INSPECTOR)
     void addMessage(MessageSource, MessageLevel, const String& message, const String& sourceURL, unsigned lineNumber, unsigned columnNumber, PassRefPtr<ScriptCallStack> = 0, ScriptState* = 0, unsigned long requestIdentifier = 0);
     void addMessage(MessageSource, MessageLevel, const String& message, PassRefPtr<ScriptCallStack>);
+#endif
     void addMessage(MessageSource, MessageLevel, const String& message, unsigned long requestIdentifier = 0, Document* = 0);
 
     static void mute();

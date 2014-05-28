@@ -34,7 +34,11 @@
 #include "HTMLStyleElement.h"
 #include "MediaList.h"
 #include "Node.h"
+
+#if ENABLE(CFG_SVG)
 #include "SVGNames.h"
+#endif
+
 #include "SecurityOrigin.h"
 #include "StyleRule.h"
 #include "StyleSheetContents.h"

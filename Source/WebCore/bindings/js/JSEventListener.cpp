@@ -22,12 +22,20 @@
 
 #include "Event.h"
 #include "Frame.h"
+
+#if ENABLE(CFG_INSPECTOR)
 #include "InspectorCounters.h"
+#endif
+
 #include "JSEvent.h"
 #include "JSEventTarget.h"
 #include "JSMainThreadExecState.h"
 #include "ScriptController.h"
+
+#if ENABLE(CFG_WORKERS)
 #include "WorkerGlobalScope.h"
+#endif
+
 #include <runtime/ExceptionHelpers.h>
 #include <runtime/JSLock.h>
 #include <wtf/RefCountedLeakCounter.h>
@@ -122,14 +130,18 @@ void JSEventListener::handleEvent(ScriptExecutionContext* scriptExecutionContext
         VM& vm = globalObject->vm();
         DynamicGlobalObjectScope globalObjectScope(vm, vm.dynamicGlobalObject ? vm.dynamicGlobalObject : globalObject);
 
+#if ENABLE(CFG_INSPECTOR)
         InspectorInstrumentationCookie cookie = JSMainThreadExecState::instrumentFunctionCall(scriptExecutionContext, callType, callData);
+#endif
 
         JSValue thisValue = handleEventFunction == jsFunction ? toJS(exec, globalObject, event->currentTarget()) : jsFunction;
         JSValue retval = scriptExecutionContext->isDocument()
             ? JSMainThreadExecState::call(exec, handleEventFunction, callType, callData, thisValue, args)
             : JSC::call(exec, handleEventFunction, callType, callData, thisValue, args);
 
+#if ENABLE(CFG_INSPECTOR)
         InspectorInstrumentation::didCallFunction(cookie);
+#endif
 
         globalObject->setCurrentEvent(savedEvent);
 

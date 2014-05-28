@@ -39,7 +39,11 @@
 #include "FloatRect.h"
 #include "FocusDirection.h"
 #include "FrameLoaderClient.h"
+
+#if ENABLE(CFG_INSPECTOR)
 #include "InspectorClient.h"
+#endif
+
 #include "Page.h"
 #include "ResourceError.h"
 
@@ -552,6 +556,7 @@ public:
 };
 #endif // ENABLE(DRAG_SUPPORT)
 
+#if ENABLE(CFG_INSPECTOR)
 class EmptyInspectorClient : public InspectorClient {
     WTF_MAKE_NONCOPYABLE(EmptyInspectorClient); WTF_MAKE_FAST_ALLOCATED;
 public:
@@ -567,6 +572,7 @@ public:
     virtual void highlight() { }
     virtual void hideHighlight() { }
 };
+#endif
 
 class EmptyDeviceClient : public DeviceClient {
 public:

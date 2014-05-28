@@ -26,7 +26,10 @@
 #include "config.h"
 #include "StorageTracker.h"
 
+#if ENABLE(CFG_SQL_DATABASE)
 #include "DatabaseThread.h"
+#endif
+
 #include "FileSystem.h"
 #include "StorageThread.h"
 #include "Logging.h"

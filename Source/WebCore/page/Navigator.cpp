@@ -30,7 +30,11 @@
 #include "Frame.h"
 #include "FrameLoader.h"
 #include "FrameLoaderClient.h"
+
+#if ENABLE(CFG_GEOLOCATION)
 #include "Geolocation.h"
+#endif
+
 #include "Language.h"
 #include "Page.h"
 #include "PluginData.h"

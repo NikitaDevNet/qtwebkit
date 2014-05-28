@@ -28,8 +28,11 @@
 #include "ActiveDOMObject.h"
 
 #include "ScriptExecutionContext.h"
+
+#if ENABLE(CFG_WORKERS)
 #include "WorkerGlobalScope.h"
 #include "WorkerThread.h"
+#endif
 
 namespace WebCore {
 

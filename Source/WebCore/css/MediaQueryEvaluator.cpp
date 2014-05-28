@@ -371,7 +371,9 @@ static bool device_heightMediaFeatureEval(CSSValue* value, RenderStyle* style, F
         RenderStyle* rootStyle = frame->document()->documentElement()->renderStyle();
         int length;
         long height = sg.height();
+#if ENABLE(CFG_INSPECTOR)
         InspectorInstrumentation::applyScreenHeightOverride(frame, &height);
+#endif
         return computeLength(value, !frame->document()->inQuirksMode(), style, rootStyle, length) && compareValue(static_cast<int>(height), length, op);
     }
     // ({,min-,max-}device-height)
@@ -386,7 +388,9 @@ static bool device_widthMediaFeatureEval(CSSValue* value, RenderStyle* style, Fr
         RenderStyle* rootStyle = frame->document()->documentElement()->renderStyle();
         int length;
         long width = sg.width();
+#if ENABLE(CFG_INSPECTOR)
         InspectorInstrumentation::applyScreenWidthOverride(frame, &width);
+#endif
         return computeLength(value, !frame->document()->inQuirksMode(), style, rootStyle, length) && compareValue(static_cast<int>(width), length, op);
     }
     // ({,min-,max-}device-width)

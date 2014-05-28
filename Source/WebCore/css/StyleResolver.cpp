@@ -75,11 +75,19 @@
 #include "HTMLTableElement.h"
 #include "HTMLTextAreaElement.h"
 #include "InsertionPoint.h"
+
+#if ENABLE(CFG_INSPECTOR)
 #include "InspectorInstrumentation.h"
+#endif
+
 #include "KeyframeList.h"
 #include "LinkHash.h"
 #include "LocaleToScriptMapping.h"
+
+#if ENABLE(CFG_MATHML)
 #include "MathMLNames.h"
+#endif
+
 #include "MediaList.h"
 #include "MediaQueryEvaluator.h"
 #include "NodeRenderStyle.h"
@@ -96,8 +104,12 @@
 #include "RenderTheme.h"
 #include "RenderView.h"
 #include "RuleSet.h"
+
+#if ENABLE(CFG_SVG)
 #include "SVGDocumentExtensions.h"
 #include "SVGFontFaceElement.h"
+#endif
+
 #include "SecurityOrigin.h"
 #include "SelectorCheckerFastPath.h"
 #include "Settings.h"
@@ -967,9 +979,11 @@ PassRefPtr<RenderStyle> StyleResolver::styleForElement(Element* element, RenderS
         state.style()->setIsLink(true);
         EInsideLink linkState = state.elementLinkState();
         if (linkState != NotInsideLink) {
+#if ENABLE(CFG_INSPECTOR)
             bool forceVisited = InspectorInstrumentation::forcePseudoState(element, CSSSelector::PseudoVisited);
             if (forceVisited)
                 linkState = InsideVisitedLink;
+#endif
         }
         state.style()->setInsideLink(linkState);
     }
@@ -1663,7 +1677,9 @@ template <StyleResolver::StyleApplicationPass pass>
 void StyleResolver::applyProperties(const StylePropertySet* properties, StyleRule* rule, bool isImportant, bool inheritedOnly, PropertyWhitelistType propertyWhitelistType)
 {
     ASSERT((propertyWhitelistType != PropertyWhitelistRegion) || m_state.regionForStyling());
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentationCookie cookie = InspectorInstrumentation::willProcessRule(document(), rule, this);
+#endif
 
     unsigned propertyCount = properties->propertyCount();
     for (unsigned i = 0; i < propertyCount; ++i) {
@@ -1713,7 +1729,9 @@ void StyleResolver::applyProperties(const StylePropertySet* properties, StyleRul
                 applyProperty(current.id(), current.value());
         }
     }
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentation::didProcessRule(cookie);
+#endif
 }
 
 template <StyleResolver::StyleApplicationPass pass>

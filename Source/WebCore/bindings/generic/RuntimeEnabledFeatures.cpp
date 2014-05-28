@@ -31,10 +31,19 @@
 #include "config.h"
 #include "RuntimeEnabledFeatures.h"
 
+#if ENABLE(CFG_SQL_DATABASE)
 #include "DatabaseManager.h"
+#endif
+
 #include "MediaPlayer.h"
+
+#if ENABLE(CFG_WORKERS)
 #include "SharedWorkerRepository.h"
+#endif
+
+#if ENABLE(WEB_SOCKETS)
 #include "WebSocket.h"
+#endif
 
 #if ENABLE(FILE_SYSTEM)
 #include "AsyncFileSystem.h"

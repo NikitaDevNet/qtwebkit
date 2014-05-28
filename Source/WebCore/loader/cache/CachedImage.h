@@ -28,7 +28,11 @@
 #include "IntRect.h"
 #include "IntSizeHash.h"
 #include "LayoutSize.h"
+
+#if ENABLE(CFG_SVG)
 #include "SVGImageCache.h"
+#endif
+
 #include <wtf/HashMap.h>
 #include <wtf/Vector.h>
 

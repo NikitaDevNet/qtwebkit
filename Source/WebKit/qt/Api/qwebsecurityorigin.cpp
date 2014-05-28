@@ -21,13 +21,21 @@
 #include "qwebsecurityorigin.h"
 
 #include "ApplicationCacheStorage.h"
+
+#if ENABLE(CFG_SQL_DATABASE)
 #include "DatabaseManager.h"
+#endif
+
 #include "KURL.h"
 #include "SchemeRegistry.h"
 #include "SecurityOrigin.h"
 #include "SecurityPolicy.h"
+
+#if ENABLE(CFG_SQL_DATABASE)
 #include "qwebdatabase.h"
 #include "qwebdatabase_p.h"
+#endif
+
 #include "qwebsecurityorigin_p.h"
 #include <QStringList>
 
@@ -193,6 +201,7 @@ QList<QWebSecurityOrigin> QWebSecurityOrigin::allOrigins()
     return webOrigins;
 }
 
+#if ENABLE(CFG_SQL_DATABASE)
 /*!
     Returns a list of all databases defined in the security origin.
 */
@@ -216,6 +225,7 @@ QList<QWebDatabase> QWebSecurityOrigin::databases() const
 
     return databases;
 }
+#endif // ENABLE(CFG_SQL_DATABASE)
 
 /*!
     \since 4.6

@@ -99,8 +99,12 @@
 #include "HitTestResult.h"
 #include "IconController.h"
 #include "ImageLoader.h"
+
+#if ENABLE(CFG_INSPECTOR)
 #include "InspectorCounters.h"
 #include "InspectorInstrumentation.h"
+#endif
+
 #include "Language.h"
 #include "Logging.h"
 #include "MediaCanStartListener.h"
@@ -133,7 +137,11 @@
 #include "RuntimeEnabledFeatures.h"
 #include "SchemeRegistry.h"
 #include "ScopedEventQueue.h"
+
+#if ENABLE(CFG_INSPECTOR)
 #include "ScriptCallStack.h"
+#endif
+
 #include "ScriptController.h"
 #include "ScriptRunner.h"
 #include "ScriptSourceCode.h"
@@ -519,7 +527,9 @@ Document::Document(Frame* frame, const KURL& url, unsigned documentClasses)
     for (unsigned i = 0; i < WTF_ARRAY_LENGTH(m_nodeListCounts); i++)
         m_nodeListCounts[i] = 0;
 
+#if ENABLE(CFG_INSPECTOR)
     InspectorCounters::incrementCounter(InspectorCounters::DocumentCounter);
+#endif
 }
 
 static void histogramMutationEventUsage(const unsigned short& listenerTypes)
@@ -618,7 +628,9 @@ Document::~Document()
 
     clearDocumentScope();
 
+#if ENABLE(CFG_INSPECTOR)
     InspectorCounters::decrementCounter(InspectorCounters::DocumentCounter);
+#endif
 }
 
 void Document::dispose()
@@ -1713,7 +1725,9 @@ void Document::scheduleStyleRecalc()
     
     m_styleRecalcTimer.startOneShot(0);
 
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentation::didScheduleStyleRecalculation(this);
+#endif
 }
 
 void Document::unscheduleStyleRecalc()
@@ -1767,7 +1781,9 @@ void Document::recalcStyle(StyleChange change)
     if (m_styleSheetCollection->needsUpdateActiveStylesheetsOnStyleRecalc())
         m_styleSheetCollection->updateActiveStyleSheets(DocumentStyleSheetCollection::FullUpdate);
 
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentationCookie cookie = InspectorInstrumentation::willRecalculateStyle(this);
+#endif
 
     if (m_elemSheet && m_elemSheet->contents()->usesRemUnits())
         m_styleSheetCollection->setUsesRemUnit(true);
@@ -1837,7 +1853,9 @@ void Document::recalcStyle(StyleChange change)
         implicitClose();
     }
 
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentation::didRecalculateStyle(cookie);
+#endif
 
     // As a result of the style recalculation, the currently hovered element might have been
     // detached (for example, by setting display:none in the :hover style), schedule another mouseMove event
@@ -2602,10 +2620,12 @@ EventTarget* Document::errorEventTarget()
     return domWindow();
 }
 
+#if ENABLE(CFG_INSPECTOR)
 void Document::logExceptionToConsole(const String& errorMessage, const String& sourceURL, int lineNumber, int columnNumber, PassRefPtr<ScriptCallStack> callStack)
 {
     addMessage(JSMessageSource, ErrorMessageLevel, errorMessage, sourceURL, lineNumber, columnNumber, callStack);
 }
+#endif
 
 void Document::setURL(const KURL& url)
 {
@@ -4422,7 +4442,9 @@ void Document::finishedParsing()
 
         f->loader()->finishedParsing();
 
+#if ENABLE(CFG_INSPECTOR)
         InspectorInstrumentation::domContentLoadedEventFired(f.get());
+#endif
     }
 
     // Schedule dropping of the DocumentSharedObjectPool. We keep it alive for a while after parsing finishes
@@ -4751,6 +4773,7 @@ void Document::addConsoleMessage(MessageSource source, MessageLevel level, const
         page->console()->addMessage(source, level, message, requestIdentifier, this);
 }
 
+#if ENABLE(CFG_INSPECTOR)
 void Document::addMessage(MessageSource source, MessageLevel level, const String& message, const String& sourceURL, unsigned lineNumber, unsigned columnNumber, PassRefPtr<ScriptCallStack> callStack, ScriptState* state, unsigned long requestIdentifier)
 {
     if (!isContextThread()) {
@@ -4761,6 +4784,7 @@ void Document::addMessage(MessageSource source, MessageLevel level, const String
     if (Page* page = this->page())
         page->console()->addMessage(source, level, message, sourceURL, lineNumber, columnNumber, callStack, state, requestIdentifier);
 }
+#endif
 
 SecurityOrigin* Document::topOrigin() const
 {

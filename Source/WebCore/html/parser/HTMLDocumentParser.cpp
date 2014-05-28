@@ -43,7 +43,11 @@
 #include "HTMLScriptRunner.h"
 #include "HTMLTreeBuilder.h"
 #include "HTMLDocument.h"
+
+#if ENABLE(CFG_INSPECTOR)
 #include "InspectorInstrumentation.h"
+#endif
+
 #include "NestingLevelIncrementer.h"
 #include "Settings.h"
 #include <wtf/Functional.h>
@@ -322,13 +326,17 @@ void HTMLDocumentParser::didReceiveParsedChunkFromBackgroundParser(PassOwnPtr<Pa
     // but we need to ensure it isn't deleted yet.
     RefPtr<HTMLDocumentParser> protect(this);
 
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentationCookie cookie = InspectorInstrumentation::willWriteHTML(document(), lineNumber().zeroBasedInt());
+#endif
 
     ASSERT(m_speculations.isEmpty());
     chunk->preloads.clear(); // We don't need to preload because we're going to parse immediately.
     processParsedChunkFromBackgroundParser(chunk);
 
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentation::didWriteHTML(cookie, lineNumber().zeroBasedInt());
+#endif
 }
 
 void HTMLDocumentParser::validateSpeculations(PassOwnPtr<ParsedChunk> chunk)
@@ -466,7 +474,9 @@ void HTMLDocumentParser::pumpPendingSpeculations()
     ASSERT(!m_lastChunkBeforeScript);
 
     // FIXME: Pass in current input length.
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentationCookie cookie = InspectorInstrumentation::willWriteHTML(document(), lineNumber().zeroBasedInt());
+#endif
 
     double startTime = currentTime();
 
@@ -482,7 +492,9 @@ void HTMLDocumentParser::pumpPendingSpeculations()
         }
     }
 
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentation::didWriteHTML(cookie, lineNumber().zeroBasedInt());
+#endif
 }
 
 #endif // ENABLE(THREADED_HTML_PARSER)
@@ -528,7 +540,9 @@ void HTMLDocumentParser::pumpTokenizer(SynchronousMode mode)
     // FIXME: m_input.current().length() is only accurate if we
     // end up parsing the whole buffer in this pump.  We should pass how
     // much we parsed as part of didWriteHTML instead of willWriteHTML.
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentationCookie cookie = InspectorInstrumentation::willWriteHTML(document(), m_input.current().currentLine().zeroBasedInt());
+#endif
 
     m_xssAuditor.init(document(), &m_xssAuditorDelegate);
 
@@ -571,7 +585,9 @@ void HTMLDocumentParser::pumpTokenizer(SynchronousMode mode)
         m_preloadScanner->scan(m_preloader.get(), document()->baseElementURL());
     }
 
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentation::didWriteHTML(cookie, m_input.current().currentLine().zeroBasedInt());
+#endif
 }
 
 void HTMLDocumentParser::constructTreeFromHTMLToken(HTMLToken& rawToken)

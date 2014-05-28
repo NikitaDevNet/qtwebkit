@@ -24,7 +24,11 @@
 
 #include "ApplicationCacheStorage.h"
 #include "CrossOriginPreflightResultCache.h"
+
+#if ENABLE(CFG_SQL_DATABASE)
 #include "DatabaseManager.h"
+#endif
+
 #include "FileSystem.h"
 #include "FontCache.h"
 #include "GCController.h"
@@ -45,7 +49,11 @@
 #include "RuntimeEnabledFeatures.h"
 #include "Settings.h"
 #include "StorageThread.h"
+
+#if ENABLE(CFG_WORKERS)
 #include "WorkerThread.h"
+#endif
+
 #include <QDir>
 #include <QFileInfo>
 #include <QFont>

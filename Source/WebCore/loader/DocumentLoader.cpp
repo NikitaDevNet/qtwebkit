@@ -49,7 +49,11 @@
 #include "HTMLFrameOwnerElement.h"
 #include "HistoryItem.h"
 #include "IconController.h"
+
+#if ENABLE(CFG_INSPECTOR)
 #include "InspectorInstrumentation.h"
+#endif
+
 #include "Logging.h"
 #include "MemoryCache.h"
 #include "Page.h"
@@ -358,7 +362,11 @@ void DocumentLoader::finishedLoading(double finishTime)
     // There is a bug in CFNetwork where callbacks can be dispatched even when loads are deferred.
     // See <rdar://problem/6304600> for more details.
 #if !USE(CF)
-    ASSERT(!m_frame->page()->defersLoading() || InspectorInstrumentation::isDebuggerPaused(m_frame));
+    ASSERT(!m_frame->page()->defersLoading()
+#if ENABLE(CFG_INSPECTOR)
+           || InspectorInstrumentation::isDebuggerPaused(m_frame)
+#endif
+            );
 #endif
 
     RefPtr<DocumentLoader> protect(this);
@@ -580,7 +588,9 @@ void DocumentLoader::responseReceived(CachedResource* resource, const ResourceRe
         unsigned long identifier = m_identifierForLoadWithoutResourceLoader ? m_identifierForLoadWithoutResourceLoader : m_mainResource->identifier();
         ASSERT(identifier);
         if (frameLoader()->shouldInterruptLoadForXFrameOptions(content, response.url(), identifier)) {
+#if ENABLE(CFG_INSPECTOR)
             InspectorInstrumentation::continueAfterXFrameOptionsDenied(m_frame, this, identifier, response);
+#endif
             String message = "Refused to display '" + response.url().stringCenterEllipsizedToLength() + "' in a frame because it set 'X-Frame-Options' to '" + content + "'.";
             frame()->document()->addConsoleMessage(SecurityMessageSource, ErrorMessageLevel, message, identifier);
             frame()->document()->enforceSandboxFlags(SandboxOrigin);
@@ -682,8 +692,10 @@ void DocumentLoader::continueAfterContentPolicy(PolicyAction policy)
             return;
         }
 
+#if ENABLE(CFG_INSPECTOR)
         if (ResourceLoader* mainResourceLoader = this->mainResourceLoader())
             InspectorInstrumentation::continueWithPolicyDownload(m_frame, this, mainResourceLoader->identifier(), m_response);
+#endif
 
         // When starting the request, we didn't know that it would result in download and not navigation. Now we know that main document URL didn't change.
         // Download may use this knowledge for purposes unrelated to cookies, notably for setting file quarantine data.
@@ -696,8 +708,10 @@ void DocumentLoader::continueAfterContentPolicy(PolicyAction policy)
         return;
     }
     case PolicyIgnore:
+#if ENABLE(CFG_INSPECTOR)
         if (ResourceLoader* mainResourceLoader = this->mainResourceLoader())
             InspectorInstrumentation::continueWithPolicyIgnore(m_frame, this, mainResourceLoader->identifier(), m_response);
+#endif
         stopLoadingForPolicyChange();
         return;
     
@@ -913,7 +927,9 @@ void DocumentLoader::detachFromFrame()
         m_mainResource->removeClient(this);
 
     m_applicationCacheHost->setDOMApplicationCache(0);
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentation::loaderDetachedFromFrame(m_frame, this);
+#endif
     m_frame = 0;
 }
 

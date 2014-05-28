@@ -33,7 +33,9 @@ class DatabaseStrategy;
 class LoaderStrategy;
 class PasteboardStrategy;
 class PluginStrategy;
+#if ENABLE(CFG_WORKERS)
 class SharedWorkerStrategy;
+#endif
 class StorageStrategy;
 class VisitedLinkStrategy;
 
@@ -74,12 +76,14 @@ public:
         return m_pluginStrategy;
     }
 
+#if ENABLE(CFG_WORKERS)
     SharedWorkerStrategy* sharedWorkerStrategy()
     {
         if (!m_sharedWorkerStrategy)
             m_sharedWorkerStrategy = createSharedWorkerStrategy();
         return m_sharedWorkerStrategy;
     }
+#endif
 
     VisitedLinkStrategy* visitedLinkStrategy()
     {
@@ -102,7 +106,9 @@ protected:
         , m_loaderStrategy(0)
         , m_pasteboardStrategy(0)
         , m_pluginStrategy(0)
+#if ENABLE(CFG_WORKERS)
         , m_sharedWorkerStrategy(0)
+#endif
         , m_storageStrategy(0)
         , m_visitedLinkStrategy(0)
     {
@@ -118,7 +124,9 @@ private:
     virtual LoaderStrategy* createLoaderStrategy() = 0;
     virtual PasteboardStrategy* createPasteboardStrategy() = 0;
     virtual PluginStrategy* createPluginStrategy() = 0;
+#if ENABLE(CFG_WORKERS)
     virtual SharedWorkerStrategy* createSharedWorkerStrategy() = 0;
+#endif
     virtual StorageStrategy* createStorageStrategy() = 0;
     virtual VisitedLinkStrategy* createVisitedLinkStrategy() = 0;
 
@@ -127,7 +135,9 @@ private:
     LoaderStrategy* m_loaderStrategy;
     PasteboardStrategy* m_pasteboardStrategy;
     PluginStrategy* m_pluginStrategy;
+#if ENABLE(CFG_WORKERS)
     SharedWorkerStrategy* m_sharedWorkerStrategy;
+#endif
     StorageStrategy* m_storageStrategy;
     VisitedLinkStrategy* m_visitedLinkStrategy;
 };

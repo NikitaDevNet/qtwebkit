@@ -60,7 +60,11 @@
 #include "HitTestResult.h"
 #include "Image.h"
 #include "LocalizedStrings.h"
+
+#if ENABLE(CFG_MATHML)
 #include "MathMLNames.h"
+#endif
+
 #include "NodeList.h"
 #include "NodeTraversal.h"
 #include "Page.h"
@@ -74,11 +78,19 @@
 #include "RenderLayer.h"
 #include "RenderListBox.h"
 #include "RenderListMarker.h"
+
+#if ENABLE(CFG_MATHML)
 #include "RenderMathMLBlock.h"
 #include "RenderMathMLFraction.h"
 #include "RenderMathMLOperator.h"
+#endif
+
 #include "RenderMenuList.h"
+
+#if ENABLE(CFG_SVG)
 #include "RenderSVGShape.h"
+#endif
+
 #include "RenderText.h"
 #include "RenderTextControl.h"
 #include "RenderTextControlSingleLine.h"
@@ -87,11 +99,15 @@
 #include "RenderView.h"
 #include "RenderWidget.h"
 #include "RenderedPosition.h"
+
+#if ENABLE(CFG_SVG)
 #include "SVGDocument.h"
 #include "SVGImage.h"
 #include "SVGImageChromeClient.h"
 #include "SVGNames.h"
 #include "SVGSVGElement.h"
+#endif
+
 #include "Text.h"
 #include "TextControlInnerElements.h"
 #include "VisibleUnits.h"

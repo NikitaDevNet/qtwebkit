@@ -43,8 +43,13 @@
 #include "HTMLMediaElement.h"
 #include "HTMLNames.h"
 #include "HTMLPlugInElement.h"
+
+#if ENABLE(CFG_INSPECTOR)
 #include "InspectorInstrumentation.h"
+#endif
+
 #include "KeyframeList.h"
+#include "Page.h"
 #include "PluginViewBase.h"
 #include "ProgressTracker.h"
 #include "RenderApplet.h"
@@ -2024,7 +2029,9 @@ void RenderLayerBacking::paintContents(const GraphicsLayer* graphicsLayer, Graph
         || graphicsLayer == m_backgroundLayer.get()
         || graphicsLayer == m_maskLayer.get()
         || graphicsLayer == m_scrollingContentsLayer.get()) {
+#if ENABLE(CFG_INSPECTOR)
         InspectorInstrumentation::willPaint(renderer());
+#endif
 
         // The dirtyRect is in the coords of the painting root.
         IntRect dirtyRect = clip;
@@ -2034,7 +2041,9 @@ void RenderLayerBacking::paintContents(const GraphicsLayer* graphicsLayer, Graph
         // We have to use the same root as for hit testing, because both methods can compute and cache clipRects.
         paintIntoLayer(graphicsLayer, &context, dirtyRect, PaintBehaviorNormal, paintingPhase);
 
+#if ENABLE(CFG_INSPECTOR)
         InspectorInstrumentation::didPaint(renderer(), &context, clip);
+#endif
     } else if (graphicsLayer == layerForHorizontalScrollbar()) {
         paintScrollbar(m_owningLayer->horizontalScrollbar(), context, clip);
     } else if (graphicsLayer == layerForVerticalScrollbar()) {

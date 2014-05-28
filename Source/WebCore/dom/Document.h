@@ -36,7 +36,11 @@
 #include "FocusDirection.h"
 #include "HitTestRequest.h"
 #include "IconURL.h"
+
+#if ENABLE(CFG_INSPECTOR)
 #include "InspectorCounters.h"
+#endif
+
 #include "MutationObserver.h"
 #include "PageVisibilityState.h"
 #include "PlatformScreen.h"
@@ -1089,7 +1093,9 @@ public:
 #endif
 
     virtual EventTarget* errorEventTarget();
+#if ENABLE(CFG_INSPECTOR)
     virtual void logExceptionToConsole(const String& errorMessage, const String& sourceURL, int lineNumber, int columnNumber, PassRefPtr<ScriptCallStack>);
+#endif
 
     void initDNSPrefetch();
 
@@ -1230,7 +1236,9 @@ private:
     virtual const KURL& virtualURL() const; // Same as url(), but needed for ScriptExecutionContext to implement it without a performance loss for direct calls.
     virtual KURL virtualCompleteURL(const String&) const; // Same as completeURL() for the same reason as above.
 
+#if ENABLE(CFG_INSPECTOR)
     virtual void addMessage(MessageSource, MessageLevel, const String& message, const String& sourceURL, unsigned lineNumber, unsigned columnNumber, PassRefPtr<ScriptCallStack>, ScriptState* = 0, unsigned long requestIdentifier = 0);
+#endif
 
     virtual double minimumTimerInterval() const;
 
@@ -1635,7 +1643,9 @@ inline Node::Node(Document* document, ConstructionType type)
 #if !defined(NDEBUG) || (defined(DUMP_NODE_STATISTICS) && DUMP_NODE_STATISTICS)
     trackForDebugging();
 #endif
+#if ENABLE(CFG_INSPECTOR)
     InspectorCounters::incrementCounter(InspectorCounters::NodeCounter);
+#endif
 }
 
 Node* eventTargetNodeForDocument(Document*);

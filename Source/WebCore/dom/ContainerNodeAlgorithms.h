@@ -25,7 +25,11 @@
 #include "Document.h"
 #include "Frame.h"
 #include "HTMLFrameOwnerElement.h"
+
+#if ENABLE(CFG_INSPECTOR)
 #include "InspectorInstrumentation.h"
+#endif
+
 #include "NodeTraversal.h"
 #include <wtf/Assertions.h>
 

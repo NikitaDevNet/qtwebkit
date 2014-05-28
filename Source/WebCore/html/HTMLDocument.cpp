@@ -69,7 +69,11 @@
 #include "HTMLElementFactory.h"
 #include "HTMLFrameOwnerElement.h"
 #include "HTMLNames.h"
+
+#if ENABLE(CFG_INSPECTOR)
 #include "InspectorInstrumentation.h"
+#endif
+
 #include "KURL.h"
 #include "Page.h"
 #include "ScriptController.h"
@@ -278,7 +282,12 @@ void HTMLDocument::releaseEvents()
 
 PassRefPtr<DocumentParser> HTMLDocument::createParser()
 {
+// TODO: (cfg_config) may be error
+#if ENABLE(CFG_INSPECTOR)
     bool reportErrors = InspectorInstrumentation::collectingHTMLParseErrors(this->page());
+#else
+    bool reportErrors = false;
+#endif
     return HTMLDocumentParser::create(this, reportErrors);
 }
 

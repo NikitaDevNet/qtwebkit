@@ -24,7 +24,10 @@
  */
 
 #include "config.h"
+
+#if ENABLE(CFG_GEOLOCATION)
 #include "JSGeolocation.h"
+#endif
 
 #if ENABLE(GEOLOCATION)
 

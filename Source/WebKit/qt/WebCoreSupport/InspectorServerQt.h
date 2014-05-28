@@ -20,6 +20,8 @@
 #ifndef InspectorServerQt_h
 #define InspectorServerQt_h
 
+#if ENABLE(CFG_INSPECTOR)
+
 #include <QList>
 #include <QMap>
 #include <QObject>
@@ -99,4 +101,7 @@ private:
 };
 
 }
+
+#endif // ENABLE(CFG_INSPECTOR)
+
 #endif

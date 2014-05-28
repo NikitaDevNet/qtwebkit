@@ -28,7 +28,10 @@
 #include "ElementShadow.h"
 
 #include "ContainerNodeAlgorithms.h"
+
+#if ENABLE(CFG_INSPECTOR)
 #include "InspectorInstrumentation.h"
+#endif
 
 namespace WebCore {
 
@@ -51,7 +54,9 @@ ShadowRoot* ElementShadow::addShadowRoot(Element* shadowHost, ShadowRoot::Shadow
     if (shadowHost->attached())
         shadowHost->lazyReattach();
 
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentation::didPushShadowRoot(shadowHost, m_shadowRoot.get());
+#endif
 
     return m_shadowRoot.get();
 }
@@ -62,7 +67,9 @@ void ElementShadow::removeShadowRoot()
     Element* shadowHost = host();
 
     if (RefPtr<ShadowRoot> oldRoot = m_shadowRoot) {
+#if ENABLE(CFG_INSPECTOR)
         InspectorInstrumentation::willPopShadowRoot(shadowHost, oldRoot.get());
+#endif
         shadowHost->document()->removeFocusedNodeOfSubtree(oldRoot.get());
 
         if (oldRoot->attached())

@@ -65,7 +65,11 @@
 #include "HitTestResult.h"
 #include "InitWebCoreQt.h"
 #include "InspectorClientQt.h"
+
+#if ENABLE(CFG_INSPECTOR)
 #include "InspectorController.h"
+#endif
+
 #include "InspectorServerQt.h"
 #include "LocalizedStrings.h"
 #include "MIMETypeRegistry.h"
@@ -231,7 +235,9 @@ void QWebPageAdapter::initializeWebCorePage()
 #endif
     pageClients.editorClient = new EditorClientQt(this);
     pageClients.dragClient = new DragClientQt(pageClients.chromeClient);
+#if ENABLE(CFG_INSPECTOR)
     pageClients.inspectorClient = new InspectorClientQt(this);
+#endif
     page = new Page(pageClients);
 
 #if ENABLE(GEOLOCATION)

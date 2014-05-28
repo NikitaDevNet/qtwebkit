@@ -34,7 +34,11 @@
 #include "BlobURL.h"
 #include "File.h"
 #include "HistogramSupport.h"
+
+#if ENABLE(CFG_INSPECTOR)
 #include "ScriptCallStack.h"
+#endif
+
 #include "ScriptExecutionContext.h"
 #include "ThreadableBlobRegistry.h"
 #include <wtf/text/CString.h>

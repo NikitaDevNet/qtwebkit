@@ -29,8 +29,14 @@
 #include "AtomicHTMLToken.h"
 #include "Element.h"
 #include "HTMLNames.h"
+
+#if ENABLE(CFG_MATHML)
 #include "MathMLNames.h"
+#endif
+
+#if ENABLE(CFG_SVG)
 #include "SVGNames.h"
+#endif
 
 #include <wtf/RefCounted.h>
 #include <wtf/RefPtr.h>
@@ -118,16 +124,21 @@ public:
     // http://www.whatwg.org/specs/web-apps/current-work/multipage/parsing.html#special
     bool isSpecialNode() const
     {
+#if ENABLE(CFG_MATHML)
         if (hasTagName(MathMLNames::miTag)
             || hasTagName(MathMLNames::moTag)
             || hasTagName(MathMLNames::mnTag)
             || hasTagName(MathMLNames::msTag)
             || hasTagName(MathMLNames::mtextTag)
-            || hasTagName(MathMLNames::annotation_xmlTag)
-            || hasTagName(SVGNames::foreignObjectTag)
+            || hasTagName(MathMLNames::annotation_xmlTag))
+            return true;
+#endif
+#if ENABLE(CFG_SVG)
+        if (hasTagName(SVGNames::foreignObjectTag)
             || hasTagName(SVGNames::descTag)
             || hasTagName(SVGNames::titleTag))
             return true;
+#endif
         if (isDocumentFragmentNode())
             return true;
         if (!isInHTMLNamespace())

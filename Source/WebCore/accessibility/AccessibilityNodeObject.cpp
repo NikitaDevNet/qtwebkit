@@ -61,14 +61,22 @@
 #include "HitTestResult.h"
 #include "LabelableElement.h"
 #include "LocalizedStrings.h"
+
+#if ENABLE(CFG_MATHML)
 #include "MathMLNames.h"
+#endif
+
 #include "NodeList.h"
 #include "NodeTraversal.h"
 #include "Page.h"
 #include "ProgressTracker.h"
+
+#if ENABLE(CFG_SVG)
 #include "SVGElement.h"
 #include "SVGNames.h"
 #include "SVGStyledElement.h"
+#endif
+
 #include "Text.h"
 #include "TextControlInnerElements.h"
 #include "TextIterator.h"

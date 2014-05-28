@@ -32,7 +32,11 @@
 #include "Frame.h"
 #include "JSDOMWindowCustom.h"
 #include "JSExceptionBase.h"
+
+#if ENABLE(CFG_INSPECTOR)
 #include "ScriptCallStack.h"
+#endif
+
 #include "ScriptCallStackFactory.h"
 #include <interpreter/Interpreter.h>
 #include <runtime/DateInstance.h>
@@ -149,7 +153,9 @@ void reportException(ExecState* exec, JSValue exception, CachedScript* cachedScr
 
     Interpreter::ErrorHandlingMode mode(exec);
 
+#if ENABLE(CFG_INSPECTOR)
     RefPtr<ScriptCallStack> callStack(createScriptCallStackFromException(exec, exception, ScriptCallStack::maxCallStackSizeToCapture));
+#endif
     exec->clearException();
     exec->clearSupplementaryExceptionInfo();
 
@@ -162,19 +168,23 @@ void reportException(ExecState* exec, JSValue exception, CachedScript* cachedScr
     int lineNumber = 0;
     int columnNumber = 0;
     String exceptionSourceURL;
+#if ENABLE(CFG_INSPECTOR)
     if (callStack->size()) {
         const ScriptCallFrame& frame = callStack->at(0);
         lineNumber = frame.lineNumber();
         columnNumber = frame.columnNumber();
         exceptionSourceURL = frame.sourceURL();
     } else {
+#endif
         // There may not be an exceptionStack for a <script> SyntaxError. Fallback to getting at least the line and sourceURL from the exception.
         JSObject* exceptionObject = exception.toObject(exec);
         JSValue lineValue = exceptionObject->getDirect(exec->vm(), Identifier(exec, "line"));
         lineNumber = lineValue && lineValue.isNumber() ? int(lineValue.toNumber(exec)) : 0;
         JSValue sourceURLValue = exceptionObject->getDirect(exec->vm(), Identifier(exec, "sourceURL"));
         exceptionSourceURL = sourceURLValue && sourceURLValue.isString() ? sourceURLValue.toString(exec)->value(exec) : ASCIILiteral("undefined");
+#if ENABLE(CFG_INSPECTOR)
     }
+#endif
 
     String errorMessage;
     if (ExceptionBase* exceptionBase = toExceptionBase(exception))
@@ -188,7 +198,9 @@ void reportException(ExecState* exec, JSValue exception, CachedScript* cachedScr
     }
 
     ScriptExecutionContext* scriptExecutionContext = globalObject->scriptExecutionContext();
+#if ENABLE(CFG_INSPECTOR)
     scriptExecutionContext->reportException(errorMessage, lineNumber, columnNumber, exceptionSourceURL, callStack->size() ? callStack : 0, cachedScript);
+#endif
 }
 
 void reportCurrentException(ExecState* exec)

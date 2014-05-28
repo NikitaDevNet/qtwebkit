@@ -29,7 +29,11 @@
 #include "DocumentLoader.h"
 #include "Frame.h"
 #include "FrameLoader.h"
+
+#if ENABLE(CFG_INSPECTOR)
 #include "InspectorInstrumentation.h"
+#endif
+
 #include "KURL.h"
 #include "LoaderStrategy.h"
 #include "Logging.h"
@@ -147,7 +151,9 @@ void ResourceLoadScheduler::scheduleLoad(ResourceLoader* resourceLoader, Resourc
 
 void ResourceLoadScheduler::notifyDidScheduleResourceRequest(ResourceLoader* loader)
 {
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentation::didScheduleResourceRequest(loader->frameLoader() ? loader->frameLoader()->frame()->document() : 0, loader->url());
+#endif
 }
 
 void ResourceLoadScheduler::remove(ResourceLoader* resourceLoader)

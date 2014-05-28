@@ -35,7 +35,11 @@
 #include "MessageEvent.h"
 #include "SecurityOrigin.h"
 #include "Timer.h"
+
+#if ENABLE(CFG_WORKERS)
 #include "WorkerGlobalScope.h"
+#endif
+
 #include <wtf/text/AtomicString.h>
 
 namespace WebCore {

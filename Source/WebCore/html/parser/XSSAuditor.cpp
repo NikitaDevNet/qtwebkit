@@ -37,7 +37,11 @@
 #include "HTMLNames.h"
 #include "HTMLParamElement.h"
 #include "HTMLParserIdioms.h"
+
+#if ENABLE(CFG_INSPECTOR)
 #include "InspectorValues.h"
+#endif
+
 #include "KURL.h"
 #include "Settings.h"
 #include "TextEncoding.h"

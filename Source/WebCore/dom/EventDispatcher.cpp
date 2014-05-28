@@ -35,7 +35,11 @@
 #include "FrameView.h"
 #include "HTMLMediaElement.h"
 #include "InsertionPoint.h"
+
+#if ENABLE(CFG_INSPECTOR)
 #include "InspectorInstrumentation.h"
+#endif
+
 #include "MouseEvent.h"
 #include "ScopedEventQueue.h"
 #include "ShadowRoot.h"
@@ -111,7 +115,9 @@ bool EventDispatcher::dispatch()
     ASSERT(!NoEventDispatchAssertion::isEventDispatchForbidden());
     ASSERT(m_event->target());
     WindowEventContext windowEventContext(m_event.get(), m_node.get(), topEventContext());
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentationCookie cookie = InspectorInstrumentation::willDispatchEvent(m_node->document(), *m_event, windowEventContext.window(), m_node.get(), m_eventPath);
+#endif
 
     void* preDispatchEventHandlerResult;
     if (dispatchEventPreProcess(preDispatchEventHandlerResult) == ContinueDispatching)
@@ -124,7 +130,9 @@ bool EventDispatcher::dispatch()
     // outermost shadow DOM boundary.
     m_event->setTarget(windowEventContext.target());
     m_event->setCurrentTarget(0);
+#if ENABLE(CFG_INSPECTOR)
     InspectorInstrumentation::didDispatchEvent(cookie);
+#endif
 
     return !m_event->defaultPrevented();
 }

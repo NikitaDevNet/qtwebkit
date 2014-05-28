@@ -31,7 +31,9 @@ namespace WebCore {
 }
 
 class QWebSecurityOriginPrivate;
+#if ENABLE(CFG_SQL_DATABASE)
 class QWebDatabase;
+#endif
 class QWebFrame;
 
 class QWEBKIT_EXPORT QWebSecurityOrigin {
@@ -62,12 +64,16 @@ public:
     void setDatabaseQuota(qint64 quota);
     void setApplicationCacheQuota(qint64 quota);
 
+#if ENABLE(CFG_SQL_DATABASE)
     QList<QWebDatabase> databases() const;
+#endif
 
     QWebSecurityOrigin(const QWebSecurityOrigin& other);
     QWebSecurityOrigin &operator=(const QWebSecurityOrigin& other);
 private:
+#if ENABLE(CFG_SQL_DATABASE)
     friend class QWebDatabase;
+#endif
     friend class QWebFrameAdapter;
     friend class WebCore::ChromeClientQt;
     QWebSecurityOrigin(QWebSecurityOriginPrivate* priv);
