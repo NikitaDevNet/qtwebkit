@@ -26,33 +26,25 @@
 #include "config.h"
 #include "PendingScript.h"
 
-#if ENABLE(CFG_CACHE)
 #include "CachedScript.h"
-#endif
-
 #include "Element.h"
 
 namespace WebCore {
 
 PendingScript::~PendingScript()
 {
-#if ENABLE(CFG_CACHE)
     if (m_cachedScript)
         m_cachedScript->removeClient(this);
-#endif
 }
 
 PassRefPtr<Element> PendingScript::releaseElementAndClear()
 {
-#if ENABLE(CFG_CACHE)
     setCachedScript(0);
-#endif
     m_watchingForLoad = false;
     m_startingPosition = TextPosition::belowRangePosition();
     return m_element.release();
 }
 
-#if ENABLE(CFG_CACHE)
 void PendingScript::setCachedScript(CachedScript* cachedScript)
 {
     if (m_cachedScript == cachedScript)
@@ -63,9 +55,7 @@ void PendingScript::setCachedScript(CachedScript* cachedScript)
     if (m_cachedScript)
         m_cachedScript->addClient(this);
 }
-#endif
 
-#if ENABLE(CFG_CACHE)
 CachedScript* PendingScript::cachedScript() const
 {
     return m_cachedScript.get();
@@ -74,6 +64,5 @@ CachedScript* PendingScript::cachedScript() const
 void PendingScript::notifyFinished(CachedResource*)
 {
 }
-#endif
 
 }

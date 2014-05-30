@@ -26,11 +26,8 @@
 #ifndef PendingScript_h
 #define PendingScript_h
 
-#if ENABLE(CFG_CACHE)
 #include "CachedResourceClient.h"
 #include "CachedResourceHandle.h"
-#endif
-
 #include <wtf/text/TextPosition.h>
 #include <wtf/PassRefPtr.h>
 #include <wtf/RefPtr.h>
@@ -45,11 +42,7 @@ class Element;
 // A CachedResourceHandle alone does not prevent the underlying CachedResource
 // from purging its data buffer. This class holds a dummy client open for its
 // lifetime in order to guarantee that the data buffer will not be purged.
-class PendingScript
-#if ENABLE(CFG_CACHE)
-        : public CachedResourceClient
-#endif
-{
+class PendingScript : public CachedResourceClient {
 public:
     PendingScript()
         : m_watchingForLoad(false)
@@ -61,23 +54,16 @@ public:
         : m_watchingForLoad(false)
         , m_element(element)
     {
-#if ENABLE(CFG_CACHE)
         setCachedScript(cachedScript);
-#endif
     }
 
     PendingScript(const PendingScript& other)
-        :
-#if ENABLE(CFG_CACHE)
-          CachedResourceClient(other),
-#endif
-          m_watchingForLoad(other.m_watchingForLoad)
+        : CachedResourceClient(other)
+        , m_watchingForLoad(other.m_watchingForLoad)
         , m_element(other.m_element)
         , m_startingPosition(other.m_startingPosition)
     {
-#if ENABLE(CFG_CACHE)
         setCachedScript(other.cachedScript());
-#endif
     }
 
     ~PendingScript();
@@ -90,9 +76,7 @@ public:
         m_watchingForLoad = other.m_watchingForLoad;
         m_element = other.m_element;
         m_startingPosition = other.m_startingPosition;
-#if ENABLE(CFG_CACHE)
         setCachedScript(other.cachedScript());
-#endif
 
         return *this;
     }
@@ -107,22 +91,16 @@ public:
     void setElement(Element* element) { m_element = element; }
     PassRefPtr<Element> releaseElementAndClear();
 
-#if ENABLE(CFG_CACHE)
     CachedScript* cachedScript() const;
     void setCachedScript(CachedScript*);
-#endif
 
-#if ENABLE(CFG_CACHE)
     virtual void notifyFinished(CachedResource*);
-#endif
 
 private:
     bool m_watchingForLoad;
     RefPtr<Element> m_element;
     TextPosition m_startingPosition; // Only used for inline script tags.
-#if ENABLE(CFG_CACHE)
-    CachedResourceHandle<CachedScript> m_cachedScript;
-#endif
+    CachedResourceHandle<CachedScript> m_cachedScript; 
 };
 
 }

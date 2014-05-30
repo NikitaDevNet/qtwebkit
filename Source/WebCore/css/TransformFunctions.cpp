@@ -30,9 +30,6 @@
  */
 
 #include "config.h"
-
-#if ENABLE(CFG_TRANSFORMS)
-
 #include "TransformFunctions.h"
 
 #include "CSSPrimitiveValueMappings.h"
@@ -330,5 +327,3 @@ bool transformsForValue(const RenderStyle* style, const RenderStyle* rootStyle, 
 }
 
 }
-
-#endif // ENABLE(CFG_TRANSFORMS)

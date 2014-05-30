@@ -774,7 +774,6 @@ static LayoutRect sizingBox(RenderObject* renderer)
     return box->style()->boxSizing() == BORDER_BOX ? box->borderBoxRect() : box->computedCSSContentBoxRect();
 }
 
-#if ENABLE(CFG_TRANSFORMS)
 static PassRefPtr<WebKitCSSTransformValue> matrixTransformValue(const TransformationMatrix& transform, const RenderStyle* style)
 {
     RefPtr<WebKitCSSTransformValue> transformValue;
@@ -813,14 +812,10 @@ static PassRefPtr<WebKitCSSTransformValue> matrixTransformValue(const Transforma
 
     return transformValue.release();
 }
-#endif
 
-#if ENABLE(CFG_TRANSFORMS)
 static PassRefPtr<CSSValue> computedTransform(RenderObject* renderer, const RenderStyle* style)
 {
-    if (!renderer
-            || !renderer->hasTransform() || !style->hasTransform()
-            )
+    if (!renderer || !renderer->hasTransform() || !style->hasTransform())
         return cssValuePool().createIdentifierValue(CSSValueNone);
 
     IntRect box;
@@ -837,7 +832,6 @@ static PassRefPtr<CSSValue> computedTransform(RenderObject* renderer, const Rend
 
     return list.release();
 }
-#endif
 
 #if ENABLE(CSS_SHADERS)
 static PassRefPtr<CSSValue> valueForCustomFilterArrayParameter(const CustomFilterArrayParameter* arrayParameter)
@@ -2623,11 +2617,9 @@ PassRefPtr<CSSValue> ComputedStyleExtractor::propertyValue(CSSPropertyID propert
         }
         case CSSPropertySpeak:
             return cssValuePool().createValue(style->speak());
-#if ENABLE(CFG_TRANSFORMS)
         case CSSPropertyWebkitTransform:
             return computedTransform(renderer, style.get());
-#endif
-    case CSSPropertyWebkitTransformOrigin: {
+        case CSSPropertyWebkitTransformOrigin: {
             RefPtr<CSSValueList> list = CSSValueList::createSpaceSeparated();
             if (renderer) {
                 LayoutRect box;

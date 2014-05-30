@@ -29,17 +29,11 @@
 #ifndef ResourceLoader_h
 #define ResourceLoader_h
 
-#if ENABLE(CFG_NETWORK)
 #include "ResourceHandleClient.h"
-#endif
-
 #include "ResourceLoaderOptions.h"
 #include "ResourceLoaderTypes.h"
-
-#if ENABLE(CFG_NETWORK)
 #include "ResourceRequest.h"
 #include "ResourceResponse.h"
-#endif
 
 #include <wtf/Forward.h>
 #include <wtf/RefCounted.h>
@@ -54,11 +48,7 @@ class KURL;
 class ResourceBuffer;
 class ResourceHandle;
 
-class ResourceLoader : public RefCounted<ResourceLoader>
-#if ENABLE(CFG_NETWORK)
-        , protected ResourceHandleClient
-#endif
-{
+class ResourceLoader : public RefCounted<ResourceLoader>, protected ResourceHandleClient {
 public:
     virtual ~ResourceLoader();
 
@@ -68,9 +58,7 @@ public:
 
     FrameLoader* frameLoader() const;
     DocumentLoader* documentLoader() const { return m_documentLoader.get(); }
-#if ENABLE(CFG_NETWORK)
     const ResourceRequest& originalRequest() const { return m_originalRequest; }
-#endif
     
     virtual void cancel(const ResourceError&);
     ResourceError cancelledError();
@@ -101,9 +89,7 @@ public:
 #if USE(NETWORK_CFDATA_ARRAY_CALLBACK)
     virtual void didReceiveDataArray(CFArrayRef dataArray);
 #endif
-#if ENABLE(CFG_NETWORK)
     void didChangePriority(ResourceLoadPriority);
-#endif
 
     virtual bool shouldUseCredentialStorage();
     virtual void didReceiveAuthenticationChallenge(const AuthenticationChallenge&);
@@ -113,7 +99,6 @@ public:
 #endif
     virtual void receivedCancellation(const AuthenticationChallenge&);
 
-#if ENABLE(CFG_NETWORK)
     // ResourceHandleClient
     virtual void willSendRequest(ResourceHandle*, ResourceRequest&, const ResourceResponse& redirectResponse) OVERRIDE;
     virtual void didSendData(ResourceHandle*, unsigned long long bytesSent, unsigned long long totalBytesToBeSent) OVERRIDE;
@@ -124,7 +109,7 @@ public:
     virtual void didFail(ResourceHandle*, const ResourceError&) OVERRIDE;
     virtual void wasBlocked(ResourceHandle*) OVERRIDE;
     virtual void cannotShowURL(ResourceHandle*) OVERRIDE;
-    virtual void willStopBufferingData(ResourceHandle*, const char* data, int length) { willStopBufferingData(data, length); }
+    virtual void willStopBufferingData(ResourceHandle*, const char* data, int length) { willStopBufferingData(data, length); } 
     virtual bool shouldUseCredentialStorage(ResourceHandle*) OVERRIDE { return shouldUseCredentialStorage(); }
     virtual void didReceiveAuthenticationChallenge(ResourceHandle*, const AuthenticationChallenge& challenge) OVERRIDE { didReceiveAuthenticationChallenge(challenge); } 
     virtual void didCancelAuthenticationChallenge(ResourceHandle*, const AuthenticationChallenge& challenge) OVERRIDE { didCancelAuthenticationChallenge(challenge); } 
@@ -146,24 +131,17 @@ public:
     // FIXME: Windows should use willCacheResponse - <https://bugs.webkit.org/show_bug.cgi?id=57257>.
     virtual bool shouldCacheResponse(ResourceHandle*, CFCachedURLResponseRef) OVERRIDE;
 #endif
-#endif // ENABLE(CFG_NETWORK)
 
-#if ENABLE(CFG_NETWORK)
-    const KURL& url() const { return m_request.url(); }
+    const KURL& url() const { return m_request.url(); } 
     ResourceHandle* handle() const { return m_handle.get(); }
-#endif
     bool shouldSendResourceLoadCallbacks() const { return m_options.sendLoadCallbacks == SendCallbacks; }
     void setSendCallbackPolicy(SendCallbackPolicy sendLoadCallbacks) { m_options.sendLoadCallbacks = sendLoadCallbacks; }
     bool shouldSniffContent() const { return m_options.sniffContent == SniffContent; }
-#if ENABLE(CFG_NETWORK)
     ClientCredentialPolicy clientCredentialPolicy() const { return m_options.clientCredentialPolicy; }
-#endif
 
     bool reachedTerminalState() const { return m_reachedTerminalState; }
 
-#if ENABLE(CFG_NETWORK)
     const ResourceRequest& request() const { return m_request; }
-#endif
 
     void setDataBufferingPolicy(DataBufferingPolicy);
 
@@ -184,14 +162,10 @@ protected:
 
     const ResourceLoaderOptions& options() { return m_options; }
 
-#if ENABLE(CFG_NETWORK)
     RefPtr<ResourceHandle> m_handle;
-#endif
     RefPtr<Frame> m_frame;
     RefPtr<DocumentLoader> m_documentLoader;
-#if ENABLE(CFG_NETWORK)
     ResourceResponse m_response;
-#endif
     
 private:
     virtual void willCancel(const ResourceError&) = 0;
@@ -199,10 +173,8 @@ private:
 
     void addDataOrBuffer(const char*, int, SharedBuffer*, DataPayloadType);
 
-#if ENABLE(CFG_NETWORK)
     ResourceRequest m_request;
     ResourceRequest m_originalRequest; // Before redirects.
-#endif
     RefPtr<ResourceBuffer> m_resourceData;
     
     unsigned long m_identifier;
@@ -219,18 +191,14 @@ private:
     CancellationStatus m_cancellationStatus;
 
     bool m_defersLoading;
-#if ENABLE(CFG_NETWORK)
     ResourceRequest m_deferredRequest;
-#endif
     ResourceLoaderOptions m_options;
 };
 
-#if ENABLE(CFG_NETWORK)
 inline const ResourceResponse& ResourceLoader::response() const
 {
     return m_response;
 }
-#endif
 
 }
 

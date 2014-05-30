@@ -20,11 +20,7 @@
 #include "qt_pixmapruntime.h"
 
 #include "APICast.h"
-
-#if ENABLE(CFG_CACHE)
 #include "CachedImage.h"
-#endif
-
 #include "HTMLImageElement.h"
 #include "ImageData.h"
 #include "IntSize.h"
@@ -142,9 +138,7 @@ static JSValueRef assignToHTMLImageElement(JSContextRef context, JSObjectRef fun
     // We now know that we have a valid <img> element as the argument, we can attach the pixmap to it.
     RefPtr<StillImage> stillImage = WebCore::StillImage::create(toPixmap(data));
     HTMLImageElement* imageElement = toHTMLImageElement(static_cast<JSHTMLImageElement*>(jsObject)->impl());
-#if ENABLE(CFG_CACHE)
     imageElement->setCachedImage(new CachedImage(stillImage.get()));
-#endif
     return JSValueMakeUndefined(context);
 }
 
@@ -229,7 +223,6 @@ QVariant QtPixmapRuntime::toQt(JSContextRef context, JSObjectRef obj, QMetaType:
     if (!imageElement)
         return emptyVariantForHint(hint);
 
-#if ENABLE(CFG_CACHE)
     CachedImage* cachedImage = imageElement->cachedImage();
     if (!cachedImage)
         return emptyVariantForHint(hint);
@@ -240,14 +233,11 @@ QVariant QtPixmapRuntime::toQt(JSContextRef context, JSObjectRef obj, QMetaType:
 
     QPixmap* pixmap = image->nativeImageForCurrentFrame();
     if (!pixmap)
-#endif
         return emptyVariantForHint(hint);
 
-#if ENABLE(CFG_CACHE)
     return (hint == static_cast<QMetaType::Type>(qMetaTypeId<QPixmap>()))
         ? QVariant::fromValue<QPixmap>(*pixmap)
         : QVariant::fromValue<QImage>(pixmap->toImage());
-#endif
 }
 
 bool QtPixmapRuntime::canHandle(QMetaType::Type hint)

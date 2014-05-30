@@ -26,11 +26,9 @@
 #ifndef CachedScriptSourceProvider_h
 #define CachedScriptSourceProvider_h
 
-#if ENABLE(CFG_CACHE)
 #include "CachedResourceClient.h"
 #include "CachedResourceHandle.h"
 #include "CachedScript.h"
-
 #include <parser/SourceCode.h>
 #include <parser/SourceProvider.h>
 
@@ -65,7 +63,5 @@ inline JSC::SourceCode makeSource(CachedScript* cachedScript)
 }
 
 } // namespace WebCore
-
-#endif // ENABLE(CFG_CACHE)
 
 #endif // CachedScriptSourceProvider_h

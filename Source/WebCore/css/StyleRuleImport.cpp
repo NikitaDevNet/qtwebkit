@@ -23,14 +23,10 @@
 #include "StyleRuleImport.h"
 
 #include "CSSStyleSheet.h"
-
-#if ENABLE(CFG_CACHE)
 #include "CachedCSSStyleSheet.h"
 #include "CachedResourceLoader.h"
 #include "CachedResourceRequest.h"
 #include "CachedResourceRequestInitiators.h"
-#endif
-
 #include "Document.h"
 #include "SecurityOrigin.h"
 #include "StyleSheetContents.h"
@@ -49,9 +45,7 @@ StyleRuleImport::StyleRuleImport(const String& href, PassRefPtr<MediaQuerySet> m
     , m_styleSheetClient(this)
     , m_strHref(href)
     , m_mediaQueries(media)
-    #if ENABLE(CFG_CACHE)
     , m_cachedSheet(0)
-#endif
     , m_loading(false)
 {
     if (!m_mediaQueries)
@@ -62,17 +56,11 @@ StyleRuleImport::~StyleRuleImport()
 {
     if (m_styleSheet)
         m_styleSheet->clearOwnerRule();
-#if ENABLE(CFG_CACHE)
     if (m_cachedSheet)
         m_cachedSheet->removeClient(&m_styleSheetClient);
-#endif
 }
 
-void StyleRuleImport::setCSSStyleSheet(const String& href, const KURL& baseURL, const String& charset
-#if ENABLE(CFG_CACHE)
-                                       , const CachedCSSStyleSheet* cachedStyleSheet
-#endif
-                                       )
+void StyleRuleImport::setCSSStyleSheet(const String& href, const KURL& baseURL, const String& charset, const CachedCSSStyleSheet* cachedStyleSheet)
 {
     if (m_styleSheet)
         m_styleSheet->clearOwnerRule();
@@ -85,18 +73,12 @@ void StyleRuleImport::setCSSStyleSheet(const String& href, const KURL& baseURL, 
     m_styleSheet = StyleSheetContents::create(this, href, context);
 
     Document* document = m_parentStyleSheet ? m_parentStyleSheet->singleOwnerDocument() : 0;
-    m_styleSheet->parseAuthorStyleSheet(
-#if ENABLE(CFG_CACHE)
-                cachedStyleSheet,
-#endif
-                document ? document->securityOrigin() : 0);
+    m_styleSheet->parseAuthorStyleSheet(cachedStyleSheet, document ? document->securityOrigin() : 0);
 
     m_loading = false;
 
     if (m_parentStyleSheet) {
-#if ENABLE(CFG_CACHE)
         m_parentStyleSheet->notifyLoadedSheet(cachedStyleSheet);
-#endif
         m_parentStyleSheet->checkLoaded();
     }
 }
@@ -114,10 +96,8 @@ void StyleRuleImport::requestStyleSheet()
     if (!document)
         return;
 
-#if ENABLE(CFG_CACHE)
     CachedResourceLoader* cachedResourceLoader = document->cachedResourceLoader();
     if (!cachedResourceLoader)
-#endif
         return;
 
     KURL absURL;
@@ -137,7 +117,6 @@ void StyleRuleImport::requestStyleSheet()
         rootSheet = sheet;
     }
 
-#if ENABLE(CFG_CACHE)
     CachedResourceRequest request(ResourceRequest(absURL), m_parentStyleSheet->charset());
     request.setInitiator(cachedResourceRequestInitiators().css);
     if (m_parentStyleSheet->isUserStyleSheet())
@@ -153,7 +132,6 @@ void StyleRuleImport::requestStyleSheet()
         m_loading = true;
         m_cachedSheet->addClient(&m_styleSheetClient);
     }
-#endif
 }
 
 } // namespace WebCore

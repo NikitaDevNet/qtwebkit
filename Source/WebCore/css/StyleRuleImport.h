@@ -22,17 +22,13 @@
 #ifndef StyleRuleImport_h
 #define StyleRuleImport_h
 
-#if ENABLE(CFG_CACHE)
 #include "CachedResourceHandle.h"
 #include "CachedStyleSheetClient.h"
-#endif
-
 #include "StyleRule.h"
 
 namespace WebCore {
 
 class CachedCSSStyleSheet;
-class KURL;
 class MediaQuerySet;
 class StyleSheetContents;
 
@@ -58,35 +54,19 @@ public:
 private:
     // NOTE: We put the CachedStyleSheetClient in a member instead of inheriting from it
     // to avoid adding a vptr to StyleRuleImport.
-    class ImportedStyleSheetClient
-#if ENABLE(CFG_CACHE)
-            : public CachedStyleSheetClient
-#endif
-    {
+    class ImportedStyleSheetClient : public CachedStyleSheetClient {
     public:
         ImportedStyleSheetClient(StyleRuleImport* ownerRule) : m_ownerRule(ownerRule) { }
         virtual ~ImportedStyleSheetClient() { }
-        virtual void setCSSStyleSheet(const String& href, const KURL& baseURL, const String& charset
-#if ENABLE(CFG_CACHE)
-                                      , const CachedCSSStyleSheet* sheet
-#endif
-                                      )
+        virtual void setCSSStyleSheet(const String& href, const KURL& baseURL, const String& charset, const CachedCSSStyleSheet* sheet)
         {
-            m_ownerRule->setCSSStyleSheet(href, baseURL, charset
-#if ENABLE(CFG_CACHE)
-                                          , sheet
-#endif
-                                          );
+            m_ownerRule->setCSSStyleSheet(href, baseURL, charset, sheet);
         }
     private:
         StyleRuleImport* m_ownerRule;
     };
 
-    void setCSSStyleSheet(const String& href, const KURL& baseURL, const String& charset
-#if ENABLE(CFG_CACHE)
-                          , const CachedCSSStyleSheet*
-#endif
-                          );
+    void setCSSStyleSheet(const String& href, const KURL& baseURL, const String& charset, const CachedCSSStyleSheet*);
     friend class ImportedStyleSheetClient;
 
     StyleRuleImport(const String& href, PassRefPtr<MediaQuerySet>);
@@ -97,9 +77,7 @@ private:
     String m_strHref;
     RefPtr<MediaQuerySet> m_mediaQueries;
     RefPtr<StyleSheetContents> m_styleSheet;
-#if ENABLE(CFG_CACHE)
     CachedResourceHandle<CachedCSSStyleSheet> m_cachedSheet;
-#endif
     bool m_loading;
 };
 

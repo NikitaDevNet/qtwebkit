@@ -25,11 +25,7 @@
 
 #include "FrameLoaderTypes.h"
 #include "ResourceLoaderOptions.h"
-
-#if ENABLE(CFG_NETWORK)
 #include "ResourceLoadPriority.h"
-#endif
-
 #include "Timer.h"
 #include <wtf/Deque.h>
 #include <wtf/HashMap.h>
@@ -54,16 +50,12 @@ class ResourceLoadScheduler {
 public:
     friend ResourceLoadScheduler* resourceLoadScheduler();
 
-#if ENABLE(CFG_NETWORK)
     virtual PassRefPtr<SubresourceLoader> scheduleSubresourceLoad(Frame*, CachedResource*, const ResourceRequest&, ResourceLoadPriority, const ResourceLoaderOptions&);
-#endif
     virtual PassRefPtr<NetscapePlugInStreamLoader> schedulePluginStreamLoad(Frame*, NetscapePlugInStreamLoaderClient*, const ResourceRequest&);
     virtual void remove(ResourceLoader*);
     virtual void crossOriginRedirectReceived(ResourceLoader*, const KURL& redirectURL);
     
-#if ENABLE(CFG_NETWORK)
     virtual void servePendingRequests(ResourceLoadPriority minimumPriority = ResourceLoadPriorityVeryLow);
-#endif
     virtual void suspendPendingRequests();
     virtual void resumePendingRequests();
     
@@ -77,9 +69,7 @@ protected:
     void notifyDidScheduleResourceRequest(ResourceLoader*);
 
 private:
-#if ENABLE(CFG_NETWORK)
     void scheduleLoad(ResourceLoader*, ResourceLoadPriority);
-#endif
     void scheduleServePendingRequests();
     void requestTimerFired(Timer<ResourceLoadScheduler>*);
 
@@ -92,25 +82,17 @@ private:
         ~HostInformation();
         
         const String& name() const { return m_name; }
-#if ENABLE(CFG_NETWORK)
         void schedule(ResourceLoader*, ResourceLoadPriority = ResourceLoadPriorityVeryLow);
-#endif
         void addLoadInProgress(ResourceLoader*);
         void remove(ResourceLoader*);
         bool hasRequests() const;
-#if ENABLE(CFG_NETWORK)
         bool limitRequests(ResourceLoadPriority) const;
-#endif
 
         typedef Deque<RefPtr<ResourceLoader> > RequestQueue;
-#if ENABLE(CFG_NETWORK)
         RequestQueue& requestsPending(ResourceLoadPriority priority) { return m_requestsPending[priority]; }
-#endif
 
     private:                    
-#if ENABLE(CFG_NETWORK)
         RequestQueue m_requestsPending[ResourceLoadPriorityHighest + 1];
-#endif
         typedef HashSet<RefPtr<ResourceLoader> > RequestMap;
         RequestMap m_requestsLoading;
         const String m_name;
@@ -123,9 +105,7 @@ private:
     };
     
     HostInformation* hostForURL(const KURL&, CreateHostPolicy = FindOnly);
-#if ENABLE(CFG_NETWORK)
     void servePendingRequests(HostInformation*, ResourceLoadPriority);
-#endif
 
     typedef HashMap<String, HostInformation*, StringHash> HostMap;
     HostMap m_hosts;

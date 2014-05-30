@@ -26,11 +26,7 @@
 #define StyleTransformData_h
 
 #include "Length.h"
-
-#if ENABLE(CFG_TRANSFORMS)
 #include "TransformOperations.h"
-#endif
-
 #include <wtf/PassRefPtr.h>
 #include <wtf/RefCounted.h>
 
@@ -47,9 +43,7 @@ public:
         return !(*this == o);
     }
 
-#if ENABLE(CFG_TRANSFORMS)
     TransformOperations m_operations;
-#endif
     Length m_x;
     Length m_y;
     float m_z;

@@ -53,10 +53,8 @@ public:
 
     CompositeOperator compositeOperator() const { return m_compositeOperator; }
 
-#if ENABLE(CFG_CACHE)
     CachedImage* cachedImage() const { return m_imageLoader.image(); }
     void setCachedImage(CachedImage* i) { m_imageLoader.setImage(i); };
-#endif
 
     void setLoadManually(bool loadManually) { m_imageLoader.setLoadManually(loadManually); }
 

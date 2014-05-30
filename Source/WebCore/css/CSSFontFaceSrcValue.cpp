@@ -25,14 +25,10 @@
 
 #include "config.h"
 #include "CSSFontFaceSrcValue.h"
-
-#if ENABLE(CFG_CACHE)
 #include "CachedFont.h"
 #include "CachedResourceLoader.h"
 #include "CachedResourceRequest.h"
 #include "CachedResourceRequestInitiators.h"
-#endif
-
 #include "Document.h"
 #include "FontCustomPlatformData.h"
 #include "Node.h"
@@ -96,16 +92,11 @@ void CSSFontFaceSrcValue::addSubresourceStyleURLs(ListHashSet<KURL>& urls, const
 
 bool CSSFontFaceSrcValue::hasFailedOrCanceledSubresources() const
 {
-#if ENABLE(CFG_CACHE)
     if (!m_cachedFont)
-#endif
         return false;
-#if ENABLE(CFG_CACHE)
     return m_cachedFont->loadFailedOrCanceled();
-#endif
 }
 
-#if ENABLE(CFG_CACHE)
 CachedFont* CSSFontFaceSrcValue::cachedFont(Document* document)
 {
     if (!m_cachedFont) {
@@ -115,7 +106,6 @@ CachedFont* CSSFontFaceSrcValue::cachedFont(Document* document)
     }
     return m_cachedFont.get();
 }
-#endif
 
 bool CSSFontFaceSrcValue::equals(const CSSFontFaceSrcValue& other) const
 {

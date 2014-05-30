@@ -22,14 +22,10 @@
 #include "ProcessingInstruction.h"
 
 #include "CSSStyleSheet.h"
-
-#if ENABLE(CFG_CACHE)
 #include "CachedCSSStyleSheet.h"
 #include "CachedResourceLoader.h"
 #include "CachedResourceRequest.h"
 #include "CachedXSLStyleSheet.h"
-#endif
-
 #include "Document.h"
 #include "DocumentStyleSheetCollection.h"
 #include "ExceptionCode.h"
@@ -46,9 +42,7 @@ inline ProcessingInstruction::ProcessingInstruction(Document* document, const St
     : Node(document, CreateOther)
     , m_target(target)
     , m_data(data)
-#if ENABLE(CFG_CACHE)
     , m_cachedSheet(0)
-#endif
     , m_loading(false)
     , m_alternate(false)
     , m_createdByParser(false)
@@ -69,10 +63,8 @@ ProcessingInstruction::~ProcessingInstruction()
     if (m_sheet)
         m_sheet->clearOwnerNode();
 
-#if ENABLE(CFG_CACHE)
     if (m_cachedSheet)
         m_cachedSheet->removeClient(this);
-#endif
 
     if (inDocument())
         document()->styleSheetCollection()->removeStyleSheetCandidateNode(this);
@@ -160,12 +152,10 @@ void ProcessingInstruction::checkStyleSheet()
             }
 #endif
         } else {
-#if ENABLE(CFG_CACHE)
             if (m_cachedSheet) {
                 m_cachedSheet->removeClient(this);
                 m_cachedSheet = 0;
             }
-#endif
             
             String url = document()->completeURL(href).string();
             if (!dispatchBeforeLoadEvent(url))
@@ -174,9 +164,7 @@ void ProcessingInstruction::checkStyleSheet()
             m_loading = true;
             document()->styleSheetCollection()->addPendingSheet();
             
-#if ENABLE(CFG_CACHE)
             CachedResourceRequest request(ResourceRequest(document()->completeURL(href)));
-#endif
 #if ENABLE(XSLT)
             if (m_isXSL)
                 m_cachedSheet = document()->cachedResourceLoader()->requestXSLStyleSheet(request);
@@ -186,23 +174,17 @@ void ProcessingInstruction::checkStyleSheet()
                 String charset = attrs.get("charset");
                 if (charset.isEmpty())
                     charset = document()->charset();
-#if ENABLE(CFG_CACHE)
                 request.setCharset(charset);
 
                 m_cachedSheet = document()->cachedResourceLoader()->requestCSSStyleSheet(request);
-#endif
             }
-#if ENABLE(CFG_CACHE)
             if (m_cachedSheet)
                 m_cachedSheet->addClient(this);
             else {
-#endif
                 // The request may have been denied if (for example) the stylesheet is local and the document is remote.
                 m_loading = false;
                 document()->styleSheetCollection()->removePendingSheet();
-#if ENABLE(CFG_CACHE)
             }
-#endif
         }
     }
 }
@@ -225,11 +207,7 @@ bool ProcessingInstruction::sheetLoaded()
     return false;
 }
 
-void ProcessingInstruction::setCSSStyleSheet(const String& href, const KURL& baseURL, const String& charset
-#if ENABLE(CFG_CACHE)
-                                             , const CachedCSSStyleSheet* sheet
-#endif
-                                             )
+void ProcessingInstruction::setCSSStyleSheet(const String& href, const KURL& baseURL, const String& charset, const CachedCSSStyleSheet* sheet)
 {
     if (!inDocument()) {
         ASSERT(!m_sheet);
@@ -251,9 +229,7 @@ void ProcessingInstruction::setCSSStyleSheet(const String& href, const KURL& bas
     // We don't need the cross-origin security check here because we are
     // getting the sheet text in "strict" mode. This enforces a valid CSS MIME
     // type.
-#if ENABLE(CFG_CACHE)
     parseStyleSheet(sheet->sheetText(true));
-#endif
 }
 
 #if ENABLE(XSLT)
@@ -274,11 +250,9 @@ void ProcessingInstruction::parseStyleSheet(const String& sheet)
         static_cast<XSLStyleSheet*>(m_sheet.get())->parseString(sheet);
 #endif
 
-#if ENABLE(CFG_CACHE)
     if (m_cachedSheet)
         m_cachedSheet->removeClient(this);
     m_cachedSheet = 0;
-#endif
 
     m_loading = false;
 
@@ -292,9 +266,7 @@ void ProcessingInstruction::parseStyleSheet(const String& sheet)
 
 void ProcessingInstruction::setCSSStyleSheet(PassRefPtr<CSSStyleSheet> sheet)
 {
-#if ENABLE(CFG_CACHE)
     ASSERT(!m_cachedSheet);
-#endif
     ASSERT(!m_loading);
     m_sheet = sheet;
     sheet->setTitle(m_title);

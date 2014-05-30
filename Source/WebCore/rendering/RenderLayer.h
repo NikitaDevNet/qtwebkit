@@ -726,9 +726,7 @@ public:
 
     bool hasTransform() const { return renderer()->hasTransform(); }
     // Note that this transform has the transform-origin baked in.
-#if ENABLE(CFG_TRANSFORMS)
     TransformationMatrix* transform() const { return m_transform.get(); }
-#endif
     // currentTransform computes a transform which takes accelerated animations into account. The
     // resulting transform has transform-origin baked in. If the layer does not have a transform,
     // returns the identity matrix.
@@ -741,13 +739,7 @@ public:
     TransformationMatrix perspectiveTransform() const;
     FloatPoint perspectiveOrigin() const;
     bool preserves3D() const { return renderer()->style()->transformStyle3D() == TransformStyle3DPreserve3D; }
-    bool has3DTransform() const {
-#if ENABLE(CFG_TRANSFORMS)
-        return m_transform && !m_transform->isAffine();
-#else
-        return false;
-#endif
-    }
+    bool has3DTransform() const { return m_transform && !m_transform->isAffine(); }
 
 #if ENABLE(CSS_FILTERS)
     virtual void filterNeedsRepaint();
@@ -1270,9 +1262,7 @@ protected:
     LayoutUnit m_staticInlinePosition;
     LayoutUnit m_staticBlockPosition;
 
-#if ENABLE(CFG_TRANSFORMS)
     OwnPtr<TransformationMatrix> m_transform;
-#endif
     
     // May ultimately be extended to many replicas (with their own paint order).
     RenderReplica* m_reflection;

@@ -32,11 +32,8 @@
 #ifndef LinkLoader_h
 #define LinkLoader_h
 
-#if ENABLE(CFG_CACHE)
 #include "CachedResourceClient.h"
 #include "CachedResourceHandle.h"
-#endif
-
 #include "LinkLoaderClient.h"
 #include "Timer.h"
 
@@ -49,20 +46,14 @@ class KURL;
 struct LinkRelAttribute;
 
 // The LinkLoader can load link rel types icon, dns-prefetch, subresource and prefetch.
-class LinkLoader
-#if ENABLE(CFG_CACHE)
-        : public CachedResourceClient
-#endif
-{
+class LinkLoader : public CachedResourceClient {
 
 public:
     explicit LinkLoader(LinkLoaderClient*);
     virtual ~LinkLoader();
 
-#if ENABLE(CFG_CACHE)
     // from CachedResourceClient
     virtual void notifyFinished(CachedResource*);
-#endif
 
     void released();
     bool loadLink(const LinkRelAttribute&, const String& type, const String& sizes, const KURL&, Document*);
@@ -73,9 +64,7 @@ private:
 
     LinkLoaderClient* m_client;
 
-#if ENABLE(CFG_CACHE)
     CachedResourceHandle<CachedResource> m_cachedLinkResource;
-#endif
     Timer<LinkLoader> m_linkLoadTimer;
     Timer<LinkLoader> m_linkLoadingErrorTimer;
 };

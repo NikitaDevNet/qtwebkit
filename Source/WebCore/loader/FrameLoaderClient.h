@@ -33,11 +33,7 @@
 #include "FrameLoaderTypes.h"
 #include "IconURL.h"
 #include "LayoutMilestones.h"
-
-#if ENABLE(CFG_NETWORK)
 #include "ResourceLoadPriority.h"
-#endif
-
 #include <wtf/Forward.h>
 #include <wtf/Vector.h>
 
@@ -351,9 +347,7 @@ namespace WebCore {
         // If an HTML document is being loaded, informs the embedder that the document will have its <body> attached soon.
         virtual void dispatchWillInsertBody() { }
 
-#if ENABLE(CFG_NETWORK)
         virtual void dispatchDidChangeResourcePriority(unsigned long /*identifier*/, ResourceLoadPriority) { }
-#endif
 
         virtual void forcePageTransitionIfNeeded() { }
 

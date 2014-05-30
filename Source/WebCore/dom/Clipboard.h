@@ -24,10 +24,7 @@
 #ifndef Clipboard_h
 #define Clipboard_h
 
-#if ENABLE(CFG_CACHE)
 #include "CachedResourceHandle.h"
-#endif
-
 #include "ClipboardAccessPolicy.h"
 #include "DragActions.h"
 #include "DragImage.h"
@@ -99,9 +96,7 @@ namespace WebCore {
         LEGACY_VIRTUAL PassRefPtr<FileList> files() const LEGACY_PURE;
 
         IntPoint dragLocation() const { return m_dragLoc; }
-#if ENABLE(CFG_CACHE)
         CachedImage* dragImage() const { return m_dragImage.get(); }
-#endif
         Node* dragImageElement() const { return m_dragImageElement.get(); }
         
         LEGACY_VIRTUAL DragImageRef createDragImage(IntPoint& dragLocation) const LEGACY_PURE;
@@ -171,9 +166,7 @@ namespace WebCore {
         
     protected:
         IntPoint m_dragLoc;
-#if ENABLE(CFG_CACHE)
         CachedResourceHandle<CachedImage> m_dragImage;
-#endif
         RefPtr<Node> m_dragImageElement;
 
 #if !USE(LEGACY_STYLE_ABSTRACT_CLIPBOARD_CLASS)

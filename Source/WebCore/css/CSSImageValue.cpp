@@ -24,21 +24,13 @@
 #include "CSSCursorImageValue.h"
 #include "CSSParser.h"
 #include "CSSValueKeywords.h"
-
-#if ENABLE(CFG_CACHE)
 #include "CachedImage.h"
 #include "CachedResourceLoader.h"
 #include "CachedResourceRequest.h"
 #include "CachedResourceRequestInitiators.h"
-#endif
-
 #include "Document.h"
 #include "Element.h"
-
-#if ENABLE(CFG_CACHE)
 #include "MemoryCache.h"
-#endif
-
 #include "StyleCachedImage.h"
 #include "StylePendingImage.h"
 
@@ -78,7 +70,6 @@ StyleCachedImage* CSSImageValue::cachedImage(CachedResourceLoader* loader, const
     if (!m_accessedImage) {
         m_accessedImage = true;
 
-#if ENABLE(CFG_CACHE)
         CachedResourceRequest request(ResourceRequest(loader->document()->completeURL(m_url)), options);
         if (m_initiatorName.isEmpty())
             request.setInitiator(cachedResourceRequestInitiators().css);
@@ -86,31 +77,24 @@ StyleCachedImage* CSSImageValue::cachedImage(CachedResourceLoader* loader, const
             request.setInitiator(m_initiatorName);
         if (CachedResourceHandle<CachedImage> cachedImage = loader->requestImage(request))
             m_image = StyleCachedImage::create(cachedImage.get());
-#endif
     }
 
     return (m_image && m_image->isCachedImage()) ? static_cast<StyleCachedImage*>(m_image.get()) : 0;
 }
 
-#if ENABLE(CFG_CACHE)
 StyleCachedImage* CSSImageValue::cachedImage(CachedResourceLoader* loader)
 {
     return cachedImage(loader, CachedResourceLoader::defaultCachedResourceOptions());
 }
-#endif
 
 bool CSSImageValue::hasFailedOrCanceledSubresources() const
 {
     if (!m_image || !m_image->isCachedImage())
         return false;
-#if ENABLE(CFG_CACHE)
     CachedResource* cachedResource = static_cast<StyleCachedImage*>(m_image.get())->cachedImage();
     if (!cachedResource)
-#endif
         return true;
-#if ENABLE(CFG_CACHE)
     return cachedResource->loadFailedOrCanceled();
-#endif
 }
 
 bool CSSImageValue::equals(const CSSImageValue& other) const

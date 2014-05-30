@@ -26,10 +26,7 @@
 #ifndef CanvasRenderingContext2D_h
 #define CanvasRenderingContext2D_h
 
-#if ENABLE(CFG_TRANSFORMS)
 #include "AffineTransform.h"
-#endif
-
 #include "CanvasPathMethods.h"
 #include "CanvasRenderingContext.h"
 #include "CanvasStyle.h"
@@ -253,9 +250,7 @@ private:
         float m_globalAlpha;
         CompositeOperator m_globalComposite;
         BlendMode m_globalBlend;
-#if ENABLE(CFG_TRANSFORMS)
         AffineTransform m_transform;
-#endif
         bool m_invertibleCTM;
         Vector<float> m_lineDash;
         float m_lineDashOffset;

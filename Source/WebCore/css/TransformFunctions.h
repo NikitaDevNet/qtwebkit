@@ -30,7 +30,6 @@
 #ifndef TransformFunctions_h
 #define TransformFunctions_h
 
-#if ENABLE(CFG_TRANSFORMS)
 #include "TransformOperations.h"
 
 namespace WebCore {
@@ -42,5 +41,4 @@ class WebKitCSSTransformValue;
 bool transformsForValue(const RenderStyle*, const RenderStyle* rootStyle, CSSValue*, TransformOperations&);
 
 }
-#endif // ENABLE(CFG_TRANSFORMS)
 #endif

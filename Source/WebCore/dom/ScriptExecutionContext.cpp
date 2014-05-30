@@ -28,10 +28,7 @@
 #include "config.h"
 #include "ScriptExecutionContext.h"
 
-#if ENABLE(CFG_CACHE)
 #include "CachedScript.h"
-#endif
-
 #include "DOMTimer.h"
 #include "ErrorEvent.h"
 #include "MessagePort.h"
@@ -296,18 +293,10 @@ void ScriptExecutionContext::closeMessagePorts() {
     }
 }
 
-bool ScriptExecutionContext::sanitizeScriptError(String& errorMessage, int& lineNumber, int& columnNumber, String& sourceURL
-#if ENABLE(CFG_CACHE)
-                                                 , CachedScript* cachedScript
-#endif
-                                                 )
+bool ScriptExecutionContext::sanitizeScriptError(String& errorMessage, int& lineNumber, int& columnNumber, String& sourceURL, CachedScript* cachedScript)
 {
     KURL targetURL = completeURL(sourceURL);
-    if (securityOrigin()->canRequest(targetURL)
-#if ENABLE(CFG_CACHE)
-            || (cachedScript && cachedScript->passesAccessControlCheck(securityOrigin()))
-#endif
-            )
+    if (securityOrigin()->canRequest(targetURL) || (cachedScript && cachedScript->passesAccessControlCheck(securityOrigin())))
         return false;
     errorMessage = "Script error.";
     sourceURL = String();
@@ -348,11 +337,7 @@ void ScriptExecutionContext::addConsoleMessage(MessageSource source, MessageLeve
 #endif
 }
 
-bool ScriptExecutionContext::dispatchErrorEvent(const String& errorMessage, int lineNumber, int columnNumber, const String& sourceURL
-#if ENABLE(CFG_CACHE)
-                                                , CachedScript* cachedScript
-#endif
-                                                )
+bool ScriptExecutionContext::dispatchErrorEvent(const String& errorMessage, int lineNumber, int columnNumber, const String& sourceURL, CachedScript* cachedScript)
 {
     EventTarget* target = errorEventTarget();
     if (!target)
@@ -362,9 +347,7 @@ bool ScriptExecutionContext::dispatchErrorEvent(const String& errorMessage, int 
     int line = lineNumber;
     int column = columnNumber;
     String sourceName = sourceURL;
-#if ENABLE(CFG_CACHE)
     sanitizeScriptError(message, line, column, sourceName, cachedScript);
-#endif
 
     ASSERT(!m_inDispatchErrorEvent);
     m_inDispatchErrorEvent = true;

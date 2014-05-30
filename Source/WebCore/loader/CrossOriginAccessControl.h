@@ -27,10 +27,7 @@
 #ifndef CrossOriginAccessControl_h
 #define CrossOriginAccessControl_h
 
-#if ENABLE(CFG_NETWORK)
 #include "ResourceHandleTypes.h"
-#endif
-
 #include <wtf/Forward.h>
 #include <wtf/HashSet.h>
 #include <wtf/text/StringHash.h>
@@ -49,18 +46,10 @@ bool isOnAccessControlSimpleRequestMethodWhitelist(const String&);
 bool isOnAccessControlSimpleRequestHeaderWhitelist(const String& name, const String& value);
 bool isOnAccessControlResponseHeaderWhitelist(const String&);
 
-void updateRequestForAccessControl(ResourceRequest&, SecurityOrigin*
-#if ENABLE(CFG_NETWORK)
-                                   , StoredCredentials
-#endif
-                                   );
+void updateRequestForAccessControl(ResourceRequest&, SecurityOrigin*, StoredCredentials);
 ResourceRequest createAccessControlPreflightRequest(const ResourceRequest&, SecurityOrigin*);
 
-bool passesAccessControlCheck(const ResourceResponse&
-#if ENABLE(CFG_NETWORK)
-                              , StoredCredentials
-#endif
-                              , SecurityOrigin*, String& errorDescription);
+bool passesAccessControlCheck(const ResourceResponse&, StoredCredentials, SecurityOrigin*, String& errorDescription);
 void parseAccessControlExposeHeadersAllowList(const String& headerValue, HTTPHeaderSet&);
 
 } // namespace WebCore

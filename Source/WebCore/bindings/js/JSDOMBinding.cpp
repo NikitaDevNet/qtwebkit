@@ -23,11 +23,7 @@
 #include "JSDOMBinding.h"
 
 #include "BindingSecurity.h"
-
-#if ENABLE(CFG_CACHE)
 #include "CachedScript.h"
-#endif
-
 #include "DOMObjectHashTableMap.h"
 #include "DOMStringList.h"
 #include "ExceptionCode.h"
@@ -150,11 +146,7 @@ JSC::JSValue jsArray(JSC::ExecState* exec, JSDOMGlobalObject* globalObject, Pass
     return JSC::constructArray(exec, 0, globalObject, list);
 }
 
-void reportException(ExecState* exec, JSValue exception
-#if ENABLE(CFG_CACHE)
-                     , CachedScript* cachedScript
-#endif
-                     )
+void reportException(ExecState* exec, JSValue exception, CachedScript* cachedScript)
 {
     if (isTerminatedExecutionException(exception))
         return;
@@ -205,8 +197,8 @@ void reportException(ExecState* exec, JSValue exception
         exec->clearSupplementaryExceptionInfo();
     }
 
-#if ENABLE(CFG_INSPECTOR) && ENABLE(CFG_CACHE)
     ScriptExecutionContext* scriptExecutionContext = globalObject->scriptExecutionContext();
+#if ENABLE(CFG_INSPECTOR)
     scriptExecutionContext->reportException(errorMessage, lineNumber, columnNumber, exceptionSourceURL, callStack->size() ? callStack : 0, cachedScript);
 #endif
 }

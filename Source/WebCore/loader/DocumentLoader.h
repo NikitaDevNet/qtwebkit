@@ -30,31 +30,16 @@
 #ifndef DocumentLoader_h
 #define DocumentLoader_h
 
-#if ENABLE(CFG_CACHE)
 #include "CachedRawResourceClient.h"
 #include "CachedResourceHandle.h"
-#endif
-
 #include "DocumentLoadTiming.h"
 #include "DocumentWriter.h"
-
-#if ENABLE(CFG_ICON)
 #include "IconDatabaseBase.h"
-#endif
-
 #include "NavigationAction.h"
-
-#if ENABLE(CFG_NETWORK)
 #include "ResourceError.h"
-#endif
-
 #include "ResourceLoaderOptions.h"
-
-#if ENABLE(CFG_NETWORK)
 #include "ResourceRequest.h"
 #include "ResourceResponse.h"
-#endif
-
 #include "StringWithDirection.h"
 #include "SubstituteData.h"
 #include "Timer.h"
@@ -90,28 +75,14 @@ namespace WebCore {
     class SubstituteResource;
 
     typedef HashSet<RefPtr<ResourceLoader> > ResourceLoaderSet;
-#if ENABLE(CFG_NETWORK)
     typedef Vector<ResourceResponse> ResponseVector;
-#endif
 
-    class DocumentLoader : public RefCounted<DocumentLoader>
-#if ENABLE(CFG_CACHE)
-            , private CachedRawResourceClient
-#endif
-    {
+    class DocumentLoader : public RefCounted<DocumentLoader>, private CachedRawResourceClient {
         WTF_MAKE_FAST_ALLOCATED;
     public:
-        static PassRefPtr<DocumentLoader> create(
-#if ENABLE(CFG_NETWORK)
-                const ResourceRequest& request,
-#endif
-                const SubstituteData& data)
+        static PassRefPtr<DocumentLoader> create(const ResourceRequest& request, const SubstituteData& data)
         {
-            return adoptRef(new DocumentLoader(
-#if ENABLE(CFG_NETWORK)
-                                request,
-#endif
-                                data));
+            return adoptRef(new DocumentLoader(request, data));
         }
         virtual ~DocumentLoader();
 
@@ -127,13 +98,11 @@ namespace WebCore {
         
         DocumentWriter* writer() const { return &m_writer; }
 
-#if ENABLE(CFG_NETWORK)
         const ResourceRequest& originalRequest() const;
         const ResourceRequest& originalRequestCopy() const;
 
         const ResourceRequest& request() const;
         ResourceRequest& request();
-#endif
 
         CachedResourceLoader* cachedResourceLoader() const { return m_cachedResourceLoader.get(); }
 
@@ -154,10 +123,8 @@ namespace WebCore {
         void setCommitted(bool committed) { m_committed = committed; }
         bool isCommitted() const { return m_committed; }
         bool isLoading() const;
-#if ENABLE(CFG_NETWORK)
         const ResourceResponse& response() const { return m_response; }
         const ResourceError& mainDocumentError() const { return m_mainDocumentError; }
-#endif
         bool isClientRedirect() const { return m_isClientRedirect; }
         void setIsClientRedirect(bool isClientRedirect) { m_isClientRedirect = isClientRedirect; }
         void handledOnloadEvents();
@@ -197,18 +164,14 @@ namespace WebCore {
 #endif
         void cancelPendingSubstituteLoad(ResourceLoader*);   
         
-#if ENABLE(CFG_NETWORK)
         void addResponse(const ResourceResponse&);
         const ResponseVector& responses() const { return m_responses; }
-#endif
 
         const NavigationAction& triggeringAction() const { return m_triggeringAction; }
         void setTriggeringAction(const NavigationAction& action) { m_triggeringAction = action; }
         void setOverrideEncoding(const String& encoding) { m_overrideEncoding = encoding; }
-#if ENABLE(CFG_NETWORK)
         void setLastCheckedRequest(const ResourceRequest& request) { m_lastCheckedRequest = request; }
         const ResourceRequest& lastCheckedRequest()  { return m_lastCheckedRequest; }
-#endif
 
         void stopRecordingResponses();
         const StringWithDirection& title() const { return m_pageTitle; }
@@ -235,17 +198,13 @@ namespace WebCore {
         void setMainResourceDataBufferingPolicy(DataBufferingPolicy);
 
         void startLoadingMainResource();
-#if ENABLE(CFG_NETWORK)
         void cancelMainResourceLoad(const ResourceError&);
-#endif
         
         // Support iconDatabase in synchronous mode.
         void iconLoadDecisionAvailable();
         
         // Support iconDatabase in asynchronous mode.
-#if ENABLE(CFG_ICON)
         void continueIconLoadWithDecision(IconLoadDecision);
-#endif
         void getIconLoadDecisionForIconURL(const String&);
         void getIconDataForIconURL(const String&);
 
@@ -276,10 +235,8 @@ namespace WebCore {
                 m_resourcesClientKnowsAbout.add(url);
         }
         bool haveToldClientAboutLoad(const String& url) { return m_resourcesClientKnowsAbout.contains(url); }
-#if ENABLE(CFG_NETWORK)
         void recordMemoryCacheLoadForFutureClientNotification(const ResourceRequest&);
         void takeMemoryCacheLoadsForClientNotification(Vector<ResourceRequest>& loads);
-#endif
 
         DocumentLoadTiming* timing() { return &m_documentLoadTiming; }
         void resetTiming() { m_documentLoadTiming = DocumentLoadTiming(); }
@@ -293,11 +250,7 @@ namespace WebCore {
         void checkLoadComplete();
 
     protected:
-        DocumentLoader(
-#if ENABLE(CFG_NETWORK)
-                const ResourceRequest&,
-#endif
-                const SubstituteData&);
+        DocumentLoader(const ResourceRequest&, const SubstituteData&);
 
         bool m_deferMainResourceDataLoad;
 
@@ -307,14 +260,10 @@ namespace WebCore {
         KURL documentURL() const;
         Document* document() const;
 
-#if ENABLE(CFG_NETWORK)
         void setRequest(const ResourceRequest&);
-#endif
 
         void commitIfReady();
-#if ENABLE(CFG_NETWORK)
         void setMainDocumentError(const ResourceError&);
-#endif
         void commitLoad(const char*, int);
         void clearMainResourceLoader();
 
@@ -326,39 +275,27 @@ namespace WebCore {
         void clearArchiveResources();
 #endif
 
-#if ENABLE(CFG_NETWORK)
         void willSendRequest(ResourceRequest&, const ResourceResponse&);
-#endif
         void finishedLoading(double finishTime);
-#if ENABLE(CFG_NETWORK)
         void mainReceivedError(const ResourceError&);
-#endif
-#if ENABLE(CFG_CACHE)
-#if ENABLE(CFG_NETWORK)
         virtual void redirectReceived(CachedResource*, ResourceRequest&, const ResourceResponse&) OVERRIDE;
         virtual void responseReceived(CachedResource*, const ResourceResponse&) OVERRIDE;
-#endif
         virtual void dataReceived(CachedResource*, const char* data, int length) OVERRIDE;
         virtual void notifyFinished(CachedResource*) OVERRIDE;
-#endif
 
         bool maybeLoadEmpty();
 
         bool isMultipartReplacingLoad() const;
-#if ENABLE(CFG_NETWORK)
         bool isPostOrRedirectAfterPost(const ResourceRequest&, const ResourceResponse&);
 
         static void callContinueAfterNavigationPolicy(void*, const ResourceRequest&, PassRefPtr<FormState>, bool shouldContinue);
         void continueAfterNavigationPolicy(const ResourceRequest&, bool shouldContinue);
-#endif
 
         static void callContinueAfterContentPolicy(void*, PolicyAction);
         void continueAfterContentPolicy(PolicyAction);
 
         void stopLoadingForPolicyChange();
-#if ENABLE(CFG_NETWORK)
         ResourceError interruptedForPolicyChangeError() const;
-#endif
 
 #if HAVE(RUNLOOP_TIMER)
         typedef RunLoopTimer<DocumentLoader> DocumentLoaderTimer;
@@ -377,26 +314,21 @@ namespace WebCore {
         Frame* m_frame;
         RefPtr<CachedResourceLoader> m_cachedResourceLoader;
 
-#if ENABLE(CFG_CACHE)
         CachedResourceHandle<CachedRawResource> m_mainResource;
-#endif
         ResourceLoaderSet m_subresourceLoaders;
         ResourceLoaderSet m_multipartSubresourceLoaders;
         ResourceLoaderSet m_plugInStreamLoaders;
         
         mutable DocumentWriter m_writer;
 
-#if ENABLE(CFG_NETWORK)
         // A reference to actual request used to create the data source.
         // This should only be used by the resourceLoadDelegate's
         // identifierForInitialRequest:fromDatasource: method. It is
         // not guaranteed to remain unchanged, as requests are mutable.
-        ResourceRequest m_originalRequest;
-#endif
+        ResourceRequest m_originalRequest;   
 
         SubstituteData m_substituteData;
 
-#if ENABLE(CFG_NETWORK)
         // A copy of the original request used to create the data source.
         // We have to copy the request because requests are mutable.
         ResourceRequest m_originalRequestCopy;
@@ -409,7 +341,6 @@ namespace WebCore {
         ResourceResponse m_response;
     
         ResourceError m_mainDocumentError;    
-#endif
 
         bool m_originalSubstituteDataWasValid;
         bool m_committed;
@@ -430,7 +361,6 @@ namespace WebCore {
         // benefit of the various policy handlers.
         NavigationAction m_triggeringAction;
 
-#if ENABLE(CFG_NETWORK)
         // The last request that we checked click policy for - kept around
         // so we can avoid asking again needlessly.
         ResourceRequest m_lastCheckedRequest;
@@ -439,7 +369,6 @@ namespace WebCore {
         // WebResourceLoadDelegate messages if the item is loaded from the
         // page cache.
         ResponseVector m_responses;
-#endif
         bool m_stopRecordingResponses;
         
         typedef HashMap<RefPtr<ResourceLoader>, RefPtr<SubstituteResource> > SubstituteResourceMap;
@@ -453,9 +382,7 @@ namespace WebCore {
 #endif
 
         HashSet<String> m_resourcesClientKnowsAbout;
-#if ENABLE(CFG_NETWORK)
         Vector<ResourceRequest> m_resourcesLoadedFromMemoryCacheForClientNotification;
-#endif
         
         String m_clientRedirectSourceForHistory;
         bool m_didCreateGlobalHistoryEntry;
@@ -469,10 +396,8 @@ namespace WebCore {
         DocumentLoaderTimer m_dataLoadTimer;
         bool m_waitingForContentPolicy;
 
-#if ENABLE(CFG_ICON)
         RefPtr<IconLoadDecisionCallback> m_iconLoadDecisionCallback;
         RefPtr<IconDataCallback> m_iconDataCallback;
-#endif
 
         friend class ApplicationCacheHost;  // for substitute resource delivery
         OwnPtr<ApplicationCacheHost> m_applicationCacheHost;
@@ -482,7 +407,6 @@ namespace WebCore {
 #endif
     };
 
-#if ENABLE(CFG_NETWORK)
     inline void DocumentLoader::recordMemoryCacheLoadForFutureClientNotification(const ResourceRequest& request)
     {
         m_resourcesLoadedFromMemoryCacheForClientNotification.append(request);
@@ -493,7 +417,6 @@ namespace WebCore {
         loadsSet.swap(m_resourcesLoadedFromMemoryCacheForClientNotification);
         m_resourcesLoadedFromMemoryCacheForClientNotification.clear();
     }
-#endif
 
 }
 

@@ -35,9 +35,7 @@ public:
     virtual void dispatchLoadEvent();
     virtual String sourceURI(const AtomicString&) const;
 
-#if ENABLE(CFG_CACHE)
     virtual void notifyFinished(CachedResource*);
-#endif
 };
 
 }

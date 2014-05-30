@@ -24,12 +24,9 @@
 #include "config.h"
 #include "ScriptElement.h"
 
-#if ENABLE(CFG_CACHE)
 #include "CachedScript.h"
 #include "CachedResourceLoader.h"
 #include "CachedResourceRequest.h"
-#endif
-
 #include "ContentSecurityPolicy.h"
 #include "CrossOriginAccessControl.h"
 #include "CurrentScriptIncrementer.h"
@@ -71,9 +68,7 @@ namespace WebCore {
 
 ScriptElement::ScriptElement(Element* element, bool parserInserted, bool alreadyStarted)
     : m_element(element)
-#if ENABLE(CFG_CACHE)
     , m_cachedScript(0)
-#endif
     , m_startLineNumber(WTF::OrdinalNumber::beforeFirst())
     , m_parserInserted(parserInserted)
     , m_isExternalScript(false)
@@ -243,15 +238,11 @@ bool ScriptElement::prepareScript(const TextPosition& scriptStartPosition, Legac
         m_readyToBeParserExecuted = true;
     } else if (hasSourceAttribute() && !asyncAttributeValue() && !m_forceAsync) {
         m_willExecuteInOrder = true;
-#if ENABLE(CFG_CACHE)
         document->scriptRunner()->queueScriptForExecution(this, m_cachedScript, ScriptRunner::IN_ORDER_EXECUTION);
         m_cachedScript->addClient(this);
-#endif
     } else if (hasSourceAttribute()) {
-#if ENABLE(CFG_CACHE)
         m_element->document()->scriptRunner()->queueScriptForExecution(this, m_cachedScript, ScriptRunner::ASYNC_EXECUTION);
         m_cachedScript->addClient(this);
-#endif
     } else {
         // Reset line numbering for nested writes.
         TextPosition position = document->isInDocumentWrite() ? TextPosition() : scriptStartPosition;
@@ -271,38 +262,26 @@ bool ScriptElement::requestScript(const String& sourceUrl)
     if (!m_element->document()->contentSecurityPolicy()->allowScriptNonce(m_element->fastGetAttribute(HTMLNames::nonceAttr), m_element->document()->url(), m_startLineNumber, m_element->document()->completeURL(sourceUrl)))
         return false;
 
-#if ENABLE(CFG_CACHE)
     ASSERT(!m_cachedScript);
-#endif
     if (!stripLeadingAndTrailingHTMLSpaces(sourceUrl).isEmpty()) {
-#if ENABLE(CFG_CACHE)
         CachedResourceRequest request(ResourceRequest(m_element->document()->completeURL(sourceUrl)));
-#endif
 
         String crossOriginMode = m_element->fastGetAttribute(HTMLNames::crossoriginAttr);
         if (!crossOriginMode.isNull()) {
             m_requestUsesAccessControl = true;
-#if ENABLE(CFG_NETWORK)
             StoredCredentials allowCredentials = equalIgnoringCase(crossOriginMode, "use-credentials") ? AllowStoredCredentials : DoNotAllowStoredCredentials;
             updateRequestForAccessControl(request.mutableResourceRequest(), m_element->document()->securityOrigin(), allowCredentials);
-#endif
         }
-#if ENABLE(CFG_NETWORK)
         request.setCharset(scriptCharset());
         request.setInitiator(element());
-#endif
 
-#if ENABLE(CFG_CACHE)
         m_cachedScript = m_element->document()->cachedResourceLoader()->requestScript(request);
-#endif
         m_isExternalScript = true;
     }
 
-#if ENABLE(CFG_CACHE)
     if (m_cachedScript) {
         return true;
     }
-#endif
 
     dispatchErrorEvent();
     return false;
@@ -345,16 +324,13 @@ void ScriptElement::executeScript(const ScriptSourceCode& sourceCode)
 
 void ScriptElement::stopLoadRequest()
 {
-#if ENABLE(CFG_CACHE)
     if (m_cachedScript) {
         if (!m_willBeParserExecuted)
             m_cachedScript->removeClient(this);
         m_cachedScript = 0;
     }
-#endif
 }
 
-#if ENABLE(CFG_CACHE)
 void ScriptElement::execute(CachedScript* cachedScript)
 {
     ASSERT(!m_willBeParserExecuted);
@@ -367,13 +343,8 @@ void ScriptElement::execute(CachedScript* cachedScript)
     }
     cachedScript->removeClient(this);
 }
-#endif
 
-void ScriptElement::notifyFinished(
-#if ENABLE(CFG_CACHE)
-        CachedResource* resource
-#endif
-        )
+void ScriptElement::notifyFinished(CachedResource* resource)
 {
     ASSERT(!m_willBeParserExecuted);
 
@@ -381,18 +352,13 @@ void ScriptElement::notifyFinished(
     // once because ScriptElement doesn't unsubscribe itself from
     // CachedResource here and does it in execute() instead.
     // We use m_cachedScript to check if this function is already called.
-#if ENABLE(CFG_CACHE)
     ASSERT_UNUSED(resource, resource == m_cachedScript);
     if (!m_cachedScript)
         return;
-#endif
 
     if (m_requestUsesAccessControl
-#if ENABLE(CFG_CACHE)
         && !m_element->document()->securityOrigin()->canRequest(m_cachedScript->response().url())
-        && !m_cachedScript->passesAccessControlCheck(m_element->document()->securityOrigin())
-#endif
-            ) {
+        && !m_cachedScript->passesAccessControlCheck(m_element->document()->securityOrigin())) {
 
         dispatchErrorEvent();
         DEFINE_STATIC_LOCAL(String, consoleMessage, (ASCIILiteral("Cross-origin script load denied by Cross-Origin Resource Sharing policy.")));
@@ -405,9 +371,7 @@ void ScriptElement::notifyFinished(
     else
         m_element->document()->scriptRunner()->notifyScriptReady(this, ScriptRunner::ASYNC_EXECUTION);
 
-#if ENABLE(CFG_CACHE)
     m_cachedScript = 0;
-#endif
 }
 
 bool ScriptElement::ignoresLoadRequest() const

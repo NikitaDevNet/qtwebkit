@@ -26,10 +26,7 @@
 #include "config.h"
 #include "Element.h"
 
-#if ENABLE(CFG_ACCESSIBILITY)
 #include "AXObjectCache.h"
-#endif
-
 #include "Attr.h"
 #include "CSSParser.h"
 #include "CSSSelectorList.h"
@@ -1061,10 +1058,8 @@ void Element::attributeChanged(const QualifiedName& name, const AtomicString& ne
     if (shouldInvalidateStyle)
         setNeedsStyleRecalc();
 
-#if ENABLE(CFG_ACCESSIBILITY)
     if (AXObjectCache* cache = document()->existingAXObjectCache())
         cache->handleAttributeChanged(name, this);
-#endif
 }
 
 inline void Element::attributeChangedFromParserOrByCloning(const QualifiedName& name, const AtomicString& newValue, AttributeModificationReason reason)

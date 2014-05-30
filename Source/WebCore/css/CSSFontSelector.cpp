@@ -27,10 +27,7 @@
 #include "config.h"
 #include "CSSFontSelector.h"
 
-#if ENABLE(CFG_CACHE)
 #include "CachedFont.h"
-#endif
-
 #include "CSSFontFace.h"
 #include "CSSFontFaceRule.h"
 #include "CSSFontFaceSource.h"
@@ -41,11 +38,7 @@
 #include "CSSUnicodeRangeValue.h"
 #include "CSSValueKeywords.h"
 #include "CSSValueList.h"
-
-#if ENABLE(CFG_CACHE)
 #include "CachedResourceLoader.h"
-#endif
-
 #include "Document.h"
 #include "FontCache.h"
 #include "Frame.h"
@@ -224,7 +217,6 @@ void CSSFontSelector::addFontFaceRule(const StyleRuleFontFace* fontFaceRule)
             Settings* settings = m_document ? m_document->frame() ? m_document->frame()->settings() : 0 : 0;
             bool allowDownloading = foundSVGFont || (settings && settings->downloadableBinaryFontsEnabled());
             if (allowDownloading && item->isSupportedFormat() && m_document) {
-#if ENABLE(CFG_CACHE)
                 CachedFont* cachedFont = item->cachedFont(m_document);
                 if (cachedFont) {
                     source = adoptPtr(new CSSFontFaceSource(item->resource(), cachedFont));
@@ -233,7 +225,6 @@ void CSSFontSelector::addFontFaceRule(const StyleRuleFontFace* fontFaceRule)
                         source->setHasExternalSVGFont(true);
 #endif
                 }
-#endif
             }
         } else {
             source = adoptPtr(new CSSFontFaceSource(item->resource()));
@@ -573,15 +564,12 @@ void CSSFontSelector::clearDocument()
 {
     if (!m_document) {
         ASSERT(!m_beginLoadingTimer.isActive());
-#if ENABLE(CFG_CACHE)
         ASSERT(m_fontsToBeginLoading.isEmpty());
-#endif
         return;
     }
 
     m_beginLoadingTimer.stop();
 
-#if ENABLE(CFG_CACHE)
     CachedResourceLoader* cachedResourceLoader = m_document->cachedResourceLoader();
     for (size_t i = 0; i < m_fontsToBeginLoading.size(); ++i) {
         // Balances incrementRequestCount() in beginLoadingFontSoon().
@@ -589,7 +577,6 @@ void CSSFontSelector::clearDocument()
     }
 
     m_fontsToBeginLoading.clear();
-#endif
 
     m_document = 0;
 }
@@ -599,27 +586,22 @@ void CSSFontSelector::beginLoadingFontSoon(CachedFont* font)
     if (!m_document)
         return;
 
-#if ENABLE(CFG_CACHE)
     m_fontsToBeginLoading.append(font);
     // Increment the request count now, in order to prevent didFinishLoad from being dispatched
     // after this font has been requested but before it began loading. Balanced by
     // decrementRequestCount() in beginLoadTimerFired() and in clearDocument().
     m_document->cachedResourceLoader()->incrementRequestCount(font);
-#endif
     m_beginLoadingTimer.startOneShot(0);
 }
 
 void CSSFontSelector::beginLoadTimerFired(Timer<WebCore::CSSFontSelector>*)
 {
-#if ENABLE(CFG_CACHE)
     Vector<CachedResourceHandle<CachedFont> > fontsToBeginLoading;
     fontsToBeginLoading.swap(m_fontsToBeginLoading);
-#endif
 
     // CSSFontSelector could get deleted via beginLoadIfNeeded() or loadDone() unless protected.
     RefPtr<CSSFontSelector> protect(this);
 
-#if ENABLE(CFG_CACHE)
     CachedResourceLoader* cachedResourceLoader = m_document->cachedResourceLoader();
     for (size_t i = 0; i < fontsToBeginLoading.size(); ++i) {
         fontsToBeginLoading[i]->beginLoadIfNeeded(cachedResourceLoader);
@@ -628,7 +610,6 @@ void CSSFontSelector::beginLoadTimerFired(Timer<WebCore::CSSFontSelector>*)
     }
     // Ensure that if the request count reaches zero, the frame loader will know about it.
     cachedResourceLoader->loadDone(0);
-#endif
     // New font loads may be triggered by layout after the document load is complete but before we have dispatched
     // didFinishLoading for the frame. Make sure the delegate is always dispatched by checking explicitly.
     if (m_document && m_document->frame())

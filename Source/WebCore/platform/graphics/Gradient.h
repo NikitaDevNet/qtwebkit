@@ -28,10 +28,7 @@
 #ifndef Gradient_h
 #define Gradient_h
 
-#if ENABLE(CFG_TRANSFORMS)
 #include "AffineTransform.h"
-#endif
-
 #include "FloatPoint.h"
 #include "GraphicsTypes.h"
 #include <wtf/PassRefPtr.h>
@@ -164,9 +161,7 @@ namespace WebCore {
         GradientSpreadMethod spreadMethod() { return m_spreadMethod; }
         void setGradientSpaceTransform(const AffineTransform& gradientSpaceTransformation);
         // Qt and CG transform the gradient at draw time
-#if ENABLE(CFG_TRANSFORMS)
         AffineTransform gradientSpaceTransform() { return m_gradientSpaceTransformation; }
-#endif
 
         void fill(GraphicsContext*, const FloatRect&);
         void adjustParametersForTiledDrawing(IntSize&, FloatRect&);
@@ -202,9 +197,7 @@ namespace WebCore {
         mutable Vector<ColorStop, 2> m_stops;
         mutable bool m_stopsSorted;
         GradientSpreadMethod m_spreadMethod;
-#if ENABLE(CFG_TRANSFORMS)
         AffineTransform m_gradientSpaceTransformation;
-#endif
 
         mutable unsigned m_cachedHash;
 

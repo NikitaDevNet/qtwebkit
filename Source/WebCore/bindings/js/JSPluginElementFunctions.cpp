@@ -24,12 +24,7 @@
 #include "HTMLNames.h"
 #include "HTMLPlugInElement.h"
 #include "JSHTMLElement.h"
-
-#if ENABLE(CFG_PLUGINS)
 #include "PluginViewBase.h"
-#endif
-
-#include "Widget.h"
 
 using namespace JSC;
 
@@ -69,12 +64,8 @@ static JSObject* pluginScriptObjectFromPluginViewBase(HTMLPlugInElement* pluginE
     if (!pluginWidget->isPluginViewBase())
         return 0;
 
-#if ENABLE(CFG_PLUGINS)
     PluginViewBase* pluginViewBase = toPluginViewBase(pluginWidget);
     return pluginViewBase->scriptObject(globalObject);
-#else
-    return 0;
-#endif
 }
 
 static JSObject* pluginScriptObjectFromPluginViewBase(JSHTMLElement* jsHTMLElement)

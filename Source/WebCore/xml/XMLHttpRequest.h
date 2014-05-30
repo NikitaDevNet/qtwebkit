@@ -26,12 +26,8 @@
 #include "EventListener.h"
 #include "EventNames.h"
 #include "EventTarget.h"
-
-#if ENABLE(CFG_NETWORK)
 #include "FormData.h"
 #include "ResourceResponse.h"
-#endif
-
 #include "ScriptWrappable.h"
 #include "ThreadableLoaderClient.h"
 #include "XMLHttpRequestProgressEventThrottle.h"
@@ -117,9 +113,7 @@ public:
     void setTimeout(unsigned long timeout, ExceptionCode&);
 #endif
 
-#if ENABLE(CFG_CACHE)
     void sendFromInspector(PassRefPtr<FormData>, ExceptionCode&);
-#endif
 
     // Expose HTTP validation methods for other untrusted requests.
     static bool isAllowedHTTPMethod(const String&);
@@ -203,10 +197,8 @@ private:
 
     KURL m_url;
     String m_method;
-#if ENABLE(CFG_NETWORK)
     HTTPHeaderMap m_requestHeaders;
     RefPtr<FormData> m_requestEntityBody;
-#endif
     String m_mimeTypeOverride;
     bool m_async;
     bool m_includeCredentials;
@@ -218,9 +210,7 @@ private:
     RefPtr<ThreadableLoader> m_loader;
     State m_state;
 
-#if ENABLE(CFG_NETWORK)
     ResourceResponse m_response;
-#endif
     String m_responseEncoding;
 
     RefPtr<TextResourceDecoder> m_decoder;

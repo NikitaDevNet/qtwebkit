@@ -31,10 +31,7 @@
 #ifndef Blob_h
 #define Blob_h
 
-#if ENABLE(CFG_NETWORK)
 #include "BlobData.h"
-#endif
-
 #include "KURL.h"
 #include "ScriptWrappable.h"
 #include <wtf/PassOwnPtr.h>
@@ -53,12 +50,10 @@ public:
         return adoptRef(new Blob);
     }
 
-#if ENABLE(CFG_NETWORK)
     static PassRefPtr<Blob> create(PassOwnPtr<BlobData> blobData, long long size)
     {
         return adoptRef(new Blob(blobData, size));
     }
-#endif
 
     // For deserialization.
     static PassRefPtr<Blob> create(const KURL& srcURL, const String& type, long long size)
@@ -89,9 +84,7 @@ public:
 
 protected:
     Blob();
-#if ENABLE(CFG_NETWORK)
     Blob(PassOwnPtr<BlobData>, long long size);
-#endif
 
     // For deserialization.
     Blob(const KURL& srcURL, const String& type, long long size);

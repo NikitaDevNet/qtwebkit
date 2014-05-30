@@ -23,12 +23,8 @@
 #include "CSSImportRule.h"
 
 #include "CSSStyleSheet.h"
-
-#if ENABLE(CFG_CACHE)
 #include "CachedCSSStyleSheet.h"
 #include "CachedResourceLoader.h"
-#endif
-
 #include "Document.h"
 #include "MediaList.h"
 #include "SecurityOrigin.h"

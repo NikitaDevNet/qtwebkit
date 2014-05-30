@@ -26,53 +26,33 @@
 #ifndef HTMLResourcePreloader_h
 #define HTMLResourcePreloader_h
 
-#if ENABLE(CFG_CACHE)
 #include "CachedResource.h"
 #include "CachedResourceRequest.h"
-#endif
 
 namespace WebCore {
 
 class PreloadRequest {
 public:
-    static PassOwnPtr<PreloadRequest> create(const String& initiator, const String& resourceURL, const KURL& baseURL
-#if ENABLE(CFG_CACHE)
-                                             , CachedResource::Type resourceType
-#endif
-                                             )
+    static PassOwnPtr<PreloadRequest> create(const String& initiator, const String& resourceURL, const KURL& baseURL, CachedResource::Type resourceType)
     {
-        return adoptPtr(new PreloadRequest(initiator, resourceURL, baseURL
-#if ENABLE(CFG_CACHE)
-                                           , resourceType
-#endif
-                                           ));
+        return adoptPtr(new PreloadRequest(initiator, resourceURL, baseURL, resourceType));
     }
 
     bool isSafeToSendToAnotherThread() const;
 
-#if ENABLE(CFG_CACHE)
     CachedResourceRequest resourceRequest(Document*);
-#endif
 
     const String& charset() const { return m_charset; }
     void setCharset(const String& charset) { m_charset = charset.isolatedCopy(); }
     void setCrossOriginModeAllowsCookies(bool allowsCookies) { m_crossOriginModeAllowsCookies = allowsCookies; }
-#if ENABLE(CFG_CACHE)
     CachedResource::Type resourceType() const { return m_resourceType; }
-#endif
 
 private:
-    PreloadRequest(const String& initiator, const String& resourceURL, const KURL& baseURL
-#if ENABLE(CFG_CACHE)
-                   , CachedResource::Type resourceType
-#endif
-                   )
+    PreloadRequest(const String& initiator, const String& resourceURL, const KURL& baseURL, CachedResource::Type resourceType)
         : m_initiator(initiator)
         , m_resourceURL(resourceURL.isolatedCopy())
         , m_baseURL(baseURL.copy())
-#if ENABLE(CFG_CACHE)
         , m_resourceType(resourceType)
-#endif
         , m_crossOriginModeAllowsCookies(false)
     {
     }
@@ -83,9 +63,7 @@ private:
     String m_resourceURL;
     KURL m_baseURL;
     String m_charset;
-#if ENABLE(CFG_CACHE)
     CachedResource::Type m_resourceType;
-#endif
     bool m_crossOriginModeAllowsCookies;
 };
 

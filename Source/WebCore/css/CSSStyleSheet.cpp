@@ -27,11 +27,7 @@
 #include "CSSParser.h"
 #include "CSSRuleList.h"
 #include "CSSStyleRule.h"
-
-#if ENABLE(CFG_CACHE)
 #include "CachedCSSStyleSheet.h"
-#endif
-
 #include "Document.h"
 #include "ExceptionCode.h"
 #include "HTMLNames.h"

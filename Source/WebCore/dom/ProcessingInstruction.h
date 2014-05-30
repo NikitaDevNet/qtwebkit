@@ -22,11 +22,8 @@
 #ifndef ProcessingInstruction_h
 #define ProcessingInstruction_h
 
-#if ENABLE(CFG_CACHE)
 #include "CachedResourceHandle.h"
 #include "CachedStyleSheetClient.h"
-#endif
-
 #include "Node.h"
 
 namespace WebCore {
@@ -34,11 +31,7 @@ namespace WebCore {
 class StyleSheet;
 class CSSStyleSheet;
 
-class ProcessingInstruction FINAL : public Node
-#if ENABLE(CFG_CACHE)
-        , private CachedStyleSheetClient
-#endif
-{
+class ProcessingInstruction FINAL : public Node, private CachedStyleSheetClient {
 public:
     static PassRefPtr<ProcessingInstruction> create(Document*, const String& target, const String& data);
     virtual ~ProcessingInstruction();
@@ -75,11 +68,7 @@ private:
     virtual void removedFrom(ContainerNode*) OVERRIDE;
 
     void checkStyleSheet();
-    virtual void setCSSStyleSheet(const String& href, const KURL& baseURL, const String& charset
-#if ENABLE(CFG_CACHE)
-                                  , const CachedCSSStyleSheet*
-#endif
-                                  );
+    virtual void setCSSStyleSheet(const String& href, const KURL& baseURL, const String& charset, const CachedCSSStyleSheet*);
 #if ENABLE(XSLT)
     virtual void setXSLStyleSheet(const String& href, const KURL& baseURL, const String& sheet);
 #endif
@@ -96,9 +85,7 @@ private:
     String m_localHref;
     String m_title;
     String m_media;
-#if ENABLE(CFG_CACHE)
     CachedResourceHandle<CachedResource> m_cachedSheet;
-#endif
     RefPtr<StyleSheet> m_sheet;
     bool m_loading;
     bool m_alternate;

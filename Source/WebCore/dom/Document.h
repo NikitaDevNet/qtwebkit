@@ -61,19 +61,13 @@
 
 namespace WebCore {
 
-#if ENABLE(CFG_ACCESSIBILITY)
 class AXObjectCache;
-#endif
 class Attr;
 class CDATASection;
 class CSSStyleDeclaration;
 class CSSStyleSheet;
 class CachedCSSStyleSheet;
-
-#if ENABLE(CFG_CACHE)
 class CachedResourceLoader;
-#endif
-
 class CachedScript;
 class CanvasRenderingContext;
 class CharacterData;
@@ -538,9 +532,7 @@ public:
     void pageSizeAndMarginsInPixels(int pageIndex, IntSize& pageSize, int& marginTop, int& marginRight, int& marginBottom, int& marginLeft);
 
     static void updateStyleForAllDocuments(); // FIXME: Try to reduce the # of calls to this function.
-#if ENABLE(CFG_CACHE)
     CachedResourceLoader* cachedResourceLoader() { return m_cachedResourceLoader.get(); }
-#endif
 
     virtual void attach(const AttachContext& = AttachContext()) OVERRIDE;
     virtual void detach(const AttachContext& = AttachContext()) OVERRIDE;
@@ -564,11 +556,9 @@ public:
         Node::setRenderer(renderer);
     }
 
-#if ENABLE(CFG_ACCESSIBILITY)
     AXObjectCache* existingAXObjectCache() const;
     AXObjectCache* axObjectCache() const;
     void clearAXObjectCache();
-#endif
 
     // to get visually ordered hebrew and arabic pages right
     void setVisuallyOrdered();
@@ -1314,9 +1304,7 @@ private:
     Frame* m_frame;
     RefPtr<DOMWindow> m_domWindow;
 
-#if ENABLE(CFG_CACHE)
     RefPtr<CachedResourceLoader> m_cachedResourceLoader;
-#endif
     RefPtr<DocumentParser> m_parser;
     unsigned m_activeParserCount;
     RefPtr<ContextFeatures> m_contextFeatures;
@@ -1409,9 +1397,7 @@ private:
 
     RefPtr<RenderArena> m_renderArena;
 
-#if ENABLE(CFG_ACCESSIBILITY)
     OwnPtr<AXObjectCache> m_axObjectCache;
-#endif
     OwnPtr<DocumentMarkerController> m_markers;
     
     Timer<Document> m_updateFocusAppearanceTimer;

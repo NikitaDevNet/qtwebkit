@@ -21,29 +21,20 @@
 #ifndef ScriptElement_h
 #define ScriptElement_h
 
-#if ENABLE(CFG_CACHE)
 #include "CachedResourceClient.h"
 #include "CachedResourceHandle.h"
-#endif
-
 #include <wtf/text/TextPosition.h>
 #include <wtf/text/WTFString.h>
 
 namespace WebCore {
 
-#if ENABLE(CFG_CACHE)
 class CachedScript;
-#endif
 class ContainerNode;
 class Element;
 class ScriptElement;
 class ScriptSourceCode;
 
-class ScriptElement
-#if ENABLE(CFG_CACHE)
-        : private CachedResourceClient
-#endif
-{
+class ScriptElement : private CachedResourceClient {
     WTF_MAKE_FAST_ALLOCATED;
 public:
     ScriptElement(Element*, bool createdByParser, bool isEvaluated);
@@ -57,9 +48,7 @@ public:
     String scriptCharset() const { return m_characterEncoding; }
     String scriptContent() const;
     void executeScript(const ScriptSourceCode&);
-#if ENABLE(CFG_CACHE)
     void execute(CachedScript*);
-#endif
 
     // XML parser calls these
     virtual void dispatchLoadEvent() = 0;
@@ -70,9 +59,7 @@ public:
     bool willBeParserExecuted() const { return m_willBeParserExecuted; }
     bool readyToBeParserExecuted() const { return m_readyToBeParserExecuted; }
     bool willExecuteWhenDocumentFinishedParsing() const { return m_willExecuteWhenDocumentFinishedParsing; }
-#if ENABLE(CFG_CACHE)
     CachedResourceHandle<CachedScript> cachedScript() { return m_cachedScript; }
-#endif
 
 protected:
     void setHaveFiredLoadEvent(bool haveFiredLoad) { m_haveFiredLoad = haveFiredLoad; }
@@ -93,11 +80,7 @@ private:
     bool requestScript(const String& sourceUrl);
     void stopLoadRequest();
 
-    virtual void notifyFinished(
-#if ENABLE(CFG_CACHE)
-            CachedResource*
-#endif
-                                );
+    virtual void notifyFinished(CachedResource*);
 
     virtual String sourceAttributeValue() const = 0;
     virtual String charsetAttributeValue() const = 0;
@@ -110,9 +93,7 @@ private:
     virtual bool hasSourceAttribute() const = 0;
 
     Element* m_element;
-#if ENABLE(CFG_CACHE)
     CachedResourceHandle<CachedScript> m_cachedScript;
-#endif
     WTF::OrdinalNumber m_startLineNumber;
     bool m_parserInserted : 1;
     bool m_isExternalScript : 1;

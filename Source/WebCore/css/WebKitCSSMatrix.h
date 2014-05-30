@@ -26,12 +26,8 @@
 #ifndef WebKitCSSMatrix_h
 #define WebKitCSSMatrix_h
 
-#if ENABLE(CFG_TRANSFORMS)
-
 #include "ScriptWrappable.h"
-
 #include "TransformationMatrix.h"
-
 #include <wtf/RefCounted.h>
 #include <wtf/RefPtr.h>
 #include <wtf/text/WTFString.h>
@@ -162,7 +158,5 @@ protected:
 };
 
 } // namespace WebCore
-
-#endif // ENABLE(CFG_TRANSFORMS)
 
 #endif // WebKitCSSMatrix_h

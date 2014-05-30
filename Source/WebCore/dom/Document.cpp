@@ -28,22 +28,15 @@
 #include "config.h"
 #include "Document.h"
 
-#if ENABLE(CFG_ACCESSIBILITY)
 #include "AXObjectCache.h"
-#endif
-
 #include "AnimationController.h"
 #include "Attr.h"
 #include "Attribute.h"
 #include "CDATASection.h"
 #include "CSSStyleDeclaration.h"
 #include "CSSStyleSheet.h"
-
-#if ENABLE(CFG_NETWORK)
 #include "CachedCSSStyleSheet.h"
 #include "CachedResourceLoader.h"
-#endif
-
 #include "Chrome.h"
 #include "ChromeClient.h"
 #include "Comment.h"
@@ -101,18 +94,10 @@
 #include "HTMLScriptElement.h"
 #include "HTMLStyleElement.h"
 #include "HTMLTitleElement.h"
-
-#if ENABLE(CFG_NETWORK)
 #include "HTTPParsers.h"
-#endif
-
 #include "HitTestRequest.h"
 #include "HitTestResult.h"
-
-#if ENABLE(CFG_ICON)
 #include "IconController.h"
-#endif
-
 #include "ImageLoader.h"
 
 #if ENABLE(CFG_INSPECTOR)
@@ -522,13 +507,11 @@ Document::Document(Frame* frame, const KURL& url, unsigned documentClasses)
 
     m_markers = adoptPtr(new DocumentMarkerController);
 
-#if ENABLE(CFG_CACHE)
     if (m_frame)
         m_cachedResourceLoader = m_frame->loader()->activeDocumentLoader()->cachedResourceLoader();
     if (!m_cachedResourceLoader)
         m_cachedResourceLoader = CachedResourceLoader::create(0);
     m_cachedResourceLoader->setDocument(this);
-#endif
 
 #if ENABLE(TEXT_AUTOSIZING)
     m_textAutosizer = TextAutosizer::create(this);
@@ -612,10 +595,8 @@ Document::~Document()
 
     m_renderArena.clear();
 
-#if ENABLE(CFG_ACCESSIBILITY)
     if (this == topDocument())
         clearAXObjectCache();
-#endif
 
     m_decoder = 0;
 
@@ -631,11 +612,9 @@ Document::~Document()
 
     // It's possible for multiple Documents to end up referencing the same CachedResourceLoader (e.g., SVGImages
     // load the initial empty document and the SVGDocument with the same DocumentLoader).
-#if ENABLE(CFG_CACHE)
     if (m_cachedResourceLoader->document() == this)
         m_cachedResourceLoader->setDocument(0);
     m_cachedResourceLoader.clear();
-#endif
 
     // We must call clearRareData() here since a Document class inherits TreeScope
     // as well as Node. See a comment on TreeScope.h for the reason.
@@ -2057,13 +2036,7 @@ void Document::attach(const AttachContext& context)
 {
     ASSERT(!attached());
     ASSERT(!m_inPageCache);
-    ASSERT(
-#if ENABLE(CFG_ACCESSIBILITY)
-                !m_axObjectCache ||
-#else
-                true ||
-#endif
-                this != topDocument());
+    ASSERT(!m_axObjectCache || this != topDocument());
 
     if (!m_renderArena)
         m_renderArena = RenderArena::create();
@@ -2094,10 +2067,8 @@ void Document::detach(const AttachContext& context)
         page()->pointerLockController()->documentDetached(this);
 #endif
 
-#if ENABLE(CFG_ACCESSIBILITY)
     if (this == topDocument())
         clearAXObjectCache();
-#endif
 
     stopActiveDOMObjects();
     m_eventQueue->close();
@@ -2189,7 +2160,6 @@ void Document::resumeActiveDOMObjects(ActiveDOMObject::ReasonForSuspension why)
     ScriptExecutionContext::resumeActiveDOMObjects(why);
 }
 
-#if ENABLE(CFG_ACCESSIBILITY)
 void Document::clearAXObjectCache()
 {
     ASSERT(topDocument() == this);
@@ -2231,7 +2201,6 @@ AXObjectCache* Document::axObjectCache() const
         topDocument->m_axObjectCache = adoptPtr(new AXObjectCache(topDocument));
     return topDocument->m_axObjectCache.get();
 }
-#endif
 
 void Document::setVisuallyOrdered()
 {
@@ -2441,9 +2410,7 @@ void Document::implicitClose()
     // ramifications, and we need to decide what is the Right Thing To Do(tm)
     Frame* f = frame();
     if (f) {
-#if ENABLE(CFG_ICON)
         f->loader()->icon()->startLoader();
-#endif
         f->animation()->startAnimationsIfNotSuspended(this);
     }
 
@@ -2890,7 +2857,6 @@ void Document::processHttpEquiv(const String& equiv, const String& content)
     } else if (equalIgnoringCase(equiv, "refresh")) {
         double delay;
         String url;
-#if ENABLE(CFG_NETWORK)
         if (frame && parseHTTPRefresh(content, true, delay, url)) {
             if (url.isEmpty())
                 url = m_url.string();
@@ -2898,7 +2864,6 @@ void Document::processHttpEquiv(const String& equiv, const String& content)
                 url = completeURL(url).string();
             frame->navigationScheduler()->scheduleRedirect(delay, url);
         }
-#endif
     } else if (equalIgnoringCase(equiv, "set-cookie")) {
         // FIXME: make setCookie work on XML documents too; e.g. in case of <html:meta .....>
         if (isHTMLDocument()) {
@@ -3463,10 +3428,8 @@ bool Document::setFocusedElement(PassRefPtr<Element> prpNewFocusedElement, Focus
 
     if (!focusChangeBlocked && m_focusedElement) {
         // Create the AXObject cache in a focus change because GTK relies on it.
-#if ENABLE(CFG_ACCESSIBILITY)
         if (AXObjectCache* cache = axObjectCache())
             cache->handleFocusedUIElementChanged(oldFocusedElement.get(), newFocusedElement.get());
-#endif
     }
 
     if (!focusChangeBlocked)
@@ -3870,14 +3833,10 @@ String Document::lastModified() const
     bool foundDate = false;
     if (m_frame) {
         String httpLastModified;
-#if ENABLE(CFG_NETWORK)
-        if (DocumentLoader* documentLoader = loader())
+        if (DocumentLoader* documentLoader = loader()) 
             httpLastModified = documentLoader->response().httpHeaderField("Last-Modified");
-#endif
         if (!httpLastModified.isEmpty()) {
-#if ENABLE(CFG_NETWORK)
             date.setMillisecondsSinceEpochForDateTime(parseDate(httpLastModified));
-#endif
             foundDate = true;
         }
     }
@@ -4495,10 +4454,8 @@ void Document::finishedParsing()
     static const int timeToKeepSharedObjectPoolAliveAfterParsingFinishedInSeconds = 10;
     m_sharedObjectPoolClearTimer.startOneShot(timeToKeepSharedObjectPoolAliveAfterParsingFinishedInSeconds);
 
-#if ENABLE(CFG_CACHE)
     // Parser should have picked up all preloads by now
     m_cachedResourceLoader->clearPreloads();
-#endif
 }
 
 void Document::sharedObjectPoolClearTimerFired(Timer<Document>*)

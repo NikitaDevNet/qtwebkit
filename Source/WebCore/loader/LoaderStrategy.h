@@ -26,10 +26,7 @@
 #ifndef LoaderStrategy_h
 #define LoaderStrategy_h
 
-#if ENABLE(CFG_NETWORK)
 #include "ResourceHandleTypes.h"
-#endif
-
 #include <wtf/Vector.h>
 
 namespace WebCore {
@@ -45,9 +42,7 @@ class LoaderStrategy {
 public:
     virtual ResourceLoadScheduler* resourceLoadScheduler();
 
-#if ENABLE(CFG_NETWORK)
     virtual void loadResourceSynchronously(NetworkingContext*, unsigned long identifier, const ResourceRequest&, StoredCredentials, ClientCredentialPolicy, ResourceError&, ResourceResponse&, Vector<char>& data);
-#endif
 
 #if ENABLE(BLOB)
     virtual BlobRegistry* createBlobRegistry();

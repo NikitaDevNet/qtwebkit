@@ -27,11 +27,7 @@
 #define CSSFontFaceSrcValue_h
 
 #include "CSSValue.h"
-
-#if ENABLE(CFG_CACHE)
 #include "CachedResourceHandle.h"
-#endif
-
 #include <wtf/PassRefPtr.h>
 #include <wtf/text/WTFString.h>
 
@@ -73,9 +69,7 @@ public:
 
     bool hasFailedOrCanceledSubresources() const;
 
-#if ENABLE(CFG_CACHE)
     CachedFont* cachedFont(Document*);
-#endif
 
     bool equals(const CSSFontFaceSrcValue&) const;
 
@@ -94,9 +88,7 @@ private:
     String m_format;
     bool m_isLocal;
 
-#if ENABLE(CFG_CACHE)
     CachedResourceHandle<CachedFont> m_cachedFont;
-#endif
 
 #if ENABLE(SVG_FONTS)
     SVGFontFaceElement* m_svgFontFaceElement;

@@ -42,9 +42,7 @@ class VM;
 
 namespace WebCore {
 
-#if ENABLE(CFG_CACHE)
 class CachedScript;
-#endif
 class DatabaseContext;
 class DOMTimer;
 class EventListener;
@@ -79,11 +77,7 @@ public:
 
     virtual void disableEval(const String& errorMessage) = 0;
 
-    bool sanitizeScriptError(String& errorMessage, int& lineNumber, int& columnNumber, String& sourceURL
-#if ENABLE(CFG_CACHE)
-                             , CachedScript* = 0
-#endif
-            );
+    bool sanitizeScriptError(String& errorMessage, int& lineNumber, int& columnNumber, String& sourceURL, CachedScript* = 0);
     // FIXME: <http://webkit.org/b/114315> ScriptExecutionContext log exception should include a column number
 #if ENABLE(CFG_INSPECTOR)
     void reportException(const String& errorMessage, int lineNumber, int columnNumber, const String& sourceURL, PassRefPtr<ScriptCallStack>, CachedScript* = 0);
@@ -200,11 +194,7 @@ private:
 #if ENABLE(CFG_INSPECTOR)
     virtual void logExceptionToConsole(const String& errorMessage, const String& sourceURL, int lineNumber, int columnNumber, PassRefPtr<ScriptCallStack>) = 0;
 #endif
-    bool dispatchErrorEvent(const String& errorMessage, int lineNumber, int columnNumber, const String& sourceURL
-#if ENABLE(CFG_CACHE)
-                            , CachedScript*
-#endif
-                            );
+    bool dispatchErrorEvent(const String& errorMessage, int lineNumber, int columnNumber, const String& sourceURL, CachedScript*);
 
     void closeMessagePorts();
 

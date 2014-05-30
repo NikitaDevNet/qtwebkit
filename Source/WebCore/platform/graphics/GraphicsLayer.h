@@ -36,11 +36,7 @@
 #include "GraphicsLayerClient.h"
 #include "IntRect.h"
 #include "PlatformLayer.h"
-
-#if ENABLE(CFG_TRANSFORMS)
 #include "TransformOperations.h"
-#endif
-
 #include <wtf/OwnPtr.h>
 #include <wtf/PassOwnPtr.h>
 
@@ -122,7 +118,6 @@ private:
 
 // Used to store one transform value in a keyframe list.
 // FIXME: Should be moved to its own header file.
-#if ENABLE(CFG_TRANSFORMS)
 class TransformAnimationValue : public AnimationValue {
 public:
     static PassOwnPtr<TransformAnimationValue> create(float keyTime, const TransformOperations& value, PassRefPtr<TimingFunction> timingFunction = 0)
@@ -146,7 +141,6 @@ private:
 
     TransformOperations m_value;
 };
-#endif
 
 #if ENABLE(CSS_FILTERS)
 // Used to store one filter value in a keyframe list.
@@ -304,13 +298,11 @@ public:
     const FloatPoint& boundsOrigin() const { return m_boundsOrigin; }
     virtual void setBoundsOrigin(const FloatPoint& origin) { m_boundsOrigin = origin; }
 
-#if ENABLE(CFG_TRANSFORMS)
     const TransformationMatrix& transform() const { return m_transform; }
     virtual void setTransform(const TransformationMatrix& t) { m_transform = t; }
 
     const TransformationMatrix& childrenTransform() const { return m_childrenTransform; }
     virtual void setChildrenTransform(const TransformationMatrix& t) { m_childrenTransform = t; }
-#endif
 
     bool preserves3D() const { return m_preserves3D; }
     virtual void setPreserves3D(bool b) { m_preserves3D = b; }
@@ -539,10 +531,8 @@ protected:
     FloatSize m_size;
     FloatPoint m_boundsOrigin;
 
-#if ENABLE(CFG_TRANSFORMS)
     TransformationMatrix m_transform;
     TransformationMatrix m_childrenTransform;
-#endif
 
     Color m_backgroundColor;
     float m_opacity;

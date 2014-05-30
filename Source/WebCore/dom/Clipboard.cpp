@@ -26,11 +26,8 @@
 #include "config.h"
 #include "Clipboard.h"
 
-#if ENABLE(CFG_CACHE)
 #include "CachedImage.h"
 #include "CachedImageClient.h"
-#endif
-
 #include "DragData.h"
 #include "Editor.h"
 #include "FileList.h"
