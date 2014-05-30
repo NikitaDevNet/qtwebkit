@@ -37,10 +37,12 @@ ResourceLoadScheduler* LoaderStrategy::resourceLoadScheduler()
     return WebCore::resourceLoadScheduler();
 }
 
+#if ENABLE(CFG_NETWORK)
 void LoaderStrategy::loadResourceSynchronously(NetworkingContext* context, unsigned long, const ResourceRequest& request, StoredCredentials storedCredentials, ClientCredentialPolicy, ResourceError& error, ResourceResponse& response, Vector<char>& data)
 {
     ResourceHandle::loadResourceSynchronously(context, request, storedCredentials, error, response, data);
 }
+#endif
 
 #if ENABLE(BLOB)
 BlobRegistry* LoaderStrategy::createBlobRegistry()

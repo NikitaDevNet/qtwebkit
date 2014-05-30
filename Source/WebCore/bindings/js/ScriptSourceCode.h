@@ -31,8 +31,11 @@
 #ifndef ScriptSourceCode_h
 #define ScriptSourceCode_h
 
+#if ENABLE(CFG_CACHE)
 #include "CachedResourceHandle.h"
 #include "CachedScript.h"
+#endif
+
 #include "CachedScriptSourceProvider.h"
 #include "KURL.h"
 #include <parser/SourceProvider.h>
@@ -51,9 +54,14 @@ public:
     }
 
     explicit ScriptSourceCode(CachedScript* cachedScript)
-        : m_provider(CachedScriptSourceProvider::create(cachedScript))
-        , m_code(m_provider)
+        :
+#if ENABLE(CFG_CACHE)
+        m_provider(CachedScriptSourceProvider::create(cachedScript)),
+#endif
+        m_code(m_provider)
+#if ENABLE(CFG_CACHE)
         , m_cachedScript(cachedScript)
+#endif
     {
     }
 
@@ -65,7 +73,9 @@ public:
 
     int startLine() const { return m_code.firstLine(); }
 
+#if ENABLE(CFG_CACHE)
     CachedScript* cachedScript() const { return m_cachedScript.get(); }
+#endif
 
     const KURL& url() const { return m_url; }
     
@@ -74,7 +84,9 @@ private:
     
     JSC::SourceCode m_code;
 
+#if ENABLE(CFG_CACHE)
     CachedResourceHandle<CachedScript> m_cachedScript;
+#endif
 
     KURL m_url;
 

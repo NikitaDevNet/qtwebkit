@@ -23,8 +23,11 @@
 #ifndef ImageLoader_h
 #define ImageLoader_h
 
+#if ENABLE(CFG_CACHE)
 #include "CachedImageClient.h"
 #include "CachedResourceHandle.h"
+#endif
+
 #include "Timer.h"
 #include <wtf/text/AtomicString.h>
 
@@ -37,7 +40,11 @@ class RenderImageResource;
 template<typename T> class EventSender;
 typedef EventSender<ImageLoader> ImageEventSender;
 
-class ImageLoader : public CachedImageClient {
+class ImageLoader
+#if ENABLE(CFG_CACHE)
+        : public CachedImageClient
+#endif
+{
 public:
     explicit ImageLoader(Element*);
     virtual ~ImageLoader();
@@ -55,8 +62,10 @@ public:
     Element* element() const { return m_element; }
     bool imageComplete() const { return m_imageComplete; }
 
+#if ENABLE(CFG_CACHE)
     CachedImage* image() const { return m_image.get(); }
     void setImage(CachedImage*); // Cancels pending beforeload and load events, and doesn't dispatch new ones.
+#endif
 
     void setLoadManually(bool loadManually) { m_loadManually = loadManually; }
 
@@ -70,7 +79,9 @@ public:
     static void dispatchPendingErrorEvents();
 
 protected:
+#if ENABLE(CFG_CACHE)
     virtual void notifyFinished(CachedResource*);
+#endif
 
 private:
     virtual void dispatchLoadEvent() = 0;
@@ -85,13 +96,17 @@ private:
     RenderImageResource* renderImageResource();
     void updateRenderer();
 
+#if ENABLE(CFG_CACHE)
     void setImageWithoutConsideringPendingLoadEvent(CachedImage*);
+#endif
     void clearFailedLoadURL();
 
     void timerFired(Timer<ImageLoader>*);
 
     Element* m_element;
+#if ENABLE(CFG_CACHE)
     CachedResourceHandle<CachedImage> m_image;
+#endif
     Timer<ImageLoader> m_derefElementTimer;
     AtomicString m_failedLoadURL;
     bool m_hasPendingBeforeLoadEvent : 1;

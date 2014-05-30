@@ -97,12 +97,14 @@ bool isOnAccessControlResponseHeaderWhitelist(const String& name)
     return allowedCrossOriginResponseHeaders->contains(name);
 }
 
+#if ENABLE(CFG_NETWORK)
 void updateRequestForAccessControl(ResourceRequest& request, SecurityOrigin* securityOrigin, StoredCredentials allowCredentials)
 {
     request.removeCredentials();
     request.setAllowCookies(allowCredentials == AllowStoredCredentials);
     request.setHTTPOrigin(securityOrigin->toString());
 }
+#endif
 
 ResourceRequest createAccessControlPreflightRequest(const ResourceRequest& request, SecurityOrigin* securityOrigin)
 {
@@ -133,7 +135,11 @@ ResourceRequest createAccessControlPreflightRequest(const ResourceRequest& reque
     return preflightRequest;
 }
 
-bool passesAccessControlCheck(const ResourceResponse& response, StoredCredentials includeCredentials, SecurityOrigin* securityOrigin, String& errorDescription)
+bool passesAccessControlCheck(const ResourceResponse& response
+#if ENABLE(CFG_NETWORK)
+                              , StoredCredentials includeCredentials
+#endif
+                              , SecurityOrigin* securityOrigin, String& errorDescription)
 {
     AtomicallyInitializedStatic(AtomicString&, accessControlAllowOrigin = *new AtomicString("access-control-allow-origin", AtomicString::ConstructFromLiteral));
     AtomicallyInitializedStatic(AtomicString&, accessControlAllowCredentials = *new AtomicString("access-control-allow-credentials", AtomicString::ConstructFromLiteral));
@@ -141,8 +147,10 @@ bool passesAccessControlCheck(const ResourceResponse& response, StoredCredential
     // A wildcard Access-Control-Allow-Origin can not be used if credentials are to be sent,
     // even with Access-Control-Allow-Credentials set to true.
     const String& accessControlOriginString = response.httpHeaderField(accessControlAllowOrigin);
+#if ENABLE(CFG_NETWORK)
     if (accessControlOriginString == "*" && includeCredentials == DoNotAllowStoredCredentials)
         return true;
+#endif
 
     if (securityOrigin->isUnique()) {
         errorDescription = "Cannot make any requests from " + securityOrigin->toString() + ".";
@@ -158,6 +166,7 @@ bool passesAccessControlCheck(const ResourceResponse& response, StoredCredential
         return false;
     }
 
+#if ENABLE(CFG_NETWORK)
     if (includeCredentials == AllowStoredCredentials) {
         const String& accessControlCredentialsString = response.httpHeaderField(accessControlAllowCredentials);
         if (accessControlCredentialsString != "true") {
@@ -165,6 +174,7 @@ bool passesAccessControlCheck(const ResourceResponse& response, StoredCredential
             return false;
         }
     }
+#endif
 
     return true;
 }

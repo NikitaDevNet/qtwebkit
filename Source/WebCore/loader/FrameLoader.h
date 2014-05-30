@@ -32,13 +32,20 @@
 #ifndef FrameLoader_h
 #define FrameLoader_h
 
+#if ENABLE(CFG_CACHE)
 #include "CachePolicy.h"
+#endif
+
 #include "FrameLoaderStateMachine.h"
 #include "FrameLoaderTypes.h"
 #include "IconURL.h"
 #include "LayoutMilestones.h"
 #include "MixedContentChecker.h"
+
+#if ENABLE(CFG_NETWORK)
 #include "ResourceHandleTypes.h"
+#endif
+
 #include "ResourceLoadNotifier.h"
 #include "SecurityContext.h"
 #include "SubframeLoader.h"
@@ -62,7 +69,9 @@ class FrameLoaderClient;
 class FrameNetworkingContext;
 class HistoryController;
 class HistoryItem;
+#if ENABLE(CFG_ICON)
 class IconController;
+#endif
 class NavigationAction;
 class NetworkingContext;
 class Page;
@@ -95,7 +104,9 @@ public:
     HistoryController* history() const { return m_history.get(); }
     ResourceLoadNotifier* notifier() const { return &m_notifer; }
     SubframeLoader* subframeLoader() const { return &m_subframeLoader; }
+#if ENABLE(CFG_ICON)
     IconController* icon() const { return m_icon.get(); }
+#endif
     MixedContentChecker* mixedContentChecker() const { return &m_mixedContentChecker; }
 
     void prepareForHistoryNavigation();
@@ -111,7 +122,9 @@ public:
 #if ENABLE(WEB_ARCHIVE) || ENABLE(MHTML)
     void loadArchive(PassRefPtr<Archive>);
 #endif
+#if ENABLE(CFG_NETWORK)
     unsigned long loadResourceSynchronously(const ResourceRequest&, StoredCredentials, ClientCredentialPolicy, ResourceError&, ResourceResponse&, Vector<char>& data);
+#endif
 
     void changeLocation(SecurityOrigin*, const KURL&, const String& referrer, bool lockHistory = true, bool lockBackForwardList = true, bool refresh = false);
     void urlSelected(const KURL&, const String& target, PassRefPtr<Event>, bool lockHistory, bool lockBackForwardList, ShouldSendReferrer);
@@ -178,7 +191,9 @@ public:
 
     FrameLoadType loadType() const;
 
+#if ENABLE(CFG_CACHE)
     CachePolicy subresourceCachePolicy() const;
+#endif
 
     void didLayout(LayoutMilestones);
     void didFirstLayout();
@@ -392,7 +407,9 @@ private:
     mutable ResourceLoadNotifier m_notifer;
     mutable SubframeLoader m_subframeLoader;
     mutable FrameLoaderStateMachine m_stateMachine;
+#if ENABLE(CFG_ICON)
     OwnPtr<IconController> m_icon;
+#endif
     mutable MixedContentChecker m_mixedContentChecker;
 
     class FrameProgressTracker;

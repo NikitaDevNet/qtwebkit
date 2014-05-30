@@ -25,8 +25,12 @@
 #define HTMLLinkElement_h
 
 #include "CSSStyleSheet.h"
+
+#if ENABLE(CFG_CACHE)
 #include "CachedStyleSheetClient.h"
 #include "CachedResourceHandle.h"
+#endif
+
 #include "DOMSettableTokenList.h"
 #include "HTMLElement.h"
 #include "IconURL.h"
@@ -42,7 +46,11 @@ class KURL;
 template<typename T> class EventSender;
 typedef EventSender<HTMLLinkElement> LinkEventSender;
 
-class HTMLLinkElement FINAL : public HTMLElement, public CachedStyleSheetClient, public LinkLoaderClient {
+class HTMLLinkElement FINAL : public HTMLElement
+#if ENABLE(CFG_CACHE)
+        , public CachedStyleSheetClient
+#endif
+        , public LinkLoaderClient {
 public:
     static PassRefPtr<HTMLLinkElement> create(const QualifiedName&, Document*, bool createdByParser);
     virtual ~HTMLLinkElement();
@@ -121,7 +129,9 @@ private:
     HTMLLinkElement(const QualifiedName&, Document*, bool createdByParser);
 
     LinkLoader m_linkLoader;
+#if ENABLE(CFG_CACHE)
     CachedResourceHandle<CachedCSSStyleSheet> m_cachedSheet;
+#endif
     RefPtr<CSSStyleSheet> m_sheet;
     enum DisabledState {
         Unset,

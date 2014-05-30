@@ -24,8 +24,9 @@
  */
 
 #include "config.h"
-#include "JSStorage.h"
 
+#if ENABLE(CFG_STORAGE)
+#include "JSStorage.h"
 #include "Storage.h"
 #include <runtime/PropertyNameArray.h>
 #include <wtf/text/WTFString.h>
@@ -124,3 +125,5 @@ bool JSStorage::putDelegate(ExecState* exec, PropertyName propertyName, JSValue 
 }
 
 } // namespace WebCore
+
+#endif // ENABLE(CFG_STORAGE)

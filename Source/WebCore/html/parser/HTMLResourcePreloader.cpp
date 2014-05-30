@@ -26,7 +26,10 @@
 #include "config.h"
 #include "HTMLResourcePreloader.h"
 
+#if ENABLE(CFG_CACHE)
 #include "CachedResourceLoader.h"
+#endif
+
 #include "Document.h"
 
 namespace WebCore {
@@ -44,6 +47,7 @@ KURL PreloadRequest::completeURL(Document* document)
     return document->completeURL(m_resourceURL, m_baseURL.isEmpty() ? document->url() : m_baseURL);
 }
 
+#if ENABLE(CFG_CACHE)
 CachedResourceRequest PreloadRequest::resourceRequest(Document* document)
 {
     ASSERT(isMainThread());
@@ -55,6 +59,7 @@ CachedResourceRequest PreloadRequest::resourceRequest(Document* document)
         request.mutableResourceRequest().setAllowCookies(m_crossOriginModeAllowsCookies);
     return request;
 }
+#endif
 
 void HTMLResourcePreloader::takeAndPreload(PreloadRequestStream& r)
 {

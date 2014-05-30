@@ -38,18 +38,25 @@
 
 #include "BridgeJSC.h"
 #include "DOMWindow.h"
+
+#if ENABLE(CFG_PLUGINS)
 #include "PluginView.h"
+#endif
+
 #include "qt_instance.h"
 #include "runtime_root.h"
+#include "Widget.h"
 
 namespace WebCore {
 
 PassRefPtr<JSC::Bindings::Instance> ScriptController::createScriptInstanceForWidget(WebCore::Widget* widget)
 {
+#if ENABLE(CFG_PLUGINS)
     if (widget->isPluginView()) {
         PluginView* pluginView = toPluginView(widget);
         return pluginView->bindingInstance();
     }
+#endif
 
     QObject* object = widget->bindingObject();
 

@@ -24,21 +24,32 @@
 #ifndef StyleCachedImage_h
 #define StyleCachedImage_h
 
+#if ENABLE(CFG_CACHE)
 #include "CachedImageClient.h"
 #include "CachedResourceHandle.h"
+#endif
+
 #include "StyleImage.h"
 
 namespace WebCore {
 
 class CachedImage;
 
-class StyleCachedImage : public StyleImage, private CachedImageClient {
+class StyleCachedImage : public StyleImage
+#if ENABLE(CFG_CACHE)
+        , private CachedImageClient
+#endif
+{
     WTF_MAKE_FAST_ALLOCATED;
 public:
+#if ENABLE(CFG_CACHE)
     static PassRefPtr<StyleCachedImage> create(CachedImage* image) { return adoptRef(new StyleCachedImage(image)); }
+#endif
     virtual ~StyleCachedImage();
 
+#if ENABLE(CFG_CACHE)
     virtual WrappedImagePtr data() const { return m_image.get(); }
+#endif
 
     virtual PassRefPtr<CSSValue> cssValue() const;
     
@@ -55,12 +66,16 @@ public:
     virtual void removeClient(RenderObject*);
     virtual PassRefPtr<Image> image(RenderObject*, const IntSize&) const;
     virtual bool knownToBeOpaque(const RenderObject*) const OVERRIDE;
+#if ENABLE(CFG_CACHE)
     virtual CachedImage* cachedImage() const OVERRIDE { return m_image.get(); }
+#endif
     
 private:
     explicit StyleCachedImage(CachedImage*);
     
+#if ENABLE(CFG_CACHE)
     CachedResourceHandle<CachedImage> m_image;
+#endif
 };
 
 }

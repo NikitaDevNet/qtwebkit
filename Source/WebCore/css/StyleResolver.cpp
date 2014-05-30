@@ -48,7 +48,11 @@
 #include "CSSSupportsRule.h"
 #include "CSSTimingFunctionValue.h"
 #include "CSSValueList.h"
+
+#if ENABLE(CFG_CACHE)
 #include "CachedImage.h"
+#endif
+
 #include "CalculationValue.h"
 #include "ContentData.h"
 #include "ContextFeatures.h"
@@ -127,7 +131,11 @@
 #include "StyleSheetList.h"
 #include "Text.h"
 #include "TransformFunctions.h"
+
+#if ENABLE(CFG_TRANSFORMS)
 #include "TransformOperations.h"
+#endif
+
 #include "UserAgentStyleSheets.h"
 #include "ViewportStyleResolver.h"
 #include "VisitedLinkState.h"
@@ -1444,7 +1452,9 @@ void StyleResolver::adjustRenderStyle(RenderStyle* style, RenderStyle* parentSty
     // object wedged in between them. Auto z-index also becomes 0 for objects that specify transforms/masks/reflections.
     if (style->hasAutoZIndex() && ((e && e->document()->documentElement() == e)
         || style->opacity() < 1.0f
+#if ENABLE(CFG_TRANSFORMS)
         || style->hasTransformRelatedProperty()
+#endif
         || style->hasMask()
         || style->clipPath()
         || style->boxReflect()
@@ -2629,10 +2639,12 @@ void StyleResolver::applyProperty(CSSPropertyID id, CSSValue* value)
         return;
     }
     case CSSPropertyWebkitTransform: {
+#if ENABLE(CFG_TRANSFORMS)
         HANDLE_INHERIT_AND_INITIAL(transform, Transform);
         TransformOperations operations;
         transformsForValue(state.style(), state.rootElementStyle(), value, operations);
         state.style()->setTransform(operations);
+#endif
         return;
     }
     case CSSPropertyWebkitPerspective: {
@@ -4076,6 +4088,7 @@ bool StyleResolver::createFilterOperations(CSSValue* inValue, RenderStyle* style
 
 PassRefPtr<StyleImage> StyleResolver::loadPendingImage(StylePendingImage* pendingImage)
 {
+#if ENABLE(CFG_CACHE)
     CachedResourceLoader* cachedResourceLoader = m_state.document()->cachedResourceLoader();
 
     if (pendingImage->cssImageValue()) {
@@ -4100,6 +4113,7 @@ PassRefPtr<StyleImage> StyleResolver::loadPendingImage(StylePendingImage* pendin
         return imageSetValue->cachedImageSet(cachedResourceLoader);
     }
 #endif
+#endif // ENABLE(CFG_CACHE)
 
     return 0;
 }

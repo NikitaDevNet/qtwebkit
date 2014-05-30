@@ -26,8 +26,13 @@
 #ifndef XSSAuditor_h
 #define XSSAuditor_h
 
+#include "ContentSecurityPolicy.h"
 #include "HTMLToken.h"
+
+#if ENABLE(CFG_NETWORK)
 #include "HTTPParsers.h"
+#endif
+
 #include "KURL.h"
 #include "SuffixTree.h"
 #include "TextEncoding.h"

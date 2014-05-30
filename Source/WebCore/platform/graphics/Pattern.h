@@ -28,7 +28,9 @@
 #ifndef Pattern_h
 #define Pattern_h
 
+#if ENABLE(CFG_TRANSFORMS)
 #include "AffineTransform.h"
+#endif
 
 #include <wtf/PassRefPtr.h>
 #include <wtf/RefCounted.h>
@@ -69,7 +71,9 @@ public:
     PlatformPatternPtr createPlatformPattern(const AffineTransform& userSpaceTransformation) const;
 #endif
     void setPatternSpaceTransform(const AffineTransform& patternSpaceTransformation);
+#if ENABLE(CFG_TRANSFORMS)
     const AffineTransform& getPatternSpaceTransform() { return m_patternSpaceTransformation; };
+#endif
     void setPlatformPatternSpaceTransform();
 
     bool repeatX() const { return m_repeatX; }
@@ -81,7 +85,9 @@ private:
     RefPtr<Image> m_tileImage;
     bool m_repeatX;
     bool m_repeatY;
+#if ENABLE(CFG_TRANSFORMS)
     AffineTransform m_patternSpaceTransformation;
+#endif
     PlatformPatternPtr m_pattern;
 };
 

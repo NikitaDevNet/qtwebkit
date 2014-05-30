@@ -129,7 +129,9 @@ public:
     void setOriginTainted() { m_originClean = false; }
     bool originClean() const { return m_originClean; }
 
+#if ENABLE(CFG_TRANSFORMS)
     AffineTransform baseTransform() const;
+#endif
 
 #if ENABLE(WEBGL)    
     bool is3D() const;

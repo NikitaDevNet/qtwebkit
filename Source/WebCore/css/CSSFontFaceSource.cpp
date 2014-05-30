@@ -26,10 +26,17 @@
 #include "config.h"
 #include "CSSFontFaceSource.h"
 
+#if ENABLE(CFG_CACHE)
 #include "CachedFont.h"
+#endif
+
 #include "CSSFontFace.h"
 #include "CSSFontSelector.h"
+
+#if ENABLE(CFG_CACHE)
 #include "CachedResourceLoader.h"
+#endif
+
 #include "Document.h"
 #include "FontCache.h"
 #include "FontDescription.h"
@@ -48,20 +55,26 @@ namespace WebCore {
 
 CSSFontFaceSource::CSSFontFaceSource(const String& str, CachedFont* font)
     : m_string(str)
+#if ENABLE(CFG_CACHE)
     , m_font(font)
+#endif
     , m_face(0)
 #if ENABLE(SVG_FONTS)
     , m_hasExternalSVGFont(false)
 #endif
 {
+#if ENABLE(CFG_CACHE)
     if (m_font)
         m_font->addClient(this);
+#endif
 }
 
 CSSFontFaceSource::~CSSFontFaceSource()
 {
+#if ENABLE(CFG_CACHE)
     if (m_font)
         m_font->removeClient(this);
+#endif
     pruneTable();
 }
 
@@ -75,15 +88,19 @@ void CSSFontFaceSource::pruneTable()
 
 bool CSSFontFaceSource::isLoaded() const
 {
+#if ENABLE(CFG_CACHE)
     if (m_font)
         return m_font->isLoaded();
+#endif
     return true;
 }
 
 bool CSSFontFaceSource::isValid() const
 {
+#if ENABLE(CFG_CACHE)
     if (m_font)
         return !m_font->errorOccurred();
+#endif
     return true;
 }
 
@@ -100,7 +117,10 @@ PassRefPtr<SimpleFontData> CSSFontFaceSource::getFontData(const FontDescription&
     if (!isValid())
         return 0;
 
-    if (!m_font
+    if (true
+#if ENABLE(CFG_CACHE)
+            && !m_font
+#endif
 #if ENABLE(SVG_FONTS)
             && !m_svgFontFaceElement
 #endif
@@ -120,6 +140,7 @@ PassRefPtr<SimpleFontData> CSSFontFaceSource::getFontData(const FontDescription&
 
     // If we are still loading, then we let the system pick a font.
     if (isLoaded()) {
+#if ENABLE(CFG_CACHE)
         if (m_font) {
 #if ENABLE(SVG_FONTS)
             if (m_hasExternalSVGFont) {
@@ -168,16 +189,21 @@ PassRefPtr<SimpleFontData> CSSFontFaceSource::getFontData(const FontDescription&
                     fontDescription.orientation(), fontDescription.widthVariant(), fontDescription.renderingMode()), true, false);
             }
         } else {
+#endif // ENABLE(CFG_CACHE)
 #if ENABLE(SVG_FONTS)
             // In-Document SVG Fonts
             if (m_svgFontFaceElement)
                 fontData = SimpleFontData::create(SVGFontData::create(m_svgFontFaceElement.get()), fontDescription.computedPixelSize(), syntheticBold, syntheticItalic);
 #endif
+#if ENABLE(CFG_CACHE)
         }
+#endif // ENABLE(CFG_CACHE)
     } else {
         // Kick off the load. Do it soon rather than now, because we may be in the middle of layout,
         // and the loader may invoke arbitrary delegate or event handler code.
+#if ENABLE(CFG_CACHE)
         fontSelector->beginLoadingFontSoon(m_font.get());
+#endif
 
         // This temporary font is not retained and should not be returned.
         FontCachePurgePreventer fontCachePurgePreventer;

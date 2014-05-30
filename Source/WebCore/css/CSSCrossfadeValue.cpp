@@ -27,8 +27,12 @@
 #include "CSSCrossfadeValue.h"
 
 #include "CSSImageValue.h"
+
+#if ENABLE(CFG_CACHE)
 #include "CachedImage.h"
 #include "CachedResourceLoader.h"
+#endif
+
 #include "CrossfadeGeneratedImage.h"
 #include "ImageBuffer.h"
 #include "RenderObject.h"
@@ -64,6 +68,7 @@ static bool subimageKnownToBeOpaque(CSSValue* value, const RenderObject* rendere
     return false;
 }
 
+#if ENABLE(CFG_CACHE)
 static CachedImage* cachedImageForCSSValue(CSSValue* value, CachedResourceLoader* cachedResourceLoader)
 {
     if (!value)
@@ -87,13 +92,16 @@ static CachedImage* cachedImageForCSSValue(CSSValue* value, CachedResourceLoader
     
     return 0;
 }
+#endif
 
 CSSCrossfadeValue::~CSSCrossfadeValue()
 {
+#if ENABLE(CFG_CACHE)
     if (m_cachedFromImage)
         m_cachedFromImage->removeClient(&m_crossfadeSubimageObserver);
     if (m_cachedToImage)
         m_cachedToImage->removeClient(&m_crossfadeSubimageObserver);
+#endif
 }
 
 String CSSCrossfadeValue::customCssText() const
@@ -111,6 +119,7 @@ String CSSCrossfadeValue::customCssText() const
 
 IntSize CSSCrossfadeValue::fixedSize(const RenderObject* renderer)
 {
+#if ENABLE(CFG_CACHE)
     float percentage = m_percentageValue->getFloatValue();
     float inversePercentage = 1 - percentage;
 
@@ -119,8 +128,10 @@ IntSize CSSCrossfadeValue::fixedSize(const RenderObject* renderer)
     CachedImage* cachedToImage = cachedImageForCSSValue(m_toValue.get(), cachedResourceLoader);
 
     if (!cachedFromImage || !cachedToImage)
+#endif
         return IntSize();
 
+#if ENABLE(CFG_CACHE)
     IntSize fromImageSize = cachedFromImage->imageForRenderer(renderer)->size();
     IntSize toImageSize = cachedToImage->imageForRenderer(renderer)->size();
 
@@ -131,6 +142,7 @@ IntSize CSSCrossfadeValue::fixedSize(const RenderObject* renderer)
 
     return IntSize(fromImageSize.width() * inversePercentage + toImageSize.width() * percentage,
         fromImageSize.height() * inversePercentage + toImageSize.height() * percentage);
+#endif
 }
 
 bool CSSCrossfadeValue::isPending() const
@@ -145,6 +157,7 @@ bool CSSCrossfadeValue::knownToBeOpaque(const RenderObject* renderer) const
 
 void CSSCrossfadeValue::loadSubimages(CachedResourceLoader* cachedResourceLoader)
 {
+#if ENABLE(CFG_CACHE)
     CachedResourceHandle<CachedImage> oldCachedFromImage = m_cachedFromImage;
     CachedResourceHandle<CachedImage> oldCachedToImage = m_cachedToImage;
 
@@ -164,6 +177,7 @@ void CSSCrossfadeValue::loadSubimages(CachedResourceLoader* cachedResourceLoader
         if (m_cachedToImage)
             m_cachedToImage->addClient(&m_crossfadeSubimageObserver);
     }
+#endif
 
     m_crossfadeSubimageObserver.setReady(true);
 }
@@ -173,6 +187,7 @@ PassRefPtr<Image> CSSCrossfadeValue::image(RenderObject* renderer, const IntSize
     if (size.isEmpty())
         return 0;
 
+#if ENABLE(CFG_CACHE)
     CachedResourceLoader* cachedResourceLoader = renderer->document()->cachedResourceLoader();
     CachedImage* cachedFromImage = cachedImageForCSSValue(m_fromValue.get(), cachedResourceLoader);
     CachedImage* cachedToImage = cachedImageForCSSValue(m_toValue.get(), cachedResourceLoader);
@@ -184,11 +199,14 @@ PassRefPtr<Image> CSSCrossfadeValue::image(RenderObject* renderer, const IntSize
     Image* toImage = cachedToImage->imageForRenderer(renderer);
 
     if (!fromImage || !toImage)
+#endif
         return Image::nullImage();
 
+#if ENABLE(CFG_CACHE)
     m_generatedImage = CrossfadeGeneratedImage::create(fromImage, toImage, m_percentageValue->getFloatValue(), fixedSize(renderer), size);
 
     return m_generatedImage.release();
+#endif
 }
 
 void CSSCrossfadeValue::crossfadeChanged(const IntRect&)
@@ -200,18 +218,22 @@ void CSSCrossfadeValue::crossfadeChanged(const IntRect&)
     }
 }
 
+#if ENABLE(CFG_CACHE)
 void CSSCrossfadeValue::CrossfadeSubimageObserverProxy::imageChanged(CachedImage*, const IntRect* rect)
 {
     if (m_ready)
         m_ownerValue->crossfadeChanged(*rect);
 }
+#endif
 
 bool CSSCrossfadeValue::hasFailedOrCanceledSubresources() const
 {
+#if ENABLE(CFG_CACHE)
     if (m_cachedFromImage && m_cachedFromImage->loadFailedOrCanceled())
         return true;
     if (m_cachedToImage && m_cachedToImage->loadFailedOrCanceled())
         return true;
+#endif
     return false;
 }
 

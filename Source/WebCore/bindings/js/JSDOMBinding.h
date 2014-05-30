@@ -220,7 +220,11 @@ class DOMStringList;
 
     const JSC::HashTable* getHashTableForGlobalData(JSC::VM&, const JSC::HashTable* staticTable);
 
-    void reportException(JSC::ExecState*, JSC::JSValue exception, CachedScript* = 0);
+    void reportException(JSC::ExecState*, JSC::JSValue exception
+#if ENABLE(CFG_CACHE)
+                         , CachedScript* = 0
+#endif
+            );
     void reportCurrentException(JSC::ExecState*);
 
     // Convert a DOM implementation exception code into a JavaScript exception in the execution state.

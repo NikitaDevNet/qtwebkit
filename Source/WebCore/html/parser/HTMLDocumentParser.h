@@ -27,7 +27,11 @@
 #define HTMLDocumentParser_h
 
 #include "BackgroundHTMLInputStream.h"
+
+#if ENABLE(CFG_CACHE)
 #include "CachedResourceClient.h"
+#endif
+
 #include "CompactHTMLToken.h"
 #include "FragmentScriptingPermission.h"
 #include "HTMLInputStream.h"
@@ -63,7 +67,11 @@ class ScriptSourceCode;
 
 class PumpSession;
 
-class HTMLDocumentParser :  public ScriptableDocumentParser, HTMLScriptRunnerHost, CachedResourceClient {
+class HTMLDocumentParser :  public ScriptableDocumentParser, HTMLScriptRunnerHost
+#if ENABLE(CFG_CACHE)
+        , CachedResourceClient
+#endif
+{
     WTF_MAKE_FAST_ALLOCATED;
 public:
     static PassRefPtr<HTMLDocumentParser> create(HTMLDocument* document, bool reportErrors)

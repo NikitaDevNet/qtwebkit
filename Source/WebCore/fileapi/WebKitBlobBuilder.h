@@ -31,7 +31,10 @@
 #ifndef WebKitBlobBuilder_h
 #define WebKitBlobBuilder_h
 
+#if ENABLE(CFG_NETWORK)
 #include "BlobData.h"
+#endif
+
 #include <wtf/Forward.h>
 
 namespace WebCore {
@@ -62,7 +65,9 @@ private:
     Vector<char>& getBuffer();
 
     long long m_size;
+#if ENABLE(CFG_NETWORK)
     BlobDataItemList m_items;
+#endif
 };
 
 } // namespace WebCore

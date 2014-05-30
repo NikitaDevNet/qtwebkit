@@ -28,7 +28,10 @@
 #ifndef ImageBuffer_h
 #define ImageBuffer_h
 
+#if ENABLE(CFG_TRANSFORMS)
 #include "AffineTransform.h"
+#endif
+
 #include "ColorSpace.h"
 #include "FloatRect.h"
 #include "GraphicsContext.h"
@@ -114,11 +117,15 @@ namespace WebCore {
         
         String toDataURL(const String& mimeType, const double* quality = 0, CoordinateSystem = LogicalCoordinateSystem) const;
 #if !USE(CG)
+#if ENABLE(CFG_TRANSFORMS)
         AffineTransform baseTransform() const { return AffineTransform(); }
+#endif
         void transformColorSpace(ColorSpace srcColorSpace, ColorSpace dstColorSpace);
         void platformTransformColorSpace(const Vector<int>&);
 #else
+#if ENABLE(CFG_TRANSFORMS)
         AffineTransform baseTransform() const { return AffineTransform(1, 0, 0, -1, 0, internalSize().height()); }
+#endif
 #endif
 #if USE(ACCELERATED_COMPOSITING)
         PlatformLayer* platformLayer() const;

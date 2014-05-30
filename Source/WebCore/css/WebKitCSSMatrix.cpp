@@ -24,6 +24,9 @@
  */
 
 #include "config.h"
+
+#if ENABLE(CFG_TRANSFORMS)
+
 #include "WebKitCSSMatrix.h"
 
 #include "CSSParser.h"
@@ -189,3 +192,5 @@ String WebKitCSSMatrix::toString() const
 }
 
 } // namespace WebCore
+
+#endif // ENABLE(CFG_TRANSFORMS)

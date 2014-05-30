@@ -31,7 +31,9 @@
 #ifndef ResourceLoaderOptions_h
 #define ResourceLoaderOptions_h
 
+#if ENABLE(CFG_NETWORK)
 #include "ResourceHandleTypes.h"
+#endif
 
 namespace WebCore {
     
@@ -65,19 +67,27 @@ struct ResourceLoaderOptions {
         : sendLoadCallbacks(DoNotSendCallbacks)
         , sniffContent(DoNotSniffContent)
         , dataBufferingPolicy(BufferData)
+#if ENABLE(CFG_NETWORK)
         , allowCredentials(DoNotAllowStoredCredentials)
         , clientCredentialPolicy(DoNotAskClientForAnyCredentials)
+#endif
         , securityCheck(DoSecurityCheck)
         , requestOriginPolicy(UseDefaultOriginRestrictionsForType)
     {
     }
 
-    ResourceLoaderOptions(SendCallbackPolicy sendLoadCallbacks, ContentSniffingPolicy sniffContent, DataBufferingPolicy dataBufferingPolicy, StoredCredentials allowCredentials, ClientCredentialPolicy credentialPolicy, SecurityCheckPolicy securityCheck, RequestOriginPolicy requestOriginPolicy)
+    ResourceLoaderOptions(SendCallbackPolicy sendLoadCallbacks, ContentSniffingPolicy sniffContent, DataBufferingPolicy dataBufferingPolicy
+#if ENABLE(CFG_NETWORK)
+                          , StoredCredentials allowCredentials, ClientCredentialPolicy credentialPolicy
+#endif
+                          , SecurityCheckPolicy securityCheck, RequestOriginPolicy requestOriginPolicy)
         : sendLoadCallbacks(sendLoadCallbacks)
         , sniffContent(sniffContent)
         , dataBufferingPolicy(dataBufferingPolicy)
+#if ENABLE(CFG_NETWORK)
         , allowCredentials(allowCredentials)
         , clientCredentialPolicy(credentialPolicy)
+#endif
         , securityCheck(securityCheck)
         , requestOriginPolicy(requestOriginPolicy)
     {
@@ -85,8 +95,10 @@ struct ResourceLoaderOptions {
     SendCallbackPolicy sendLoadCallbacks;
     ContentSniffingPolicy sniffContent;
     DataBufferingPolicy dataBufferingPolicy;
+#if ENABLE(CFG_NETWORK)
     StoredCredentials allowCredentials; // Whether HTTP credentials and cookies are sent with the request.
     ClientCredentialPolicy clientCredentialPolicy; // When we should ask the client for credentials (if we allow credentials at all).
+#endif
     SecurityCheckPolicy securityCheck;
     RequestOriginPolicy requestOriginPolicy;
 };

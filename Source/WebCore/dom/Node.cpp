@@ -25,7 +25,10 @@
 #include "config.h"
 #include "Node.h"
 
+#if ENABLE(CFG_ACCESSIBILITY)
 #include "AXObjectCache.h"
+#endif
+
 #include "Attr.h"
 #include "Attribute.h"
 #include "BeforeLoadEvent.h"
@@ -91,6 +94,7 @@
 #include "ProcessingInstruction.h"
 #include "ProgressEvent.h"
 #include "RadioNodeList.h"
+#include "Range.h"
 #include "RegisteredEventListener.h"
 #include "RenderBlock.h"
 #include "RenderBox.h"
@@ -101,7 +105,11 @@
 #include "Settings.h"
 #include "ShadowRoot.h"
 #include "StaticNodeList.h"
+
+#if ENABLE(CFG_STORAGE)
 #include "StorageEvent.h"
+#endif
+
 #include "StyleResolver.h"
 #include "TagNodeList.h"
 #include "TemplateContentDocumentFragment.h"
@@ -452,10 +460,12 @@ void Node::willBeDeletedFrom(Document* document)
         clearEventTargetData();
     }
 
+#if ENABLE(CFG_ACCESSIBILITY)
     if (document) {
         if (AXObjectCache* cache = document->existingAXObjectCache())
             cache->remove(this);
     }
+#endif
 }
 
 NodeRareData* Node::rareData() const
@@ -734,6 +744,7 @@ bool Node::isEditableToAccessibility(EditableLevel editableLevel) const
         return false;
 
     ASSERT(document());
+#if ENABLE(CFG_ACCESSIBILITY)
     ASSERT(AXObjectCache::accessibilityEnabled());
     ASSERT(document()->existingAXObjectCache());
 
@@ -741,6 +752,7 @@ bool Node::isEditableToAccessibility(EditableLevel editableLevel) const
         if (AXObjectCache* cache = document()->existingAXObjectCache())
             return cache->rootAXEditableElement(this);
     }
+#endif
 
     return false;
 }
@@ -1008,10 +1020,12 @@ void Node::attach(const AttachContext&)
     setAttached();
     clearNeedsStyleRecalc();
 
+#if ENABLE(CFG_ACCESSIBILITY)
     if (Document* doc = documentInternal()) {
         if (AXObjectCache* cache = doc->axObjectCache())
             cache->updateCacheAfterNodeIsAttached(this);
     }
+#endif
 }
 
 #ifndef NDEBUG
@@ -1210,10 +1224,12 @@ bool Node::isRootEditableElement() const
 
 Element* Node::rootEditableElement(EditableType editableType) const
 {
+#if ENABLE(CFG_ACCESSIBILITY)
     if (editableType == HasEditableAXRole) {
         if (AXObjectCache* cache = document()->existingAXObjectCache())
             return const_cast<Element*>(cache->rootAXEditableElement(this));
     }
+#endif
     
     return rootEditableElement();
 }
@@ -1992,9 +2008,11 @@ void Node::didMoveToNewDocument(Document* oldDocument)
         }
     }
 
+#if ENABLE(CFG_ACCESSIBILITY)
     if (AXObjectCache::accessibilityEnabled() && oldDocument)
         if (AXObjectCache* cache = oldDocument->existingAXObjectCache())
             cache->remove(this);
+#endif
 
     const EventListenerVector& wheelListeners = getEventListeners(eventNames().mousewheelEvent);
     for (size_t i = 0; i < wheelListeners.size(); ++i) {

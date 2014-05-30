@@ -23,8 +23,12 @@
 #include "CSSCursorImageValue.h"
 
 #include "CSSImageValue.h"
+
+#if ENABLE(CFG_CACHE)
 #include "CachedImage.h"
 #include "CachedResourceLoader.h"
+#endif
+
 #include "StyleCachedImage.h"
 #include "StyleImage.h"
 #include "StylePendingImage.h"
@@ -161,8 +165,10 @@ StyleImage* CSSCursorImageValue::cachedImage(CachedResourceLoader* loader)
         }
 #endif
 
+#if ENABLE(CFG_CACHE)
         if (m_imageValue->isImageValue())
             m_image = static_cast<CSSImageValue*>(m_imageValue.get())->cachedImage(loader);
+#endif
     }
 
     if (m_image && m_image->isCachedImage())

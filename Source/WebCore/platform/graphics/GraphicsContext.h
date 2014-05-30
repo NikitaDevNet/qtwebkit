@@ -99,7 +99,9 @@ namespace WebCore {
     class KURL;
     class GraphicsContext3D;
     class TextRun;
+#if ENABLE(CFG_TRANSFORMS)
     class TransformationMatrix;
+#endif
 
     enum TextDrawingMode {
         TextModeFill      = 1 << 0,

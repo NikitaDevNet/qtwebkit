@@ -23,7 +23,10 @@
 #include "config.h"
 #include "ContainerNode.h"
 
+#if ENABLE(CFG_ACCESSIBILITY)
 #include "AXObjectCache.h"
+#endif
+
 #include "ChildListMutationScope.h"
 #include "Chrome.h"
 #include "ChromeClient.h"
@@ -44,7 +47,11 @@
 
 #include "JSNode.h"
 #include "LoaderStrategy.h"
+
+#if ENABLE(CFG_CACHE)
 #include "MemoryCache.h"
+#endif
+
 #include "MutationEvent.h"
 #include "NodeRenderStyle.h"
 #include "NodeTraversal.h"

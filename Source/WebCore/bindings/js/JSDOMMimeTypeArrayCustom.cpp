@@ -18,6 +18,9 @@
  */
 
 #include "config.h"
+
+#if ENABLE(CFG_PLUGINS)
+
 #include "JSDOMMimeTypeArray.h"
 
 #include "DOMMimeTypeArray.h"
@@ -40,3 +43,5 @@ JSValue JSDOMMimeTypeArray::nameGetter(ExecState* exec, JSValue slotBase, Proper
 }
 
 } // namespace WebCore
+
+#endif // ENABLE(CFG_PLUGINS)

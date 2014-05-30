@@ -26,8 +26,11 @@
 #ifndef CSSFontFaceSource_h
 #define CSSFontFaceSource_h
 
+#if ENABLE(CFG_CACHE)
 #include "CachedFontClient.h"
 #include "CachedResourceHandle.h"
+#endif
+
 #include "Timer.h"
 #include <wtf/HashMap.h>
 #include <wtf/text/AtomicString.h>
@@ -44,7 +47,11 @@ class SVGFontElement;
 class SVGFontFaceElement;
 #endif
 
-class CSSFontFaceSource : public CachedFontClient {
+class CSSFontFaceSource
+#if ENABLE(CFG_CACHE)
+        : public CachedFontClient
+#endif
+{
 public:
     CSSFontFaceSource(const String&, CachedFont* = 0);
     virtual ~CSSFontFaceSource();
@@ -78,7 +85,9 @@ private:
     void startLoadingTimerFired(Timer<CSSFontFaceSource>*);
 
     AtomicString m_string; // URI for remote, built-in font name for local.
+#if ENABLE(CFG_CACHE)
     CachedResourceHandle<CachedFont> m_font; // For remote fonts, a pointer to our cached resource.
+#endif
     CSSFontFace* m_face; // Our owning font face.
     HashMap<unsigned, RefPtr<SimpleFontData> > m_fontDataTable; // The hash key is composed of size synthetic styles.
 

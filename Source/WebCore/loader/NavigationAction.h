@@ -32,7 +32,11 @@
 #include "Event.h"
 #include "FrameLoaderTypes.h"
 #include "KURL.h"
+
+#if ENABLE(CFG_NETWORK)
 #include "ResourceRequest.h"
+#endif
+
 #include <wtf/Forward.h>
 
 namespace WebCore {
@@ -40,6 +44,7 @@ namespace WebCore {
     class NavigationAction {
     public:
         NavigationAction();
+#if ENABLE(CFG_NETWORK)
         explicit NavigationAction(const ResourceRequest&);
         NavigationAction(const ResourceRequest&, NavigationType);
         NavigationAction(const ResourceRequest&, FrameLoadType, bool isFormSubmission);
@@ -50,12 +55,15 @@ namespace WebCore {
 
         KURL url() const { return m_resourceRequest.url(); }
         const ResourceRequest& resourceRequest() const { return m_resourceRequest; }
+#endif
 
         NavigationType type() const { return m_type; }
         const Event* event() const { return m_event.get(); }
 
     private:
+#if ENABLE(CFG_NETWORK)
         ResourceRequest m_resourceRequest;
+#endif
         NavigationType m_type;
         RefPtr<Event> m_event;
     };

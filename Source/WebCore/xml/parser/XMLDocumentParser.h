@@ -25,8 +25,11 @@
 #ifndef XMLDocumentParser_h
 #define XMLDocumentParser_h
 
+#if ENABLE(CFG_CACHE)
 #include "CachedResourceClient.h"
 #include "CachedResourceHandle.h"
+#endif
+
 #include "FragmentScriptingPermission.h"
 #include "ScriptableDocumentParser.h"
 #include "SegmentedString.h"
@@ -72,7 +75,11 @@ class Text;
     };
 #endif
 
-    class XMLDocumentParser : public ScriptableDocumentParser, public CachedResourceClient {
+    class XMLDocumentParser : public ScriptableDocumentParser
+#if ENABLE(CFG_CACHE)
+            , public CachedResourceClient
+#endif
+    {
         WTF_MAKE_FAST_ALLOCATED;
     public:
         static PassRefPtr<XMLDocumentParser> create(Document* document, FrameView* view)
@@ -205,7 +212,9 @@ public:
 
         XMLErrors m_xmlErrors;
 
+#if ENABLE(CFG_CACHE)
         CachedResourceHandle<CachedScript> m_pendingScript;
+#endif
         RefPtr<Element> m_scriptElement;
         TextPosition m_scriptStartPosition;
 

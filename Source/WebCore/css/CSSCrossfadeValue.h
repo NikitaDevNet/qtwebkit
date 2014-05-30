@@ -26,8 +26,11 @@
 #ifndef CSSCrossfadeValue_h
 #define CSSCrossfadeValue_h
 
+#if ENABLE(CFG_CACHE)
 #include "CachedImageClient.h"
 #include "CachedResourceHandle.h"
+#endif
+
 #include "CSSImageGeneratorValue.h"
 #include "CSSPrimitiveValue.h"
 #include "Image.h"
@@ -35,7 +38,9 @@
 
 namespace WebCore {
 
+#if ENABLE(CFG_CACHE)
 class CachedImage;
+#endif
 class CrossfadeSubimageObserverProxy;
 class RenderObject;
 class Document;
@@ -76,7 +81,11 @@ private:
     {
     }
 
-    class CrossfadeSubimageObserverProxy : public CachedImageClient {
+    class CrossfadeSubimageObserverProxy
+#if ENABLE(CFG_CACHE)
+            : public CachedImageClient
+#endif
+    {
     public:
         CrossfadeSubimageObserverProxy(CSSCrossfadeValue* ownerValue)
             : m_ownerValue(ownerValue)
@@ -85,7 +94,9 @@ private:
         }
 
         virtual ~CrossfadeSubimageObserverProxy() { }
+#if ENABLE(CFG_CACHE)
         virtual void imageChanged(CachedImage*, const IntRect* = 0) OVERRIDE;
+#endif
         void setReady(bool ready) { m_ready = ready; }
     private:
         CSSCrossfadeValue* m_ownerValue;
@@ -98,8 +109,10 @@ private:
     RefPtr<CSSValue> m_toValue;
     RefPtr<CSSPrimitiveValue> m_percentageValue;
 
+#if ENABLE(CFG_CACHE)
     CachedResourceHandle<CachedImage> m_cachedFromImage;
     CachedResourceHandle<CachedImage> m_cachedToImage;
+#endif
 
     RefPtr<Image> m_generatedImage;
 

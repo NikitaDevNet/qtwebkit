@@ -38,7 +38,9 @@
 
 namespace WebCore {
 
+#if ENABLE(CFG_ACCESSIBILITY)
 class AXObjectCache;
+#endif
 class Element;
 class Event;
 class FloatSize;
@@ -551,7 +553,9 @@ private:
 
     bool qualifiesAsVisuallyNonEmpty() const;
 
+#if ENABLE(CFG_ACCESSIBILITY)
     virtual AXObjectCache* axObjectCache() const;
+#endif
     void notifyWidgetsInAllFrames(WidgetNotification);
     void removeFromAXObjectCache();
     

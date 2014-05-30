@@ -26,7 +26,10 @@
 #ifndef ScriptRunner_h
 #define ScriptRunner_h
 
+#if ENABLE(CFG_CACHE)
 #include "CachedResourceHandle.h"
+#endif
+
 #include "Timer.h"
 #include <wtf/HashMap.h>
 #include <wtf/Noncopyable.h>
@@ -48,7 +51,9 @@ public:
     ~ScriptRunner();
 
     enum ExecutionType { ASYNC_EXECUTION, IN_ORDER_EXECUTION };
+#if ENABLE(CFG_CACHE)
     void queueScriptForExecution(ScriptElement*, CachedResourceHandle<CachedScript>, ExecutionType);
+#endif
     bool hasPendingScripts() const { return !m_scriptsToExecuteSoon.isEmpty() || !m_scriptsToExecuteInOrder.isEmpty() || !m_pendingAsyncScripts.isEmpty(); }
     void suspend();
     void resume();

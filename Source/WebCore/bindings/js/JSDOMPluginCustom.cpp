@@ -17,6 +17,9 @@
  */
 
 #include "config.h"
+
+#if ENABLE(CFG_PLUGINS)
+
 #include "JSDOMPlugin.h"
 
 #include "DOMPlugin.h"
@@ -39,3 +42,5 @@ JSValue JSDOMPlugin::nameGetter(ExecState* exec, JSValue slotBase, PropertyName 
 }
 
 } // namespace WebCore
+
+#endif // ENABLE(CFG_PLUGINS)

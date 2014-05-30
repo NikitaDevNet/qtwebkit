@@ -60,8 +60,10 @@ QT_END_NAMESPACE
 
 namespace WebCore {
 
+#if ENABLE(CFG_TRANSFORMS)
 class AffineTransform;
 class TransformationMatrix;
+#endif
 class IntPoint;
 class IntSize;
 
@@ -161,8 +163,10 @@ public:
     operator BlackBerry::Platform::FloatPoint() const;
 #endif
 
+#if ENABLE(CFG_TRANSFORMS)
     FloatPoint matrixTransform(const TransformationMatrix&) const;
     FloatPoint matrixTransform(const AffineTransform&) const;
+#endif
 
 private:
     float m_x, m_y;

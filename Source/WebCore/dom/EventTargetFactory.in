@@ -5,7 +5,7 @@ AudioContext conditional=WEB_AUDIO
 AudioTrackList conditional=VIDEO_TRACK
 BatteryManager conditional=BATTERY_STATUS
 DedicatedWorkerGlobalScope conditional=WORKERS
-DOMApplicationCache
+DOMApplicationCache conditional=CFG_APPCACHE
 DOMWindow
 EventSource
 FileReader conditional=BLOB

@@ -23,7 +23,10 @@
 #ifndef HTMLDocument_h
 #define HTMLDocument_h
 
+#if ENABLE(CFG_CACHE)
 #include "CachedResourceClient.h"
+#endif
+
 #include "Document.h"
 #include <wtf/HashCountedSet.h>
 
@@ -32,7 +35,11 @@ namespace WebCore {
 class FrameView;
 class HTMLElement;
 
-class HTMLDocument : public Document, public CachedResourceClient {
+class HTMLDocument : public Document
+#if ENABLE(CFG_CACHE)
+        , public CachedResourceClient
+#endif
+{
 public:
     static PassRefPtr<HTMLDocument> create(Frame* frame, const KURL& url)
     {

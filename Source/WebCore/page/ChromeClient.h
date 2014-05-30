@@ -22,7 +22,9 @@
 #ifndef ChromeClient_h
 #define ChromeClient_h
 
+#if ENABLE(CFG_ACCESSIBILITY)
 #include "AXObjectCache.h"
+#endif
 
 #if ENABLE(CFG_INSPECTOR)
 #include "ConsoleAPITypes.h"
@@ -331,7 +333,9 @@ public:
     virtual PassRefPtr<PopupMenu> createPopupMenu(PopupMenuClient*) const = 0;
     virtual PassRefPtr<SearchPopupMenu> createSearchPopupMenu(PopupMenuClient*) const = 0;
 
+#if ENABLE(CFG_ACCESSIBILITY)
     virtual void postAccessibilityNotification(AccessibilityObject*, AXObjectCache::AXNotification) { }
+#endif
 
     virtual void notifyScrollerThumbIsVisibleInRect(const IntRect&) { }
     virtual void recommendedScrollbarStyleDidChange(int /*newStyle*/) { }

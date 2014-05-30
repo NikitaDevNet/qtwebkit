@@ -34,7 +34,11 @@
 #include "JSEventTarget.h"
 #include "JSMessagePortCustom.h"
 #include "JSNode.h"
+
+#if ENABLE(CFG_STORAGE)
 #include "JSStorage.h"
+#endif
+
 #include "JSTrackCustom.h"
 #include "JSUint8Array.h"
 #include "JSVoidCallback.h"
@@ -170,7 +174,9 @@ void JSDictionary::convertValue(ExecState*, JSValue value, RefPtr<Node>& result)
 
 void JSDictionary::convertValue(ExecState*, JSValue value, RefPtr<Storage>& result)
 {
+#if ENABLE(CFG_STORAGE)
     result = toStorage(value);
+#endif
 }
 
 void JSDictionary::convertValue(ExecState* exec, JSValue value, MessagePortArray& result)

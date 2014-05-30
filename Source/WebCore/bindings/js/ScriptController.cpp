@@ -40,7 +40,10 @@
 #include "NP_jsobject.h"
 #include "Page.h"
 #include "PageGroup.h"
+
+#if ENABLE(CFG_PLUGINS)
 #include "PluginView.h"
+#endif
 
 #if ENABLE(CFG_INSPECTOR)
 #include "ScriptCallStack.h"
@@ -50,7 +53,11 @@
 #include "ScriptValue.h"
 #include "ScriptableDocumentParser.h"
 #include "Settings.h"
+
+#if ENABLE(CFG_STORAGE)
 #include "StorageNamespace.h"
+#endif
+
 #include "UserGestureIndicator.h"
 #include "WebCoreJSClientData.h"
 #include "npruntime_impl.h"
@@ -156,7 +163,11 @@ ScriptValue ScriptController::evaluateInWorld(const ScriptSourceCode& sourceCode
 #endif
 
     if (evaluationException) {
-        reportException(exec, evaluationException, sourceCode.cachedScript());
+        reportException(exec, evaluationException
+#if ENABLE(CFG_CACHE)
+                        , sourceCode.cachedScript()
+#endif
+                        );
         m_sourceURL = savedSourceURL;
         return ScriptValue();
     }

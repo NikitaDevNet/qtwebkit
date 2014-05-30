@@ -24,7 +24,11 @@
 #include "CSSImportRule.h"
 #include "CSSParser.h"
 #include "CSSStyleSheet.h"
+
+#if ENABLE(CFG_CACHE)
 #include "CachedCSSStyleSheet.h"
+#endif
+
 #include "Document.h"
 #include "MediaList.h"
 #include "Node.h"
@@ -282,13 +286,21 @@ const AtomicString& StyleSheetContents::determineNamespace(const AtomicString& p
     return it->value;
 }
 
-void StyleSheetContents::parseAuthorStyleSheet(const CachedCSSStyleSheet* cachedStyleSheet, const SecurityOrigin* securityOrigin)
+void StyleSheetContents::parseAuthorStyleSheet(
+#if ENABLE(CFG_CACHE)
+        const CachedCSSStyleSheet* cachedStyleSheet,
+#endif
+        const SecurityOrigin* securityOrigin)
 {
     // Check to see if we should enforce the MIME type of the CSS resource in strict mode.
     // Running in iWeb 2 is one example of where we don't want to - <rdar://problem/6099748>
     bool enforceMIMEType = isStrictParserMode(m_parserContext.mode) && m_parserContext.enforcesCSSMIMETypeInNoQuirksMode;
     bool hasValidMIMEType = false;
+#if ENABLE(CFG_CACHE)
     String sheetText = cachedStyleSheet->sheetText(enforceMIMEType, &hasValidMIMEType);
+#else
+    String sheetText = "";
+#endif
 
     CSSParser p(parserContext());
     p.parseSheet(this, sheetText, 0, 0, true);
@@ -363,11 +375,13 @@ void StyleSheetContents::checkLoaded()
         ownerNode->notifyLoadedSheetAndAllCriticalSubresources(m_didLoadErrorOccur);
 }
 
+#if ENABLE(CFG_CACHE)
 void StyleSheetContents::notifyLoadedSheet(const CachedCSSStyleSheet* sheet)
 {
     ASSERT(sheet);
     m_didLoadErrorOccur |= sheet->errorOccurred();
 }
+#endif
 
 void StyleSheetContents::startLoadingDynamicSheet()
 {
