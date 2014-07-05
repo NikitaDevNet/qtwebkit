@@ -53,7 +53,11 @@
 #include "HTMLFormElement.h"
 #include "HitTestRequest.h"
 #include "HitTestResult.h"
+
+#if ENABLE(CFG_INSPECTOR)
 #include "InspectorController.h"
+#endif
+
 #include "LocalizedStrings.h"
 #include "MouseEvent.h"
 #include "NavigationAction.h"
